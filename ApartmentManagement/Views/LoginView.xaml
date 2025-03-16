@@ -1,0 +1,82 @@
+﻿<Window x:Class="ApartmentManagement.Views.LoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ApartmentManagement.Views"
+        mc:Ignorable="d"
+        Title="Login" Height="400" Width="600">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="45*" />
+            <ColumnDefinition Width="55*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Column for App Image -->
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2">
+            <Grid HorizontalAlignment="Center" Width="264">
+                <Image Source="/Assets/img1.jpg" HorizontalAlignment="Stretch" Height="NaN" VerticalAlignment="Stretch" Width="NaN" />
+            </Grid>
+        </Grid>
+
+        <!-- Login Form -->
+        <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="300" Grid.ColumnSpan="2">
+            <!-- App Logo -->
+            <Image Source="/Assets/img2.jpg" Width="100" Height="100" HorizontalAlignment="Center" />
+            <TextBlock Text="Welcome to App Name" FontSize="20" HorizontalAlignment="Center" Margin="10" />
+
+            <!-- Email or Username -->
+            <TextBox Name="Username" Margin="10">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TextBox">
+                                    <Grid>
+                                        <TextBox x:Name="textBox" Text="{TemplateBinding Text}" />
+                                        <TextBlock x:Name="placeholder" Text="Email or username" 
+                                                   Foreground="Gray" 
+                                                   IsHitTestVisible="False" 
+                                                   Margin="5,0,0,0"
+                                                   VerticalAlignment="Center"
+                                                   Visibility="{Binding Text, ElementName=textBox}" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
+            <!-- Password -->
+            <TextBox Name="Password" Margin="10">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TextBox">
+                                    <Grid>
+                                        <TextBox x:Name="textBox" Text="{TemplateBinding Text}" />
+                                        <TextBlock x:Name="placeholder" Text="Email or username" 
+                                       Foreground="Gray" 
+                                       IsHitTestVisible="False" 
+                                       Margin="5,0,0,0"
+                                       VerticalAlignment="Center"
+                                       Visibility="{Binding Text, ElementName=textBox}" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
+            <!-- Login Button -->
+            <Button Content="Login" Width="100" HorizontalAlignment="Center" Margin="10" />
+
+            <!-- Forgot Password Link -->
+            <TextBlock Text="Forgot password?" HorizontalAlignment="Center" Foreground="Blue" Cursor="Hand" Margin="10" />
+        </StackPanel>
+    </Grid>
+</Window>
