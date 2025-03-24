@@ -46,8 +46,19 @@ namespace ApartmentManagement.Views
             var apartments = await _context.Apartments
                 .Include(a => a.building)
                 .ToListAsync();
-            MessageBox.Show(apartments.Count.ToString());
-            ApartmentDataGrid.ItemsSource = apartments;
+            //MessageBox.Show(apartments.Count.ToString());
+            //ApartmentDataGrid.ItemsSource = apartments;
+        }
+
+        private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+        private void BtnDashBoard_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindowView dashboardWindow = new MainWindowView();
+            dashboardWindow.Show();
+            this.Close();
         }
     }
 }

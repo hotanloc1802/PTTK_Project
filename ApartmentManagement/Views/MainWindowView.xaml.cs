@@ -55,6 +55,11 @@ namespace ApartmentManagement.Views
         {
             txtSearch.Visibility = Visibility.Visible;
         }
-        
+        private void BtnApartment_Click(object sender, RoutedEventArgs e)
+        {
+            ApartmentView apartmentWindow = new ApartmentView();
+            apartmentWindow.Show();
+            this.Close();
+        }
     }
 }
