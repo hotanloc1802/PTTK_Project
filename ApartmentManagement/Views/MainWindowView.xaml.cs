@@ -32,7 +32,7 @@ namespace ApartmentManagement.Views
         {
             txtSearch.Visibility = Visibility.Collapsed;
             string connectionString = ConfigManager.GetConnectionString();
-
+            /*
             // Khởi tạo DbConnection với connection string từ ConfigManager
             var dbConnection = new DbConnection(connectionString);
 
@@ -49,7 +49,7 @@ namespace ApartmentManagement.Views
             else
             {
                 MessageBox.Show("Failed to connect to the database.");
-            }
+            }*/
         }
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
