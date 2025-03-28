@@ -14,17 +14,15 @@ namespace ApartmentManagement.Utility
 
         static ConfigManager()
         {
-            // Cấu hình đọc tệp appsettings.json
             _configuration = new ConfigurationBuilder()
-                //.SetBasePath(Directory.GetCurrentDirectory()) // Đặt thư mục gốc của dự án
+                //.SetBasePath(Directory.GetCurrentDirectory()) 
                 .AddJsonFile("D:\\Effort_Ki2_Nam3\\PTTK\\Clone UI\\ApartmentManagement\\ApartmentManagement\\jsconfig1.json", optional: false, reloadOnChange: true) // Đọc tệp appsettings.json
                 .Build();
         }
 
-        // Phương thức để lấy connection string
         public static string GetConnectionString(string name = "DefaultConnection")
         {
-            return _configuration.GetConnectionString(name); // Truy xuất chuỗi kết nối theo tên
+            return _configuration.GetConnectionString(name); 
         }
     }
 }

@@ -38,10 +38,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Component\" />
     <Folder Include="Data\Migration\" />
     <Folder Include="Data\Repository\" />
-    <Folder Include="Component\" />
-    <Folder Include="Service\" />
   </ItemGroup>
 
 </Project>

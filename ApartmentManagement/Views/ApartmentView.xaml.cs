@@ -14,6 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
 using ApartmentManagement.Data;
+using ApartmentManagement.Repository;
+using ApartmentManagement.Service;
+using ApartmentManagement.ViewModels;
 namespace ApartmentManagement.Views
 {
     /// <summary>
@@ -25,13 +28,20 @@ namespace ApartmentManagement.Views
         public ApartmentView()
         {
             InitializeComponent();
-            var options = new DbContextOptionsBuilder<ApartmentDbContext>()
-            .UseNpgsql("Host=localhost;Port=5432;Database=uit;Username=postgres;Password=123123zzA.;SearchPath=PTTK")
-            .Options;
 
-                _context = new ApartmentDbContext(options);
+            var dbConnection = new DbConnection();
 
-            LoadApartments();
+            var optionsBuilder = new DbContextOptionsBuilder<ApartmentDbContext>();
+            optionsBuilder.UseNpgsql(dbConnection.ConnectionString); 
+
+            var apartmentDbContext = new ApartmentDbContext(dbConnection, optionsBuilder.Options);
+
+            // Create the repository and service
+            IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
+            IApartmentService apartmentService = new ApartmentService(apartmentRepository);
+
+            ApartmentViewModel viewModel = new ApartmentViewModel(apartmentService);
+            DataContext = viewModel;
         }
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -41,15 +51,6 @@ namespace ApartmentManagement.Views
         {
             txtSearch.Visibility = Visibility.Visible;
         }
-        private async void LoadApartments()
-        {
-            var apartments = await _context.Apartments
-                .Include(a => a.building)
-                .ToListAsync();
-            //MessageBox.Show(apartments.Count.ToString());
-            //ApartmentDataGrid.ItemsSource = apartments;
-        }
-
         private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 

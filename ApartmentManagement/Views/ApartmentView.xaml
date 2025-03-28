@@ -359,6 +359,49 @@ To="Black" Duration="0:0:0.2" />
                         </StackPanel>
                     </Button>
                 </Border>
+                <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
+                    <Button x:Name="btnlogout"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                        <Button.Triggers>
+                            <!-- Trigger khi di chuột vào Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Đổi màu nền của Button khi di chuột vào -->
+                                        <ColorAnimation 
+Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+To="#CDDFFB" Duration="0:0:0.2" />
+                                        <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
+                                        <ColorAnimation 
+Storyboard.TargetName="settingText" 
+Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+To="Black" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <!-- Trigger khi di chuột ra khỏi Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
+                                        <ColorAnimation 
+ Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+To="Transparent" Duration="0:0:0.2" />
+                                        <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
+                                        <ColorAnimation 
+Storyboard.TargetName="settingText" 
+Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+To="#959595" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="ExitToApp"  VerticalAlignment="Center" Foreground="#959595"/>
+                            <TextBlock x:Name="logout"  Text=" Log out" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
             </StackPanel>
         </Grid>
         <Grid Grid.Column="2">
@@ -410,75 +453,139 @@ To="Black" Duration="0:0:0.2" />
                         </Ellipse>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBlock x:Name="User" Text="Tuan cui" FontFamily="Montserrat Bold" FontSize="18" Foreground="Black" VerticalAlignment="Center" Height="18"/>
+                        <TextBlock x:Name="User" Text="Tuan cui"  FontFamily="Montserrat Bold" FontSize="18" Foreground="Black" VerticalAlignment="Center" Height="18"/>
                     </Grid>
                 </Grid>
             </Grid>
         </Grid>
         <Grid Grid.Column="2" Grid.Row="1" Background="white" Margin="0,0,10,0">
         </Grid>
-        <Grid Grid.Column="2" Grid.Row="2"  Margin="0,0,10,0">
+        <Grid Grid.Column="2" Grid.Row="2" Margin="0,0,10,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.4*"/>
-                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid>
-                <TextBlock x:Name="Apartment" Text="Apartment" FontFamily="Montserrat Bold" FontSize="12" Foreground="#9FA4AD" Margin="30,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            </Grid>
-            <Grid Grid.Row="2">
+            <!-- Main Content -->
+            <Grid Grid.Row="2" Margin="30,0,20,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.8*"/>
-                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.1*"/>
-                    <ColumnDefinition Width="0.8*"/>
-                    <ColumnDefinition Width="0.8*"/>
-                    <ColumnDefinition Width="1.2*"/>
-                    <ColumnDefinition Width="0.9*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid Margin="30,20,0,0" VerticalAlignment="Top">
-                    <TextBlock x:Name="ApartmentFound" Text="135 Apartments Found" FontFamily="Montserrat Bold" FontSize="15" Foreground="#495052" VerticalAlignment="Center" Height="18"/>
-                </Grid>
-                <Grid Grid.Column="1">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10,15,10,10" >
-                        <TextBlock Text="Sort by:" VerticalAlignment="Center" Foreground="#9FA4AD" Margin="0,0,5,0" HorizontalAlignment="Center" FontFamily="Montserrat Bold" FontSize="12"/>
-                        <ComboBox x:Name="SortComboBox" SelectedIndex="0" Margin="0,2,0,0" FontFamily="Montserrat Bold" FontSize="12" Foreground="#495052" >
-                            <ComboBoxItem Content="Order ID" />
-                            <ComboBoxItem Content="Date" />
-                            <ComboBoxItem Content="Customer" />
-                            <ComboBoxItem Content="Amount" />
-                        </ComboBox>
-                    </StackPanel>
-                </Grid>
-                <Grid Grid.Column="2">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10,15,10,10" >
-                        <TextBlock Text="Filter by:" VerticalAlignment="Center" Foreground="#9FA4AD" Margin="0,0,5,0" HorizontalAlignment="Center" FontFamily="Montserrat Bold" FontSize="12"/>
-                        <ComboBox x:Name="FilterComboBox" SelectedIndex="0" Margin="0,2,0,0" FontFamily="Montserrat Bold" FontSize="12" Foreground="#495052" >
-                            <ComboBoxItem Content="Vacant" />
-                            <ComboBoxItem Content="Occupied" />
-                        </ComboBox>
-                    </StackPanel>
-                </Grid>
-                <Grid Grid.Column="4">
-                    <Button x:Name="btnAddApartment"    Margin="-5,7,0,5" Background="#59A3F4" VerticalAlignment="Top">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Icon:PackIconMaterial Kind="OfficeBuilding" VerticalAlignment="Center" Foreground="white"/>
-                            <TextBlock  x:Name="apartmentAddText" Text=" Add Apartment" FontFamily="Montserrat Bold" FontSize="13" Foreground="white" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-                </Grid>
-                <Grid Grid.Column="5">
-                    <Button Width="100" Height="32" Background="White" BorderBrush="#D0E4FF" BorderThickness="1" Padding="10,5"
-                        HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand" Margin="15,7,0,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Text="More" Foreground="#4A90E2" VerticalAlignment="Center" FontSize="14" Margin="0,0,5,0"/>
-                            <iconPacks:PackIconMaterial Kind="DotsHorizontal" Width="18" Height="18" Foreground="#4A90E2" />
-                        </StackPanel>
-                    </Button>
 
+                <!-- Search and filter row -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- Add button -->
+                    <Border Grid.Column="1" Background="#0430AD" Padding="8,4" BorderThickness="0" CornerRadius="10" Margin="0,10,0,10" >
+                        <Button Grid.Column="1"  Foreground="White"  BorderThickness="0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="+ " FontWeight="Bold" VerticalAlignment="Center" FontFamily="Montserrat Bold" FontSize="12" />
+                                <TextBlock Text="Add New Apartment" VerticalAlignment="Center" FontFamily="Montserrat Bold" FontSize="12" />
+                            </StackPanel>
+                        </Button>
+                    </Border>
                 </Grid>
+
+                <!-- Title and filter tabs -->
+                <TextBlock Text="Apartments"  Foreground="#434343"  FontFamily="Montserrat Bold" Grid.Row="0" FontSize="20"  Margin="0,15,0,10"/>
+
+                <!-- Tab buttons -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
+                    <Border CornerRadius="10"   Margin="0,0,5,0"  Background="#0430AD" BorderThickness="0" Width="60">
+                        <Button Content="All" Foreground="White"  FontFamily="Montserrat Bold"/>
+                    </Border>
+                    <Border CornerRadius="10"   Margin="0,0,5,0"  Background="#F0F0F0" BorderThickness="0" Width="120">
+                        <Button Content="Vacant" Foreground="#434343"  FontFamily="Montserrat Bold" />
+                    </Border>
+                    <Border CornerRadius="10"   Margin="0,0,5,0"  Background="#F0F0F0" BorderThickness="0" Width="120">
+                        <Button Content="Occupied"  Foreground="#434343"   FontFamily="Montserrat Bold"/>
+                    </Border>
+                    <Border CornerRadius="10"   Margin="0,0,5,0"  Background="#F0F0F0" BorderThickness="0" Width="120">
+                        <Button Content="For Transfer"  Foreground="#434343"   FontFamily="Montserrat Bold"/>
+                    </Border>
+                   
+                </StackPanel>
+
+                <!-- Separator -->
+                <Separator Grid.Row="3" Margin="0,15"/>
+
+                <!-- Count and sort section -->
+                <Grid Grid.Row="4" Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="45 Apartments" FontSize="16"  VerticalAlignment="Center"  Foreground="#434343"  />
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <TextBlock Text="Sort by:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <ComboBox x:Name="SortComboBox" Width="180" SelectionChanged="SortComboBox_SelectionChanged" SelectedIndex="0" FontFamily="Montserrat Bold" FontSize="12" Panel.ZIndex="100">
+                            <ComboBoxItem Content="Apartment Number"/>
+                            <ComboBoxItem Content="Building"/>
+                            <ComboBoxItem Content="Status"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Data Grid -->
+                <DataGrid x:Name="ApartmentDataGrid" Grid.Row="5" AutoGenerateColumns="False" 
+                IsReadOnly="True" GridLinesVisibility="None" 
+                BorderThickness="1" BorderBrush="#E1E1E1"
+                Background="White" RowBackground="White" AlternatingRowBackground="#F8F9FA"
+                CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding Apartments}"
+                HeadersVisibility="Column">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#F8F9FA"/>
+                            <Setter Property="Padding" Value="10,8"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="BorderBrush" Value="#E1E1E1"/>
+                            <Setter Property="FontFamily" Value="Montserrat"/>
+                            <Setter Property="FontSize" Value="13"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding apartment_id}" Width="70"/>
+                        <DataGridTextColumn Header="Apartment Number" Binding="{Binding apartment_number}" Width="150"/>
+                        <DataGridTextColumn Header="Building" Binding="{Binding building.building_name}" Width="*"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding vacancy_status}" Width="120"/>
+                        <DataGridTextColumn Header="Current Population" Binding="{Binding current_population}" Width="140"/>
+                        <DataGridTextColumn Header="Max Population" Binding="{Binding max_population}" Widtsh="120"/>
+                        <DataGridTemplateColumn Header="Actions" Width="120">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Background="#4CAF50" Foreground="White" Margin="0,0,5,0" Padding="8,3" BorderThickness="0">
+                                            <Icon:PackIconMaterial Kind="PencilOutline" Width="12" Height="12"/>
+                                        </Button>
+                                        <Button Background="#F44336" Foreground="White" Padding="8,3" BorderThickness="0">
+                                            <Icon:PackIconMaterial Kind="DeleteOutline" Width="12" Height="12"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- Pagination -->
+                <Border Grid.Row="6" HorizontalAlignment="Right" BorderBrush="#E1E1E1" BorderThickness="1" Margin="0,15,0,15" Padding="5" Background="White">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="&lt;" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat"/>
+                        <Button Content="1" Padding="8,3" Margin="3" Background="#0430AD" Foreground="White" BorderThickness="0" FontFamily="Montserrat"/>
+                        <Button Content="2" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0"  FontFamily="Montserrat"/>
+                        <Button Content="3" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0"  FontFamily="Montserrat"/>
+                        <Button Content="&gt;" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0"  FontFamily="Montserrat"/>
+                    </StackPanel>
+                </Border>
             </Grid>
         </Grid>
     </Grid>

@@ -2,16 +2,18 @@
 using System;
 using System.Data;
 using ApartmentManagement.Utility;
+
 namespace ApartmentManagement.Data
 {
     public class DbConnection
     {
         private readonly string _connectionString;
 
-        // Constructor that accepts a connection string
-        public DbConnection(string connectionString)
+        // Constructor that uses the connection string from ConfigManager
+        public DbConnection()
         {
-            _connectionString = connectionString;
+            // Get the connection string from ConfigManager
+            _connectionString = ConfigManager.GetConnectionString("DefaultConnection");
         }
 
         // Open a connection to the PostgreSQL database
@@ -47,5 +49,6 @@ namespace ApartmentManagement.Data
                 Console.WriteLine($"Error while closing the connection: {ex.Message}");
             }
         }
+        public string ConnectionString => _connectionString;
     }
 }

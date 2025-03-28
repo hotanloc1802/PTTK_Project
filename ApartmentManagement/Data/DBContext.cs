@@ -1,13 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ApartmentManagement.Model;
-
+using System.Data.Common;
+using ApartmentManagement.Data;
 namespace ApartmentManagement.Data
 {
     public class ApartmentDbContext : DbContext
     {
-        public ApartmentDbContext(DbContextOptions<ApartmentDbContext> options)
-            : base(options)
+        private readonly DbConnection _dbConnection;
+        public ApartmentDbContext(DbConnection dbConnection, DbContextOptions<ApartmentDbContext> options)
+             : base(options)
         {
+            _dbConnection = dbConnection;
         }
 
         // DbSet tương ứng với các bảng
@@ -50,6 +53,17 @@ namespace ApartmentManagement.Data
                 .WithMany(u => u.buildings_managed)
                 .HasForeignKey(b => b.manager_id)
                 .OnDelete(DeleteBehavior.SetNull);
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!string.IsNullOrEmpty(_dbConnection.ConnectionString))
+            {
+                optionsBuilder.UseNpgsql(_dbConnection.ConnectionString); 
+            }
+            else
+            {
+                throw new InvalidOperationException("Connection string is null or empty.");
+            }
         }
     }
 }
