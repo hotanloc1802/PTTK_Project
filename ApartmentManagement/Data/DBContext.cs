@@ -25,13 +25,13 @@ namespace ApartmentManagement.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Mapping table + schema "PTTK"
-            modelBuilder.Entity<User>().ToTable("users", "PTTK");
-            modelBuilder.Entity<Building>().ToTable("buildings", "PTTK");
-            modelBuilder.Entity<Apartment>().ToTable("apartments", "PTTK");
-            modelBuilder.Entity<Resident>().ToTable("residents", "PTTK");
-            modelBuilder.Entity<Bill>().ToTable("bills", "PTTK");
-            modelBuilder.Entity<Payment>().ToTable("payments", "PTTK");
-            modelBuilder.Entity<ServiceRequest>().ToTable("service_requests", "PTTK");
+            modelBuilder.Entity<User>().ToTable("users", "pttk");
+            modelBuilder.Entity<Building>().ToTable("buildings", "pttk");
+            modelBuilder.Entity<Apartment>().ToTable("apartments", "pttk");
+            modelBuilder.Entity<Resident>().ToTable("residents", "pttk");
+            modelBuilder.Entity<Bill>().ToTable("bills", "pttk");
+            modelBuilder.Entity<Payment>().ToTable("payments", "pttk");
+            modelBuilder.Entity<ServiceRequest>().ToTable("service_requests", "pttk");
 
             // Quan hệ Resident -> Resident (owner)
             modelBuilder.Entity<Resident>()

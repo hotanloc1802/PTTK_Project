@@ -467,55 +467,109 @@ To="#959595" Duration="0:0:0.2" />
             </Grid.RowDefinitions>
             <TextBlock Text="Apartments / "  Foreground="#434343"  FontFamily="Montserrat Bold" Grid.Row="0" FontSize="20"  Margin="0,15,0,10"/>
             <TextBlock Text="Create Apartment"  Foreground="#434343"  FontFamily="Montserrat Bold" Grid.Row="0" FontSize="20"  Margin="120,15,0,10"/>
-            <Grid Grid.Row="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Border Background="White"  CornerRadius="20" Margin="0,0,30,0" Grid.RowSpan="3"></Border>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <TextBlock Text="Apartment Number"  Foreground="#434343"  FontFamily="Montserrat Bold" Grid.Row="0" FontSize="25"  Margin="35,25,0,10"/>
-                        <Border BorderBrush="Gray" BorderThickness="1" Margin="30,70,50,40" CornerRadius="20">
-                            
-                        </Border>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <TextBlock Text="Owner Name"  Foreground="#434343"  FontFamily="Montserrat Bold" Grid.Row="0" FontSize="25"  Margin="35,25,0,10"/>
-                        <Border BorderBrush="Gray" BorderThickness="1" Margin="30,70,55,40" CornerRadius="20">
-                        </Border>
+
+            <!--Fill Form-->
+            <Border Grid.Row="1" CornerRadius="0 0 0 0">
+                <Grid VerticalAlignment="Center" Margin="0 0 0 0">
+
+                    <!--Main Layer-->
+                    <Grid Margin="20 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--Form Title-->
+                        <StackPanel Orientation="Horizontal" Margin="20 20 0 0">
+                            <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="#EFEFEF">
+                                <Icon:PackIconMaterial Kind="HomeCity" Width="25" Height="25" Foreground="#0430AD" Margin="7"/>
+                            </Border>
+
+                            <TextBlock Text="New Apartment" Foreground="#374655" FontSize="18" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <Separator Grid.Row="1" Grid.ColumnSpan="2" Height="0.7" Margin="-20 20 -20 20" Background="#E1E6EB"/>
+
+                        <!--Inputs-->
+                        <StackPanel Grid.Column="0" Grid.Row="2" Margin="20 0 15 10">
+                            <TextBlock Text="Apartment Number *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                            <TextBox x:Name="txtApartmentNumber" Height="40" Padding="10 0" VerticalContentAlignment="Center" 
+                                         BorderThickness="1" BorderBrush="#E1E6EB"
+                                         Text="{Binding ApartmentNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Grid.Row="2" Margin="15 0 20 10">
+                            <TextBlock Text="Building ID *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                            <TextBox x:Name="txtBuildingId" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                          BorderThickness="1" BorderBrush="#E1E6EB"
+                                          Text="{Binding BuildingId, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="0" Grid.Row="3" Margin="20 10 15 10">
+                            <TextBlock Text="Maximum Population *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                            <TextBox x:Name="txtMaxPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                         BorderThickness="1" BorderBrush="#E1E6EB"
+                                         Text="{Binding MaxPopulation, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Grid.Row="3" Margin="15 10 20 10">
+                            <TextBlock Text="Current Population" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                            <TextBox x:Name="txtCurrentPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                         BorderThickness="1" BorderBrush="#E1E6EB"
+                                         Text="{Binding CurrentPopulation, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="0" Grid.Row="4" Margin="20 10 15 10">
+                            <TextBlock Text="Vacancy Status *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                            <TextBox x:Name="txtVacancyStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                          BorderThickness="1" BorderBrush="#E1E6EB"
+                                          Text="{Binding VacancyStatus, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Grid.Row="4" Margin="15 10 20 10">
+                            <TextBlock Text="Transfer Status" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                            <TextBox x:Name="txtTransferStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                          BorderThickness="1" BorderBrush="#E1E6EB"
+                                          Text="{Binding TransferStatus, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="20 10 20 10">
+                            <TextBlock Text="Owner ID (optional)" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                            <TextBox x:Name="txtOwnerId" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                          BorderThickness="1" BorderBrush="#E1E6EB"
+                                          Text="{Binding OwnerId, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <!--Form Bottom Background-->
+                        <Border Grid.Row="6" Grid.ColumnSpan="2" Height="80" Background="#f6f6f6" CornerRadius="0 0 10 10" Margin="-20 40 -20 0"/>
+
+                        <!--Main Button-->
+                        <Button x:Name="btnSave" Grid.Column="1" Grid.Row="6" Content="Save Apartment" HorizontalAlignment="Right" Margin="0 40 20 0" 
+                                    Background="#0430AD" Foreground="White" Width="180" Height="40" FontWeight="SemiBold">
+                            <Button.Effect>
+                                <DropShadowEffect Direction="-120" BlurRadius="10" Opacity="0.3" ShadowDepth="5" Color="#0430AD"/>
+                            </Button.Effect>
+                        </Button>
+
+                        <!--Secondary Button-->
+                        <Button x:Name="btnCancel" Grid.Row="6" Content="Cancel" HorizontalAlignment="Left" Margin="20 40 0 0" 
+                                    Background="Transparent" Foreground="#979797" Width="150" Height="40" 
+                                    BorderThickness="1" BorderBrush="#CCCCCC"/>
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <TextBlock Text="Max Population" Foreground="#434343" FontFamily="Montserrat Bold" FontSize="25" Margin="35,25,0,10"/>
-                        <Border BorderBrush="Gray" BorderThickness="1" Margin="30,70,50,40" CornerRadius="20">
-                            <TextBox Margin="10" VerticalAlignment="Center" HorizontalAlignment="Stretch" BorderBrush="Transparent" />
-                        </Border>
-                    </Grid>
+            </Border>
 
-                    <!-- Vacancy Status -->
-                    <Grid Grid.Column="1">
-                        <TextBlock Text="Vacancy Status" Foreground="#434343" FontFamily="Montserrat Bold" FontSize="25" Margin="35,25,0,10"/>
-                        <Border BorderBrush="Gray" BorderThickness="1" Margin="30,70,55,40" CornerRadius="20">
-                            <ComboBox Margin="10" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                                <ComboBoxItem Content="Vacant" />
-                                <ComboBoxItem Content="Occupied" />
-                            </ComboBox>
-                        </Border>
-                    </Grid>
-
-                </Grid>
+            <Grid>
             </Grid>
         </Grid>
     </Grid>
