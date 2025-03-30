@@ -37,6 +37,14 @@ namespace ApartmentManagement.Service
         {
             return _apartmentRepository.CountApartments(status); 
         }
+        public async Task<IEnumerable<Apartment>> GetApartmentsByStatusAsync(string status)
+        {
+            return await _apartmentRepository.GetApartmentsByStatusAsync(status);
+        }
+        public async Task<IEnumerable<Apartment>> SortApartmentsAsync(string sortType)
+        {
+            return await _apartmentRepository.SortApartmentsAsync(sortType);
+        }
 
     }
 }

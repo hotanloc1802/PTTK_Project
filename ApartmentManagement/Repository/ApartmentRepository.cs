@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ApartmentManagement.Model;
 using ApartmentManagement.Data;
+using Microsoft.EntityFrameworkCore;
 namespace ApartmentManagement.Repository
 {
    public class ApartmentRepository : IApartmentRepository
@@ -38,13 +39,42 @@ namespace ApartmentManagement.Repository
         }
         public int CountApartments(string status = null)
         {
-            // Nếu có bộ lọc trạng thái, áp dụng bộ lọc này
+          
             if (string.IsNullOrEmpty(status))
             {
-                return _context.Apartments.Count(); // Đếm tất cả căn hộ nếu không có bộ lọc
+                return _context.Apartments.Count(); 
             }
 
             return _context.Apartments.Count(a => a.vacancy_status == status); // Đếm căn hộ theo trạng thái (Vacant, Occupied, For Transfer)
+        }
+        public async Task<IEnumerable<Apartment>> GetApartmentsByStatusAsync(string status)
+        {
+            if (string.IsNullOrEmpty(status))
+            {
+                return await _context.Apartments.ToListAsync(); 
+            }
+
+            return await _context.Apartments
+                                 .Where(a => a.vacancy_status == status)  
+                                 .ToListAsync();
+        }
+        public async Task<IEnumerable<Apartment>> SortApartmentsAsync(string sortType)
+        {
+            IQueryable<Apartment> query = _context.Apartments;
+
+            switch (sortType)
+            {
+                case "Building":
+                    query = query.OrderBy(a => a.building_id);
+                    break;
+                case "Apartment Number":
+                    query = query.OrderBy(a => a.apartment_number);
+                    break;
+                default:
+                    throw new ArgumentException("Invalid sort type");
+            }
+
+            return await query.ToListAsync();
         }
     }
 }

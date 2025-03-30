@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using ApartmentManagement.Utility;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ApartmentManagement.ViewModels
 {
@@ -64,6 +65,7 @@ namespace ApartmentManagement.ViewModels
 
             // Load apartments initially if needed
             _ = LoadApartmentsAsync(); // Initiating async method without blocking UI 
+            _ = SortApartmentsAsync("Apartment Number");
         }
 
         // Command properties
@@ -108,6 +110,17 @@ namespace ApartmentManagement.ViewModels
             var count = await Task.Run(() => _apartmentService.CountApartmentsAsync(status));
             ApartmentCount = count;
            
+        }
+        public async Task FilterApartmentsAsync(string status)
+        {
+            var apartments = await _apartmentService.GetApartmentsByStatusAsync(status);
+            Apartments = new ObservableCollection<Apartment>(apartments);
+
+        }
+        public async Task SortApartmentsAsync(string sortType)
+        {
+            var apartments = await _apartmentService.SortApartmentsAsync(sortType);
+            Apartments = new ObservableCollection<Apartment>(apartments);
         }
 
         // INotifyPropertyChanged implementation

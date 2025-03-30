@@ -14,5 +14,7 @@ namespace ApartmentManagement.Repository
         Task<bool> DeleteApartmentsAsync(int id);
         Task<bool> CreateApartmentsAsync(Apartment apartment);
         public int CountApartments(string status = null);
+        Task<IEnumerable<Apartment>> GetApartmentsByStatusAsync(string status);
+        Task<IEnumerable<Apartment>> SortApartmentsAsync(string sortType);
     }
 }
