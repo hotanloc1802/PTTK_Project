@@ -36,5 +36,15 @@ namespace ApartmentManagement.Repository
         {
             return _context.Apartments;
         }
+        public int CountApartments(string status = null)
+        {
+            // Nếu có bộ lọc trạng thái, áp dụng bộ lọc này
+            if (string.IsNullOrEmpty(status))
+            {
+                return _context.Apartments.Count(); // Đếm tất cả căn hộ nếu không có bộ lọc
+            }
+
+            return _context.Apartments.Count(a => a.vacancy_status == status); // Đếm căn hộ theo trạng thái (Vacant, Occupied, For Transfer)
+        }
     }
 }

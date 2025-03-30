@@ -13,5 +13,6 @@ namespace ApartmentManagement.Service
         Task<bool> DeleteApartmentsAsync(int id);
         Task<bool> CreateApartmentsAsync(Apartment apartment);
 
+        public int CountApartmentsAsync(string status = null);
     }
 }

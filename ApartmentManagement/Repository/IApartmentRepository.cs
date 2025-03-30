@@ -13,5 +13,6 @@ namespace ApartmentManagement.Repository
         Task<Apartment> GetApartmentAsync(int id);
         Task<bool> DeleteApartmentsAsync(int id);
         Task<bool> CreateApartmentsAsync(Apartment apartment);
+        public int CountApartments(string status = null);
     }
 }

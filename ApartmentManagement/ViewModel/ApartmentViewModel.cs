@@ -36,15 +36,31 @@ namespace ApartmentManagement.ViewModels
             }
         }
 
+        // To display the count of apartments
+        private int _apartmentCount;
+        public int ApartmentCount
+        {
+            get => _apartmentCount;
+            set
+            {
+                _apartmentCount = value;
+                OnPropertyChanged();
+            }
+        }
+
         // Constructor with Dependency Injection for ApartmentService
         public ApartmentViewModel(IApartmentService apartmentService)
         {
             _apartmentService = apartmentService ?? throw new ArgumentNullException(nameof(apartmentService));
+            _apartments = new ObservableCollection<Apartment>();
+            _selectedApartment = new Apartment();
+            PropertyChanged = null;
 
             // Initialize commands
             LoadApartmentsCommand = new RelayCommand(async () => await LoadApartmentsAsync());
             CreateApartmentCommand = new RelayCommand(CreateApartment);
             DeleteApartmentCommand = new RelayCommand<int>(async (id) => await DeleteApartmentAsync(id));
+            CountApartmentsCommand = new RelayCommand(async () => await CountApartmentsAsync());
 
             // Load apartments initially if needed
             _ = LoadApartmentsAsync(); // Initiating async method without blocking UI 
@@ -54,11 +70,14 @@ namespace ApartmentManagement.ViewModels
         public ICommand LoadApartmentsCommand { get; }
         public ICommand CreateApartmentCommand { get; }
         public ICommand DeleteApartmentCommand { get; }
+        public ICommand CountApartmentsCommand { get; }
 
+        // Method to load apartments asynchronously
         public async Task LoadApartmentsAsync()
         {
             var apartments = await _apartmentService.GetApartmentsAsync();
             Apartments = new ObservableCollection<Apartment>(apartments);
+            await CountApartmentsAsync();
         }
 
         // Method to delete an apartment
@@ -82,8 +101,17 @@ namespace ApartmentManagement.ViewModels
             MessageBox.Show("Create new apartment functionality not implemented yet.");
         }
 
+        // Method to count apartments based on filter (e.g., Vacancy Status)
+        public async Task CountApartmentsAsync()
+        {
+            var status = "vacant";
+            var count = await Task.Run(() => _apartmentService.CountApartmentsAsync(status));
+            ApartmentCount = count;
+           
+        }
+
         // INotifyPropertyChanged implementation
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         // Helper method to raise the PropertyChanged event
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")

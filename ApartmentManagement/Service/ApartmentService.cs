@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using ApartmentManagement.Data;
 using ApartmentManagement.Model;
 using ApartmentManagement.Repository;
@@ -31,6 +32,10 @@ namespace ApartmentManagement.Service
         public async Task<IEnumerable<Apartment>> GetApartmentsAsync()
         {
             return await _apartmentRepository.GetApartmentsAsync();
+        }
+        public int CountApartmentsAsync(string status = null)
+        {
+            return _apartmentRepository.CountApartments(status); 
         }
 
     }

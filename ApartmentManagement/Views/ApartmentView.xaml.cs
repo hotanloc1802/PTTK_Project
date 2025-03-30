@@ -61,5 +61,11 @@ namespace ApartmentManagement.Views
             dashboardWindow.Show();
             this.Close();
         }
+        private void BtnCreateApartment_Click(object sender, RoutedEventArgs e)
+        {
+            ApartmentCreateView apartmentCreateView = new ApartmentCreateView();
+            apartmentCreateView.Show();
+            this.Close();
+        }
     }
 }
