@@ -10,11 +10,11 @@ namespace ApartmentManagement.Repository
     public interface IApartmentRepository
     {
         Task<IEnumerable<Apartment>> GetApartmentsAsync();
-        Task<Apartment> GetApartmentAsync(int id);
+        Task<IEnumerable<Apartment>> GetApartmentAsync(string apartmentNumberSubset);
+        Task<IEnumerable<Apartment>> GetApartmentsAsync(string status);
         Task<bool> DeleteApartmentsAsync(int id);
         Task<bool> CreateApartmentsAsync(Apartment apartment);
-        public int CountApartments(string status = null);
-        Task<IEnumerable<Apartment>> GetApartmentsByStatusAsync(string status);
+        Task<int> CountApartmentsAsync();
         Task<IEnumerable<Apartment>> SortApartmentsAsync(string sortType);
     }
 }

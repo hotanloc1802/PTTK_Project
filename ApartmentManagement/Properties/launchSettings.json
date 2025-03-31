@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "ApartmentManagement": {
-      "commandName": "Project",
-      "workingDirectory": "C:\\Users\\phamt\\OneDrive\\Desktop\\PTTK_Project\\ApartmentManagement\\bin\\Debug\\net8.0-windows"
-    }
-  }
-}

@@ -41,6 +41,12 @@ namespace ApartmentManagement.Views
         {
 
         }
-        
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            ApartmentView apartmentWindow = new ApartmentView();
+            apartmentWindow.Show();
+            this.Close();
+        }
+
     }
 }

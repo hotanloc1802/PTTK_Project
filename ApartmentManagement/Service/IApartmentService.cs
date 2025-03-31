@@ -9,11 +9,11 @@ namespace ApartmentManagement.Service
     public interface IApartmentService
     {
         Task<IEnumerable<Apartment>> GetApartmentsAsync();
-        Task<Apartment> GetApartmentAsync(int id);
+        Task<IEnumerable<Apartment>> GetApartmentAsync(string apartmentNumber);
+        Task<IEnumerable<Apartment>> GetApartmentsAsync(string status);
         Task<bool> DeleteApartmentsAsync(int id);
         Task<bool> CreateApartmentsAsync(Apartment apartment);
-        public int CountApartmentsAsync(string status = null);
-        Task<IEnumerable<Apartment>> GetApartmentsByStatusAsync(string status);
+        Task<int> CountApartmentsAsync();
         Task<IEnumerable<Apartment>> SortApartmentsAsync(string sortType);
     }
 }

@@ -61,8 +61,8 @@ namespace ApartmentManagement.Views
 
         private void UpdateButtonState(Button clickedButton)
         {
-            Button[] buttons = { btnAll, btnVacant, btnOccupied, btnForTransfer };
-            Border[] borders = { borderAll, borderVacant, borderOccupied, borderForTransfer };
+            Button[] buttons = { btnAll, btnVacant, btnOccupied};
+            Border[] borders = { borderAll, borderVacant, borderOccupied};
 
             Color activeBackgroundColor = (Color)ColorConverter.ConvertFromString("#0430AD");
             Color activeTextColor = Colors.White;
@@ -118,16 +118,6 @@ namespace ApartmentManagement.Views
            
         }
 
-        private async void BtnForTransfer_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is ApartmentViewModel viewModel)
-            {
-                await viewModel.FilterApartmentsAsync("for transfer");
-                UpdateButtonState(btnForTransfer);
-            }
-           
-        }
-
         private async void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Ensure DataContext is properly set
@@ -140,6 +130,135 @@ namespace ApartmentManagement.Views
                 }
             }
             
+        }
+
+
+        private Timer? _searchTimer;
+        private void BoxSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _searchTimer?.Dispose();
+            // Invoke search after some delay
+            _searchTimer = new Timer(SearchTimerCallback, null, 500, Timeout.Infinite);
+        }
+
+        private void SearchTimerCallback(object? state)
+        {
+            Dispatcher.Invoke(async () =>
+            {
+                // Actual search logic
+                if (DataContext is ApartmentViewModel viewModel)
+                {
+                    string searchQuery = boxSearch.Text;
+                    await viewModel.SearchApartmentsAsync(searchQuery);
+                }
+            });
+        }
+
+
+        private void BtnPrevPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is ApartmentViewModel viewModel)
+            {
+                viewModel.PreviousPageCommand.Execute(null);
+                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
+            }
+        }
+
+        private void BtnNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is ApartmentViewModel viewModel)
+            {
+                viewModel.NextPageCommand.Execute(null);
+                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
+            }
+        }
+
+        private void BtnGoToPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is ApartmentViewModel viewModel && sender is Button button)
+            {
+                if (int.TryParse(button.Content.ToString(), out int page))
+                {
+                    viewModel.GoToPageCommand.Execute(page);
+                    UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
+                }
+            }
+        }
+
+        private void UpdatePaginationButtons(int currentPage, int totalPages)
+        {
+            // This assumes you have buttons named btnPage1, btnPage2, btnPage3, etc.
+            // Update the visibility and styling of pagination buttons
+
+            // Simple implementation for a 3-button pagination system
+            if (totalPages <= 3)
+            {
+                // Show all pages (1, 2, 3) directly
+                btnPage1.Content = "1";
+                btnPage2.Content = totalPages >= 2 ? "2" : "";
+                btnPage3.Content = totalPages >= 3 ? "3" : "";
+
+                btnPage2.Visibility = totalPages >= 2 ? Visibility.Visible : Visibility.Collapsed;
+                btnPage3.Visibility = totalPages >= 3 ? Visibility.Visible : Visibility.Collapsed;
+            }
+            else
+            {
+                // For more than 3 pages, show a window centered on current page if possible
+                if (currentPage == 1)
+                {
+                    btnPage1.Content = "1";
+                    btnPage2.Content = "2";
+                    btnPage3.Content = "3";
+                }
+                else if (currentPage == totalPages)
+                {
+                    btnPage1.Content = (totalPages - 2).ToString();
+                    btnPage2.Content = (totalPages - 1).ToString();
+                    btnPage3.Content = totalPages.ToString();
+                }
+                else
+                {
+                    btnPage1.Content = (currentPage - 1).ToString();
+                    btnPage2.Content = currentPage.ToString();
+                    btnPage3.Content = (currentPage + 1).ToString();
+                }
+
+                btnPage1.Visibility = Visibility.Visible;
+                btnPage2.Visibility = Visibility.Visible;
+                btnPage3.Visibility = Visibility.Visible;
+            }
+
+            // Highlight the current page button
+            Button[] pageButtons = { btnPage1, btnPage2, btnPage3 };
+            foreach (var btn in pageButtons)
+            {
+                if (btn.Visibility == Visibility.Visible && btn.Content.ToString() == currentPage.ToString())
+                {
+                    btn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0430AD"));
+                    btn.Foreground = new SolidColorBrush(Colors.White);
+                }
+                else
+                {
+                    btn.Background = new SolidColorBrush(Colors.Transparent);
+                    btn.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#434343"));
+                }
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is ApartmentViewModel viewModel)
+            {
+                // Initial update of pagination buttons
+                viewModel.PropertyChanged += (s, args) =>
+                {
+                    if (args.PropertyName == nameof(ApartmentViewModel.CurrentPage) ||
+                        args.PropertyName == nameof(ApartmentViewModel.TotalPages))
+                    {
+                        UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
+                    }
+                };
+            }
         }
     }
 }

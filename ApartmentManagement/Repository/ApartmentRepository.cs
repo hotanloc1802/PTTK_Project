@@ -29,25 +29,22 @@ namespace ApartmentManagement.Repository
             _context.Apartments.Remove(apartment);
             return await _context.SaveChangesAsync() > 0;
         }
+        // GetApartmentAsync(int id) method is used to get an apartment by its ID
         public async Task<Apartment> GetApartmentAsync(int id)
         {
             return await _context.Apartments.FindAsync(id);
         }
         public async Task<IEnumerable<Apartment>> GetApartmentsAsync()
         {
-            return _context.Apartments;
+            return await _context.Apartments.ToListAsync();
         }
-        public int CountApartments(string status = null)
+        public async Task<IEnumerable<Apartment>> GetApartmentAsync(string apartmentNumberSubset)
         {
-          
-            if (string.IsNullOrEmpty(status))
-            {
-                return _context.Apartments.Count(); 
-            }
-
-            return _context.Apartments.Count(a => a.vacancy_status == status); // Đếm căn hộ theo trạng thái (Vacant, Occupied, For Transfer)
+            return await _context.Apartments
+                                 .Where(a => a.apartment_number.Contains(apartmentNumberSubset))
+                                 .ToListAsync();
         }
-        public async Task<IEnumerable<Apartment>> GetApartmentsByStatusAsync(string status)
+        public async Task<IEnumerable<Apartment>> GetApartmentsAsync(string status)
         {
             if (string.IsNullOrEmpty(status))
             {
@@ -58,14 +55,20 @@ namespace ApartmentManagement.Repository
                                  .Where(a => a.vacancy_status == status)  
                                  .ToListAsync();
         }
+        public async Task<int> CountApartmentsAsync()
+        {
+
+           return await _context.Apartments.CountAsync();
+
+        }
         public async Task<IEnumerable<Apartment>> SortApartmentsAsync(string sortType)
         {
             IQueryable<Apartment> query = _context.Apartments;
 
             switch (sortType)
             {
-                case "Building":
-                    query = query.OrderBy(a => a.building_id);
+                case "ID":
+                    query = query.OrderBy(a => a.apartment_id);
                     break;
                 case "Apartment Number":
                     query = query.OrderBy(a => a.apartment_number);

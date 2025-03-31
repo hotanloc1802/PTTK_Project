@@ -16,6 +16,52 @@ namespace ApartmentManagement.ViewModels
         private readonly IApartmentService _apartmentService;
 
         private ObservableCollection<Apartment> _apartments;
+        private ObservableCollection<Apartment> _allApartments;
+        private Apartment _selectedApartment;
+
+        private int _currentPage = 1;
+        private int _itemsPerPage = 6;
+        private int _totalPages;
+
+        public int CurrentPage
+        {
+            get => _currentPage;
+            set
+            {
+                _currentPage = value;
+                UpdatePagination();
+                OnPropertyChanged();
+            }
+        }
+        public int ItemsPerPage
+        {
+            get => _itemsPerPage;
+            set
+            {
+                _itemsPerPage = value;
+                UpdatePagination();
+                OnPropertyChanged();
+            }
+        }
+        public int TotalPages
+        {
+            get => _totalPages;
+            set
+            {
+                _totalPages = value;
+                OnPropertyChanged();
+            }
+        }
+        public ObservableCollection<Apartment> AllApartments
+        {
+            get => _allApartments;
+            set
+            {
+                _allApartments = value;
+                UpdatePagination();
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<Apartment> Apartments
         {
             get => _apartments;
@@ -25,8 +71,6 @@ namespace ApartmentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        private Apartment _selectedApartment;
         public Apartment SelectedApartment
         {
             get => _selectedApartment;
@@ -37,23 +81,12 @@ namespace ApartmentManagement.ViewModels
             }
         }
 
-        // To display the count of apartments
-        private int _apartmentCount;
-        public int ApartmentCount
-        {
-            get => _apartmentCount;
-            set
-            {
-                _apartmentCount = value;
-                OnPropertyChanged();
-            }
-        }
-
         // Constructor with Dependency Injection for ApartmentService
         public ApartmentViewModel(IApartmentService apartmentService)
         {
             _apartmentService = apartmentService ?? throw new ArgumentNullException(nameof(apartmentService));
             _apartments = new ObservableCollection<Apartment>();
+            _allApartments = new ObservableCollection<Apartment>();
             _selectedApartment = new Apartment();
             PropertyChanged = null;
 
@@ -62,6 +95,10 @@ namespace ApartmentManagement.ViewModels
             CreateApartmentCommand = new RelayCommand(CreateApartment);
             DeleteApartmentCommand = new RelayCommand<int>(async (id) => await DeleteApartmentAsync(id));
             CountApartmentsCommand = new RelayCommand(async () => await CountApartmentsAsync());
+
+            NextPageCommand = new RelayCommand(() => CurrentPage++, () => CurrentPage < TotalPages);
+            PreviousPageCommand = new RelayCommand(() => CurrentPage--, () => CurrentPage > 1);
+            GoToPageCommand = new RelayCommand<int>((page) => CurrentPage = page);
 
             // Load apartments initially if needed
             _ = LoadApartmentsAsync(); // Initiating async method without blocking UI 
@@ -73,12 +110,36 @@ namespace ApartmentManagement.ViewModels
         public ICommand CreateApartmentCommand { get; }
         public ICommand DeleteApartmentCommand { get; }
         public ICommand CountApartmentsCommand { get; }
+        public ICommand NextPageCommand { get; }
+        public ICommand PreviousPageCommand { get; }
+        public ICommand GoToPageCommand { get; }
+
+        // Method to update pagination
+        private void UpdatePagination()
+        {
+            if (AllApartments == null) return;
+
+            // Calculate total pages
+            TotalPages = (int)Math.Ceiling(AllApartments.Count / (double)ItemsPerPage);
+
+            // Ensure current page is valid
+            if (CurrentPage < 1) CurrentPage = 1;
+            if (CurrentPage > TotalPages && TotalPages > 0) CurrentPage = TotalPages;
+
+            // Get items for current page
+            var itemsToShow = AllApartments
+                .Skip((CurrentPage - 1) * ItemsPerPage)
+                .Take(ItemsPerPage)
+                .ToList();
+
+            Apartments = new ObservableCollection<Apartment>(itemsToShow);
+        }
 
         // Method to load apartments asynchronously
         public async Task LoadApartmentsAsync()
         {
             var apartments = await _apartmentService.GetApartmentsAsync();
-            Apartments = new ObservableCollection<Apartment>(apartments);
+            AllApartments = new ObservableCollection<Apartment>(apartments);
             await CountApartmentsAsync();
         }
 
@@ -103,25 +164,48 @@ namespace ApartmentManagement.ViewModels
             MessageBox.Show("Create new apartment functionality not implemented yet.");
         }
 
+        // To display the count of apartments
+        private int _apartmentCount;
+        public int ApartmentCount
+        {
+            get => _apartmentCount;
+            set
+            {
+                _apartmentCount = value;
+                OnPropertyChanged();
+            }
+        }
         // Method to count apartments based on filter (e.g., Vacancy Status)
         public async Task CountApartmentsAsync()
         {
-            var status = "vacant";
-            var count = await Task.Run(() => _apartmentService.CountApartmentsAsync(status));
+            
+            var count = await _apartmentService.CountApartmentsAsync();
             ApartmentCount = count;
-           
         }
         public async Task FilterApartmentsAsync(string status)
         {
-            var apartments = await _apartmentService.GetApartmentsByStatusAsync(status);
-            Apartments = new ObservableCollection<Apartment>(apartments);
-
+            var apartments = await _apartmentService.GetApartmentsAsync(status);
+            AllApartments = new ObservableCollection<Apartment>(apartments);
+            CurrentPage = 1; // Reset to first page when filtering
+            ApartmentCount = AllApartments.Count;
+            UpdatePagination(); // Update pagination after changing data
         }
         public async Task SortApartmentsAsync(string sortType)
         {
             var apartments = await _apartmentService.SortApartmentsAsync(sortType);
-            Apartments = new ObservableCollection<Apartment>(apartments);
+            AllApartments = new ObservableCollection<Apartment>(apartments);
+            // No need to reset page when sorting
         }
+        public async Task SearchApartmentsAsync(string apartmentNumber)
+        {
+            var apartments = string.IsNullOrWhiteSpace(apartmentNumber)
+                ? await _apartmentService.GetApartmentsAsync()
+                : await _apartmentService.GetApartmentAsync(apartmentNumber);
+
+            AllApartments = new ObservableCollection<Apartment>(apartments);
+            CurrentPage = 1; // Reset to first page when searching
+        }
+
 
         // INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler? PropertyChanged;
