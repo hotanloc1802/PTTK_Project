@@ -15,5 +15,6 @@ namespace ApartmentManagement.Service
         Task<bool> CreateApartmentsAsync(Apartment apartment);
         Task<int> CountApartmentsAsync();
         Task<IEnumerable<Apartment>> SortApartmentsAsync(string sortType);
+        Task<Building> GetBuildingByNameAsync(string buildingName);
     }
 }

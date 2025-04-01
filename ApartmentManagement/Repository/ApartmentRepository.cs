@@ -36,7 +36,9 @@ namespace ApartmentManagement.Repository
         }
         public async Task<IEnumerable<Apartment>> GetApartmentsAsync()
         {
-            return await _context.Apartments.ToListAsync();
+            return await _context.Apartments.Include(b => b.building)
+                                            .ToListAsync();
+
         }
         public async Task<IEnumerable<Apartment>> GetApartmentAsync(string apartmentNumberSubset)
         {
@@ -78,6 +80,12 @@ namespace ApartmentManagement.Repository
             }
 
             return await query.ToListAsync();
+        }
+        public async Task<Building> GetBuildingByNameAsync(string buildingName)
+        {
+            return await _context.Buildings
+                                  .Where(b => b.building_name == buildingName)
+                                  .FirstOrDefaultAsync();
         }
     }
 }

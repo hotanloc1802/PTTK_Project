@@ -510,10 +510,10 @@ To="#959595" Duration="0:0:0.2" />
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Grid.Row="2" Margin="15 0 20 10">
-                            <TextBlock Text="Building ID *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                            <TextBlock Text="Building Name *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
                             <TextBox x:Name="txtBuildingId" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                           BorderThickness="1" BorderBrush="#E1E6EB"
-                                          Text="{Binding BuildingId, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding BuildingName, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="0" Grid.Row="3" Margin="20 10 15 10">
@@ -556,7 +556,7 @@ To="#959595" Duration="0:0:0.2" />
 
                         <!--Main Button-->
                         <Button x:Name="btnSave" Grid.Column="1" Grid.Row="6" Content="Save Apartment" HorizontalAlignment="Right" Margin="0 40 20 0" 
-                                    Background="#0430AD" Foreground="White" Width="180" Height="40" FontWeight="SemiBold">
+                                    Background="#0430AD" Foreground="White" Width="180" Height="40" FontWeight="SemiBold" Command="{Binding AddApartmentCommand}" >
                             <Button.Effect>
                                 <DropShadowEffect Direction="-120" BlurRadius="10" Opacity="0.3" ShadowDepth="5" Color="#0430AD"/>
                             </Button.Effect>

@@ -1,4 +1,9 @@
-﻿using System;
+﻿using ApartmentManagement.Data;
+using ApartmentManagement.Repository;
+using ApartmentManagement.Service;
+using ApartmentManagement.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +27,21 @@ namespace ApartmentManagement.Views
         public ApartmentCreateView()
         {
             InitializeComponent();
+
+            // Initialize DbContext and Service
+            var dbConnection = new DbConnection();
+            var optionsBuilder = new DbContextOptionsBuilder<ApartmentDbContext>();
+            optionsBuilder.UseNpgsql(dbConnection.ConnectionString);
+
+            var apartmentDbContext = new ApartmentDbContext(dbConnection, optionsBuilder.Options);
+
+            // Create the repository and service
+            IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
+            IApartmentService apartmentService = new ApartmentService(apartmentRepository);
+
+            // Set the DataContext to the ViewModel
+            ApartmentViewModel viewModel = new ApartmentViewModel(apartmentService);
+            DataContext = viewModel;
         }
         private void BtnDashBoard_Click(object sender, RoutedEventArgs e)
         {

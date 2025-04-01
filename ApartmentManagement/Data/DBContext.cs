@@ -65,5 +65,22 @@ namespace ApartmentManagement.Data
                 throw new InvalidOperationException("Connection string is null or empty.");
             }
         }
+        public override int SaveChanges()
+        {
+            foreach (var entry in ChangeTracker.Entries<Apartment>())
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.created_at = DateTime.UtcNow;
+                    entry.Entity.updated_at = DateTime.UtcNow;
+                }
+                else if (entry.State == EntityState.Modified)
+                {
+                    entry.Entity.updated_at = DateTime.UtcNow;
+                }
+            }
+
+            return base.SaveChanges();
+        }
     }
 }

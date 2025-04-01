@@ -45,6 +45,11 @@ namespace ApartmentManagement.Service
         {
             return await _apartmentRepository.SortApartmentsAsync(sortType);
         }
+        public async Task<Building> GetBuildingByNameAsync(string buildingName)
+        {
+            // Query the database to find the building by name
+            return await _apartmentRepository.GetBuildingByNameAsync(buildingName);
+        }
 
     }
 }

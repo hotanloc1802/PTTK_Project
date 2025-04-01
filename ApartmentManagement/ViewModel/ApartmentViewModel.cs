@@ -80,6 +80,92 @@ namespace ApartmentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
+        private string _apartmentNumber;
+        public string ApartmentNumber
+        {
+            get => _apartmentNumber;
+            set
+            {
+                _apartmentNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _buildingName;
+        public string BuildingName
+        {
+            get => _buildingName;
+            set
+            {
+                _buildingName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _maxPopulation;
+        public int MaxPopulation
+        {
+            get => _maxPopulation;
+            set
+            {
+                _maxPopulation = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _currentPopulation;
+        public int CurrentPopulation
+        {
+            get => _currentPopulation;
+            set
+            {
+                _currentPopulation = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _vacancyStatus;
+        public string VacancyStatus
+        {
+            get => _vacancyStatus;
+            set
+            {
+                _vacancyStatus = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _transferStatus;
+        public string TransferStatus
+        {
+            get => _transferStatus;
+            set
+            {
+                _transferStatus = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _ownerId;
+        public int OwnerId
+        {
+            get => _ownerId;
+            set
+            {
+                _ownerId = value;
+                OnPropertyChanged();
+            }
+        }
+        private int _buildingId;
+        public int BuuldingId
+        {
+            get => _buildingId;
+            set
+            {
+                _buildingId = value;
+                OnPropertyChanged();
+            }
+        }
 
         // Constructor with Dependency Injection for ApartmentService
         public ApartmentViewModel(IApartmentService apartmentService)
@@ -100,6 +186,7 @@ namespace ApartmentManagement.ViewModels
             PreviousPageCommand = new RelayCommand(() => CurrentPage--, () => CurrentPage > 1);
             GoToPageCommand = new RelayCommand<int>((page) => CurrentPage = page);
 
+            AddApartmentCommand = new RelayCommand(AddApartment);
             // Load apartments initially if needed
             _ = LoadApartmentsAsync(); // Initiating async method without blocking UI 
             _ = SortApartmentsAsync("Apartment Number");
@@ -114,6 +201,7 @@ namespace ApartmentManagement.ViewModels
         public ICommand PreviousPageCommand { get; }
         public ICommand GoToPageCommand { get; }
 
+        public ICommand AddApartmentCommand { get; }
         // Method to update pagination
         private void UpdatePagination()
         {
@@ -134,6 +222,56 @@ namespace ApartmentManagement.ViewModels
 
             Apartments = new ObservableCollection<Apartment>(itemsToShow);
         }
+        private async void AddApartment()
+        {
+            // Create a new Apartment object with data from the ViewModel
+            var newApartment = new Apartment
+            {
+                apartment_number = ApartmentNumber,
+                max_population = MaxPopulation,
+                current_population = CurrentPopulation,
+                vacancy_status = VacancyStatus,
+                transfer_status = TransferStatus,
+                owner_id = OwnerId
+            };
+            var building = await _apartmentService.GetBuildingByNameAsync(BuildingName);
+            if (building != null)
+            {
+                newApartment.building_id= building.building_id; // Set the building_id
+            }
+            else
+            {
+                // Handle the case when building is not found (e.g., show error)
+                MessageBox.Show("Building not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Delegate the creation to the service
+            var result = await _apartmentService.CreateApartmentsAsync(newApartment);
+
+            if (result)
+            {
+                MessageBox.Show("Apartment added successfully.");
+                // Optionally, reset the form fields
+                ResetForm();
+            }
+            else
+            {
+                MessageBox.Show("Failed to add apartment.");
+            }
+        }
+        private void ResetForm()
+        {
+            ApartmentNumber = string.Empty;
+            BuildingName = string.Empty; ;
+            MaxPopulation = 0;
+            CurrentPopulation = 0;
+            VacancyStatus = string.Empty;
+            TransferStatus = string.Empty;
+            OwnerId = 0;
+        }
+
+
 
         // Method to load apartments asynchronously
         public async Task LoadApartmentsAsync()

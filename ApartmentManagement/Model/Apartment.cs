@@ -21,8 +21,11 @@ namespace ApartmentManagement.Model
         public string transfer_status { get; set; }
         public string vacancy_status { get; set; }
 
-        public DateTime created_at { get; set; }
-        public DateTime updated_at { get; set; }
+        // Default value of current date and time
+        public DateTime created_at { get; set; } = DateTime.UtcNow;
+
+        // Default value for update timestamp
+        public DateTime updated_at { get; set; } = DateTime.UtcNow;
 
         public Building building { get; set; }
         public Resident owner { get; set; }

@@ -563,7 +563,7 @@ To="#959595" Duration="0:0:0.2" />
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding apartment_id}" Width="70"/>
                         <DataGridTextColumn Header="Apartment Number" Binding="{Binding apartment_number}" Width="150"/>
-                        <DataGridTextColumn Header="Building" Binding="{Binding building.building_name}" Width="*"/>
+                        <DataGridTextColumn Header="Building Name" Binding="{Binding building.building_name}" Width="*"/>
                         <DataGridTextColumn Header="Status" Binding="{Binding vacancy_status}" Width="120"/>
                         <DataGridTextColumn Header="Current Population" Binding="{Binding current_population}" Width="140"/>
                         <DataGridTextColumn Header="Max Population" Binding="{Binding max_population}" Width="120"/>
