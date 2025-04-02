@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="Apartment" Height="760" Width="1380" Background="Transparent" ResizeMode="NoResize"
         AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen">
-    
+
     <Grid Margin="0,0,0,15" HorizontalAlignment="Center" Width="1300" Height="686" VerticalAlignment="Bottom">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
@@ -118,7 +118,6 @@
         </Grid>
         <Border Background="#0430AD" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
         <Border CornerRadius="20 0 0 20" Background="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
-        <Border Background="#F5F9FA" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
         <Grid Grid.Column="1" Grid.Row="0" Margin="10,0,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
@@ -146,15 +145,12 @@
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        
                                         <!-- Đổi màu nền của Button khi di chuột vào -->
-                                        <ColorAnimation 
-    Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-    To="#CDDFFB" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="#CDDFFB" Duration="0:0:0.2" />
+                                        
                                         <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
-                                        <ColorAnimation 
-Storyboard.TargetName="dashboardText" 
-Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-To="Black" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="dashboardText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -163,21 +159,19 @@ To="Black" Duration="0:0:0.2" />
                             <EventTrigger RoutedEvent="UIElement.MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        
                                         <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
-                                        <ColorAnimation 
-Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-To="Transparent" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.2" />
+                                        
                                         <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
-                                        <ColorAnimation 
-Storyboard.TargetName="dashboardText" 
-Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-To="#959595" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="dashboardText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
                         </Button.Triggers>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Icon:PackIconMaterial Kind="HomeVariant" VerticalAlignment="Center" Foreground="#959595"/>
+                           
                             <!-- Gán tên cho TextBlock để có thể sử dụng trong Storyboard -->
                             <TextBlock x:Name="dashboardText" Text=" Dashboard" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center" Height="18" Margin="0,2,0,0"/>
                         </StackPanel>
@@ -187,27 +181,24 @@ To="#959595" Duration="0:0:0.2" />
                     <Button x:Name="btnApartment" Style="{StaticResource menuButton}"   Width="138" Margin="-5,5,0,5" Background="#0430AD">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Icon:PackIconMaterial Kind="Domain" VerticalAlignment="Center" Foreground="white"/>
-                            <TextBlock  x:Name="apartmentText" Text=" Apartment" FontFamily="Montserrat Bold" FontSize="13" Foreground="white"
- VerticalAlignment="Center"/>
+                            <TextBlock  x:Name="apartmentText" Text=" Apartment" FontFamily="Montserrat Bold" FontSize="13" Foreground="white" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </Border>
                 <Border Background="Transparent" CornerRadius="10" Padding="5,5,5,5"  Width="142"  >
                     <Button x:Name="btnResident" Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5"  >
                         <Button.Triggers>
+                            
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        
                                         <!-- Đổi màu nền của Button khi di chuột vào -->
-                                        <ColorAnimation 
-            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-            To="#CDDFFB" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="#CDDFFB" Duration="0:0:0.2" />
+                                        
                                         <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
-                                        <ColorAnimation 
-            Storyboard.TargetName="residentText" 
-            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-            To="Black" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="residentText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -216,42 +207,36 @@ To="#959595" Duration="0:0:0.2" />
                             <EventTrigger RoutedEvent="UIElement.MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        
                                         <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
-                                        <ColorAnimation 
-            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-            To="Transparent" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.2" />
+                                        
                                         <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
-                                        <ColorAnimation 
-            Storyboard.TargetName="residentText" 
-            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-            To="#959595" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="residentText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
                         </Button.Triggers>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Icon:PackIconMaterial Kind="AccountGroup" VerticalAlignment="Center" Foreground="#959595"/>
-                            <TextBlock  x:Name="residentText"  Text="Resident" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595"
- VerticalAlignment="Center" Margin="3,0,0,0"/>
+                            <TextBlock  x:Name="residentText"  Text="Resident" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center" Margin="3,0,0,0"/>
                         </StackPanel>
                     </Button>
                 </Border>
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
                     <Button x:Name="btnPayement"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
                         <Button.Triggers>
+                            
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        
                                         <!-- Đổi màu nền của Button khi di chuột vào -->
-                                        <ColorAnimation 
-            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-            To="#CDDFFB" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="#CDDFFB" Duration="0:0:0.2" />
+                                        
                                         <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
-                                        <ColorAnimation 
-            Storyboard.TargetName="paymentText" 
-            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-            To="Black" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="paymentText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -260,15 +245,12 @@ To="#959595" Duration="0:0:0.2" />
                             <EventTrigger RoutedEvent="UIElement.MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        
                                         <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
-                                        <ColorAnimation 
-             Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-            To="Transparent" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.2" />
+                                        
                                         <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
-                                        <ColorAnimation 
-            Storyboard.TargetName="paymentText" 
-            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-            To="#959595" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="paymentText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -282,19 +264,17 @@ To="#959595" Duration="0:0:0.2" />
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
                     <Button x:Name="btnService"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
                         <Button.Triggers>
+                            
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        
                                         <!-- Đổi màu nền của Button khi di chuột vào -->
-                                        <ColorAnimation 
-Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-To="#CDDFFB" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="#CDDFFB" Duration="0:0:0.2" />
+                                        
                                         <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
-                                        <ColorAnimation 
-Storyboard.TargetName="serviceText" 
-Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-To="Black" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="serviceText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -303,15 +283,12 @@ To="Black" Duration="0:0:0.2" />
                             <EventTrigger RoutedEvent="UIElement.MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        
                                         <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
-                                        <ColorAnimation 
- Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-To="Transparent" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.2" />
+                                        
                                         <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
-                                        <ColorAnimation 
-Storyboard.TargetName="serviceText" 
-Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-To="#959595" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="serviceText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -325,19 +302,17 @@ To="#959595" Duration="0:0:0.2" />
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
                     <Button x:Name="btnSetting2"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
                         <Button.Triggers>
+                            
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        
                                         <!-- Đổi màu nền của Button khi di chuột vào -->
-                                        <ColorAnimation 
-Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-To="#CDDFFB" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="#CDDFFB" Duration="0:0:0.2" />
+                                        
                                         <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
-                                        <ColorAnimation 
-Storyboard.TargetName="settingText" 
-Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-To="Black" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="settingText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -346,8 +321,10 @@ To="Black" Duration="0:0:0.2" />
                             <EventTrigger RoutedEvent="UIElement.MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        
                                         <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
                                         <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.2" />
+                                        
                                         <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
                                         <ColorAnimation Storyboard.TargetName="settingText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
                                     </Storyboard>
@@ -368,14 +345,9 @@ To="Black" Duration="0:0:0.2" />
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <!-- Đổi màu nền của Button khi di chuột vào -->
-                                        <ColorAnimation 
-Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-To="#CDDFFB" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="#CDDFFB" Duration="0:0:0.2" />
                                         <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
-                                        <ColorAnimation 
-Storyboard.TargetName="settingText" 
-Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-To="Black" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="settingText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -385,14 +357,9 @@ To="Black" Duration="0:0:0.2" />
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
-                                        <ColorAnimation 
- Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-To="Transparent" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.2" />
                                         <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
-                                        <ColorAnimation 
-Storyboard.TargetName="settingText" 
-Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-To="#959595" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="settingText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -466,112 +433,174 @@ To="#959595" Duration="0:0:0.2" />
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="4.5*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Apartments / "  Foreground="#434343"  FontFamily="Montserrat Bold" Grid.Row="0" FontSize="20"  Margin="0,15,0,10"/>
-            <TextBlock Text="Create Apartment"  Foreground="#434343"  FontFamily="Montserrat Bold" Grid.Row="0" FontSize="20"  Margin="120,15,0,10"/>
-
             <!--Fill Form-->
-            <Border Grid.Row="1" CornerRadius="0 0 0 0">
-                <Grid VerticalAlignment="Center" Margin="0 0 0 0">
+            <Border CornerRadius="5" Background="#ffffff">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                    <!--Main Layer-->
-                    <Grid Margin="20 0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="400"/>
+                    </Grid.ColumnDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                    <!--App Title-->
+                    <TextBlock Text="Apartment Management" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="55 0 0 2" FontSize="16" FontWeight="SemiBold" Foreground="#0430AD"/>
+                    <Icon:PackIconMaterial Kind="Domain" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="33 0 0 4" Width="14" Height="14" Foreground="#FF9D00"/>
+                    <Icon:PackIconMaterial Kind="Domain" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30 4 0 0" Width="14" Height="14" Foreground="#0430AD"/>
 
-                        <!--Form Title-->
-                        <StackPanel Orientation="Horizontal" Margin="20 20 0 0">
-                            <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="#EFEFEF">
-                                <Icon:PackIconMaterial Kind="HomeCity" Width="25" Height="25" Foreground="#0430AD" Margin="7"/>
+                    <!--Top Menu-->
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0 0 15 0">
+                        <Button Style="{StaticResource menuButton}">
+                            <Icon:PackIconMaterial Kind="Close" Width="14" Height="14"/>
+                        </Button>
+                    </StackPanel>
+
+                    <!--Right Section-->
+                    <Border Grid.Row="1" Grid.Column="1" Background="#0430AD" CornerRadius="0 0 5 0" Margin="0,0,0,-550">
+                        <StackPanel Margin="40 0 40 0">
+
+                            <!--Main Image-->
+                            <Border CornerRadius="100" Width="85" Height="85" Background="#ffffff" Margin="15 40 20 20">
+                                <Ellipse Width="80" Height="80">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg" Stretch="UniformToFill"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
                             </Border>
 
-                            <TextBlock Text="New Apartment" Foreground="#374655" FontSize="18" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                            <!--Section Description-->
+                            <TextBlock Foreground="#ffffff" FontWeight="SemiBold" TextAlignment="Center" FontSize="20" Text="Apartment Details"/>
+                            <TextBlock TextWrapping="Wrap" Foreground="#E6E8EC" FontSize="13" Margin="20 15 20 20" LineHeight="24" FontWeight="Light" TextAlignment="Center" Text="Please provide the details for the new apartment. All fields marked with an asterisk (*) are required."/>
+
+                            <!--Guidelines-->
+                            <Border Background="White" CornerRadius="10" Padding="20" Margin="0 15 0 0" Height="275">
+                                <StackPanel>
+                                    <TextBlock Text="Guidelines" Foreground="Black" FontWeight="SemiBold" FontSize="16" Margin="0 0 0 10"/>
+                                    <TextBlock TextWrapping="Wrap" Foreground="Black" FontSize="12" LineHeight="20" Margin="0 0 0 5" Text="• Apartment Number must be unique within a building"/>
+                                    <TextBlock TextWrapping="Wrap" Foreground="Black" FontSize="12" LineHeight="20" Margin="0 0 0 5" Text="• Max Population cannot exceed building limits"/>
+                                    <TextBlock TextWrapping="Wrap" Foreground="Black" FontSize="12" LineHeight="20" Margin="0 0 0 5" Text="• Current Population must not exceed Max Population"/>
+                                    <TextBlock TextWrapping="Wrap" Foreground="Black" FontSize="12" LineHeight="20" Margin="0 0 0 5" Text="• Set Vacancy Status to 'vacant' if not currently occupied"/>
+                                    <TextBlock TextWrapping="Wrap" Foreground="Black" FontSize="12" LineHeight="20" Margin="0 0 0 5" Text="• Vacancy Status options: 'vacant' or 'occupied'"/>
+                                    <TextBlock TextWrapping="Wrap" Foreground="Black" FontSize="12" LineHeight="20" Margin="0 0 0 5" Text="• Transfer Status options: 'available', 'pending', 'not available'"/>
+                                </StackPanel>
+                            </Border>
+
                         </StackPanel>
+                    </Border>
 
-                        <Separator Grid.Row="1" Grid.ColumnSpan="2" Height="0.7" Margin="-20 20 -20 20" Background="#E1E6EB"/>
+                    <!--Left Section-->
+                    <Border Grid.Row="1" Background="#F2F5F8" CornerRadius="0 0 0 5" Margin="0,0,0,-550">
+                        <Grid VerticalAlignment="Center" Margin="70 0 -60 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="101*"/>
+                                <RowDefinition Height="451*"/>
+                            </Grid.RowDefinitions>
+                            <!--Background Layers-->
 
-                        <!--Inputs-->
-                        <StackPanel Grid.Column="0" Grid.Row="2" Margin="20 0 15 10">
-                            <TextBlock Text="Apartment Number *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                            <TextBox x:Name="txtApartmentNumber" Height="40" Padding="10 0" VerticalContentAlignment="Center" 
+                            <!--Main Layer-->
+                            <Border CornerRadius="7" Background="#ffffff" Grid.RowSpan="2" Margin="0,0,40,0" Height="514" VerticalAlignment="Top" >
+                                <Border.Effect>
+                                    <DropShadowEffect Direction="-130" BlurRadius="30" ShadowDepth="5" Opacity="0.1"/>
+                                </Border.Effect>
+
+                                <Grid Margin="20 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--Form Title-->
+                                    <StackPanel Orientation="Horizontal" Margin="20 20 0 0">
+                                        <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="#EFEFEF">
+                                            <Icon:PackIconMaterial Kind="HomeCity" Width="25" Height="25" Foreground="#0430AD" Margin="7"/>
+                                        </Border>
+
+                                        <TextBlock Text="New Apartment" Foreground="#374655" FontSize="18" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+
+                                    <Separator Grid.Row="1" Grid.ColumnSpan="2" Height="0.7" Margin="-20 20 -20 20" Background="#E1E6EB"/>
+
+                                    <!--Inputs-->
+                                    <StackPanel Grid.Column="0" Grid.Row="2" Margin="20 0 15 10">
+                                        <TextBlock Text="Apartment Number *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                                        <TextBox x:Name="txtApartmentNumber" Height="40" Padding="10 0" VerticalContentAlignment="Center" 
                                          BorderThickness="1" BorderBrush="#E1E6EB"
                                          Text="{Binding ApartmentNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
+                                    </StackPanel>
 
-                        <StackPanel Grid.Column="1" Grid.Row="2" Margin="15 0 20 10">
-                            <TextBlock Text="Building Name *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                            <TextBox x:Name="txtBuildingId" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                    <StackPanel Grid.Column="1" Grid.Row="2" Margin="15 0 20 10">
+                                        <TextBlock Text="Building ID *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                                        <TextBox x:Name="txtBuildingId" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                           BorderThickness="1" BorderBrush="#E1E6EB"
-                                          Text="{Binding BuildingName, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
+                                          Text="{Binding BuildingId, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </StackPanel>
 
-                        <StackPanel Grid.Column="0" Grid.Row="3" Margin="20 10 15 10">
-                            <TextBlock Text="Maximum Population *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                            <TextBox x:Name="txtMaxPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                    <StackPanel Grid.Column="0" Grid.Row="3" Margin="20 10 15 10">
+                                        <TextBlock Text="Maximum Population *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                                        <TextBox x:Name="txtMaxPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                          BorderThickness="1" BorderBrush="#E1E6EB"
                                          Text="{Binding MaxPopulation, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
+                                    </StackPanel>
 
-                        <StackPanel Grid.Column="1" Grid.Row="3" Margin="15 10 20 10">
-                            <TextBlock Text="Current Population" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                            <TextBox x:Name="txtCurrentPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                    <StackPanel Grid.Column="1" Grid.Row="3" Margin="15 10 20 10">
+                                        <TextBlock Text="Current Population" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                                        <TextBox x:Name="txtCurrentPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                          BorderThickness="1" BorderBrush="#E1E6EB"
                                          Text="{Binding CurrentPopulation, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
+                                    </StackPanel>
 
-                        <StackPanel Grid.Column="0" Grid.Row="4" Margin="20 10 15 10">
-                            <TextBlock Text="Vacancy Status *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                            <TextBox x:Name="txtVacancyStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                    <StackPanel Grid.Column="0" Grid.Row="4" Margin="20 10 15 10">
+                                        <TextBlock Text="Vacancy Status *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                                        <TextBox x:Name="txtVacancyStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                           BorderThickness="1" BorderBrush="#E1E6EB"
                                           Text="{Binding VacancyStatus, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
+                                    </StackPanel>
 
-                        <StackPanel Grid.Column="1" Grid.Row="4" Margin="15 10 20 10">
-                            <TextBlock Text="Transfer Status" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                            <TextBox x:Name="txtTransferStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                    <StackPanel Grid.Column="1" Grid.Row="4" Margin="15 10 20 10">
+                                        <TextBlock Text="Transfer Status" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                                        <TextBox x:Name="txtTransferStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                           BorderThickness="1" BorderBrush="#E1E6EB"
                                           Text="{Binding TransferStatus, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
+                                    </StackPanel>
 
-                        <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="20 10 20 10">
-                            <TextBlock Text="Owner ID (optional)" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                            <TextBox x:Name="txtOwnerId" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                    <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="20 10 20 10">
+                                        <TextBlock Text="Owner ID (optional)" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                                        <TextBox x:Name="txtOwnerId" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                           BorderThickness="1" BorderBrush="#E1E6EB"
                                           Text="{Binding OwnerId, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
+                                    </StackPanel>
 
-                        <!--Form Bottom Background-->
-                        <Border Grid.Row="6" Grid.ColumnSpan="2" Height="80" Background="#f6f6f6" CornerRadius="0 0 10 10" Margin="-20 40 -20 0"/>
+                                    <!--Main Button-->
+                                    <Button x:Name="btnSave" Grid.Column="1" Grid.Row="6" Content="Save Apartment" HorizontalAlignment="Right" Margin="0 20 20 0" 
+                                    Background="#0430AD" Foreground="White" Width="180" Height="40" FontWeight="SemiBold">
+                                        <Button.Effect>
+                                            <DropShadowEffect Direction="-120" BlurRadius="10" Opacity="0.3" ShadowDepth="5" Color="#0430AD"/>
+                                        </Button.Effect>
+                                    </Button>
 
-                        <!--Main Button-->
-                        <Button x:Name="btnSave" Grid.Column="1" Grid.Row="6" Content="Save Apartment" HorizontalAlignment="Right" Margin="0 40 20 0" 
-                                    Background="#0430AD" Foreground="White" Width="180" Height="40" FontWeight="SemiBold" Command="{Binding AddApartmentCommand}" >
-                            <Button.Effect>
-                                <DropShadowEffect Direction="-120" BlurRadius="10" Opacity="0.3" ShadowDepth="5" Color="#0430AD"/>
-                            </Button.Effect>
-                        </Button>
-
-                        <!--Secondary Button-->
-                        <Button x:Name="btnCancel" Grid.Row="6" Content="Cancel" HorizontalAlignment="Left" Margin="20 40 0 0" 
-                                    Background="Transparent" Foreground="#979797" Width="150" Height="40" Click="BtnBack_Click"
+                                    <!--Secondary Button-->
+                                    <Button x:Name="btnCancel" Grid.Row="6" Content="Cancel" HorizontalAlignment="Left" Margin="20 20 0 0" 
+                                    Background="Transparent" Foreground="#979797" Width="150" Height="40" 
                                     BorderThickness="1" BorderBrush="#CCCCCC"/>
-                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
                 </Grid>
             </Border>
-
-            <Grid>
-            </Grid>
         </Grid>
     </Grid>
 </Window>

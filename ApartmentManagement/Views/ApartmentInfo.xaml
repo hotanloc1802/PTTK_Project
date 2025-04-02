@@ -1,0 +1,891 @@
+﻿<Window x:Class="ApartmentManagement.Views.ApartmentView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:ApartmentManagement.Views"
+        mc:Ignorable="d"
+        Title="Apartment" Height="760" Width="1380" Background="Transparent" ResizeMode="NoResize"
+        AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="Montserrat Bold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#E1E1E1"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="0,0,0,15" HorizontalAlignment="Center" Width="1300" Height="686" VerticalAlignment="Bottom">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="155"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="0.01*" />
+            <RowDefinition Height="4*" />
+        </Grid.RowDefinitions>
+        <Border CornerRadius="20 0 0 20" ClipToBounds="True" Background="White" Grid.Row="0"  Grid.RowSpan="3" IsEnabled="False">
+            <Border  CornerRadius="20 0 0 20" ClipToBounds="True" Margin="0,0,-5,0">
+                <Border.Background>
+                    <SolidColorBrush Color="#0430AD"></SolidColorBrush>
+                </Border.Background>
+            </Border>
+        </Border>
+        <Grid Grid.Column ="0" Grid.Row ="0">
+            <Image  Stretch="Uniform" Width="60" HorizontalAlignment="Center" />
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="1" Background="#f1f1f1" Margin="10,0,0,0" >
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="2" Margin="0,20,0,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="0,0,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2.5*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="0.01*" />
+                </Grid.RowDefinitions>
+                <Ellipse Width="80" Height="80">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0">
+                </Grid>
+                <Grid Grid.Row="1">
+                    <TextBlock x:Name="BconsMienDong" Text="Miền Đông" FontFamily="Montserrat Bold" FontSize="13" Foreground="White" VerticalAlignment="Center" Height="18" HorizontalAlignment="Center"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1" Margin="0,0,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2.5*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="0.01*" />
+                </Grid.RowDefinitions>
+                <Ellipse Width="80" Height="80">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0">
+                </Grid>
+                <Grid Grid.Row="1">
+                    <TextBlock x:Name="BconsPlaza" Text="Plaza" FontFamily="Montserrat Bold" FontSize="13" Foreground="White" VerticalAlignment="Center" Height="18" HorizontalAlignment="Center"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="2" Margin="0,0,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2.5*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="0.01*" />
+                </Grid.RowDefinitions>
+                <Ellipse Width="80" Height="80">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0">
+                </Grid>
+                <Grid Grid.Row="1">
+                    <TextBlock x:Name="BconsSala" Text="Sala" FontFamily="Montserrat Bold" FontSize="13" Foreground="White" VerticalAlignment="Center" Height="18" HorizontalAlignment="Center"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="3" Margin="0,0,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2.5*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="0.01*" />
+                </Grid.RowDefinitions>
+                <Ellipse Width="80" Height="80">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0">
+                </Grid>
+                <Grid Grid.Row="1">
+                    <TextBlock x:Name="BconsGreenView" Text="Green View" FontFamily="Montserrat Bold" FontSize="13" Foreground="White" VerticalAlignment="Center" Height="18" HorizontalAlignment="Center"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="4" Margin="0,0,0,40">
+                <Ellipse Width="50" Height="50"
+                         Stroke="White" StrokeThickness="1"
+                         StrokeDashArray="10,2" Fill="Transparent"/>
+                <iconPacks:PackIconMaterial Kind="Plus" Width="17" Height="17"  Foreground="#ebedf3" Margin="41,28,0,0"/>
+            </Grid>
+        </Grid>
+        <Border Background="#0430AD" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+        <Border CornerRadius="20 0 0 20" Background="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+        <Border Background="#F5F9FA" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+        <Grid Grid.Column="1" Grid.Row="0" Margin="10,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Ellipse Width="55" Height="55">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Grid>
+            <Grid Grid.Column="1">
+                <TextBlock x:Name="Bcons" Text="Miền Đông" FontFamily="Montserrat Bold" FontSize="13" Foreground="Black" VerticalAlignment="Center" Height="18"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1" Background="#f1f1f1" Margin="0,0,0,0" >
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="2">
+            <StackPanel Margin="0,30,0,0" >
+                <Border CornerRadius="10" Padding="5,5,5,5" Margin="0,0,0,0" Width="142"  >
+                    <Button x:Name="btnDashboard"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnMainWindow_Click" >
+                        <Button.Triggers>
+                            <!-- Trigger khi di chuột vào Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Đổi màu nền của Button khi di chuột vào -->
+                                        <ColorAnimation 
+    Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+    To="#CDDFFB" Duration="0:0:0.2" />
+                                        <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
+                                        <ColorAnimation 
+Storyboard.TargetName="dashboardText" 
+Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+To="Black" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <!-- Trigger khi di chuột ra khỏi Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
+                                        <ColorAnimation 
+Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+To="Transparent" Duration="0:0:0.2" />
+                                        <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
+                                        <ColorAnimation 
+Storyboard.TargetName="dashboardText" 
+Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+To="#959595" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="HomeVariant" VerticalAlignment="Center" Foreground="#959595"/>
+                            <!-- Gán tên cho TextBlock để có thể sử dụng trong Storyboard -->
+                            <TextBlock x:Name="dashboardText" Text=" Dashboard" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center" Height="18" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Background="Transparent" Padding="5,5,5,5"  Width="142"  >
+                    <Button x:Name="btnApartment" Style="{StaticResource menuButton}"   Width="138" Margin="-5,5,0,5" Background="#0430AD">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="Domain" VerticalAlignment="Center" Foreground="white"/>
+                            <TextBlock  x:Name="apartmentText" Text=" Apartment" FontFamily="Montserrat Bold" FontSize="13" Foreground="white"
+ VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Background="Transparent" CornerRadius="10" Padding="5,5,5,5"  Width="142"  >
+                    <Button x:Name="btnResident" Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5"  >
+                        <Button.Triggers>
+                            <!-- Trigger khi di chuột vào Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Đổi màu nền của Button khi di chuột vào -->
+                                        <ColorAnimation 
+            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+            To="#CDDFFB" Duration="0:0:0.2" />
+                                        <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
+                                        <ColorAnimation 
+            Storyboard.TargetName="residentText" 
+            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+            To="Black" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <!-- Trigger khi di chuột ra khỏi Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
+                                        <ColorAnimation 
+            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+            To="Transparent" Duration="0:0:0.2" />
+                                        <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
+                                        <ColorAnimation 
+            Storyboard.TargetName="residentText" 
+            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+            To="#959595" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="AccountGroup" VerticalAlignment="Center" Foreground="#959595"/>
+                            <TextBlock  x:Name="residentText"  Text="Resident" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595"
+ VerticalAlignment="Center" Margin="3,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
+                    <Button x:Name="btnPayement"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                        <Button.Triggers>
+                            <!-- Trigger khi di chuột vào Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Đổi màu nền của Button khi di chuột vào -->
+                                        <ColorAnimation 
+            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+            To="#CDDFFB" Duration="0:0:0.2" />
+                                        <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
+                                        <ColorAnimation 
+            Storyboard.TargetName="paymentText" 
+            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+            To="Black" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <!-- Trigger khi di chuột ra khỏi Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
+                                        <ColorAnimation 
+             Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+            To="Transparent" Duration="0:0:0.2" />
+                                        <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
+                                        <ColorAnimation 
+            Storyboard.TargetName="paymentText" 
+            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+            To="#959595" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="CreditCardOutline"  VerticalAlignment="Center" Foreground="#959595"/>
+                            <TextBlock x:Name="paymentText"  Text=" Payment" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
+                    <Button x:Name="btnService"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                        <Button.Triggers>
+                            <!-- Trigger khi di chuột vào Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Đổi màu nền của Button khi di chuột vào -->
+                                        <ColorAnimation 
+Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+To="#CDDFFB" Duration="0:0:0.2" />
+                                        <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
+                                        <ColorAnimation 
+Storyboard.TargetName="serviceText" 
+Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+To="Black" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <!-- Trigger khi di chuột ra khỏi Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
+                                        <ColorAnimation 
+ Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+To="Transparent" Duration="0:0:0.2" />
+                                        <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
+                                        <ColorAnimation 
+Storyboard.TargetName="serviceText" 
+Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+To="#959595" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="ToolboxOutline"  VerticalAlignment="Center" Foreground="#959595" Margin="0,0,3,0"/>
+                            <TextBlock x:Name="serviceText"  Text="Service" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
+                    <Button x:Name="btnSetting2"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                        <Button.Triggers>
+                            <!-- Trigger khi di chuột vào Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Đổi màu nền của Button khi di chuột vào -->
+                                        <ColorAnimation 
+Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+To="#CDDFFB" Duration="0:0:0.2" />
+                                        <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
+                                        <ColorAnimation 
+Storyboard.TargetName="settingText" 
+Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+To="Black" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <!-- Trigger khi di chuột ra khỏi Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.2" />
+                                        <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
+                                        <ColorAnimation Storyboard.TargetName="settingText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="Cog"  VerticalAlignment="Center" Foreground="#959595"/>
+                            <TextBlock x:Name="settingText"  Text=" Setting" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
+                    <Button x:Name="btnlogout"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                        <Button.Triggers>
+                            <!-- Trigger khi di chuột vào Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Đổi màu nền của Button khi di chuột vào -->
+                                        <ColorAnimation 
+Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+To="#CDDFFB" Duration="0:0:0.2" />
+                                        <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
+                                        <ColorAnimation 
+Storyboard.TargetName="settingText" 
+Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+To="Black" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <!-- Trigger khi di chuột ra khỏi Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
+                                        <ColorAnimation 
+ Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+To="Transparent" Duration="0:0:0.2" />
+                                        <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
+                                        <ColorAnimation 
+Storyboard.TargetName="settingText" 
+Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+To="#959595" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="ExitToApp"  VerticalAlignment="Center" Foreground="#959595"/>
+                            <TextBlock x:Name="logout"  Text=" Log out" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Margin="30,0,0,0">
+                <Border x:Name="boSearch" Background="#EEF0F2" CornerRadius="10" Height="45" HorizontalAlignment="Center" Margin="0,16,0,15" Width="597" >
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Icon:PackIconMaterial Kind="Magnify" Foreground="#9FA4AD" VerticalAlignment="Center" Margin="7,0,0,0" Width="18" Height="18"/>
+                        <TextBox x:Name="boxSearch" Background="Transparent" BorderBrush="Transparent" Foreground="#9FA4AD" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" 
+                         Width="571" VerticalAlignment="Center" Padding="5,5" TextChanged="BoxSearch_TextChanged" />
+                    </StackPanel>
+                </Border>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock x:Name="txtSearch" Text="Search..." Foreground="#9FA4AD" FontFamily="Montserrat" Margin="30,0,0,0" IsHitTestVisible="False"  />
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1" Margin="30,0,30,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.02*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <iconPacks:PackIconMaterial Kind="CalendarOutline" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#0430AD"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <iconPacks:PackIconMaterial Kind="MessageTextOutline" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#0430AD"/>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <iconPacks:PackIconMaterial Kind="BellOutline" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#0430AD"/>
+                </Grid>
+                <Grid Grid.Column="3" Background="#9FA4AD" Margin="0,23,0,23"  >
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Ellipse Width="40" Height="40">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBlock x:Name="User" Text="Tuan cui"  FontFamily="Montserrat Bold" FontSize="18" Foreground="Black" VerticalAlignment="Center" Height="18"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="1" Background="white" Margin="0,0,10,0">
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="2" Margin="0,0,10,0">
+            <!--Main Page-->
+            <Grid Margin="30,0,30,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- For the navigation bar and tabs -->
+                    <RowDefinition Height="*"/>
+                    <!-- For the scrollable content -->
+                </Grid.RowDefinitions>
+
+                <!-- Header with navigation bar and tabs (fixed) -->
+                <Grid Grid.Row="0">
+
+                    <!-- Navigation path -->
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
+                        <TextBlock Text="Apartment" FontFamily="Montserrat" FontSize="14" Foreground="#9FA4AD"/>
+                        <TextBlock Text=" / " FontFamily="Montserrat" FontSize="14" Foreground="#9FA4AD"/>
+                        <TextBlock Text="A.01" FontFamily="Montserrat" FontSize="14" Foreground="#0430AD"/>
+                    </StackPanel>
+
+                    <!--Close-->
+                    <Button x:Name="btnClose" Click="BtnClose_Click" Background="Transparent" BorderBrush="Transparent" Margin="0,10,5,30" HorizontalAlignment="Right">
+                        <iconPacks:PackIconMaterial Kind="Close" Width="20" Height="20" Foreground="#9FA4AD"/>
+                    </Button>
+                    
+                    <!-- Tabs -->
+                    <TabControl Margin="0,40,0,10" BorderThickness="0" Background="Transparent">
+                        <TabControl.Resources>
+                            <Style TargetType="TabItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TabItem">
+                                            <Border Name="Border" BorderThickness="0,0,0,2" BorderBrush="Transparent" Margin="0,0,25,0">
+                                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Left" ContentSource="Header" Margin="0,0,0,5"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="Border" Property="BorderBrush" Value="#0430AD"/>
+                                                    <Setter Property="Foreground" Value="#0430AD"/>
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="False">
+                                                    <Setter Property="Foreground" Value="#9FA4AD"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="FontFamily" Value="Montserrat SemiBold"/>
+                                <Setter Property="FontSize" Value="14"/>
+                            </Style>
+                        </TabControl.Resources>
+                        <TabItem Header="Information" IsSelected="True"/>
+                        <TabItem Header="Service History"/>
+                        <TabItem Header="Payment History"/>
+                    </TabControl>
+                </Grid>
+
+                <!-- Scrollable content -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <Grid Margin="0,10,0,0">
+
+                        <!-- Main content here -->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Resident Banner -->
+                        <Border Grid.Row="0" Grid.ColumnSpan="2" Background="#3B62FF" CornerRadius="10" Margin="0,0,0,20" Height="120">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <!-- Resident info -->
+                                <StackPanel Grid.Column="0" Margin="20,20,0,0">
+                                    <TextBlock Text="A.01" FontFamily="Montserrat Bold" FontSize="22" Foreground="White"/>
+                                    <TextBlock Text="Ho Tan Loc Dep Trai Mup Rup" FontFamily="Montserrat SemiBold" FontSize="18" Foreground="White" Margin="0,5,0,0"/>
+                                </StackPanel>
+                                <!-- Placeholder for illustration -->
+                                <Grid Grid.Column="1">
+                                    <!-- This is where people illustration would go -->
+                                </Grid>
+                            </Grid>
+                        </Border>
+
+                        <!-- Left section - Apartment and resident details -->
+                        <Grid Grid.Row="1" Grid.Column="0" Margin="0,0,20,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Apartment details section -->
+                            <TextBlock Grid.Row="0" Text="Apartment detail" FontFamily="Montserrat Bold" FontSize="16" Margin="0,0,0,15"/>
+
+                            <!-- Details grid -->
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Row labels -->
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Owner" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Area" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Building" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Transferred date" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
+
+                                <!-- Row values -->
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="Ho Tan Loc" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="72.4 m²" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="A" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" Text="01/04/2025" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
+
+                                <!-- Additional columns -->
+                                <TextBlock Grid.Row="0" Grid.Column="2" Text="Bedroom" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="Bathroom" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
+                                <TextBlock Grid.Row="2" Grid.Column="2" Text="Direction" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
+                                <TextBlock Grid.Row="3" Grid.Column="2" Text="Balcony" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
+
+                                <TextBlock Grid.Row="0" Grid.Column="3" Text="1" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
+                                <TextBlock Grid.Row="1" Grid.Column="3" Text="1" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
+                                <TextBlock Grid.Row="2" Grid.Column="3" Text="Southwest" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
+                                <TextBlock Grid.Row="3" Grid.Column="3" Text="East" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
+                            </Grid>
+
+                            <!-- Rental Information -->
+                            <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="#EEEEEE" Margin="0,20,0,0" Padding="0,20,0,0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Header -->
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                            <TextBlock Text="Rental Information" FontFamily="Montserrat Bold" FontSize="16"/>
+                                            <Border Background="#0430AD" Width="20" Height="20" CornerRadius="3" Margin="10,0,0,0" VerticalAlignment="Center">
+                                                <Icon:PackIconMaterial Kind="Check" Width="12" Height="12" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <!-- Rental Information Form -->
+                                    <Grid Grid.Row="1" Margin="0,15,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Labels -->
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Tenant's Name *" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,0,10,5"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Phone number *" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,0,10,5"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="ID card *" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,0,10,5"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="Sex" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,0,0,5"/>
+
+                                        <!-- Form fields -->
+                                        <TextBox Grid.Row="1" Grid.Column="0" Text="Tang Kim Son Dep Trai" Margin="0,0,10,0" Padding="10,8" BorderThickness="1" BorderBrush="#E0E0E0"/>
+                                        <TextBox Grid.Row="1" Grid.Column="1" Text="0123.456.789" Margin="0,0,10,0" Padding="10,8" BorderThickness="1" BorderBrush="#E0E0E0"/>
+                                        <TextBox Grid.Row="1" Grid.Column="2" Text="999999999999" Margin="0,0,10,0" Padding="10,8" BorderThickness="1" BorderBrush="#E0E0E0"/>
+                                        <ComboBox Grid.Row="1" Grid.Column="3" SelectedIndex="0" Padding="10,8" BorderThickness="1" BorderBrush="#E0E0E0">
+                                            <ComboBoxItem Content="Male"/>
+                                            <ComboBoxItem Content="Female"/>
+                                        </ComboBox>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+
+                            <!-- Manager Infomation -->
+                            <Border Grid.Row="3" BorderThickness="0,1,0,0" BorderBrush="#EEEEEE" Margin="0,20,0,0" Padding="0,20,0,0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Header -->
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="Manager Infomation" FontFamily="Montserrat Bold" FontSize="16"/>
+                                    </Grid>
+
+                                    <!-- Resident Photos -->
+                                    <WrapPanel Grid.Row="1" Margin="0,15,0,0">
+                                        <!-- Resident 1 -->
+                                        <Border Width="120" Height="120" Margin="0,0,15,0" BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10">
+                                            <Grid>
+                                                <Ellipse Width="80" Height="80" VerticalAlignment="Top" Margin="0,10,0,0">
+                                                    <Ellipse.Fill>
+                                                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                                                    </Ellipse.Fill>
+                                                </Ellipse>
+                                                <TextBlock Text="Pham Duy Tuan" FontFamily="Montserrat SemiBold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+                                            </Grid>
+                                        </Border>
+
+                                        <!-- Resident 2 -->
+                                        <Border Width="120" Height="120" Margin="0,0,15,0" BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10">
+                                            <Grid>
+                                                <Ellipse Width="80" Height="80" VerticalAlignment="Top" Margin="0,10,0,0">
+                                                    <Ellipse.Fill>
+                                                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                                                    </Ellipse.Fill>
+                                                </Ellipse>
+                                                <TextBlock Text="Ngo Thanh Trung" FontFamily="Montserrat SemiBold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+                                            </Grid>
+                                        </Border>
+
+                                        <!-- Add more resident button -->
+                                        <Border Width="120" Height="120" Margin="0,0,15,0" BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Background="#F8F9FA">
+                                            <Grid>
+                                                <Border Width="40" Height="40" Background="#EEEEEE" CornerRadius="20" VerticalAlignment="Top" Margin="0,30,0,0">
+                                                    <Icon:PackIconMaterial Kind="Plus" Width="20" Height="20" Foreground="#9FA4AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <TextBlock Text="Add Resident" FontFamily="Montserrat SemiBold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+                                            </Grid>
+                                        </Border>
+                                    </WrapPanel>
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <!-- Right section - QR code and documents -->
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- QR Code section -->
+                            <Grid Grid.Row="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="QR code" FontFamily="Montserrat Bold" FontSize="16"/>
+                                </Grid>
+
+                                <!-- QR Code image placeholder -->
+                                <Border Grid.Row="1" BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Margin="0,15,0,0" Padding="20">
+                                    <StackPanel>
+                                        <!-- Placeholder for QR code -->
+                                        <Border Width="180" Height="180" Background="#F8F9FA" HorizontalAlignment="Center">
+                                            <!-- QR code image would go here -->
+                                        </Border>
+                                        <TextBlock Text="X1T8G3XU" FontFamily="Montserrat Bold" FontSize="14" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+
+                            <!-- Documents section -->
+                            <Grid Grid.Row="1" Margin="0,30,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Document" FontFamily="Montserrat Bold" FontSize="16"/>
+                                </Grid>
+
+                                <!-- Document list -->
+                                <StackPanel Grid.Row="1" Margin="0,15,0,0">
+
+                                    <!-- Document 1 -->
+                                    <Border BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Margin="0,0,0,10" Padding="10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border Grid.Column="0" Width="40" Height="40" Background="#FFE6E6" CornerRadius="5" Margin="0,0,10,0">
+                                                <TextBlock Text="PDF" FontFamily="Montserrat Bold" FontSize="12" Foreground="#FF4D4D" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                <TextBlock Text="contact 911" FontFamily="Montserrat SemiBold" FontSize="12"/>
+                                                <TextBlock Text="11h-01/04/2025" FontFamily="Montserrat" FontSize="10" Foreground="#9FA4AD" Margin="0,3,0,0"/>
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                    <Icon:PackIconMaterial Kind="Eye" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                </Button>
+                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                    <Icon:PackIconMaterial Kind="Download" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+
+                                    <!-- Document 2 -->
+                                    <Border BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Margin="0,0,0,10" Padding="10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border Grid.Column="0" Width="40" Height="40" Background="#E6FFE6" CornerRadius="5" Margin="0,0,10,0">
+                                                <TextBlock Text="PNG" FontFamily="Montserrat Bold" FontSize="12" Foreground="#4CAF50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                <TextBlock Text="CMND_Ngo Thanh Trung" FontFamily="Montserrat SemiBold" FontSize="12"/>
+                                                <TextBlock Text="01/04/2025" FontFamily="Montserrat" FontSize="10" Foreground="#9FA4AD" Margin="0,3,0,0"/>
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                    <Icon:PackIconMaterial Kind="Eye" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                </Button>
+                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                    <Icon:PackIconMaterial Kind="Download" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+
+                                    <!-- Document 3 -->
+                                    <Border BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Margin="0,0,0,10" Padding="10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border Grid.Column="0" Width="40" Height="40" Background="#FFE6E6" CornerRadius="5" Margin="0,0,10,0">
+                                                <TextBlock Text="PDF" FontFamily="Montserrat Bold" FontSize="12" Foreground="#FF4D4D" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                <TextBlock Text="sohokhau" FontFamily="Montserrat SemiBold" FontSize="12"/>
+                                                <TextBlock Text="01/04/2025" FontFamily="Montserrat" FontSize="10" Foreground="#9FA4AD" Margin="0,3,0,0"/>
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                    <Icon:PackIconMaterial Kind="Eye" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                </Button>
+                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                    <Icon:PackIconMaterial Kind="Download" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+
+                                    <!-- Document 4 -->
+                                    <Border BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Margin="0,0,0,10" Padding="10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border Grid.Column="0" Width="40" Height="40" Background="#E6FFE6" CornerRadius="5" Margin="0,0,10,0">
+                                                <TextBlock Text="PNG" FontFamily="Montserrat Bold" FontSize="12" Foreground="#4CAF50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                <TextBlock Text="CMND_Pham Duy Tuan" FontFamily="Montserrat SemiBold" FontSize="12"/>
+                                                <TextBlock Text="27/09/2015" FontFamily="Montserrat" FontSize="10" Foreground="#9FA4AD" Margin="0,3,0,0"/>
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                    <Icon:PackIconMaterial Kind="Eye" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                </Button>
+                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                    <Icon:PackIconMaterial Kind="Download" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

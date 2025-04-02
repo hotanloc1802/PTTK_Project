@@ -16,7 +16,7 @@
             <Grid Grid.Column="0">
                 <!-- Sidebar Menu -->
                 <StackPanel Background="#F1F1F1" HorizontalAlignment="Center" Width="160">
-                    <Image Source="/Assets/img2.jpg" Width="150" Height="76" HorizontalAlignment="Center" />
+                    <Image Source="/Resource/Assets/img2.jpg" Width="150" Height="76" HorizontalAlignment="Center" />
                     <Button Content="Stat board" HorizontalAlignment="Center" Width="100" Margin="5" />
                     <Button Content="Apartment" HorizontalAlignment="Center" Width="100" Background="#0078D4" Margin="5" />
                     <Button Content="Resident" HorizontalAlignment="Center" Width="100" Margin="5" />
