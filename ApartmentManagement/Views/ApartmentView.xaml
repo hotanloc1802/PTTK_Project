@@ -423,7 +423,7 @@ To="#959595" Duration="0:0:0.2" />
             </Grid.ColumnDefinitions>
             <Grid Margin="30,0,0,0">
                 <Border x:Name="boSearch" Background="#EEF0F2" CornerRadius="10" Height="45" HorizontalAlignment="Center" Margin="0,16,0,15" Width="597" >
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" KeyDown="BoxSearch_KeyDown">
                         <Icon:PackIconMaterial Kind="Magnify" Foreground="#9FA4AD" VerticalAlignment="Center" Margin="7,0,0,0" Width="18" Height="18"/>
                         <TextBox x:Name="boxSearch" Background="Transparent" BorderBrush="Transparent" Foreground="#9FA4AD" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" 
                          Width="571" VerticalAlignment="Center" Padding="5,5" TextChanged="BoxSearch_TextChanged" />

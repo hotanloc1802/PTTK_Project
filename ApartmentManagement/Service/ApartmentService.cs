@@ -25,17 +25,21 @@ namespace ApartmentManagement.Service
         {
             return await _apartmentRepository.DeleteApartmentsAsync(id);
         }
-        public async Task<IEnumerable<Apartment>> GetApartmentAsync(string apartmentNumber)
+        public async Task<IEnumerable<Apartment>> GetApartmentsByApartmentNumberAsync(string apartmentNumber)
         {
-            return await _apartmentRepository.GetApartmentAsync(apartmentNumber);
+            return await _apartmentRepository.GetApartmentsByApartmentNumberAsync(apartmentNumber);
         }
-        public async Task<IEnumerable<Apartment>> GetApartmentsAsync()
+        public async Task<IEnumerable<Apartment>> GetAllApartmentsAsync()
         {
-            return await _apartmentRepository.GetApartmentsAsync();
+            return await _apartmentRepository.GetAllApartmentsAsync();
         }
-        public async Task<IEnumerable<Apartment>> GetApartmentsAsync(string status)
+        public async Task<IEnumerable<Apartment>> GetApartmentsByStatusAsync(string status)
         {
-            return await _apartmentRepository.GetApartmentsAsync(status);
+            return await _apartmentRepository.GetApartmentsByStatusAsync(status);
+        }
+        public async Task<Apartment> GetOneApartmentAsync(int id)
+        {
+            return await _apartmentRepository.GetOneApartmentAsync(id);
         }
         public async Task<int> CountApartmentsAsync()
         {

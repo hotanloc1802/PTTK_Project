@@ -276,7 +276,7 @@ namespace ApartmentManagement.ViewModels
         // Method to load apartments asynchronously
         public async Task LoadApartmentsAsync()
         {
-            var apartments = await _apartmentService.GetApartmentsAsync();
+            var apartments = await _apartmentService.GetAllApartmentsAsync();
             AllApartments = new ObservableCollection<Apartment>(apartments);
             await CountApartmentsAsync();
         }
@@ -322,7 +322,7 @@ namespace ApartmentManagement.ViewModels
         }
         public async Task FilterApartmentsAsync(string status)
         {
-            var apartments = await _apartmentService.GetApartmentsAsync(status);
+            var apartments = await _apartmentService.GetApartmentsByStatusAsync(status);
             AllApartments = new ObservableCollection<Apartment>(apartments);
             CurrentPage = 1; // Reset to first page when filtering
             ApartmentCount = AllApartments.Count;
@@ -337,8 +337,8 @@ namespace ApartmentManagement.ViewModels
         public async Task SearchApartmentsAsync(string apartmentNumber)
         {
             var apartments = string.IsNullOrWhiteSpace(apartmentNumber)
-                ? await _apartmentService.GetApartmentsAsync()
-                : await _apartmentService.GetApartmentAsync(apartmentNumber);
+                ? await _apartmentService.GetAllApartmentsAsync()
+                : await _apartmentService.GetApartmentsByApartmentNumberAsync(apartmentNumber);
 
             AllApartments = new ObservableCollection<Apartment>(apartments);
             CurrentPage = 1; // Reset to first page when searching

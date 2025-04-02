@@ -8,6 +8,7 @@ using ApartmentManagement.Service;
 using ApartmentManagement.ViewModels;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Windows.Input;
 
 namespace ApartmentManagement.Views
 {
@@ -140,7 +141,22 @@ namespace ApartmentManagement.Views
             // Invoke search after some delay
             _searchTimer = new Timer(SearchTimerCallback, null, 500, Timeout.Infinite);
         }
-
+        private void BoxSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (DataContext is ApartmentViewModel viewModel &&
+                    boxSearch.Text.Length > 0 &&
+                    boxSearch.Text != "Search" &&
+                    viewModel.Apartments.Count == 1)
+                {
+                    ApartmentInfo apartmentInfo = new ApartmentInfo();
+                    apartmentInfo.DataContext = viewModel.Apartments[0];
+                    apartmentInfo.Show();
+                    this.Close();
+                }
+            }
+        }
         private void SearchTimerCallback(object? state)
         {
             Dispatcher.Invoke(async () =>

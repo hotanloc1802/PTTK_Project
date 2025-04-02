@@ -25,28 +25,29 @@ namespace ApartmentManagement.Repository
         
         public async Task<bool> DeleteApartmentsAsync(int id)
         {
-            var apartment = await GetApartmentAsync(id);
+            var apartment = await GetOneApartmentAsync(id);
             _context.Apartments.Remove(apartment);
             return await _context.SaveChangesAsync() > 0;
         }
         // GetApartmentAsync(int id) method is used to get an apartment by its ID
-        public async Task<Apartment> GetApartmentAsync(int id)
+        public async Task<Apartment> GetOneApartmentAsync(int id)
         {
             return await _context.Apartments.FindAsync(id);
         }
-        public async Task<IEnumerable<Apartment>> GetApartmentsAsync()
+        public async Task<IEnumerable<Apartment>> GetAllApartmentsAsync()
         {
             return await _context.Apartments.Include(b => b.building)
-                                            .ToListAsync();
+                .Include(r => r.owner).ToListAsync();
 
         }
-        public async Task<IEnumerable<Apartment>> GetApartmentAsync(string apartmentNumberSubset)
+
+        public async Task<IEnumerable<Apartment>> GetApartmentsByApartmentNumberAsync(string apartmentNumberSubset)
         {
             return await _context.Apartments
                                  .Where(a => a.apartment_number.Contains(apartmentNumberSubset))
                                  .ToListAsync();
         }
-        public async Task<IEnumerable<Apartment>> GetApartmentsAsync(string status)
+        public async Task<IEnumerable<Apartment>> GetApartmentsByStatusAsync(string status)
         {
             if (string.IsNullOrEmpty(status))
             {

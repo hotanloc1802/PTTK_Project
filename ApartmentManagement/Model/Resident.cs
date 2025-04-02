@@ -11,6 +11,8 @@ namespace ApartmentManagement.Model
         public string name { get; set; }
         public string phone_number { get; set; }
         public string email { get; set; }
+        public string sex { get; set; }
+        public string identification_number { get; set; }
 
         [ForeignKey("apartment")]
         public int apartment_id { get; set; }

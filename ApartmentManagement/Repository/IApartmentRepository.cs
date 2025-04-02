@@ -9,9 +9,10 @@ namespace ApartmentManagement.Repository
 {
     public interface IApartmentRepository
     {
-        Task<IEnumerable<Apartment>> GetApartmentsAsync();
-        Task<IEnumerable<Apartment>> GetApartmentAsync(string apartmentNumberSubset);
-        Task<IEnumerable<Apartment>> GetApartmentsAsync(string status);
+        Task<IEnumerable<Apartment>> GetAllApartmentsAsync();
+        Task<IEnumerable<Apartment>> GetApartmentsByApartmentNumberAsync(string apartmentNumberSubset);
+        Task<IEnumerable<Apartment>> GetApartmentsByStatusAsync(string status);
+        Task<Apartment> GetOneApartmentAsync(int id);
         Task<bool> DeleteApartmentsAsync(int id);
         Task<bool> CreateApartmentsAsync(Apartment apartment);
         Task<int> CountApartmentsAsync();
