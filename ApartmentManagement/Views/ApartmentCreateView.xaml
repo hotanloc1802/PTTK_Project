@@ -536,7 +536,7 @@
                                     <!--Inputs-->
                                     <StackPanel Grid.Column="0" Grid.Row="2" Margin="20 0 15 10">
                                         <TextBlock Text="Apartment Number *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                                        <TextBox x:Name="txtApartmentNumber" Height="40" Padding="10 0" VerticalContentAlignment="Center" 
+                                        <TextBox x:Name="ApartmentNumber" Height="40" Padding="10 0" VerticalContentAlignment="Center" 
                                          BorderThickness="1" BorderBrush="#E1E6EB"
                                          Text="{Binding ApartmentNumber, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
@@ -550,42 +550,42 @@
 
                                     <StackPanel Grid.Column="0" Grid.Row="3" Margin="20 10 15 10">
                                         <TextBlock Text="Maximum Population *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                                        <TextBox x:Name="txtMaxPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                        <TextBox x:Name="MaxPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                          BorderThickness="1" BorderBrush="#E1E6EB"
                                          Text="{Binding MaxPopulation, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Grid.Row="3" Margin="15 10 20 10">
                                         <TextBlock Text="Current Population" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                                        <TextBox x:Name="txtCurrentPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                        <TextBox x:Name="CurrentPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                          BorderThickness="1" BorderBrush="#E1E6EB"
                                          Text="{Binding CurrentPopulation, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="0" Grid.Row="4" Margin="20 10 15 10">
                                         <TextBlock Text="Vacancy Status *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                                        <TextBox x:Name="txtVacancyStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                        <TextBox x:Name="VacancyStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                           BorderThickness="1" BorderBrush="#E1E6EB"
                                           Text="{Binding VacancyStatus, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Grid.Row="4" Margin="15 10 20 10">
                                         <TextBlock Text="Transfer Status" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                                        <TextBox x:Name="txtTransferStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                        <TextBox x:Name="TransferStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                           BorderThickness="1" BorderBrush="#E1E6EB"
                                           Text="{Binding TransferStatus, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="20 10 20 10">
                                         <TextBlock Text="Owner ID (optional)" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                                        <TextBox x:Name="txtOwnerId" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                        <TextBox x:Name="OwnerId" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                           BorderThickness="1" BorderBrush="#E1E6EB"
                                           Text="{Binding OwnerId, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <!--Main Button-->
                                     <Button x:Name="btnSave" Grid.Column="1" Grid.Row="6" Content="Save Apartment" HorizontalAlignment="Right" Margin="0 20 20 0" 
-                                    Background="#0430AD" Foreground="White" Width="180" Height="40" FontWeight="SemiBold">
+                                    Background="#0430AD" Foreground="White" Width="180" Height="40" FontWeight="SemiBold" Command="{Binding AddApartmentCommand}">
                                         <Button.Effect>
                                             <DropShadowEffect Direction="-120" BlurRadius="10" Opacity="0.3" ShadowDepth="5" Color="#0430AD"/>
                                         </Button.Effect>
@@ -594,7 +594,7 @@
                                     <!--Secondary Button-->
                                     <Button x:Name="btnCancel" Grid.Row="6" Content="Cancel" HorizontalAlignment="Left" Margin="20 20 0 0" 
                                     Background="Transparent" Foreground="#979797" Width="150" Height="40" 
-                                    BorderThickness="1" BorderBrush="#CCCCCC"/>
+                                    BorderThickness="1" BorderBrush="#CCCCCC" Click="BtnBack_Click"/>
                                 </Grid>
                             </Border>
                         </Grid>

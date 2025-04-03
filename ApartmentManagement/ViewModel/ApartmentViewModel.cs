@@ -282,18 +282,16 @@ namespace ApartmentManagement.ViewModels
         }
 
         // Method to delete an apartment
-        public async Task DeleteApartmentAsync(int apartmentId)
+        public async Task<bool> DeleteApartmentAsync(int apartmentId)
         {
-            var success = await _apartmentService.DeleteApartmentsAsync(apartmentId);
-            if (success)
+            var result = await _apartmentService.DeleteApartmentsAsync(apartmentId);
+            if (result)
             {
-                // Reload apartments after deleting
-                await LoadApartmentsAsync();
+                // Reload or update the apartment list after deletion
+                await LoadApartmentsAsync(); // Re-load the list of apartments
+                return true;
             }
-            else
-            {
-                MessageBox.Show("Failed to delete the apartment.");
-            }
+            return false;
         }
 
         // Method to create a new apartment (you can implement the logic here)

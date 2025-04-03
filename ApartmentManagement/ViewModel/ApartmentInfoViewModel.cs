@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ApartmentManagement.ViewModel
@@ -31,18 +32,18 @@ namespace ApartmentManagement.ViewModel
         }
 
         // Constructor with Dependency Injection for ApartmentService
-        public ApartmentInfoViewModel(IApartmentService apartmentService)
+        public ApartmentInfoViewModel(IApartmentService apartmentService, Apartment selectedApartment)
         {
             _apartmentService = apartmentService ?? throw new ArgumentNullException(nameof(apartmentService));
-            _selectedApartment = new Apartment();
-            PropertyChanged = null;
+            _selectedApartment = selectedApartment ?? throw new ArgumentNullException(nameof(selectedApartment));
 
-            // Initialize commands
+            // Initialize command for loading apartment info
             LoadApartmentInfoCommand = new RelayCommand(async () => await LoadApartmentInfoAsync(_selectedApartment.apartment_id));
 
-            // Initial load
+            // Initial load if necessary
             _ = LoadApartmentInfoAsync(_selectedApartment.apartment_id);
         }
+
 
         // Command properties
         public ICommand LoadApartmentInfoCommand { get; }

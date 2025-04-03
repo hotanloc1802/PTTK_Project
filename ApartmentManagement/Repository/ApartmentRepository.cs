@@ -32,7 +32,12 @@ namespace ApartmentManagement.Repository
         // GetApartmentAsync(int id) method is used to get an apartment by its ID
         public async Task<Apartment> GetOneApartmentAsync(int id)
         {
-            return await _context.Apartments.FindAsync(id);
+            return await _context.Apartments
+                 .Include(b => b.building) 
+                 .Include(r => r.owner)    
+                 .FirstOrDefaultAsync(a => a.apartment_id == id); 
+
+
         }
         public async Task<IEnumerable<Apartment>> GetAllApartmentsAsync()
         {

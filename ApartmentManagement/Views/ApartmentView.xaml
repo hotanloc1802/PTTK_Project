@@ -544,12 +544,21 @@ To="#959595" Duration="0:0:0.2" />
                 </Grid>
 
                 <!-- Data Grid -->
-                <DataGrid x:Name="ApartmentDataGrid" Grid.Row="5" AutoGenerateColumns="False" 
-                IsReadOnly="True" GridLinesVisibility="None" 
-                BorderThickness="1" BorderBrush="#E1E1E1"
-                Background="White" RowBackground="White" AlternatingRowBackground="#F8F9FA"
-                CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding Apartments}"
-                HeadersVisibility="Column">
+                <DataGrid x:Name="ApartmentDataGrid" 
+          Grid.Row="5" Grid.Column="1" 
+          AutoGenerateColumns="False" 
+          IsReadOnly="True" 
+          GridLinesVisibility="None" 
+          BorderThickness="1" 
+          BorderBrush="#E1E1E1"
+          Background="White" 
+          RowBackground="White" 
+          AlternatingRowBackground="#F8F9FA"
+          CanUserAddRows="False" 
+          CanUserDeleteRows="False" 
+          ItemsSource="{Binding Apartments}"
+          HeadersVisibility="Column"  
+          SelectionChanged="ApartmentDataGrid_SelectionChanged">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="Background" Value="#F8F9FA"/>
@@ -571,8 +580,8 @@ To="#959595" Duration="0:0:0.2" />
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Background="#4CAF50" Foreground="White" Margin="0,0,5,0" Padding="8,3" BorderThickness="0">
-                                            <Icon:PackIconMaterial Kind="PencilOutline" Width="12" Height="12"/>
+                                        <Button Background="#4CAF50" Foreground="White" Margin="0,0,5,0" Padding="8,3" BorderThickness="0" Click="EditButton_Click">
+                                            <Icon:PackIconMaterial Kind="PencilOutline" Width="12" Height="12" />
                                         </Button>
                                         <Button Background="#F44336" Foreground="White" Padding="8,3" BorderThickness="0">
                                             <Icon:PackIconMaterial Kind="DeleteOutline" Width="12" Height="12"/>
@@ -583,7 +592,6 @@ To="#959595" Duration="0:0:0.2" />
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-
                 <!-- Pagination -->
                 <Border Grid.Row="6" HorizontalAlignment="Right" BorderBrush="#E1E1E1" BorderThickness="1" Margin="0,15,0,15" Padding="5" Background="White">
                     <StackPanel Orientation="Horizontal">

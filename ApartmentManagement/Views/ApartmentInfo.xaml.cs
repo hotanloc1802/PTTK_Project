@@ -1,4 +1,5 @@
 ﻿using ApartmentManagement.Data;
+using ApartmentManagement.Model;
 using ApartmentManagement.Repository;
 using ApartmentManagement.Service;
 using ApartmentManagement.ViewModel;
@@ -27,9 +28,11 @@ namespace ApartmentManagement.Views
     public partial class ApartmentInfo : Window
     {
         private readonly ApartmentDbContext _context;
-        public ApartmentInfo()
+        public ApartmentInfo(Apartment selectedApartment)
         {
             InitializeComponent();
+
+            // Initialize DbConnection
             var dbConnection = new DbConnection();
             var optionsBuilder = new DbContextOptionsBuilder<ApartmentDbContext>();
             optionsBuilder.UseNpgsql(dbConnection.ConnectionString);
@@ -39,12 +42,12 @@ namespace ApartmentManagement.Views
             // Create the repository and service
             IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
             IApartmentService apartmentService = new ApartmentService(apartmentRepository);
-
-            // Set the DataContext to the ViewModel
-            ApartmentInfoViewModel viewModel = new ApartmentInfoViewModel(apartmentService);
+            // Create the ViewModel and pass the selectedApartment
+            ApartmentInfoViewModel viewModel = new ApartmentInfoViewModel(apartmentService, selectedApartment);
+            // Set the DataContext of the view to the viewModel
             DataContext = viewModel;
-
         }
+
 
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
@@ -54,6 +57,11 @@ namespace ApartmentManagement.Views
             this.Close();
         }
 
-
+        private void BtnMainWindow_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindowView mainWindow = new MainWindowView();
+            mainWindow.Show();
+            this.Close();
+        }
     }
 }

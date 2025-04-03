@@ -9,6 +9,8 @@ using ApartmentManagement.ViewModels;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Windows.Input;
+using ApartmentManagement.Model;
+using System.Reflection.Metadata;
 
 namespace ApartmentManagement.Views
 {
@@ -146,17 +148,22 @@ namespace ApartmentManagement.Views
             if (e.Key == Key.Enter)
             {
                 if (DataContext is ApartmentViewModel viewModel &&
-                    boxSearch.Text.Length > 0 &&
+                    !string.IsNullOrWhiteSpace(boxSearch.Text) &&
                     boxSearch.Text != "Search" &&
                     viewModel.Apartments.Count == 1)
                 {
-                    ApartmentInfo apartmentInfo = new ApartmentInfo();
-                    apartmentInfo.DataContext = viewModel.Apartments[0];
+                    var selectedApartment = viewModel.Apartments[0];
+
+                    ApartmentInfo apartmentInfo = new ApartmentInfo(selectedApartment);
+
                     apartmentInfo.Show();
+
+                    // Optionally, close the current window (if needed)
                     this.Close();
                 }
             }
         }
+
         private void SearchTimerCallback(object? state)
         {
             Dispatcher.Invoke(async () =>
@@ -276,5 +283,85 @@ namespace ApartmentManagement.Views
                 };
             }
         }
+        private bool _isButtonClick = false;
+
+        private void ApartmentDataGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // Detect if a button was clicked inside the row
+            var hitTestResult = VisualTreeHelper.HitTest(ApartmentDataGrid, e.GetPosition(ApartmentDataGrid));
+            var clickedElement = hitTestResult?.VisualHit as DependencyObject;
+
+            // Check if the clicked element is a button
+            while (clickedElement != null && !(clickedElement is Button))
+            {
+                clickedElement = VisualTreeHelper.GetParent(clickedElement);
+            }
+
+            // If the clicked element is a button, set the flag to allow the click action
+            _isButtonClick = clickedElement is Button;
+
+            // Prevent selection if not a button click
+            if (!_isButtonClick)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void ApartmentDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Only trigger the selection action if it's not a button click
+            if (!_isButtonClick && ApartmentDataGrid.SelectedItem is Apartment selectedApartment)
+            {
+                // Show the ApartmentInfo window for the selected apartment
+                var apartmentInfoWindow = new ApartmentInfo(selectedApartment);
+                apartmentInfoWindow.Show();
+                this.Close();
+            }
+
+            // Reset the button click flag after the selection change
+            _isButtonClick = false;
+        }
+
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle the edit action here
+        }
+
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                // Ensure that the button's DataContext is correctly set to an Apartment
+                if (button.DataContext is Apartment apartmentToDelete)
+                {
+                    // Confirm deletion with the user
+                    var result = MessageBox.Show("Are you sure you want to delete this apartment?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        // Ensure that DataContext is set properly and apartment exists
+                        if (DataContext is ApartmentViewModel viewModel)
+                        {
+                            // Call the ViewModel's delete method
+                            bool isDeleted = await viewModel.DeleteApartmentAsync(apartmentToDelete.apartment_id);
+
+                            if (isDeleted)
+                            {
+                                // If deletion is successful, show success message
+                                MessageBox.Show("Apartment deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
+                            else
+                            {
+                                // Show error if deletion fails
+                                MessageBox.Show("Failed to delete the apartment.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
     }
 }
