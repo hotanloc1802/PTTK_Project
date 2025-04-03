@@ -283,43 +283,66 @@ namespace ApartmentManagement.Views
                 };
             }
         }
-        private bool _isButtonClick = false;
-
-        private void ApartmentDataGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void ApartmentDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Detect if a button was clicked inside the row
-            var hitTestResult = VisualTreeHelper.HitTest(ApartmentDataGrid, e.GetPosition(ApartmentDataGrid));
-            var clickedElement = hitTestResult?.VisualHit as DependencyObject;
-
-            // Check if the clicked element is a button
-            while (clickedElement != null && !(clickedElement is Button))
+            // Check if a mouse button is currently pressed
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
-                clickedElement = VisualTreeHelper.GetParent(clickedElement);
+                // Find the element under the mouse cursor
+                var hitTestResult = Mouse.DirectlyOver as DependencyObject;
+
+                // Traverse up the visual tree to check if the clicked element is a button
+                while (hitTestResult != null)
+                {
+                    // If the element is a button, do nothing
+                    if (hitTestResult is Button)
+                    {
+                        return;
+                    }
+
+                    // If we find the DataGridRow, it means we clicked on the row but not a button
+                    if (hitTestResult is DataGridRow)
+                    {
+                        break;
+                    }
+
+                    // Move up the visual tree
+                    hitTestResult = VisualTreeHelper.GetParent(hitTestResult);
+                }
             }
 
-            // If the clicked element is a button, set the flag to allow the click action
-            _isButtonClick = clickedElement is Button;
-
-            // Prevent selection if not a button click
-            if (!_isButtonClick)
+            // If not a button click, proceed with opening ApartmentInfo
+            if (ApartmentDataGrid.SelectedItem is Apartment selectedApartment)
             {
-                e.Handled = true;
+                ApartmentInfo apartmentInfo = new ApartmentInfo(selectedApartment);
+                apartmentInfo.Show();
+                this.Close();
             }
         }
 
-        private void ApartmentDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            // Only trigger the selection action if it's not a button click
-            if (!_isButtonClick && ApartmentDataGrid.SelectedItem is Apartment selectedApartment)
+            if (sender is Button button && button.DataContext is Apartment apartmentToDelete)
             {
-                // Show the ApartmentInfo window for the selected apartment
-                var apartmentInfoWindow = new ApartmentInfo(selectedApartment);
-                apartmentInfoWindow.Show();
-                this.Close();
-            }
+                var result = MessageBox.Show("Are you sure you want to delete this apartment?",
+                    "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-            // Reset the button click flag after the selection change
-            _isButtonClick = false;
+                if (result == MessageBoxResult.Yes && DataContext is ApartmentViewModel viewModel)
+                {
+                    // Implement your delete logic here
+                    bool isDeleted = await viewModel.DeleteApartmentAsync(apartmentToDelete.apartment_id);
+                    if (isDeleted)
+                    {
+                        // If deletion is successful, show success message
+                        MessageBox.Show("Apartment deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        // Show error if deletion fails
+                        MessageBox.Show("Failed to delete the apartment.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
         }
 
 
@@ -327,41 +350,6 @@ namespace ApartmentManagement.Views
         {
             // Handle the edit action here
         }
-
-        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button button)
-            {
-                // Ensure that the button's DataContext is correctly set to an Apartment
-                if (button.DataContext is Apartment apartmentToDelete)
-                {
-                    // Confirm deletion with the user
-                    var result = MessageBox.Show("Are you sure you want to delete this apartment?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        // Ensure that DataContext is set properly and apartment exists
-                        if (DataContext is ApartmentViewModel viewModel)
-                        {
-                            // Call the ViewModel's delete method
-                            bool isDeleted = await viewModel.DeleteApartmentAsync(apartmentToDelete.apartment_id);
-
-                            if (isDeleted)
-                            {
-                                // If deletion is successful, show success message
-                                MessageBox.Show("Apartment deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                            }
-                            else
-                            {
-                                // Show error if deletion fails
-                                MessageBox.Show("Failed to delete the apartment.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
 
     }
 }

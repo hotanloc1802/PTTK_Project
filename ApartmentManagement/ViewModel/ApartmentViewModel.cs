@@ -318,9 +318,12 @@ namespace ApartmentManagement.ViewModels
             var count = await _apartmentService.CountApartmentsAsync();
             ApartmentCount = count;
         }
+
+        private string _lastFilterStatus;
         public async Task FilterApartmentsAsync(string status)
         {
             var apartments = await _apartmentService.GetApartmentsByStatusAsync(status);
+            _lastFilterStatus = status; // Store the last filter status
             AllApartments = new ObservableCollection<Apartment>(apartments);
             CurrentPage = 1; // Reset to first page when filtering
             ApartmentCount = AllApartments.Count;
@@ -328,10 +331,32 @@ namespace ApartmentManagement.ViewModels
         }
         public async Task SortApartmentsAsync(string sortType)
         {
-            var apartments = await _apartmentService.SortApartmentsAsync(sortType);
-            AllApartments = new ObservableCollection<Apartment>(apartments);
-            // No need to reset page when sorting
+            // Check the current state (filtered or not)
+            IEnumerable<Apartment> apartments;
+
+            // If the current filtered list is not empty, sort the filtered list
+            if (AllApartments.Any())
+            {
+                apartments = await _apartmentService.SortApartmentsAsync(sortType);
+
+                // If the current list was filtered, re-apply the filter after sorting
+                if (_lastFilterStatus != null)
+                {
+                    apartments = apartments.Where(a => a.vacancy_status == _lastFilterStatus);
+                }
+
+                AllApartments = new ObservableCollection<Apartment>(apartments);
+            }
+            else
+            {
+                // If no filtered list, sort the full list
+                apartments = await _apartmentService.SortApartmentsAsync(sortType);
+                AllApartments = new ObservableCollection<Apartment>(apartments);
+            }
+
+            UpdatePagination();
         }
+
         public async Task SearchApartmentsAsync(string apartmentNumber)
         {
             var apartments = string.IsNullOrWhiteSpace(apartmentNumber)
