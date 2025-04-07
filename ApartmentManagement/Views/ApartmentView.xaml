@@ -129,7 +129,7 @@
         </Grid>
         <Border Background="#0430AD" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
         <Border CornerRadius="20 0 0 20" Background="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
-        <Border Background="#F5F9FA" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+        <Border Background="#F5F9FA" Grid.Column="2" Grid.RowSpan="3" Height="686" VerticalAlignment="Top"/>
         <Grid Grid.Column="1" Grid.Row="0" Margin="10,0,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
@@ -536,7 +536,8 @@ To="#959595" Duration="0:0:0.2" />
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="Sort by:" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                        <ComboBox x:Name="SortComboBox" Style="{StaticResource CustomComboBoxStyle}" Width="180" SelectionChanged="SortComboBox_SelectionChanged" SelectedIndex="0">
+                        <ComboBox x:Name="sortComboBox" Style="{StaticResource CustomComboBoxStyle}" Width="180" SelectionChanged="SortComboBox_SelectionChanged" SelectedIndex="0">
+                            <ComboBoxItem Content="(None)" IsSelected="True"/>
                             <ComboBoxItem Content="Apartment Number"/>
                             <ComboBoxItem Content="ID"/>
                         </ComboBox>

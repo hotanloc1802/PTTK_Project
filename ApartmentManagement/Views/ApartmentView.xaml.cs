@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Windows.Input;
 using ApartmentManagement.Model;
 using System.Reflection.Metadata;
+using ApartmentManagement.ViewModel;
 
 namespace ApartmentManagement.Views
 {
@@ -125,14 +126,19 @@ namespace ApartmentManagement.Views
         {
             // Ensure DataContext is properly set
             if (DataContext is ApartmentViewModel viewModel)
-            {
-                if (SortComboBox.SelectedItem is ComboBoxItem selectedItem)
+                if (sortComboBox.SelectedItem is ComboBoxItem selectedItem)
                 {
                     var sortType = selectedItem.Content?.ToString() ?? string.Empty;
+                    // Hide the "(None)" option if another option is selected
+                    if (sortType != "(None)" && sortComboBox.Items.Count > 0)
+                        for (int i = 0; i < sortComboBox.Items.Count; i++)
+                            if (sortComboBox.Items[i] is ComboBoxItem item && item.Content?.ToString() == "(None)")
+                            {
+                                sortComboBox.Items.RemoveAt(i);
+                                break;
+                            }
                     await viewModel.SortApartmentsAsync(sortType);
                 }
-            }
-            
         }
 
 
@@ -268,21 +274,6 @@ namespace ApartmentManagement.Views
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is ApartmentViewModel viewModel)
-            {
-                // Initial update of pagination buttons
-                viewModel.PropertyChanged += (s, args) =>
-                {
-                    if (args.PropertyName == nameof(ApartmentViewModel.CurrentPage) ||
-                        args.PropertyName == nameof(ApartmentViewModel.TotalPages))
-                    {
-                        UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
-                    }
-                };
-            }
-        }
         private void ApartmentDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Check if a mouse button is currently pressed
@@ -348,8 +339,30 @@ namespace ApartmentManagement.Views
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            // Handle the edit action here
+            if (DataContext is ApartmentViewModel viewModel)
+            {
+                var selectedApartment = viewModel.Apartments[0];
+                ApartmentEdit apartmentEdit = new ApartmentEdit(selectedApartment);
+                apartmentEdit.Show();
+                this.Close();
+            }
         }
 
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is ApartmentViewModel viewModel)
+            {
+                // Initial update of pagination buttons
+                viewModel.PropertyChanged += (s, args) =>
+                {
+                    if (args.PropertyName == nameof(ApartmentViewModel.CurrentPage) ||
+                        args.PropertyName == nameof(ApartmentViewModel.TotalPages))
+                    {
+                        UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
+                    }
+                };
+            }
+        }
     }
 }

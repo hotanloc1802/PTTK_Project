@@ -23,16 +23,15 @@ using System.Windows.Shapes;
 namespace ApartmentManagement.Views
 {
     /// <summary>
-    /// Interaction logic for ApartmentInfo.xaml
+    /// Interaction logic for ApartmentEdit.xaml
     /// </summary>
-    public partial class ApartmentInfo : Window
+    public partial class ApartmentEdit : Window
     {
         private readonly ApartmentDbContext _context;
-        public ApartmentInfo(Apartment selectedApartment)
+        public ApartmentEdit(Apartment selectedApartment)
         {
             InitializeComponent();
-
-            // Initialize DbConnection
+            // Initialize DbContext and Service
             var dbConnection = new DbConnection();
             var optionsBuilder = new DbContextOptionsBuilder<ApartmentDbContext>();
             optionsBuilder.UseNpgsql(dbConnection.ConnectionString);
@@ -43,24 +42,25 @@ namespace ApartmentManagement.Views
             IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
             IApartmentService apartmentService = new ApartmentService(apartmentRepository);
 
-            // Create the ViewModel and pass the selectedApartment
-            ApartmentInfoViewModel viewModel = new ApartmentInfoViewModel(apartmentService, selectedApartment);
-            // Set the DataContext of the view to the viewModel
+            // Set the DataContext to the ViewModel
+            ApartmentEditViewModel viewModel = new ApartmentEditViewModel(apartmentService, selectedApartment);
             DataContext = viewModel;
         }
 
-
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            // Return to ApartmentView.xaml
-            ApartmentView apartmentView = new ApartmentView();
-            apartmentView.Show();
+            ApartmentView apartmentWindow = new ApartmentView();
+            apartmentWindow.Show();
             this.Close();
         }
 
-        private void BtnMainWindow_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            MainWindowView mainWindow = new MainWindowView();
+            // Show confirmation message
+            MessageBox.Show("Apartment updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            // Navigate back to apartment list
+            ApartmentView mainWindow = new ApartmentView();
             mainWindow.Show();
             this.Close();
         }

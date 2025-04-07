@@ -489,6 +489,7 @@ To="#959595" Duration="0:0:0.2" />
                         <TextBlock Text="Apartment" FontFamily="Montserrat" FontSize="14" Foreground="#9FA4AD"/>
                         <TextBlock Text=" / " FontFamily="Montserrat" FontSize="14" Foreground="#9FA4AD"/>
                         <TextBlock Text="{Binding apartment_number}" FontFamily="Montserrat" FontSize="14" Foreground="#0430AD"/>
+                        <TextBlock Text=" A101 " FontFamily="Montserrat" FontSize="14" Foreground="#0430AD"/>
                     </StackPanel>
 
                     <!--Close-->
@@ -544,7 +545,7 @@ To="#959595" Duration="0:0:0.2" />
                         </Grid.ColumnDefinitions>
 
                         <!-- Resident Banner -->
-                        <Border Grid.Row="0" Grid.ColumnSpan="2" Background="#3B62FF" CornerRadius="10" Margin="0,0,0,20" Height="120">
+                        <Border Grid.Row="0" Grid.ColumnSpan="2" Background="#0430AD" CornerRadius="10" Margin="0,0,0,20" Height="120">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="3*"/>

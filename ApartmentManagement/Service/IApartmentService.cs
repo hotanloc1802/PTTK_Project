@@ -14,6 +14,7 @@ namespace ApartmentManagement.Service
         Task<Apartment> GetOneApartmentAsync(int id);
         Task<bool> DeleteApartmentsAsync(int id);
         Task<bool> CreateApartmentsAsync(Apartment apartment);
+        Task<bool> UpdateApartmentsAsync(Apartment apartment);
         Task<int> CountApartmentsAsync();
         Task<IEnumerable<Apartment>> SortApartmentsAsync(string sortType);
         Task<Building> GetBuildingByNameAsync(string buildingName);

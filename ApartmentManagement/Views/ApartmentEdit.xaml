@@ -1,4 +1,4 @@
-﻿<Window x:Class="ApartmentManagement.Views.ApartmentCreateView"
+﻿<Window x:Class="ApartmentManagement.Views.ApartmentEdit"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -140,7 +140,7 @@
         <Grid Grid.Column="1" Grid.Row="2">
             <StackPanel Margin="0,30,0,0" >
                 <Border CornerRadius="10" Padding="5,5,5,5" Margin="0,0,0,0" Width="142"  >
-                    <Button x:Name="btnDashboard"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnDashBoard_Click" >
+                    <Button x:Name="btnDashboard"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
                         <Button.Triggers>
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">
@@ -382,7 +382,7 @@
                 <Border x:Name="boSearch" Background="#EEF0F2" CornerRadius="10" Height="45" HorizontalAlignment="Center" Margin="0,16,0,15" Width="597" >
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Icon:PackIconMaterial Kind="Magnify" Foreground="#9FA4AD" VerticalAlignment="Center" Margin="7,0,0,0" Width="18" Height="18"/>
-                        <TextBox x:Name="boxSearch" Background="Transparent" BorderBrush="Transparent" Foreground="#9FA4AD" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" 
+                        <TextBox x:Name="boxSearch" Background="Transparent" BorderBrush="Transparent" Foreground="#9FA4AD"
                          Width="571" VerticalAlignment="Center" Padding="5,5" />
                     </StackPanel>
                 </Border>
@@ -529,7 +529,7 @@
                                             <Icon:PackIconMaterial Kind="HomeCity" Width="25" Height="25" Foreground="#0430AD" Margin="7"/>
                                         </Border>
 
-                                        <TextBlock Text="New Apartment" Foreground="#374655" FontSize="18" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Edit Apartment" Foreground="#374655" FontSize="18" Margin="15 0 0 0" VerticalAlignment="Center"/>
                                     </StackPanel>
 
                                     <Separator Grid.Row="1" Grid.ColumnSpan="2" Height="0.7" Margin="-20 20 -20 20" Background="#E1E6EB"/>
@@ -537,56 +537,58 @@
                                     <!--Inputs-->
                                     <StackPanel Grid.Column="0" Grid.Row="2" Margin="20 0 15 10">
                                         <TextBlock Text="Apartment Number *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                                        <TextBox x:Name="ApartmentNumber" Height="40" Padding="10 0" VerticalContentAlignment="Center" 
+                                        <TextBox IsReadOnly="True" x:Name="ApartmentNumber" Height="40" Padding="10 0" VerticalContentAlignment="Center" 
                                          BorderThickness="1" BorderBrush="#E1E6EB"
-                                         Text="{Binding ApartmentNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                                         Text="{Binding SelectedApartment.apartment_number, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Grid.Row="2" Margin="15 0 20 10">
                                         <TextBlock Text="Building ID *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                                        <TextBox x:Name="txtBuildingId" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                        <TextBox IsReadOnly="True" x:Name="txtBuildingId" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                           BorderThickness="1" BorderBrush="#E1E6EB"
-                                          Text="{Binding BuildingId, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding SelectedApartment.building_id, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="0" Grid.Row="3" Margin="20 10 15 10">
                                         <TextBlock Text="Maximum Population *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
                                         <TextBox x:Name="MaxPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                          BorderThickness="1" BorderBrush="#E1E6EB"
-                                         Text="{Binding MaxPopulation, UpdateSourceTrigger=PropertyChanged}"/>
+                                         Text="{Binding SelectedApartment.max_population, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Grid.Row="3" Margin="15 10 20 10">
                                         <TextBlock Text="Current Population" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
                                         <TextBox x:Name="CurrentPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                          BorderThickness="1" BorderBrush="#E1E6EB"
-                                         Text="{Binding CurrentPopulation, UpdateSourceTrigger=PropertyChanged}"/>
+                                         Text="{Binding SelectedApartment.current_population, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="0" Grid.Row="4" Margin="20 10 15 10">
                                         <TextBlock Text="Vacancy Status *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
                                         <TextBox x:Name="VacancyStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                           BorderThickness="1" BorderBrush="#E1E6EB"
-                                          Text="{Binding VacancyStatus, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding SelectedApartment.vacancy_status, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Grid.Row="4" Margin="15 10 20 10">
                                         <TextBlock Text="Transfer Status" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
                                         <TextBox x:Name="TransferStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                           BorderThickness="1" BorderBrush="#E1E6EB"
-                                          Text="{Binding TransferStatus, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding SelectedApartment.transfer_status, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="20 10 20 10">
-                                        <TextBlock Text="Owner ID (optional)" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                                        <TextBlock Text="Owner ID" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
                                         <TextBox x:Name="OwnerId" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                           BorderThickness="1" BorderBrush="#E1E6EB"
-                                          Text="{Binding OwnerId, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding SelectedApartment.owner_id, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <!--Main Button-->
-                                    <Button x:Name="btnSave" Grid.Column="1" Grid.Row="6" Content="Save Apartment" HorizontalAlignment="Right" Margin="0 20 20 0" 
-                                    Background="#0430AD" Foreground="White" Width="180" Height="40" FontWeight="SemiBold" Command="{Binding AddApartmentCommand}">
+                                    <Button x:Name="btnSave" Grid.Column="1" Grid.Row="6" Content="Save Apartment" 
+                                        HorizontalAlignment="Right" Margin="0 20 20 0" 
+                                        Background="#0430AD" Foreground="White" Width="180" Height="40" FontWeight="SemiBold" 
+                                        Command="{Binding EditApartmentCommand}" Click="BtnSave_Click">
                                         <Button.Effect>
                                             <DropShadowEffect Direction="-120" BlurRadius="10" Opacity="0.3" ShadowDepth="5" Color="#0430AD"/>
                                         </Button.Effect>
@@ -595,7 +597,7 @@
                                     <!--Secondary Button-->
                                     <Button x:Name="btnCancel" Grid.Row="6" Content="Cancel" HorizontalAlignment="Left" Margin="20 20 0 0" 
                                     Background="Transparent" Foreground="#979797" Width="150" Height="40" 
-                                    BorderThickness="1" BorderBrush="#CCCCCC" Click="BtnBack_Click"/>
+                                    BorderThickness="1" BorderBrush="#CCCCCC" Click="BtnCancel_Click"/>
                                 </Grid>
                             </Border>
                         </Grid>

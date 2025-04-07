@@ -25,6 +25,11 @@ namespace ApartmentManagement.Service
         {
             return await _apartmentRepository.DeleteApartmentsAsync(id);
         }
+        public async Task<bool> UpdateApartmentsAsync(Apartment apartment)
+        {
+            return await _apartmentRepository.UpdateApartmentsAsync(apartment);
+
+        }
         public async Task<IEnumerable<Apartment>> GetApartmentsByApartmentNumberAsync(string apartmentNumber)
         {
             return await _apartmentRepository.GetApartmentsByApartmentNumberAsync(apartmentNumber);

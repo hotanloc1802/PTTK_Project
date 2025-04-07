@@ -29,21 +29,39 @@ namespace ApartmentManagement.Repository
             _context.Apartments.Remove(apartment);
             return await _context.SaveChangesAsync() > 0;
         }
+
+        // Update apartment elements
+        public async Task<bool> UpdateApartmentsAsync(Apartment apartment)
+        {
+            var existingApartment = await GetOneApartmentAsync(apartment.apartment_id);
+            if (existingApartment == null)
+            {
+                return false;
+            }
+            existingApartment.apartment_number = apartment.apartment_number;
+            existingApartment.building_id = apartment.building_id;
+            existingApartment.owner_id = apartment.owner_id;
+            existingApartment.max_population = apartment.max_population;
+            existingApartment.current_population = apartment.current_population;
+            existingApartment.transfer_status = apartment.transfer_status;
+            existingApartment.vacancy_status = apartment.vacancy_status;
+            existingApartment.updated_at = DateTime.UtcNow; // Update the timestamp
+            return await _context.SaveChangesAsync() > 0;
+        }
         // GetApartmentAsync(int id) method is used to get an apartment by its ID
         public async Task<Apartment> GetOneApartmentAsync(int id)
         {
             return await _context.Apartments
                  .Include(b => b.building) 
                  .Include(r => r.owner)    
-                 .FirstOrDefaultAsync(a => a.apartment_id == id); 
-
-
+                 .FirstOrDefaultAsync(a => a.apartment_id == id);
         }
         public async Task<IEnumerable<Apartment>> GetAllApartmentsAsync()
         {
-            return await _context.Apartments.Include(b => b.building)
-                .Include(r => r.owner).ToListAsync();
-
+            return await _context.Apartments
+                .Include(b => b.building)
+                .Include(r => r.owner)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Apartment>> GetApartmentsByApartmentNumberAsync(string apartmentNumberSubset)
