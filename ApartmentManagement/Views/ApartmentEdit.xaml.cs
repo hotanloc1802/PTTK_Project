@@ -2,66 +2,62 @@
 using ApartmentManagement.Model;
 using ApartmentManagement.Repository;
 using ApartmentManagement.Service;
-using ApartmentManagement.ViewModel;
 using ApartmentManagement.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
+using ApartmentManagement.ViewModel;
 
 namespace ApartmentManagement.Views
 {
-    /// <summary>
-    /// Interaction logic for ApartmentEdit.xaml
-    /// </summary>
     public partial class ApartmentEdit : Window
     {
-        private readonly ApartmentDbContext _context;
-        public ApartmentEdit(Apartment selectedApartment)
+        private readonly IApartmentService _apartmentService;
+        private readonly ApartmentViewModel _apartmentViewModel;
+
+        public ApartmentEdit(Apartment selectedApartment, ApartmentViewModel apartmentViewModel)
         {
             InitializeComponent();
-            // Initialize DbContext and Service
+
+            // Initialize DbContext and Service for the apartment editing operation
             var dbConnection = new DbConnection();
             var optionsBuilder = new DbContextOptionsBuilder<ApartmentDbContext>();
             optionsBuilder.UseNpgsql(dbConnection.ConnectionString);
 
             var apartmentDbContext = new ApartmentDbContext(dbConnection, optionsBuilder.Options);
 
-            // Create the repository and service
+            // Create the repository and service, which will be injected into the view model
             IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
-            IApartmentService apartmentService = new ApartmentService(apartmentRepository);
+            _apartmentService = new ApartmentService(apartmentRepository);
 
             // Set the DataContext to the ViewModel
-            ApartmentEditViewModel viewModel = new ApartmentEditViewModel(apartmentService, selectedApartment);
+            _apartmentViewModel = apartmentViewModel;
+            var viewModel = new ApartmentEditViewModel(_apartmentService, selectedApartment);
             DataContext = viewModel;
         }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        // Cancel button click handler - Returns to the ApartmentView without making changes
+        private async void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            ApartmentView apartmentWindow = new ApartmentView();
+            // Reload apartments in the ApartmentView before closing
+            await _apartmentViewModel.LoadApartmentsAsync();
+            var apartmentWindow = new ApartmentView();
             apartmentWindow.Show();
             this.Close();
         }
 
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        // Save button click handler - Saves the apartment changes and reloads the list
+        private async void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            // Show confirmation message
+            // Save the changes (your view model handles the update)
             MessageBox.Show("Apartment updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            // Navigate back to apartment list
-            ApartmentView mainWindow = new ApartmentView();
-            mainWindow.Show();
+            // Reload apartments in the ApartmentView after saving
+            await _apartmentViewModel.LoadApartmentsAsync();
+
+            // Navigate back to the apartment list and close the current window
+            var apartmentWindow = new ApartmentView();
+            apartmentWindow.Show();
             this.Close();
         }
     }

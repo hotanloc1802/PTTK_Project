@@ -40,8 +40,8 @@ namespace ApartmentManagement.Views
             IApartmentService apartmentService = new ApartmentService(apartmentRepository);
 
             // Set the DataContext to the ViewModel
-            ApartmentViewModel viewModel = new ApartmentViewModel(apartmentService);
-            DataContext = viewModel;
+            ApartmentViewModel apartmentviewModel = new ApartmentViewModel(apartmentService);
+            DataContext = apartmentviewModel;
         }
         private void BtnDashBoard_Click(object sender, RoutedEventArgs e)
         {

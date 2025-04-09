@@ -18,7 +18,7 @@ namespace ApartmentManagement.Views
     public partial class ApartmentView : Window
     {
         private readonly ApartmentDbContext _context;
-
+        private readonly ApartmentViewModel apartmentviewModel;
         public ApartmentView()
         {
             InitializeComponent();
@@ -35,8 +35,9 @@ namespace ApartmentManagement.Views
             IApartmentService apartmentService = new ApartmentService(apartmentRepository);
 
             // Set the DataContext to the ViewModel
-            ApartmentViewModel viewModel = new ApartmentViewModel(apartmentService);
-            DataContext = viewModel;
+            ApartmentViewModel apartmentviewModel = new ApartmentViewModel(apartmentService);
+            DataContext = apartmentviewModel;
+
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -342,7 +343,7 @@ namespace ApartmentManagement.Views
             if (DataContext is ApartmentViewModel viewModel)
             {
                 var selectedApartment = viewModel.Apartments[0];
-                ApartmentEdit apartmentEdit = new ApartmentEdit(selectedApartment);
+                ApartmentEdit apartmentEdit = new ApartmentEdit(selectedApartment,viewModel);
                 apartmentEdit.Show();
                 this.Close();
             }
