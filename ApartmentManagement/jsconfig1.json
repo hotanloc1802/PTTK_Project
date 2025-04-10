@@ -1,6 +1,6 @@
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Port=5432;Database=uit;Username=postgres;Password=123123zzA.;SearchPath=pttk"
+    "DefaultConnection": "Host=localhost;Port=5432;Database=uit;Username=postgres;Password=123123zzA.;SearchPath=PTTK"
   },
   "AppSettings": {
     "ApplicationName": "Apartment Management System",

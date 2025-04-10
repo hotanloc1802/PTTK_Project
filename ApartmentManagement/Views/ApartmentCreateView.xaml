@@ -543,10 +543,10 @@
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Grid.Row="2" Margin="15 0 20 10">
-                                        <TextBlock Text="Building ID *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                                        <TextBox x:Name="txtBuildingId" Height="40" Padding="10 0" VerticalContentAlignment="Center"
+                                        <TextBlock Text="Building Name *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                                        <TextBox x:Name="BuildingName" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                           BorderThickness="1" BorderBrush="#E1E6EB"
-                                          Text="{Binding BuildingId, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding BuildingName, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="0" Grid.Row="3" Margin="20 10 15 10">
