@@ -63,5 +63,15 @@ namespace ApartmentManagement.Service
         {
             return await _apartmentRepository.GetApartmentsByBuildingAsync(buildingId);
         }
+        public async Task<IEnumerable<Apartment>> GetApartmentsByBuildingNameAsync(string buildingName)
+        {
+            // Query the database to find the building by name
+            var building = await _apartmentRepository.GetBuildingByNameAsync(buildingName);
+            if (building != null)
+            {
+                return await _apartmentRepository.GetApartmentsByBuildingAsync(building.building_id);
+            }
+            return Enumerable.Empty<Apartment>();
+        }
     }
 }

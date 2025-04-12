@@ -44,14 +44,26 @@
         </Grid>
         <Grid Grid.Column="0" Grid.Row="1" Background="#f1f1f1" Margin="10,0,0,0" >
         </Grid>
-        <Grid Grid.Column="0" Grid.Row="2" Margin="0,20,0,20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+        <ListBox Grid.Column="0" Grid.Row="2" Margin="0,20,0,20"
+         BorderThickness="0" Background="Transparent"
+         SelectedIndex="0" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+         SelectionChanged="OnBuildingSelectionChanged"       >
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+            <!-- Item 1 -->
             <Grid Grid.Row="0" Margin="0,0,0,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2.5*" />
@@ -63,12 +75,15 @@
                         <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0">
-                </Grid>
+                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" />
                 <Grid Grid.Row="1">
-                    <TextBlock x:Name="BconsMienDong" Text="Miền Đông" FontFamily="Montserrat Bold" FontSize="13" Foreground="White" VerticalAlignment="Center" Height="18" HorizontalAlignment="Center"/>
+                    <TextBlock Name="BconsMienDong"  Text="PTTK" FontFamily="Montserrat Bold"
+                       FontSize="13" Foreground="White" VerticalAlignment="Center"
+                       Height="18" HorizontalAlignment="Center"/>
                 </Grid>
             </Grid>
+
+            <!-- Item 2 -->
             <Grid Grid.Row="1" Margin="0,0,0,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2.5*" />
@@ -80,12 +95,15 @@
                         <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0">
-                </Grid>
+                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" />
                 <Grid Grid.Row="1">
-                    <TextBlock x:Name="BconsPlaza" Text="Plaza" FontFamily="Montserrat Bold" FontSize="13" Foreground="White" VerticalAlignment="Center" Height="18" HorizontalAlignment="Center"/>
+                    <TextBlock  Name="BconsPlaza" Text="Plaza" FontFamily="Montserrat Bold"
+                       FontSize="13" Foreground="White" VerticalAlignment="Center"
+                       Height="18" HorizontalAlignment="Center"/>
                 </Grid>
             </Grid>
+
+            <!-- Item 3 -->
             <Grid Grid.Row="2" Margin="0,0,0,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2.5*" />
@@ -97,12 +115,15 @@
                         <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0">
-                </Grid>
+                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" />
                 <Grid Grid.Row="1">
-                    <TextBlock x:Name="BconsSala" Text="Sala" FontFamily="Montserrat Bold" FontSize="13" Foreground="White" VerticalAlignment="Center" Height="18" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Sala" FontFamily="Montserrat Bold"
+                       FontSize="13" Foreground="White" VerticalAlignment="Center"
+                       Height="18" HorizontalAlignment="Center"/>
                 </Grid>
             </Grid>
+
+            <!-- Item 4 -->
             <Grid Grid.Row="3" Margin="0,0,0,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2.5*" />
@@ -114,19 +135,24 @@
                         <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0">
-                </Grid>
+                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" />
                 <Grid Grid.Row="1">
-                    <TextBlock x:Name="BconsGreenView" Text="Green View" FontFamily="Montserrat Bold" FontSize="13" Foreground="White" VerticalAlignment="Center" Height="18" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Green View" FontFamily="Montserrat Bold"
+                       FontSize="13" Foreground="White" VerticalAlignment="Center"
+                       Height="18" HorizontalAlignment="Center"/>
                 </Grid>
             </Grid>
+
+            <!-- Item 5 (Dấu +) -->
             <Grid Grid.Row="4" Margin="0,0,0,40">
                 <Ellipse Width="50" Height="50"
-                         Stroke="White" StrokeThickness="1"
-                         StrokeDashArray="10,2" Fill="Transparent"/>
-                <iconPacks:PackIconMaterial Kind="Plus" Width="17" Height="17"  Foreground="#ebedf3" Margin="41,28,0,0"/>
+                 Stroke="White" StrokeThickness="1"
+                 StrokeDashArray="10,2" Fill="Transparent"/>
+                <iconPacks:PackIconMaterial Kind="Plus" Width="17" Height="17"
+                                    Foreground="#ebedf3" Margin="41,28,0,0"/>
             </Grid>
-        </Grid>
+
+        </ListBox>
         <Border Background="#0430AD" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
         <Border CornerRadius="20 0 0 20" Background="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
         <Border Background="#F5F9FA" Grid.Column="2" Grid.RowSpan="3" Height="686" VerticalAlignment="Top"/>

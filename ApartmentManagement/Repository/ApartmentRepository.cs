@@ -18,6 +18,7 @@ namespace ApartmentManagement.Repository
         public ApartmentRepository(ApartmentDbContext context)
         {
             _context = context;
+           // MessageBox.Show(ApartmentDbContext.Co, "Connection String", MessageBoxButton.OK, MessageBoxImage.Information); // Show connection string for debugging purposes
         }
 
         public async Task<bool> CreateApartmentsAsync(Apartment apartment)

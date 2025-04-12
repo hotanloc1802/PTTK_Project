@@ -1,4 +1,5 @@
-﻿using ApartmentManagement.Data;
+﻿using ApartmentManagement.Core.Singleton;
+using ApartmentManagement.Data;
 using ApartmentManagement.Model;
 using ApartmentManagement.Repository;
 using ApartmentManagement.Service;
@@ -30,6 +31,7 @@ namespace ApartmentManagement.Views
         private readonly ApartmentDbContext _context;
         public ApartmentInfo(Apartment selectedApartment)
         {
+            
             InitializeComponent();
 
             // Initialize DbConnection
@@ -37,7 +39,8 @@ namespace ApartmentManagement.Views
             var optionsBuilder = new DbContextOptionsBuilder<ApartmentDbContext>();
             optionsBuilder.UseNpgsql(dbConnection.ConnectionString);
 
-            var apartmentDbContext = new ApartmentDbContext(dbConnection, optionsBuilder.Options);
+            var builidngmanager = BuildingManager.Instance.CurrentBuildingSchema; // Get the current building schema
+            var apartmentDbContext = new ApartmentDbContext(dbConnection, optionsBuilder.Options, builidngmanager);
 
             // Create the repository and service
             IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
@@ -47,6 +50,7 @@ namespace ApartmentManagement.Views
             ApartmentInfoViewModel viewModel = new ApartmentInfoViewModel(apartmentService, selectedApartment);
             // Set the DataContext of the view to the viewModel
             DataContext = viewModel;
+            
         }
 
 

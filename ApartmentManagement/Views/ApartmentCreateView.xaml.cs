@@ -1,4 +1,6 @@
-﻿using ApartmentManagement.Data;
+﻿using ApartmentManagement.Core.Singleton;
+using ApartmentManagement.Data;
+using ApartmentManagement.Model;
 using ApartmentManagement.Repository;
 using ApartmentManagement.Service;
 using ApartmentManagement.ViewModels;
@@ -22,18 +24,22 @@ namespace ApartmentManagement.Views
     /// <summary>
     /// Interaction logic for ApartmentCreateView.xaml
     /// </summary>
+    /// 
+
     public partial class ApartmentCreateView : Window
     {
         public ApartmentCreateView()
         {
+            
             InitializeComponent();
 
             // Initialize DbContext and Service
             var dbConnection = new DbConnection();
             var optionsBuilder = new DbContextOptionsBuilder<ApartmentDbContext>();
             optionsBuilder.UseNpgsql(dbConnection.ConnectionString);
-
-            var apartmentDbContext = new ApartmentDbContext(dbConnection, optionsBuilder.Options);
+            var builidngmanager = BuildingManager.Instance.CurrentBuildingSchema; // Get the current building schema
+            MessageBox.Show(builidngmanager);
+            var apartmentDbContext = new ApartmentDbContext(dbConnection, optionsBuilder.Options, builidngmanager);
 
             // Create the repository and service
             IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
@@ -42,6 +48,7 @@ namespace ApartmentManagement.Views
             // Set the DataContext to the ViewModel
             ApartmentViewModel apartmentviewModel = new ApartmentViewModel(apartmentService);
             DataContext = apartmentviewModel;
+            
         }
         private void BtnDashBoard_Click(object sender, RoutedEventArgs e)
         {
@@ -67,6 +74,6 @@ namespace ApartmentManagement.Views
             apartmentWindow.Show();
             this.Close();
         }
-
+       
     }
 }

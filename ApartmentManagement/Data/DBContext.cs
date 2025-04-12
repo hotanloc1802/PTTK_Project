@@ -2,18 +2,26 @@
 using ApartmentManagement.Model;
 using System.Data.Common;
 using ApartmentManagement.Data;
+using System.Windows;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+
 namespace ApartmentManagement.Data
 {
     public class ApartmentDbContext : DbContext
     {
         private readonly DbConnection _dbConnection;
-        public ApartmentDbContext(DbConnection dbConnection, DbContextOptions<ApartmentDbContext> options)
-             : base(options)
+        private readonly string _schema;
+        // Constructor với schema được truyền vào
+        public ApartmentDbContext(DbConnection dbConnection, DbContextOptions<ApartmentDbContext> options, string schema)
+            : base(options)
         {
+            _schema = schema;
             _dbConnection = dbConnection;
+            //MessageBox.Show(_dbConnection.ConnectionString, "Connection String", MessageBoxButton.OK, MessageBoxImage.Information); // Show connection string for debugging purposes
         }
 
-        // DbSet tương ứng với các bảng
+        // Các DbSet cho các thực thể
         public DbSet<User> Users { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Apartment> Apartments { get; set; }
@@ -22,49 +30,53 @@ namespace ApartmentManagement.Data
         public DbSet<Payment> Payments { get; set; }
         public DbSet<ServiceRequest> ServiceRequests { get; set; }
 
+        // Cấu hình các thực thể trong OnModelCreating
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Mapping table + schema "PTTK"
-            modelBuilder.Entity<User>().ToTable("users", "PTTK");
-            modelBuilder.Entity<Building>().ToTable("buildings", "PTTK");
-            modelBuilder.Entity<Apartment>().ToTable("apartments", "PTTK");
-            modelBuilder.Entity<Resident>().ToTable("residents", "PTTK");
-            modelBuilder.Entity<Bill>().ToTable("bills", "PTTK");
-            modelBuilder.Entity<Payment>().ToTable("payments", "PTTK");
-            modelBuilder.Entity<ServiceRequest>().ToTable("service_requests", "PTTK");
+            // Áp dụng schema vào bảng
+            modelBuilder.Entity<User>().ToTable("users", _schema);
+            modelBuilder.Entity<Building>().ToTable("buildings", _schema);
+            modelBuilder.Entity<Apartment>().ToTable("apartments",  _schema);
+            modelBuilder.Entity<Resident>().ToTable("residents", _schema);
+            modelBuilder.Entity<Bill>().ToTable("bills", _schema);
+            modelBuilder.Entity<Payment>().ToTable("payments", _schema);
+            modelBuilder.Entity<ServiceRequest>().ToTable("service_requests", _schema);
 
-            // Quan hệ Resident -> Resident (owner)
+            // Quan hệ giữa các thực thể
             modelBuilder.Entity<Resident>()
                 .HasMany(r => r.members)
                 .WithOne(r => r.owner)
                 .HasForeignKey(r => r.owner_id)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Quan hệ Apartment -> Resident (owner)
             modelBuilder.Entity<Apartment>()
                 .HasOne(a => a.owner)
                 .WithMany()
                 .HasForeignKey(a => a.owner_id)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            // Quan hệ Building -> User (manager)
             modelBuilder.Entity<Building>()
                 .HasOne(b => b.manager)
                 .WithMany(u => u.buildings_managed)
                 .HasForeignKey(b => b.manager_id)
                 .OnDelete(DeleteBehavior.SetNull);
+            base.OnModelCreating(modelBuilder);
         }
+
+        // Cấu hình kết nối đến cơ sở dữ liệu
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!string.IsNullOrEmpty(_dbConnection.ConnectionString))
             {
-                optionsBuilder.UseNpgsql(_dbConnection.ConnectionString); 
+                optionsBuilder.UseNpgsql(_dbConnection.ConnectionString);
             }
             else
             {
                 throw new InvalidOperationException("Connection string is null or empty.");
             }
         }
+
+        // Override phương thức SaveChanges để thêm thông tin thời gian
         public override int SaveChanges()
         {
             foreach (var entry in ChangeTracker.Entries<Apartment>())

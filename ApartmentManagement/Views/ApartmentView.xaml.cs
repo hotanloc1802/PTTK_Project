@@ -12,32 +12,77 @@ using System.Windows.Input;
 using ApartmentManagement.Model;
 using System.Reflection.Metadata;
 using ApartmentManagement.ViewModel;
-
+using ApartmentManagement.Core.Singleton;
 namespace ApartmentManagement.Views
 {
     public partial class ApartmentView : Window
     {
-        private readonly ApartmentDbContext _context;
-        private readonly ApartmentViewModel apartmentviewModel;
+
         public ApartmentView()
         {
             InitializeComponent();
-
-            // Initialize DbContext and Service
+            var buildingManager = BuildingManager.Instance.CurrentBuildingSchema;
             var dbConnection = new DbConnection();
             var optionsBuilder = new DbContextOptionsBuilder<ApartmentDbContext>();
             optionsBuilder.UseNpgsql(dbConnection.ConnectionString);
 
-            var apartmentDbContext = new ApartmentDbContext(dbConnection, optionsBuilder.Options);
+            var apartmentDbContext = new ApartmentDbContext(dbConnection, optionsBuilder.Options, buildingManager);
 
-            // Create the repository and service
             IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
-            IApartmentService apartmentService = new ApartmentService(apartmentRepository);
+            var _apartmentService = new ApartmentService(apartmentRepository);
 
-            // Set the DataContext to the ViewModel
-            ApartmentViewModel apartmentviewModel = new ApartmentViewModel(apartmentService);
-            DataContext = apartmentviewModel;
+            ApartmentViewModel apartmentViewModel = new ApartmentViewModel(_apartmentService);
+            DataContext = apartmentViewModel;
+        }
 
+        private async void OnBuildingSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedItem = (ListBox)sender;
+            var selectedGrid = (Grid)selectedItem.SelectedItem;
+
+            var selectedBuilding = FindVisualChild<TextBlock>(selectedGrid);
+            if (selectedBuilding != null)
+            {
+                string buildingName = selectedBuilding.Text;
+
+                if (buildingName != BuildingManager.Instance.CurrentBuildingSchema)
+                {
+                    BuildingManager.Instance.SetBuilding(buildingName);
+
+                    MessageBox.Show($"Current Building Schema: {BuildingManager.Instance.CurrentBuildingSchema}");
+
+                    // Sử dụng DbContext cũ nhưng cập nhật schema
+                    var _dbConnection = new DbConnection();
+                    var optionsBuilder = new DbContextOptionsBuilder<ApartmentDbContext>();
+                    optionsBuilder.UseNpgsql(_dbConnection.ConnectionString);
+
+                    var apartmentDbContext = new ApartmentDbContext(_dbConnection, optionsBuilder.Options, buildingName);
+
+                    IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
+                    var _apartmentService = new ApartmentService(apartmentRepository);
+
+                    ApartmentViewModel apartmentViewModel = new ApartmentViewModel(_apartmentService);
+                    DataContext = apartmentViewModel;
+                    await apartmentViewModel.LoadApartmentsAsync();
+                }
+            }
+        }
+
+        private T FindVisualChild<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            // Duyệt qua tất cả các đối tượng con
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                if (child is T)
+                    return (T)child;
+
+                // Tiếp tục duyệt qua các đối tượng con của child
+                T childOfChild = FindVisualChild<T>(child);
+                if (childOfChild != null)
+                    return childOfChild;
+            }
+            return null;
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)

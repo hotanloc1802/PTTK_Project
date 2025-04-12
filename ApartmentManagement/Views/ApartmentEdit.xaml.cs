@@ -7,6 +7,7 @@ using System;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
 using ApartmentManagement.ViewModel;
+using ApartmentManagement.Core.Singleton;
 
 namespace ApartmentManagement.Views
 {
@@ -18,13 +19,14 @@ namespace ApartmentManagement.Views
         public ApartmentEdit(Apartment selectedApartment, ApartmentViewModel apartmentViewModel)
         {
             InitializeComponent();
-
+            
             // Initialize DbContext and Service for the apartment editing operation
             var dbConnection = new DbConnection();
             var optionsBuilder = new DbContextOptionsBuilder<ApartmentDbContext>();
             optionsBuilder.UseNpgsql(dbConnection.ConnectionString);
 
-            var apartmentDbContext = new ApartmentDbContext(dbConnection, optionsBuilder.Options);
+            var builidngmanager = BuildingManager.Instance.CurrentBuildingSchema; // Get the current building schema
+            var apartmentDbContext = new ApartmentDbContext(dbConnection, optionsBuilder.Options, builidngmanager);
 
             // Create the repository and service, which will be injected into the view model
             IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
@@ -34,6 +36,7 @@ namespace ApartmentManagement.Views
             _apartmentViewModel = apartmentViewModel;
             var viewModel = new ApartmentEditViewModel(_apartmentService, selectedApartment);
             DataContext = viewModel;
+            
         }
 
         // Cancel button click handler - Returns to the ApartmentView without making changes

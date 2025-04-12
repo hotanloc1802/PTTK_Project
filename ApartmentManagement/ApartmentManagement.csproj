@@ -39,7 +39,6 @@
 
   <ItemGroup>
     <Folder Include="Component\" />
-    <Folder Include="Core\Singleton\" />
     <Folder Include="Data\Migration\" />
     <Folder Include="Data\Repository\" />
   </ItemGroup>
