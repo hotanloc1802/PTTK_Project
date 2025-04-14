@@ -13,6 +13,7 @@ using ApartmentManagement.Model;
 using System.Reflection.Metadata;
 using ApartmentManagement.ViewModel;
 using ApartmentManagement.Core.Singleton;
+using ApartmentManagement.Core.Factory;
 namespace ApartmentManagement.Views
 {
     public partial class ApartmentView : Window
@@ -21,17 +22,14 @@ namespace ApartmentManagement.Views
         public ApartmentView()
         {
             InitializeComponent();
-            var buildingManager = BuildingManager.Instance.CurrentBuildingSchema;
-            var dbConnection = new DbConnection();
-            var optionsBuilder = new DbContextOptionsBuilder<ApartmentDbContext>();
-            optionsBuilder.UseNpgsql(dbConnection.ConnectionString);
 
-            var apartmentDbContext = new ApartmentDbContext(dbConnection, optionsBuilder.Options, buildingManager);
+            // Use the factory to create a new context
+            var apartmentDbContext = DbContextFactory.CreateDbContext();
 
             IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
-            var _apartmentService = new ApartmentService(apartmentRepository);
+            IApartmentService apartmentService = new ApartmentService(apartmentRepository);
 
-            ApartmentViewModel apartmentViewModel = new ApartmentViewModel(_apartmentService);
+            ApartmentViewModel apartmentViewModel = new ApartmentViewModel(apartmentService);
             DataContext = apartmentViewModel;
         }
 
@@ -43,27 +41,35 @@ namespace ApartmentManagement.Views
             var selectedBuilding = FindVisualChild<TextBlock>(selectedGrid);
             if (selectedBuilding != null)
             {
-                string buildingName = selectedBuilding.Text;
+                string buildingName = (selectedBuilding.Tag as string) ?? selectedBuilding.Text;
 
                 if (buildingName != BuildingManager.Instance.CurrentBuildingSchema)
                 {
-                    BuildingManager.Instance.SetBuilding(buildingName);
+                    // Set the new building schema
+                    BuildingManager.Instance.SetBuilding(buildingName.ToLowerInvariant()); // Ensure lowercase
+
+                    // Dispose of the old ViewModel and context
+                    if (DataContext is ApartmentViewModel oldViewModel)
+                    {
+                        oldViewModel.Dispose();
+                    }
+
+                    // Create a new context factory that will use the new schema
+                    var apartmentDbContext = DbContextFactory.CreateDbContext();
+                    
+                    // Create new repository and service with the new context
+                    IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
+                    IApartmentService apartmentService = new ApartmentService(apartmentRepository);
+
+                    // Create a new view model
+                    ApartmentViewModel apartmentViewModel = new ApartmentViewModel(apartmentService);
+                    DataContext = apartmentViewModel;
+
+                    await Task.Delay(3000);
+                    // Ensure the view model loads the data
+                    await apartmentViewModel.LoadApartmentsAsync();
 
                     MessageBox.Show($"Current Building Schema: {BuildingManager.Instance.CurrentBuildingSchema}");
-
-                    // Sử dụng DbContext cũ nhưng cập nhật schema
-                    var _dbConnection = new DbConnection();
-                    var optionsBuilder = new DbContextOptionsBuilder<ApartmentDbContext>();
-                    optionsBuilder.UseNpgsql(_dbConnection.ConnectionString);
-
-                    var apartmentDbContext = new ApartmentDbContext(_dbConnection, optionsBuilder.Options, buildingName);
-
-                    IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
-                    var _apartmentService = new ApartmentService(apartmentRepository);
-
-                    ApartmentViewModel apartmentViewModel = new ApartmentViewModel(_apartmentService);
-                    DataContext = apartmentViewModel;
-                    await apartmentViewModel.LoadApartmentsAsync();
                 }
             }
         }

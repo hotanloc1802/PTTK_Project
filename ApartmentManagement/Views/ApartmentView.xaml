@@ -77,7 +77,7 @@
                 </Ellipse>
                 <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" />
                 <Grid Grid.Row="1">
-                    <TextBlock Name="BconsMienDong"  Text="PTTK" FontFamily="Montserrat Bold"
+                    <TextBlock Name="BconsMienDong"  Text="Mien Dong" Tag="mien_dong" FontFamily="Montserrat Bold"
                        FontSize="13" Foreground="White" VerticalAlignment="Center"
                        Height="18" HorizontalAlignment="Center"/>
                 </Grid>
@@ -97,7 +97,7 @@
                 </Ellipse>
                 <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" />
                 <Grid Grid.Row="1">
-                    <TextBlock  Name="BconsPlaza" Text="Plaza" FontFamily="Montserrat Bold"
+                    <TextBlock Name="BconsPlaza" Text="Plaza" Tag="plaza" FontFamily="Montserrat Bold"
                        FontSize="13" Foreground="White" VerticalAlignment="Center"
                        Height="18" HorizontalAlignment="Center"/>
                 </Grid>
@@ -117,7 +117,7 @@
                 </Ellipse>
                 <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" />
                 <Grid Grid.Row="1">
-                    <TextBlock Text="Sala" FontFamily="Montserrat Bold"
+                    <TextBlock Text="Sala" Tag="sala" FontFamily="Montserrat Bold"
                        FontSize="13" Foreground="White" VerticalAlignment="Center"
                        Height="18" HorizontalAlignment="Center"/>
                 </Grid>
@@ -137,7 +137,7 @@
                 </Ellipse>
                 <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" />
                 <Grid Grid.Row="1">
-                    <TextBlock Text="Green View" FontFamily="Montserrat Bold"
+                    <TextBlock Text="Green View" Tag="green_view" FontFamily="Montserrat Bold"
                        FontSize="13" Foreground="White" VerticalAlignment="Center"
                        Height="18" HorizontalAlignment="Center"/>
                 </Grid>

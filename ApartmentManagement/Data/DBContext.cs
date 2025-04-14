@@ -5,20 +5,23 @@ using ApartmentManagement.Data;
 using System.Windows;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using ApartmentManagement.Core.Singleton;
 
 namespace ApartmentManagement.Data
 {
     public class ApartmentDbContext : DbContext
     {
         private readonly DbConnection _dbConnection;
-        private readonly string _schema;
+        internal readonly string _schema;
         // Constructor với schema được truyền vào
         public ApartmentDbContext(DbConnection dbConnection, DbContextOptions<ApartmentDbContext> options, string schema)
             : base(options)
         {
             _schema = schema;
             _dbConnection = dbConnection;
-            //MessageBox.Show(_dbConnection.ConnectionString, "Connection String", MessageBoxButton.OK, MessageBoxImage.Information); // Show connection string for debugging purposes
+
+            // Debug
+            MessageBox.Show($"{_dbConnection.ConnectionString} + {BuildingManager.Instance.CurrentBuildingSchema}", "Connection String", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         // Các DbSet cho các thực thể
@@ -33,6 +36,7 @@ namespace ApartmentManagement.Data
         // Cấu hình các thực thể trong OnModelCreating
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //MessageBox.Show("1 2 3");
             // Áp dụng schema vào bảng
             modelBuilder.Entity<User>().ToTable("users", _schema);
             modelBuilder.Entity<Building>().ToTable("buildings", _schema);

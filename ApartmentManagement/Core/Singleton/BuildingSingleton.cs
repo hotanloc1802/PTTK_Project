@@ -8,10 +8,11 @@ using System.Windows;
 
 namespace ApartmentManagement.Core.Singleton
 {
+    // In BuildingSingleton.cs
     public class BuildingManager
     {
         private static BuildingManager _instance;
-        private string _currentBuildingSchema;
+        private string _currentBuildingSchema = "miendong"; // Set default value here
 
         // Private constructor to prevent instantiation from outside
         private BuildingManager() { }
@@ -29,29 +30,17 @@ namespace ApartmentManagement.Core.Singleton
             }
         }
 
-        // Get and set the current building schema (used to set search_path in connection)
+        // Get and set the current building schema
         public string CurrentBuildingSchema
         {
-            get
-            {
-                // Check if the schema is null and set default to "PTTK"
-                return string.IsNullOrEmpty(_currentBuildingSchema) ? "PTTK" : _currentBuildingSchema;
-            }
-            private set
-            {
-                _currentBuildingSchema = value;
-                // You could trigger actions related to the new schema, like updating database connections, etc.
-                Console.WriteLine($"Schema changed to: {_currentBuildingSchema}"); // Debugging log
-            }
+            get => string.IsNullOrEmpty(_currentBuildingSchema) ? "miendong" : _currentBuildingSchema;
+            private set => _currentBuildingSchema = value;
         }
 
         // Change the current building and its schema
         public void SetBuilding(string buildingSchema)
         {
-            _currentBuildingSchema = buildingSchema;
-            // Print the current schema after setting
+            _currentBuildingSchema = buildingSchema ?? "miendong";
         }
-
-        // You can add other methods to handle different behaviors related to the building
     }
 }

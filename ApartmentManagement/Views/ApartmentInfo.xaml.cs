@@ -20,6 +20,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ApartmentManagement.Core.Singleton;
+using ApartmentManagement.Core.Factory;
 
 namespace ApartmentManagement.Views
 {
@@ -34,13 +36,8 @@ namespace ApartmentManagement.Views
             
             InitializeComponent();
 
-            // Initialize DbConnection
-            var dbConnection = new DbConnection();
-            var optionsBuilder = new DbContextOptionsBuilder<ApartmentDbContext>();
-            optionsBuilder.UseNpgsql(dbConnection.ConnectionString);
-
-            var builidngmanager = BuildingManager.Instance.CurrentBuildingSchema; // Get the current building schema
-            var apartmentDbContext = new ApartmentDbContext(dbConnection, optionsBuilder.Options, builidngmanager);
+            // Use the factory to create a new context
+            var apartmentDbContext = DbContextFactory.CreateDbContext();
 
             // Create the repository and service
             IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);

@@ -11,7 +11,6 @@ namespace ApartmentManagement.Service
 {
     public class ApartmentService : IApartmentService
     {
-        private readonly ApartmentDbContext _context;
         private readonly IApartmentRepository _apartmentRepository;
         public ApartmentService(IApartmentRepository apartmentRepository)
         {

@@ -11,7 +11,7 @@ using ApartmentManagement.Utility;
 
 namespace ApartmentManagement.ViewModels
 {
-    public class ApartmentViewModel : INotifyPropertyChanged
+    public class ApartmentViewModel : INotifyPropertyChanged, IDisposable
     {
         private readonly IApartmentService _apartmentService;
 
@@ -55,6 +55,40 @@ namespace ApartmentManagement.ViewModels
             _ = LoadApartmentsAsync();
             _ = SortApartmentsAsync("Apartment Number");
         }
+
+        #region IDisposable Implementation
+
+        private bool _disposed = false;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    // Dispose managed resources
+                    _apartments?.Clear();
+                    _allApartments?.Clear();
+                }
+
+                // Dispose unmanaged resources if any
+
+                _disposed = true;
+            }
+        }
+
+        ~ApartmentViewModel()
+        {
+            Dispose(false);
+        }
+
+        #endregion
 
         #region Properties
         private int _apartmentCount;
@@ -235,7 +269,7 @@ namespace ApartmentManagement.ViewModels
 
             AddApartmentCommand = new RelayCommand(AddApartment);
             // Load apartments initially if needed
-            _ = LoadApartmentsAsync(); 
+            _ = LoadApartmentsAsync();
         }
 
         #endregion
