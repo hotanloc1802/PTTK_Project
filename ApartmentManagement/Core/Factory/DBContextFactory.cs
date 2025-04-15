@@ -19,7 +19,7 @@ namespace ApartmentManagement.Core.Factory
             var optionsBuilder = new DbContextOptionsBuilder<ApartmentDbContext>();
 
             // Get the schema from BuildingManager, default to "MienDong" if null
-            var buildingSchema = Core.Singleton.BuildingManager.Instance.CurrentBuildingSchema ?? "MienDong";
+            var buildingSchema = Core.Singleton.BuildingManager.Instance.CurrentBuildingSchema ?? "mien_dong";
 
             // Add the schema to connection string if needed
             var connectionString = dbConnection.ConnectionString;

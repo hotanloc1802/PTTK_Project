@@ -143,6 +143,7 @@ namespace ApartmentManagement.Views
             }
         }
 
+        // Filter buttons
         private async void BtnVacant_Click(object sender, RoutedEventArgs e)
         {
             // Ensure DataContext is properly set
@@ -153,7 +154,6 @@ namespace ApartmentManagement.Views
             }
            
         }
-
         private async void BtnOccupied_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ApartmentViewModel viewModel)
@@ -163,11 +163,11 @@ namespace ApartmentManagement.Views
             }
             
         }
-
         private async void BtnAll_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ApartmentViewModel viewModel)
             {
+                viewModel.ResetFilter();
                 await viewModel.LoadApartmentsAsync();
                 UpdateButtonState(btnAll);
             }
@@ -221,7 +221,6 @@ namespace ApartmentManagement.Views
                 }
             }
         }
-
         private void SearchTimerCallback(object? state)
         {
             Dispatcher.Invoke(async () =>
@@ -244,7 +243,6 @@ namespace ApartmentManagement.Views
                 UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
             }
         }
-
         private void BtnNextPage_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ApartmentViewModel viewModel)
@@ -253,7 +251,6 @@ namespace ApartmentManagement.Views
                 UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
             }
         }
-
         private void BtnGoToPage_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ApartmentViewModel viewModel && sender is Button button)
@@ -265,7 +262,6 @@ namespace ApartmentManagement.Views
                 }
             }
         }
-
         private void UpdatePaginationButtons(int currentPage, int totalPages)
         {
             // This assumes you have buttons named btnPage1, btnPage2, btnPage3, etc.
@@ -387,8 +383,6 @@ namespace ApartmentManagement.Views
                 }
             }
         }
-
-
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ApartmentViewModel viewModel)

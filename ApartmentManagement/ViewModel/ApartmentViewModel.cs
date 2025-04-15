@@ -52,6 +52,7 @@ namespace ApartmentManagement.ViewModels
             InitializeCommands();
 
             // Initial data load
+            
             _ = LoadApartmentsAsync();
             _ = SortApartmentsAsync("Apartment Number");
         }
@@ -375,6 +376,10 @@ namespace ApartmentManagement.ViewModels
             CurrentPage = 1;
             ApartmentCount = AllApartments.Count;
             UpdatePagination();
+        }
+        public void ResetFilter()
+        {
+            _lastFilterStatus = null;
         }
 
         // Sort Apartments

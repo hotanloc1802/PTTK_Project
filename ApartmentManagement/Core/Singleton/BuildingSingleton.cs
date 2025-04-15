@@ -12,7 +12,7 @@ namespace ApartmentManagement.Core.Singleton
     public class BuildingManager
     {
         private static BuildingManager _instance;
-        private string _currentBuildingSchema = "miendong"; // Set default value here
+        private string _currentBuildingSchema = "mien_dong"; // Set default value here
 
         // Private constructor to prevent instantiation from outside
         private BuildingManager() { }
@@ -33,14 +33,14 @@ namespace ApartmentManagement.Core.Singleton
         // Get and set the current building schema
         public string CurrentBuildingSchema
         {
-            get => string.IsNullOrEmpty(_currentBuildingSchema) ? "miendong" : _currentBuildingSchema;
+            get => string.IsNullOrEmpty(_currentBuildingSchema) ? "mien_dong" : _currentBuildingSchema;
             private set => _currentBuildingSchema = value;
         }
 
         // Change the current building and its schema
         public void SetBuilding(string buildingSchema)
         {
-            _currentBuildingSchema = buildingSchema ?? "miendong";
+            _currentBuildingSchema = buildingSchema ?? "mien_dong";
         }
     }
 }
