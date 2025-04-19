@@ -8,10 +8,14 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows;
+using QRCoder;
+using System.IO;
+using System.Windows.Media.Imaging;
 public class ApartmentInfoViewModel : INotifyPropertyChanged
 {
     private readonly IApartmentService _apartmentService;
     private Apartment _selectedApartment;
+    private string _randomString;
     public Apartment SelectedApartment
     {
         get => _selectedApartment;
@@ -21,7 +25,15 @@ public class ApartmentInfoViewModel : INotifyPropertyChanged
             OnPropertyChanged();
         }
     }
-
+    public string RandomString
+    {
+        get => _randomString;
+        set
+        {
+            _randomString = value;
+            OnPropertyChanged();
+        }
+    }
     // Constructor with Dependency Injection for ApartmentService
     public ApartmentInfoViewModel(IApartmentService apartmentService, Apartment selectedApartment)
     {
@@ -33,8 +45,65 @@ public class ApartmentInfoViewModel : INotifyPropertyChanged
 
         // Initial load if necessary
         _ = LoadApartmentInfoAsync(_selectedApartment.apartment_id);
+        GenerateQRCode();
+    }
+    private BitmapImage _qrCodeImage;
+    public BitmapImage QRCodeImage
+    {
+        get => _qrCodeImage;
+        set
+        {
+            _qrCodeImage = value;
+            OnPropertyChanged();
+        }
     }
 
+    public void GenerateQRCode()
+    {
+        // Generate a random string to use as the QR code text
+        RandomString = GenerateRandomString(10); // Generate a random string of length 10
+
+        // Generate QR code from the random string
+        using (var qrGenerator = new QRCodeGenerator())
+        {
+            var qrCodeData = qrGenerator.CreateQrCode(RandomString, QRCodeGenerator.ECCLevel.Q);
+            var qrCode = new QRCode(qrCodeData);
+
+            // Convert the background color #EEEEEE to System.Drawing.Color
+            var backgroundColor = System.Drawing.ColorTranslator.FromHtml("#F5F9FA");
+
+            // Convert the QR code to an image with custom background color
+            using (var ms = new MemoryStream())
+            {
+                // Use the correct overload of GetGraphic with only 4 arguments
+                qrCode.GetGraphic(20, System.Drawing.Color.Black, backgroundColor, true).Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                ms.Seek(0, SeekOrigin.Begin);
+
+                // Convert the image to BitmapImage for WPF binding
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.StreamSource = ms;
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+
+                // Set the QR code image
+                QRCodeImage = bitmap;
+            }
+        }
+    }
+
+    // Helper function to generate a random alphanumeric string
+    private string GenerateRandomString(int length)
+    {
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        var random = new Random();
+        var randomString = new char[length];
+        for (int i = 0; i < length; i++)
+        {
+            randomString[i] = chars[random.Next(chars.Length)];
+        }
+        return new string(randomString);
+    }
     // Command properties
     public ICommand LoadApartmentInfoCommand { get; }
 
