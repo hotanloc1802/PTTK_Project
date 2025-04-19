@@ -11,14 +11,57 @@ namespace ApartmentManagement.Service
 {
     public class ApartmentService : IApartmentService
     {
-        private readonly IApartmentRepository _apartmentRepository;
-        public ApartmentService(IApartmentRepository apartmentRepository)
+        private readonly ApartmentRepository _apartmentRepository;
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
+        public string ErrorMessage1
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
+        public string ErrorMessage2
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
+        public string ErrorMessage3
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
+        public string ErrorMessage4
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
+        public ApartmentService(ApartmentRepository apartmentRepository)
         {
             _apartmentRepository = apartmentRepository;
         }
         public async Task<bool> CreateApartmentsAsync(Apartment apartment)
         {
-            return await _apartmentRepository.CreateApartmentsAsync(apartment);
+            var list = await _apartmentRepository.CreateApartmentsAsync(apartment);
+            ErrorMessage = _apartmentRepository.ErrorMessage;
+            return list;
         }
         public async Task<bool> DeleteApartmentsAsync(int id)
         {

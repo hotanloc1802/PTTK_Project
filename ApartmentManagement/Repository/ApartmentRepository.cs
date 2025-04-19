@@ -15,6 +15,41 @@ namespace ApartmentManagement.Repository
     {
         private readonly ApartmentDbContext _context;
 
+        private string _errorMessage;
+        private string _errorMessage2;
+
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
+        public string ErrorMessage2
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
+        public string ErrorMessage3
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
+        public string ErrorMessage4
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
         public ApartmentRepository(ApartmentDbContext context)
         {
             _context = context;
@@ -37,36 +72,33 @@ namespace ApartmentManagement.Repository
 
                 if (ex.InnerException is PostgresException postgresEx)
                 {
-                    // Log the PostgreSQL error details
-                    Console.WriteLine($"PostgreSQL error: {postgresEx.MessageText}");
-                    Console.WriteLine($"PostgreSQL error code: {postgresEx.SqlState}");
 
                     // Check for specific error messages from your trigger
                     string errorMessage = postgresEx.MessageText;
 
                     if (errorMessage.Contains("Apartment number format is incorrect"))
                     {
-                        MessageBox.Show("Apartment number format is incorrect. Expected format: AXX.YY (e.g., A32.25)", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        ErrorMessage = "Expected format: AXX.YY (e.g., A32.25)";
                     }
                     else if (errorMessage.Contains("Floor number exceeds"))
                     {
-                        MessageBox.Show("Floor number exceeds the maximum floor for this building.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        ErrorMessage = "Floor number exceeds the maximum floor.";
                     }
                     else if (postgresEx.Message.Contains("Max population must be between 1 and 6."))
                     {
-                        MessageBox.Show("Max population must be between 1 and 6.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        ErrorMessage2 = "Max population must be between 1 and 6.";
                     }
                     else if (postgresEx.Message.Contains("Invalid transfer status: %.Allowed values: available, pending, sold."))
                     {
-                        MessageBox.Show("Invalid transfer status: %.Allowed values: available, pending, sold.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        ErrorMessage3 = "Invalid transfer status: %.Allowed values: available, pending, sold.";
                     }
                     else if (postgresEx.Message.Contains("Invalid vacancy status: %.Allowed values: vacant, occupied."))
                     {
-                        MessageBox.Show("Invalid vacancy status: %.Allowed values: vacant, occupied.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        ErrorMessage4 = "Invalid vacancy status: %.Allowed values: vacant, occupied.";
                     }
                     else if (postgresEx.Message.Contains("The identification number must be 16 digits long."))
                     {
-                        MessageBox.Show("The identification number must be 16 digits long.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        ErrorMessage = "The identification number must be 16 digits long.";
                     }
 
                     else
@@ -80,7 +112,6 @@ namespace ApartmentManagement.Repository
                     // For other database errors
                     MessageBox.Show($"Failed to add apartment: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
                 // Clean up and refresh data
                 _context.ChangeTracker.Clear();
                 await LoadApartmentsAsync();

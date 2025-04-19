@@ -27,7 +27,7 @@ namespace ApartmentManagement.Views
             var apartmentDbContext = DbContextFactory.CreateDbContext();
 
             // Create the repository and service, which will be injected into the view model
-            IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
+            ApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
             _apartmentService = new ApartmentService(apartmentRepository);
 
             // Set the DataContext to the ViewModel

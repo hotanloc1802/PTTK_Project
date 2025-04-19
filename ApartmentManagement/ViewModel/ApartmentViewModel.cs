@@ -18,7 +18,7 @@ namespace ApartmentManagement.ViewModels
 {
     public class ApartmentViewModel : INotifyPropertyChanged, IDisposable
     {
-        private readonly IApartmentService _apartmentService;
+        private readonly ApartmentService _apartmentService;
         // Observable Collections
         private ObservableCollection<Apartment> _apartments;
         private ObservableCollection<Apartment> _allApartments;
@@ -40,12 +40,53 @@ namespace ApartmentManagement.ViewModels
         private string _transferStatus;
         private int _ownerId;
         private int _buildingId;
-
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged();
+            }
+        }
+        public string ErrorMessage1
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
+        public string ErrorMessage2
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
+        public string ErrorMessage3
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
+        public string ErrorMessage4
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
         // Filter Status Variable
         private string _lastFilterStatus;
 
         // Constructor
-        public ApartmentViewModel(IApartmentService apartmentService)
+        public ApartmentViewModel(ApartmentService apartmentService)
         {
             _apartmentService = apartmentService ?? throw new ArgumentNullException(nameof(apartmentService));
             _apartments = new ObservableCollection<Apartment>();
@@ -367,6 +408,10 @@ namespace ApartmentManagement.ViewModels
             }
 
             var result = await _apartmentService.CreateApartmentsAsync(newApartment);
+            ErrorMessage = _apartmentService.ErrorMessage;
+            ErrorMessage1 = _apartmentService.ErrorMessage1;
+            ErrorMessage2 = _apartmentService.ErrorMessage2;
+            ErrorMessage3 = _apartmentService.ErrorMessage3;
             if (result)
             {
                 MessageBox.Show("Apartment added successfully.");

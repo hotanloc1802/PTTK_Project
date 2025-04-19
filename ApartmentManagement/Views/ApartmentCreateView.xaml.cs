@@ -39,8 +39,8 @@ namespace ApartmentManagement.Views
             var apartmentDbContext = DbContextFactory.CreateDbContext();
 
             // Create the repository and service
-            IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
-            IApartmentService apartmentService = new ApartmentService(apartmentRepository);
+            ApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
+            ApartmentService apartmentService = new ApartmentService(apartmentRepository);
 
             // Set the DataContext to the ViewModel
             ApartmentViewModel apartmentviewModel = new ApartmentViewModel(apartmentService);

@@ -26,8 +26,8 @@ namespace ApartmentManagement.Views
             // Use the factory to create a new context
             var apartmentDbContext = DbContextFactory.CreateDbContext();
 
-            IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
-            IApartmentService apartmentService = new ApartmentService(apartmentRepository);
+            ApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
+            ApartmentService apartmentService = new ApartmentService(apartmentRepository);
             ApartmentViewModel apartmentViewModel = new ApartmentViewModel(apartmentService);
             DataContext = apartmentViewModel;
             apartmentViewModel?.SelectBuildingInListBox(BuildingListBox);
@@ -71,8 +71,8 @@ namespace ApartmentManagement.Views
 
                             // Create a new context factory that will use the new schema
                             var apartmentDbContext = DbContextFactory.CreateDbContext();
-                            IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
-                            IApartmentService apartmentService = new ApartmentService(apartmentRepository);
+                            ApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
+                            ApartmentService apartmentService = new ApartmentService(apartmentRepository);
                             ApartmentViewModel apartmentViewModel = new ApartmentViewModel(apartmentService);
                             DataContext = apartmentViewModel;
 

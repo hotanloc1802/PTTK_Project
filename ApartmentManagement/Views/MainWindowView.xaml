@@ -67,7 +67,8 @@
                     </Ellipse>
                     <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
                     <Grid Grid.Row="1">
-                        <TextBlock Name="BconsMienDong"  Text="Mien Dong" Tag="mien_dong" FontFamily="Montserrat Bold"
+                        <TextBlock Name="BconsMienDong"  Text="Miền Đông
+" Tag="mien_dong" FontFamily="Montserrat Bold"
        FontSize="13" Foreground="White" VerticalAlignment="Center"
        Height="18" HorizontalAlignment="Center"/>
                     </Grid>

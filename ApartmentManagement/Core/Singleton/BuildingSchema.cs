@@ -33,7 +33,6 @@ namespace ApartmentManagement.Core.Singleton
         // Change the current building and its schema if it's different
         public void SetBuilding(string buildingSchema)
         {
-            MessageBox.Show("ê bị gọi nè ở singleton");
             // Only update schema if it's different
             if (_currentBuildingSchema != buildingSchema)
             {
