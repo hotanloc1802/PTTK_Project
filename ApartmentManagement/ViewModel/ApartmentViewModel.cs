@@ -48,13 +48,9 @@ namespace ApartmentManagement.ViewModels
             _apartments = new ObservableCollection<Apartment>();
             _allApartments = new ObservableCollection<Apartment>();
             _selectedApartment = new Apartment();
+
             // Initialize commands
             InitializeCommands();
-
-            // Initial data load
-            
-            _ = LoadApartmentsAsync();
-            _ = SortApartmentsAsync("Apartment Number");
         }
 
         #region IDisposable Implementation
@@ -276,6 +272,7 @@ namespace ApartmentManagement.ViewModels
             AddApartmentCommand = new RelayCommand(AddApartment);
             // Load apartments initially if needed
             _ = LoadApartmentsAsync();
+            _ = SortApartmentsAsync("Apartment Number");
         }
 
         #endregion
@@ -330,6 +327,8 @@ namespace ApartmentManagement.ViewModels
         private void UpdatePagination()
         {
             if (AllApartments == null) return;
+            // message log this indicating it is called and show total apartment
+            //MessageBox.Show($"UpdatePagination called. Total Apartments: {AllApartments.Count}");
 
             TotalPages = (int)Math.Ceiling(AllApartments.Count / (double)ItemsPerPage);
 
@@ -394,7 +393,7 @@ namespace ApartmentManagement.ViewModels
             var apartments = await _apartmentService.GetAllApartmentsAsync();
             AllApartments = new ObservableCollection<Apartment>(apartments);
             await CountApartmentsAsync();
-            await SortApartmentsAsync("Apartment Number");
+            UpdatePagination();
         }
 
         // Delete Apartment

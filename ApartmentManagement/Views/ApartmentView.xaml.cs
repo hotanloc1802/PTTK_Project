@@ -28,7 +28,6 @@ namespace ApartmentManagement.Views
 
             IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
             IApartmentService apartmentService = new ApartmentService(apartmentRepository);
-
             ApartmentViewModel apartmentViewModel = new ApartmentViewModel(apartmentService);
             DataContext = apartmentViewModel;
             apartmentViewModel?.SelectBuildingInListBox(BuildingListBox);
@@ -72,19 +71,12 @@ namespace ApartmentManagement.Views
 
                             // Create a new context factory that will use the new schema
                             var apartmentDbContext = DbContextFactory.CreateDbContext();
-
-                            // Create new repository and service with the new context
                             IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
                             IApartmentService apartmentService = new ApartmentService(apartmentRepository);
-
-                            // Create a new view model
                             ApartmentViewModel apartmentViewModel = new ApartmentViewModel(apartmentService);
                             DataContext = apartmentViewModel;
 
-                            await Task.Delay(3000);  // Optional delay for visual feedback
-
-                            // Ensure the view model loads the data
-                            await apartmentViewModel.LoadApartmentsAsync();
+                            Window_Loaded(sender, e);
                         }
                     }
                     else
@@ -102,8 +94,6 @@ namespace ApartmentManagement.Views
                 MessageBox.Show("No item selected.");
             }
         }
-
-
 
         // Helper method to find child controls (like TextBlock) inside a ListBoxItem
         private T FindVisualChild<T>(DependencyObject depObj) where T : DependencyObject
@@ -184,6 +174,7 @@ namespace ApartmentManagement.Views
             if (DataContext is ApartmentViewModel viewModel)
             {
                 await viewModel.FilterApartmentsAsync("vacant");
+                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
                 UpdateButtonState(btnVacant);
             }
            
@@ -193,6 +184,7 @@ namespace ApartmentManagement.Views
             if (DataContext is ApartmentViewModel viewModel)
             {
                 await viewModel.FilterApartmentsAsync("occupied");
+                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
                 UpdateButtonState(btnOccupied);
             }
             
@@ -203,6 +195,7 @@ namespace ApartmentManagement.Views
             {
                 viewModel.ResetFilter();
                 await viewModel.LoadApartmentsAsync();
+                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
                 UpdateButtonState(btnAll);
             }
            
@@ -298,9 +291,6 @@ namespace ApartmentManagement.Views
         }
         private void UpdatePaginationButtons(int currentPage, int totalPages)
         {
-            // This assumes you have buttons named btnPage1, btnPage2, btnPage3, etc.
-            // Update the visibility and styling of pagination buttons
-
             // Simple implementation for a 3-button pagination system
             if (totalPages <= 3)
             {
