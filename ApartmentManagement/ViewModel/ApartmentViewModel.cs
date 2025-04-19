@@ -11,6 +11,9 @@ using ApartmentManagement.Utility;
 using ApartmentManagement.Core.Singleton;
 using System.Windows.Controls;
 using System.Windows.Media;
+using QRCoder;
+using System.IO;
+using System.Windows.Media.Imaging;
 namespace ApartmentManagement.ViewModels
 {
     public class ApartmentViewModel : INotifyPropertyChanged, IDisposable
@@ -50,9 +53,9 @@ namespace ApartmentManagement.ViewModels
             _selectedApartment = new Apartment();
             // Initialize commands
             InitializeCommands();
-
+         
             // Initial data load
-            
+
             _ = LoadApartmentsAsync();
             _ = SortApartmentsAsync("Apartment Number");
         }
@@ -339,7 +342,7 @@ namespace ApartmentManagement.ViewModels
             var itemsToShow = AllApartments.Skip((CurrentPage - 1) * ItemsPerPage).Take(ItemsPerPage).ToList();
             Apartments = new ObservableCollection<Apartment>(itemsToShow);
         }
-
+       
         // Add New Apartment
         private async void AddApartment()
         {

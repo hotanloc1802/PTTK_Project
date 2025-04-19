@@ -767,9 +767,9 @@ To="#959595" Duration="0:0:0.2" />
                                     <StackPanel>
                                         <!-- Placeholder for QR code -->
                                         <Border Width="180" Height="180" Background="#F8F9FA" HorizontalAlignment="Center">
-                                            <!-- QR code image would go here -->
+                                            <Image Grid.Row="1" Width="180" Height="180" Source="{Binding QRCodeImage}"/>
                                         </Border>
-                                        <TextBlock Text="X1T8G3XU" FontFamily="Montserrat Bold" FontSize="14" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                                        <TextBlock Text="{Binding RandomString}" FontFamily="Montserrat Bold" FontSize="14" HorizontalAlignment="Center" Margin="0,10,0,0"/>
                                     </StackPanel>
                                 </Border>
                             </Grid>
