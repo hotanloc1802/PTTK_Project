@@ -1,30 +1,23 @@
-﻿using ApartmentManagement.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace ApartmentManagement.Core.Singleton
 {
-    // In BuildingSingleton.cs
-    public class BuildingManager
+    public class BuildingSchema
     {
-        private static BuildingManager _instance;
-        private string _currentBuildingSchema = "mien_dong"; // Set default value here
+        private static BuildingSchema _instance;
+        private string _currentBuildingSchema;
 
         // Private constructor to prevent instantiation from outside
-        private BuildingManager() { }
+        private BuildingSchema() { }
 
         // Singleton instance
-        public static BuildingManager Instance
+        public static BuildingSchema Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new BuildingManager();
+                    _instance = new BuildingSchema();
                 }
                 return _instance;
             }
@@ -37,10 +30,16 @@ namespace ApartmentManagement.Core.Singleton
             private set => _currentBuildingSchema = value;
         }
 
-        // Change the current building and its schema
+        // Change the current building and its schema if it's different
         public void SetBuilding(string buildingSchema)
         {
-            _currentBuildingSchema = buildingSchema ?? "mien_dong";
+            MessageBox.Show("ê bị gọi nè ở singleton");
+            // Only update schema if it's different
+            if (_currentBuildingSchema != buildingSchema)
+            {
+                _currentBuildingSchema = buildingSchema ?? _currentBuildingSchema;
+            }
+            
         }
     }
 }

@@ -16,6 +16,11 @@ using System.Windows.Shapes;
 using ApartmentManagement.Utility;
 using ApartmentManagement.Data;
 using Npgsql;
+using ApartmentManagement.Core.Singleton;
+using ApartmentManagement.Repository;
+using ApartmentManagement.Service;
+using ApartmentManagement.ViewModels;
+using ApartmentManagement.Core.Factory;
 namespace ApartmentManagement.Views
 {
     /// <summary>
@@ -61,5 +66,6 @@ namespace ApartmentManagement.Views
             apartmentWindow.Show();
             this.Close();
         }
+
     }
 }

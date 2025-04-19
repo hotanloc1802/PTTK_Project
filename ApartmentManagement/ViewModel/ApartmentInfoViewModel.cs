@@ -1,66 +1,103 @@
-﻿using ApartmentManagement.Model;
+﻿using ApartmentManagement.Core.Singleton;
+using ApartmentManagement.Model;
 using ApartmentManagement.Service;
 using ApartmentManagement.Utility;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
-
-namespace ApartmentManagement.ViewModel
+using System.Windows.Media;
+using System.Windows;
+public class ApartmentInfoViewModel : INotifyPropertyChanged
 {
-    class ApartmentInfoViewModel : INotifyPropertyChanged
+    private readonly IApartmentService _apartmentService;
+    private Apartment _selectedApartment;
+    public Apartment SelectedApartment
     {
-        private readonly IApartmentService _apartmentService;
-
-        private Apartment _selectedApartment;
-
-        public Apartment SelectedApartment
+        get => _selectedApartment;
+        set
         {
-            get => _selectedApartment;
-            set
+            _selectedApartment = value;
+            OnPropertyChanged();
+        }
+    }
+
+    // Constructor with Dependency Injection for ApartmentService
+    public ApartmentInfoViewModel(IApartmentService apartmentService, Apartment selectedApartment)
+    {
+        _apartmentService = apartmentService ?? throw new ArgumentNullException(nameof(apartmentService));
+        _selectedApartment = selectedApartment ?? throw new ArgumentNullException(nameof(selectedApartment));
+
+        // Initialize command for loading apartment info
+        LoadApartmentInfoCommand = new RelayCommand(async () => await LoadApartmentInfoAsync(_selectedApartment.apartment_id));
+
+        // Initial load if necessary
+        _ = LoadApartmentInfoAsync(_selectedApartment.apartment_id);
+    }
+
+    // Command properties
+    public ICommand LoadApartmentInfoCommand { get; }
+
+    public async Task LoadApartmentInfoAsync(int apartmentID)
+    {
+        var apartment = await _apartmentService.GetOneApartmentAsync(apartmentID);
+        SelectedApartment = apartment;
+    }
+
+    public void SelectBuildingInListBox(ListBox listBox)
+    {
+        // Duyệt qua tất cả các item trong ListBox để tìm item có schema trùng khớp với SelectedBuildingSchema
+        foreach (var item in listBox.Items)
+        {
+            // Kiểm tra nếu item là Grid (hoặc kiểu dữ liệu khác bạn đang sử dụng)
+            if (item is Grid grid)
             {
-                _selectedApartment = value;
-                OnPropertyChanged();
+                // Tìm TextBlock bên trong Grid để lấy giá trị Tag (schema)
+                var selectedBuilding = FindVisualChild<TextBlock>(grid);
+
+                if (selectedBuilding != null)
+                {
+                    // Lấy giá trị Tag (schema) từ TextBlock
+                    string buildingName = selectedBuilding.Tag as string;
+
+                    // Kiểm tra nếu schema của TextBlock khớp với schema đã lưu trong BuildingManager
+                    if (buildingName == BuildingSchema.Instance.CurrentBuildingSchema)
+                    {
+
+                        // Tự động chọn item trong ListBox nếu schema trùng khớp
+                        listBox.SelectedItem = item;
+                        break;  // Dừng lại sau khi chọn được item
+                    }
+                }
             }
         }
+    }
 
-        // Constructor with Dependency Injection for ApartmentService
-        public ApartmentInfoViewModel(IApartmentService apartmentService, Apartment selectedApartment)
+    // Helper method to find a child control of a specific type inside a parent (e.g., finding TextBlock inside a Grid)
+    private T FindVisualChild<T>(DependencyObject depObj) where T : DependencyObject
+    {
+        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
         {
-            _apartmentService = apartmentService ?? throw new ArgumentNullException(nameof(apartmentService));
-            _selectedApartment = selectedApartment ?? throw new ArgumentNullException(nameof(selectedApartment));
+            DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+            if (child is T)
+                return (T)child;
 
-            // Initialize command for loading apartment info
-            LoadApartmentInfoCommand = new RelayCommand(async () => await LoadApartmentInfoAsync(_selectedApartment.apartment_id));
-
-            // Initial load if necessary
-            _ = LoadApartmentInfoAsync(_selectedApartment.apartment_id);
+            // Continue searching through the children of the child
+            T childOfChild = FindVisualChild<T>(child);
+            if (childOfChild != null)
+                return childOfChild;
         }
+        return null;
+    }
 
 
-        // Command properties
-        public ICommand LoadApartmentInfoCommand { get; }
 
-        public async Task LoadApartmentInfoAsync(int apartmentID)
-        {
-            var _selectedApartment = await _apartmentService.GetOneApartmentAsync(apartmentID);
-            OnPropertyChanged(nameof(SelectedApartment));
-        }
+    // INotifyPropertyChanged implementation
+    public event PropertyChangedEventHandler PropertyChanged;
 
-        // INotifyPropertyChanged implementation
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        // Helper method to raise the PropertyChanged event
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+    // Helper method to raise the PropertyChanged event
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

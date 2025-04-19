@@ -19,9 +19,6 @@ namespace ApartmentManagement.Data
         {
             _schema = schema;
             _dbConnection = dbConnection;
-
-            // Debug
-            MessageBox.Show($"{_dbConnection.ConnectionString} + {BuildingManager.Instance.CurrentBuildingSchema}", "Connection String", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         // Các DbSet cho các thực thể
@@ -36,7 +33,6 @@ namespace ApartmentManagement.Data
         // Cấu hình các thực thể trong OnModelCreating
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //MessageBox.Show("1 2 3");
             // Áp dụng schema vào bảng
             modelBuilder.Entity<User>().ToTable("users", _schema);
             modelBuilder.Entity<Building>().ToTable("buildings", _schema);

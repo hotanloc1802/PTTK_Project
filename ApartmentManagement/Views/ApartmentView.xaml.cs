@@ -31,65 +31,99 @@ namespace ApartmentManagement.Views
 
             ApartmentViewModel apartmentViewModel = new ApartmentViewModel(apartmentService);
             DataContext = apartmentViewModel;
+            apartmentViewModel?.SelectBuildingInListBox(BuildingListBox);
         }
-
+        private bool isFirstSelection = true;  // Cờ kiểm tra lần gọi đầu tiên
         private async void OnBuildingSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedItem = (ListBox)sender;
-            var selectedGrid = (Grid)selectedItem.SelectedItem;
-
-            var selectedBuilding = FindVisualChild<TextBlock>(selectedGrid);
-            if (selectedBuilding != null)
+            // Kiểm tra nếu là lần gọi đầu tiên
+            if (isFirstSelection)
             {
-                string buildingName = (selectedBuilding.Tag as string) ?? selectedBuilding.Text;
+                isFirstSelection = false;  // Đặt cờ thành false để không gọi sự kiện lần sau
+                return;  // Bỏ qua lần gọi đầu tiên
+            }
 
-                if (buildingName != BuildingManager.Instance.CurrentBuildingSchema)
+            var selectedItem = (ListBox)sender;
+
+            // Get the selected data directly (likely a Grid or another data object)
+            var selectedData = selectedItem.SelectedItem;
+
+            if (selectedData != null)
+            {
+                var selectedGrid = selectedData as Grid;
+                if (selectedGrid != null)
                 {
-                    // Set the new building schema
-                    BuildingManager.Instance.SetBuilding(buildingName.ToLowerInvariant()); // Ensure lowercase
+                    var selectedBuilding = FindVisualChild<TextBlock>(selectedGrid);
 
-                    // Dispose of the old ViewModel and context
-                    if (DataContext is ApartmentViewModel oldViewModel)
+                    if (selectedBuilding != null)
                     {
-                        oldViewModel.Dispose();
+                        string buildingName = (selectedBuilding.Tag as string) ?? selectedBuilding.Text;
+
+                        if (buildingName != BuildingSchema.Instance.CurrentBuildingSchema)
+                        {
+                            // Set the new building schema
+                            BuildingSchema.Instance.SetBuilding(buildingName.ToLowerInvariant());
+
+                            // Dispose of the old ViewModel and context
+                            if (DataContext is ApartmentViewModel oldViewModel)
+                            {
+                                oldViewModel.Dispose();
+                            }
+
+                            // Create a new context factory that will use the new schema
+                            var apartmentDbContext = DbContextFactory.CreateDbContext();
+
+                            // Create new repository and service with the new context
+                            IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
+                            IApartmentService apartmentService = new ApartmentService(apartmentRepository);
+
+                            // Create a new view model
+                            ApartmentViewModel apartmentViewModel = new ApartmentViewModel(apartmentService);
+                            DataContext = apartmentViewModel;
+
+                            await Task.Delay(3000);  // Optional delay for visual feedback
+
+                            // Ensure the view model loads the data
+                            await apartmentViewModel.LoadApartmentsAsync();
+                        }
                     }
-
-                    // Create a new context factory that will use the new schema
-                    var apartmentDbContext = DbContextFactory.CreateDbContext();
-                    
-                    // Create new repository and service with the new context
-                    IApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
-                    IApartmentService apartmentService = new ApartmentService(apartmentRepository);
-
-                    // Create a new view model
-                    ApartmentViewModel apartmentViewModel = new ApartmentViewModel(apartmentService);
-                    DataContext = apartmentViewModel;
-
-                    await Task.Delay(3000);
-                    // Ensure the view model loads the data
-                    await apartmentViewModel.LoadApartmentsAsync();
-
-                    MessageBox.Show($"Current Building Schema: {BuildingManager.Instance.CurrentBuildingSchema}");
+                    else
+                    {
+                        MessageBox.Show("TextBlock not found inside the Grid.");
+                    }
                 }
+                else
+                {
+                    MessageBox.Show("Selected item is not a Grid.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No item selected.");
             }
         }
 
+
+
+        // Helper method to find child controls (like TextBlock) inside a ListBoxItem
         private T FindVisualChild<T>(DependencyObject depObj) where T : DependencyObject
         {
-            // Duyệt qua tất cả các đối tượng con
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
             {
                 DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
                 if (child is T)
                     return (T)child;
 
-                // Tiếp tục duyệt qua các đối tượng con của child
+                // Continue traversing through the child of child
                 T childOfChild = FindVisualChild<T>(child);
                 if (childOfChild != null)
                     return childOfChild;
             }
             return null;
         }
+
+
+
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {

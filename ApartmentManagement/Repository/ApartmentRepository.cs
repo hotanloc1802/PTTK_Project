@@ -31,40 +31,65 @@ namespace ApartmentManagement.Repository
             }
             catch (DbUpdateException ex)
             {
+                // Log the full exception details for debugging
+                Console.WriteLine($"Full exception: {ex}");
+                Console.WriteLine($"Inner exception: {ex.InnerException?.Message}");
+
                 if (ex.InnerException is PostgresException postgresEx)
                 {
-                    if (postgresEx.Message.Contains("Apartment number format is incorrect"))
+                    // Log the PostgreSQL error details
+                    Console.WriteLine($"PostgreSQL error: {postgresEx.MessageText}");
+                    Console.WriteLine($"PostgreSQL error code: {postgresEx.SqlState}");
+
+                    // Check for specific error messages from your trigger
+                    string errorMessage = postgresEx.MessageText;
+
+                    if (errorMessage.Contains("Apartment number format is incorrect"))
                     {
                         MessageBox.Show("Apartment number format is incorrect. Expected format: AXX.YY (e.g., A32.25)", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                    else if (postgresEx.Message.Contains("Floor number exceeds the maximum floor"))
+                    else if (errorMessage.Contains("Floor number exceeds"))
                     {
                         MessageBox.Show("Floor number exceeds the maximum floor for this building.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                    else if (postgresEx.Message.Contains("Room number exceeds the maximum room"))
+                    else if (postgresEx.Message.Contains("Max population must be between 1 and 6."))
                     {
-                        MessageBox.Show("Room number exceeds the maximum room for this floor.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Max population must be between 1 and 6.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else if (postgresEx.Message.Contains("Invalid transfer status: %.Allowed values: available, pending, sold."))
+                    {
+                        MessageBox.Show("Invalid transfer status: %.Allowed values: available, pending, sold.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else if (postgresEx.Message.Contains("Invalid vacancy status: %.Allowed values: vacant, occupied."))
+                    {
+                        MessageBox.Show("Invalid vacancy status: %.Allowed values: vacant, occupied.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else if (postgresEx.Message.Contains("The identification number must be 16 digits long."))
+                    {
+                        MessageBox.Show("The identification number must be 16 digits long.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
-                    // Xóa trạng thái bị lỗi khỏi context
-                    _context.ChangeTracker.Clear();
-
-                    // Làm mới dữ liệu hiển thị
-                    await LoadApartmentsAsync();
-                    return false;
+                    else
+                    {
+                        // Generic PostgreSQL error message
+                        MessageBox.Show($"Database error: {errorMessage}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    // For other database errors
+                    MessageBox.Show($"Failed to add apartment: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-                MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                // Cẩn thận: Nếu không rõ nguyên nhân lỗi, vẫn nên clear tracker
+                // Clean up and refresh data
                 _context.ChangeTracker.Clear();
+                await LoadApartmentsAsync();
                 return false;
             }
             catch (Exception ex)
             {
+                // For non-database errors
                 MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                // Đảm bảo context sạch sẽ cho các thao tác tiếp theo
                 _context.ChangeTracker.Clear();
                 return false;
             }

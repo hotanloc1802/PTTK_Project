@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ApartmentManagement.Data;
-
+using ApartmentManagement.Core.Singleton;
 // Create a new file: DbContextFactory.cs
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Windows;
 
 namespace ApartmentManagement.Core.Factory
 {
@@ -17,9 +18,8 @@ namespace ApartmentManagement.Core.Factory
         {
             var dbConnection = new DbConnection();
             var optionsBuilder = new DbContextOptionsBuilder<ApartmentDbContext>();
-
             // Get the schema from BuildingManager, default to "MienDong" if null
-            var buildingSchema = Core.Singleton.BuildingManager.Instance.CurrentBuildingSchema ?? "mien_dong";
+            var buildingSchema = BuildingSchema.Instance.CurrentBuildingSchema ?? "mien_dong";
 
             // Add the schema to connection string if needed
             var connectionString = dbConnection.ConnectionString;
