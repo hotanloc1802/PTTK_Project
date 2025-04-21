@@ -61,6 +61,9 @@ namespace ApartmentManagement.Service
         {
             var list = await _apartmentRepository.CreateApartmentsAsync(apartment);
             ErrorMessage = _apartmentRepository.ErrorMessage;
+            ErrorMessage2 = _apartmentRepository.ErrorMessage2;
+            ErrorMessage3 = _apartmentRepository.ErrorMessage3;
+            ErrorMessage4 = _apartmentRepository.ErrorMessage4;
             return list;
         }
         public async Task<bool> DeleteApartmentsAsync(int id)

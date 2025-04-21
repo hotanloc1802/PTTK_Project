@@ -82,23 +82,27 @@ namespace ApartmentManagement.Repository
                     }
                     else if (errorMessage.Contains("Floor number exceeds"))
                     {
-                        ErrorMessage = "Floor number exceeds the maximum floor.";
+                        ErrorMessage = "Floor number exceeds the max floor";
                     }
-                    else if (postgresEx.Message.Contains("Max population must be between 1 and 6."))
+                    else if (errorMessage.Contains("Room number exceeds"))
                     {
-                        ErrorMessage2 = "Max population must be between 1 and 6.";
+                        ErrorMessage = "Room number exceeds the max room";
                     }
-                    else if (postgresEx.Message.Contains("Invalid transfer status: %.Allowed values: available, pending, sold."))
+                    else if (errorMessage.Contains("Max population must be between 1 and 6."))
                     {
-                        ErrorMessage3 = "Invalid transfer status: %.Allowed values: available, pending, sold.";
+                        ErrorMessage2 = "Max population must be between 1 and 6";
                     }
-                    else if (postgresEx.Message.Contains("Invalid vacancy status: %.Allowed values: vacant, occupied."))
+                    else if (errorMessage.Contains("Invalid transfer status: %.Allowed values: available, pending, sold."))
                     {
-                        ErrorMessage4 = "Invalid vacancy status: %.Allowed values: vacant, occupied.";
+                        ErrorMessage3 = "Invalid transfer status: %.Allowed values: available, pending, sold";
                     }
-                    else if (postgresEx.Message.Contains("The identification number must be 16 digits long."))
+                    else if (errorMessage.Contains("Invalid vacancy status: %.Allowed values: vacant, occupied."))
                     {
-                        ErrorMessage = "The identification number must be 16 digits long.";
+                        ErrorMessage4 = "Invalid vacancy status: %.Allowed values: vacant, occupied";
+                    }
+                    else if (errorMessage.Contains("The identification number must be 16 digits long."))
+                    {
+                        ErrorMessage = "The identification number must be 16 digits long";
                     }
 
                     else

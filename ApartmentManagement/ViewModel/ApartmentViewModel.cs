@@ -50,14 +50,7 @@ namespace ApartmentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-        public string ErrorMessage1
-        {
-            get { return _errorMessage; }
-            set
-            {
-                _errorMessage = value;
-            }
-        }
+
         public string ErrorMessage2
         {
             get { return _errorMessage; }
@@ -409,18 +402,15 @@ namespace ApartmentManagement.ViewModels
 
             var result = await _apartmentService.CreateApartmentsAsync(newApartment);
             ErrorMessage = _apartmentService.ErrorMessage;
-            ErrorMessage1 = _apartmentService.ErrorMessage1;
-            ErrorMessage2 = _apartmentService.ErrorMessage2;
+            ErrorMessage2 = _apartmentService.ErrorMessage3;
             ErrorMessage3 = _apartmentService.ErrorMessage3;
+            ErrorMessage4 = _apartmentService.ErrorMessage4;
             if (result)
             {
                 MessageBox.Show("Apartment added successfully.");
                 ResetForm();
             }
-            else
-            {
-                MessageBox.Show("Failed to add apartment.");
-            }
+           
         }
 
         // Reset Form after adding an apartment

@@ -537,7 +537,6 @@
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
 
                                     <Grid.ColumnDefinitions>
@@ -558,7 +557,10 @@
 
                                     <!--Inputs-->
                                     <StackPanel Grid.Column="0" Grid.Row="2" Margin="20,0,15,0">
-                                        <TextBlock Text="Apartment Number *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                                        <TextBlock Foreground="#374655" FontSize="13" Margin="0 0 0 8">
+                                        <Run Text="Apartment Number "/>
+                                        <Run Text="*" Foreground="Red"/>
+                                        </TextBlock>
                                         <TextBox x:Name="ApartmentNumber" Height="40" Padding="10 0" VerticalContentAlignment="Center" 
                                          BorderThickness="1" BorderBrush="#E1E6EB"
                                          Text="{Binding ApartmentNumber, UpdateSourceTrigger=PropertyChanged}"/>
@@ -566,51 +568,50 @@
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Grid.Row="2" Margin="15 0 20 10">
-                                        <TextBlock Text="Building Name *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
+                                        <TextBlock  Foreground="#374655" FontSize="13" Margin="0 0 0 8">
+                                        <Run Text="Building Name "/>
+                                        <Run Text="*" Foreground="Red"/>   
+                                        </TextBlock>
                                         <TextBox x:Name="BuildingName" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                           BorderThickness="1" BorderBrush="#E1E6EB"
                                           Text="{Binding BuildingName, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="0" Grid.Row="3" Margin="20 10 15 10">
-                                        <TextBlock Text="Maximum Population *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                                        <TextBox x:Name="MaxPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center"
-                                         BorderThickness="1" BorderBrush="#E1E6EB"
-                                         Text="{Binding MaxPopulation, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBlock Foreground="#374655" FontSize="13" Margin="0 0 0 8">
+                                        <Run Text="Maximum Population "/>
+                                        <Run Text="*" Foreground="Red"/>
+                                        </TextBlock>
+                                        <TextBox x:Name="MaxPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="#E1E6EB" Text="{Binding MaxPopulation, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBlock x:Name="ErrorMessage2" HorizontalAlignment="Left" Foreground="Red" FontSize="12" Text="{Binding ErrorMessage1}" FontFamily="Montserrat Bold" VerticalAlignment="Center" Margin="0,5,0,0" />
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Grid.Row="3" Margin="15 10 20 10">
                                         <TextBlock Text="Current Population" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                                        <TextBox x:Name="CurrentPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center"
-                                         BorderThickness="1" BorderBrush="#E1E6EB"
-                                         Text="{Binding CurrentPopulation, UpdateSourceTrigger=PropertyChanged}"/>
-                                        <TextBlock  HorizontalAlignment="Left" Foreground="Red" FontSize="12" Text="{Binding ErrorMessage1}" FontFamily="Montserrat Bold" VerticalAlignment="Center" Margin="0,5,0,0" />
+
+                                        <TextBox x:Name="CurrentPopulation" Height="40" Padding="10 0" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="#E1E6EB" Text="{Binding CurrentPopulation, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBlock x:Name="ErrorMessage2a" HorizontalAlignment="Left" Foreground="Red" FontSize="12" Text="{Binding ErrorMessage1}" FontFamily="Montserrat Bold" VerticalAlignment="Center" Margin="0,5,0,0" />
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="0" Grid.Row="4" Margin="20 10 15 10">
-                                        <TextBlock Text="Vacancy Status *" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                                        <TextBox x:Name="VacancyStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center"
-                                          BorderThickness="1" BorderBrush="#E1E6EB"
-                                          Text="{Binding VacancyStatus, UpdateSourceTrigger=PropertyChanged}"/>
-                                        <TextBlock  HorizontalAlignment="Left" Foreground="Red" FontSize="12" Text="{Binding ErrorMessage2}" FontFamily="Montserrat Bold" VerticalAlignment="Center" Margin="0,5,0,0" />
+                                        <TextBlock  Foreground="#374655" FontSize="13" Margin="0 0 0 8">
+                                        <Run Text="Vacancy Status"/>
+                                        <Run Text="*" Foreground="Red"/>
+                                        </TextBlock>
+                                        <TextBox x:Name="VacancyStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="#E1E6EB" Text="{Binding  VacancyStatus, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBlock x:Name="ErrorMessage3" HorizontalAlignment="Left" Foreground="Red" FontSize="12" Text="{Binding ErrorMessage3}" FontFamily="Montserrat Bold" VerticalAlignment="Center" Margin="0,5,0,0" />
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Grid.Row="4" Margin="15 10 20 10">
-                                        <TextBlock Text="Transfer Status" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                                        <TextBox x:Name="TransferStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center"
-                                          BorderThickness="1" BorderBrush="#E1E6EB"
-                                          Text="{Binding TransferStatus, UpdateSourceTrigger=PropertyChanged}"/>
-                                        <TextBlock  HorizontalAlignment="Left" Foreground="Red" FontSize="12" Text="{Binding ErrorMessage3}" FontFamily="Montserrat Bold" VerticalAlignment="Center" Margin="0,5,0,0" />
-                                        
+                                        <TextBlock Foreground="#374655" FontSize="13" Margin="0 0 0 8">
+                                        <Run Text="Transfer status" />
+                                        <Run Text="*" Foreground="Red"/>
+                                        </TextBlock>
+                                        <TextBox x:Name="TransferStatus" Height="40" Padding="10 0" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="#E1E6EB" Text="{Binding TransferStatus, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBlock x:Name="ErrorMessage4" HorizontalAlignment="Left" Foreground="Red" FontSize="12" Text="{Binding ErrorMessage4}" FontFamily="Montserrat Bold" VerticalAlignment="Center" Margin="0,5,0,0" />
                                     </StackPanel>
 
-                                    <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="20 10 20 10">
-                                        <TextBlock Text="Owner ID (optional)" Foreground="#374655" FontSize="13" Margin="0 0 0 8"/>
-                                        <TextBox x:Name="OwnerId" Height="40" Padding="10 0" VerticalContentAlignment="Center"
-                                          BorderThickness="1" BorderBrush="#E1E6EB"
-                                          Text="{Binding OwnerId, UpdateSourceTrigger=PropertyChanged}"/>
-                                        
-                                    </StackPanel>
+
 
                                     <!--Main Button-->
                                     <Border  Grid.Column="1" Grid.Row="6" >

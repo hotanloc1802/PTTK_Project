@@ -67,10 +67,9 @@
                     </Ellipse>
                     <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
                     <Grid Grid.Row="1">
-                        <TextBlock Name="BconsMienDong"  Text="Miền Đông
-" Tag="mien_dong" FontFamily="Montserrat Bold"
-       FontSize="13" Foreground="White" VerticalAlignment="Center"
-       Height="18" HorizontalAlignment="Center"/>
+                        <TextBlock Name="BconsMienDong"  Text="Miền Đông" Tag="mien_dong" FontFamily="Montserrat Bold"
+FontSize="13" Foreground="White" VerticalAlignment="Center"
+Height="18" HorizontalAlignment="Center"/>
                     </Grid>
                 </Grid>
                 <!-- Item 2 -->
@@ -386,6 +385,39 @@ To="#959595" Duration="0:0:0.2" />
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Icon:PackIconMaterial Kind="Cog"  VerticalAlignment="Center" Foreground="#959595"/>
                             <TextBlock x:Name="settingText"  Text=" Setting" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
+                    <Button x:Name="btnlogout"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                        <Button.Triggers>
+                            <!-- Trigger khi di chuột vào Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Đổi màu nền của Button khi di chuột vào -->
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="#CDDFFB" Duration="0:0:0.2" />
+                                        <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
+                                        <ColorAnimation Storyboard.TargetName="settingText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <!-- Trigger khi di chuột ra khỏi Button -->
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.2" />
+                                        <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
+                                        <ColorAnimation Storyboard.TargetName="settingText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="ExitToApp"  VerticalAlignment="Center" Foreground="#959595"/>
+                            <TextBlock x:Name="logout"  Text=" Log out" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </Border>
