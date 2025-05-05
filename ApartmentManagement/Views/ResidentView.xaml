@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ApartmentManagement.Views"
         mc:Ignorable="d"
-        Title="ResidentView" Height="760" Width="1380" Background="Transparent" ResizeMode="NoResize"
+        Title="Resident" Height="760" Width="1380" Background="Transparent" ResizeMode="NoResize"
         AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox">
@@ -43,89 +43,112 @@
         </Grid>
         <Grid Grid.Column="0" Grid.Row="1" Background="#f1f1f1" Margin="10,0,0,0" >
         </Grid>
-        <Grid Grid.Column="0" Grid.Row="2" Margin="0,20,0,20">
+        <Grid Grid.Column="0" Grid.Row="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Margin="0,0,0,10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2.5*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="0.01*" />
-                </Grid.RowDefinitions>
-                <Ellipse Width="80" Height="80">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0">
+            <ListBox x:Name="BuildingListBox"  Margin="0,20,0,20" BorderThickness="0" Background="Transparent" SelectedIndex="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="OnBuildingSelectionChanged" >
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Padding" Value="0"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+                <!-- Item 1 -->
+                <Grid Grid.Row="0" Margin="0,0,0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2.5*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.01*" />
+                    </Grid.RowDefinitions>
+                    <Ellipse Width="80" Height="80">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
+                    <Grid Grid.Row="1">
+                        <TextBlock Name="BconsMienDong"  Text="Miền Đông" Tag="mien_dong" FontFamily="Montserrat Bold"
+FontSize="13" Foreground="White" VerticalAlignment="Center"
+Height="18" HorizontalAlignment="Center"/>
+                    </Grid>
                 </Grid>
-                <Grid Grid.Row="1">
-                    <TextBlock x:Name="BconsMienDong" Text="Miền Đông" FontFamily="Montserrat Bold" FontSize="13" Foreground="White" VerticalAlignment="Center" Height="18" HorizontalAlignment="Center"/>
+                <!-- Item 2 -->
+                <Grid Grid.Row="1" Margin="0,0,0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2.5*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.01*" />
+                    </Grid.RowDefinitions>
+                    <Ellipse Width="80" Height="80">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
+                    <Grid Grid.Row="1">
+                        <TextBlock Name="BconsPlaza" Text="Plaza" Tag="plaza" FontFamily="Montserrat Bold"
+FontSize="13" Foreground="White" VerticalAlignment="Center"
+Height="18" HorizontalAlignment="Center"/>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid Grid.Row="1" Margin="0,0,0,10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2.5*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="0.01*" />
-                </Grid.RowDefinitions>
-                <Ellipse Width="80" Height="80">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0">
+
+                <!-- Item 3 -->
+                <Grid Grid.Row="2" Margin="0,0,0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2.5*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.01*" />
+                    </Grid.RowDefinitions>
+                    <Ellipse Width="80" Height="80">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
+                    <Grid Grid.Row="1">
+                        <TextBlock Text="Sala" Tag="sala" FontFamily="Montserrat Bold"
+FontSize="13" Foreground="White" VerticalAlignment="Center"
+Height="18" HorizontalAlignment="Center"/>
+                    </Grid>
                 </Grid>
-                <Grid Grid.Row="1">
-                    <TextBlock x:Name="BconsPlaza" Text="Plaza" FontFamily="Montserrat Bold" FontSize="13" Foreground="White" VerticalAlignment="Center" Height="18" HorizontalAlignment="Center"/>
+
+                <!-- Item 4 -->
+                <Grid Grid.Row="3" Margin="0,0,0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2.5*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.01*" />
+                    </Grid.RowDefinitions>
+                    <Ellipse Width="80" Height="80">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
+                    <Grid Grid.Row="1">
+                        <TextBlock Text="Green View" Tag="green_view" FontFamily="Montserrat Bold"
+FontSize="13" Foreground="White" VerticalAlignment="Center"
+Height="18" HorizontalAlignment="Center"/>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid Grid.Row="2" Margin="0,0,0,10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2.5*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="0.01*" />
-                </Grid.RowDefinitions>
-                <Ellipse Width="80" Height="80">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0">
-                </Grid>
-                <Grid Grid.Row="1">
-                    <TextBlock x:Name="BconsSala" Text="Sala" FontFamily="Montserrat Bold" FontSize="13" Foreground="White" VerticalAlignment="Center" Height="18" HorizontalAlignment="Center"/>
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="3" Margin="0,0,0,10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2.5*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="0.01*" />
-                </Grid.RowDefinitions>
-                <Ellipse Width="80" Height="80">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0">
-                </Grid>
-                <Grid Grid.Row="1">
-                    <TextBlock x:Name="BconsGreenView" Text="Green View" FontFamily="Montserrat Bold" FontSize="13" Foreground="White" VerticalAlignment="Center" Height="18" HorizontalAlignment="Center"/>
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="4" Margin="0,0,0,40">
-                <Ellipse Width="50" Height="50"
-                         Stroke="White" StrokeThickness="1"
-                         StrokeDashArray="10,2" Fill="Transparent"/>
-                <iconPacks:PackIconMaterial Kind="Plus" Width="17" Height="17"  Foreground="#ebedf3" Margin="41,28,0,0"/>
+            </ListBox>
+            <Grid Grid.Row="1">
+                <Ellipse Width="50" Height="50" Stroke="White" StrokeThickness="1" StrokeDashArray="10,2" Fill="Transparent" VerticalAlignment="Top"/>
+                <iconPacks:PackIconMaterial Kind="Plus" Width="17" Height="17"
+    Foreground="#ebedf3" Margin="42,16,0,0"/>
             </Grid>
         </Grid>
+
         <Border Background="#0430AD" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
         <Border CornerRadius="20 0 0 20" Background="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
         <Border Background="#F5F9FA" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
@@ -150,7 +173,7 @@
         <Grid Grid.Column="1" Grid.Row="2">
             <StackPanel Margin="0,30,0,0" >
                 <Border CornerRadius="10" Padding="5,5,5,5" Margin="0,0,0,0" Width="142"  >
-                    <Button x:Name="btnDashboard"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnDashboard"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnMainWindow_Click">
                         <Button.Triggers>
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">
@@ -414,8 +437,7 @@ To="#959595" Duration="0:0:0.2" />
                     </Button>
                 </Border>
             </StackPanel>
-        </Grid>
-        <Grid Grid.Column="2">
+        </Grid>        <Grid Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="2*"/>
@@ -472,7 +494,120 @@ To="#959595" Duration="0:0:0.2" />
         <Grid Grid.Column="2" Grid.Row="1" Background="white" Margin="0,0,10,0">
         </Grid>
         <Grid Grid.Column="2" Grid.Row="2" Margin="0,0,10,0">
-            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!-- Main Content -->
+            <Grid Grid.Row="2" Margin="30,0,20,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Search and filter row -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- Add button -->
+                    <Border Grid.Column="1" Background="#0430AD" Padding="8,4" BorderThickness="0" CornerRadius="10" Margin="0,10,0,10" >
+                        <Button Grid.Column="1"  Foreground="White"  BorderThickness="0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="+ " FontWeight="Bold" VerticalAlignment="Center" FontFamily="Montserrat Bold" FontSize="12" />
+                                <TextBlock Text="Add New Resident" VerticalAlignment="Center" FontFamily="Montserrat Bold" FontSize="12" />
+                            </StackPanel>
+                        </Button>
+                    </Border>
+                </Grid>
+
+                <!-- Title and filter tabs -->
+                <TextBlock Text="Residents"  Foreground="#434343"  FontFamily="Montserrat Bold" Grid.Row="0" FontSize="20"  Margin="0,15,187,10"/>
+
+                <!-- Separator -->
+                <Separator Grid.Row="3" Margin="0,15"/>
+
+                <!-- Count and sort section -->
+                <Grid Grid.Row="4" Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="{Binding ApartmentCount, StringFormat={}{0} Residents}"  FontSize="16"  VerticalAlignment="Center"  Foreground="#434343"  />
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <TextBlock Text="Sort by:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <ComboBox x:Name="sortComboBox" Style="{StaticResource CustomComboBoxStyle}" Width="180" SelectedIndex="0" SelectionChanged="SortComboBox_SelectionChanged">
+                            <ComboBoxItem Content="Apartment Number"/>
+                            <ComboBoxItem Content="ID"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Data Grid -->
+                <DataGrid x:Name="ResidentDataGrid" 
+          Grid.Row="5" Grid.Column="1" 
+          AutoGenerateColumns="False" 
+          IsReadOnly="True" 
+          GridLinesVisibility="None" 
+          BorderThickness="1" 
+          BorderBrush="#E1E1E1"
+          Background="White" 
+          RowBackground="White" 
+          AlternatingRowBackground="#F8F9FA"
+          CanUserAddRows="False" 
+          CanUserDeleteRows="False" 
+          ItemsSource="{Binding Residents}"
+          HeadersVisibility="Column"
+          SelectionChanged="ResidentDataGrid_SelectionChanged">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#F8F9FA"/>
+                            <Setter Property="Padding" Value="10,8"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="BorderBrush" Value="#E1E1E1"/>
+                            <Setter Property="FontFamily" Value="Montserrat"/>
+                            <Setter Property="FontSize" Value="13"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding resident_id}" Width="70"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="400"/>
+                        <DataGridTextColumn Header="Phone Number" Binding="{Binding phone_number}" Width="*"/>
+                        <DataGridTextColumn Header="Apartment Number" Binding="{Binding apartment.apartment_number}" Width="180"/>
+                        <DataGridTemplateColumn Header="Actions" Width="120">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="EditActionButton" Background="#4CAF50" Foreground="White" Margin="0,0,5,0" Padding="8,3" BorderThickness="0" Click="EditButton_Click">
+                                            <Icon:PackIconMaterial Kind="PencilOutline" Width="12" Height="12" />
+                                        </Button>
+                                        <Button x:Name="DeleteActionButton" Background="#F44336" Foreground="White" Padding="8,3" BorderThickness="0" Click="DeleteButton_Click">
+                                            <Icon:PackIconMaterial Kind="DeleteOutline" Width="12" Height="12"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <!-- Pagination -->
+                <Border Grid.Row="6" HorizontalAlignment="Right" BorderBrush="#E1E1E1" BorderThickness="1" Margin="0,15,0,15" Padding="5" Background="White" CornerRadius="15">
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="btnPrevPage" Content="&lt;" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat" Click="BtnPrevPage_Click"/>
+                        <Button x:Name="btnPage1" Content="1" Padding="8,3" Margin="3" Background="#0430AD" Foreground="White" BorderThickness="0" FontFamily="Montserrat" Click="BtnGoToPage_Click"/>
+                        <Button x:Name="btnPage2" Content="2" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat" Click="BtnGoToPage_Click"/>
+                        <Button x:Name="btnPage3" Content="3" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat" Click="BtnGoToPage_Click"/>
+                        <Button x:Name="btnNextPage" Content="&gt;" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat" Click="BtnNextPage_Click"/>
+                    </StackPanel>
+                </Border>
             </Grid>
         </Grid>
+    </Grid>
 </Window>

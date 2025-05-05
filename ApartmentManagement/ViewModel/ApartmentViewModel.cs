@@ -301,12 +301,12 @@ namespace ApartmentManagement.ViewModels
             LoadApartmentsCommand = new RelayCommand(async () => await LoadApartmentsAsync());
             DeleteApartmentCommand = new RelayCommand<int>(async (id) => await DeleteApartmentAsync(id));
             CountApartmentsCommand = new RelayCommand(async () => await CountApartmentsAsync());
+            AddApartmentCommand = new RelayCommand(AddApartment);
 
             NextPageCommand = new RelayCommand(() => CurrentPage++, () => CurrentPage < TotalPages);
             PreviousPageCommand = new RelayCommand(() => CurrentPage--, () => CurrentPage > 1);
             GoToPageCommand = new RelayCommand<int>((page) => CurrentPage = page);
 
-            AddApartmentCommand = new RelayCommand(AddApartment);
             // Load apartments initially if needed
             _ = LoadApartmentsAsync();
             _ = SortApartmentsAsync("Apartment Number");

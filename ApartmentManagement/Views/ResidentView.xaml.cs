@@ -1,37 +1,44 @@
-﻿using ApartmentManagement.Data;
-using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using ApartmentManagement.Repository;
+﻿using ApartmentManagement.Repository;
 using ApartmentManagement.Service;
 using ApartmentManagement.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
-using ApartmentManagement.Model;
-using System.Reflection.Metadata;
-using ApartmentManagement.ViewModel;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using ApartmentManagement.Core.Singleton;
 using ApartmentManagement.Core.Factory;
+using ApartmentManagement.ViewModel;
+using ApartmentManagement.Model;
 
 namespace ApartmentManagement.Views
 {
-    public partial class ApartmentView : Window
+    /// <summary>
+    /// Interaction logic for ResidentView.xaml
+    /// </summary>
+    public partial class ResidentView : Window
     {
-
-        public ApartmentView()
+        public ResidentView()
         {
             InitializeComponent();
 
             // Use the factory to create a new context
             var apartmentDbContext = DbContextFactory.CreateDbContext();
 
-            ApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
-            ApartmentService apartmentService = new ApartmentService(apartmentRepository);
-            ApartmentViewModel apartmentViewModel = new ApartmentViewModel(apartmentService);
-            DataContext = apartmentViewModel;
-            apartmentViewModel?.SelectBuildingInListBox(BuildingListBox);
+            ResidentRepository residentRepository = new ResidentRepository(apartmentDbContext);
+            ResidentService residentService = new ResidentService(residentRepository);
+            ResidentViewModel residentViewModel = new ResidentViewModel(residentService);
+            DataContext = residentViewModel;
+            residentViewModel?.SelectBuildingInListBox(BuildingListBox);
+
         }
         private bool isFirstSelection = true;  // Cờ kiểm tra lần gọi đầu tiên
         private async void OnBuildingSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -65,17 +72,17 @@ namespace ApartmentManagement.Views
                             BuildingSchema.Instance.SetBuilding(buildingName.ToLowerInvariant());
 
                             // Dispose of the old ViewModel and context
-                            if (DataContext is ApartmentViewModel oldViewModel)
+                            if (DataContext is ResidentViewModel oldViewModel)
                             {
                                 oldViewModel.Dispose();
                             }
 
                             // Create a new context factory that will use the new schema
                             var apartmentDbContext = DbContextFactory.CreateDbContext();
-                            ApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
-                            ApartmentService apartmentService = new ApartmentService(apartmentRepository);
-                            ApartmentViewModel apartmentViewModel = new ApartmentViewModel(apartmentService);
-                            DataContext = apartmentViewModel;
+                            ResidentRepository residentRepository = new ResidentRepository(apartmentDbContext);
+                            ResidentService residentService = new ResidentService(residentRepository);
+                            ResidentViewModel residentViewModel = new ResidentViewModel(residentService);
+                            DataContext = residentViewModel;
 
                             Window_Loaded(sender, e);
                         }
@@ -113,175 +120,27 @@ namespace ApartmentManagement.Views
             return null;
         }
 
-
-
-
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            txtSearch.Visibility = Visibility.Collapsed;
-        }
-
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            txtSearch.Visibility = Visibility.Visible;
-        }
-
-        private void BtnMainWindow_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindowView mainWindow = new MainWindowView();
-            mainWindow.Show();
-            this.Close();
-        }
-
-        private void BtnCreateApartment_Click(object sender, RoutedEventArgs e)
-        {
-            ApartmentCreateView apartmentCreateView = new ApartmentCreateView();
-            apartmentCreateView.Show();
-            this.Close();
-        }
-
-        private void UpdateButtonState(Button clickedButton)
-        {
-            Button[] buttons = { btnAll, btnVacant, btnOccupied};
-            Border[] borders = { borderAll, borderVacant, borderOccupied};
-
-            Color activeBackgroundColor = (Color)ColorConverter.ConvertFromString("#0430AD");
-            Color activeTextColor = Colors.White;
-
-            Color inactiveBackgroundColor = (Color)ColorConverter.ConvertFromString("#F0F0F0");
-            Color inactiveTextColor = (Color)ColorConverter.ConvertFromString("#434343");
-
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                if (buttons[i] == clickedButton)
-                {
-                    // Set clicked button to active state
-                    borders[i].Background = new SolidColorBrush(activeBackgroundColor);
-                    buttons[i].Foreground = new SolidColorBrush(activeTextColor);
-                }
-                else
-                {
-                    // Set other buttons to inactive state
-                    borders[i].Background = new SolidColorBrush(inactiveBackgroundColor);
-                    buttons[i].Foreground = new SolidColorBrush(inactiveTextColor);
-                }
-            }
-        }
-
-        // Filter buttons
-        private async void BtnVacant_Click(object sender, RoutedEventArgs e)
-        {
-            // Ensure DataContext is properly set
-            if (DataContext is ApartmentViewModel viewModel)
-            {
-                await viewModel.FilterApartmentsAsync("vacant");
-                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
-                UpdateButtonState(btnVacant);
-            }
-           
-        }
-        private async void BtnOccupied_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is ApartmentViewModel viewModel)
-            {
-                await viewModel.FilterApartmentsAsync("occupied");
-                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
-                UpdateButtonState(btnOccupied);
-            }
-            
-        }
-        private async void BtnAll_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is ApartmentViewModel viewModel)
-            {
-                viewModel.ResetFilter();
-                await viewModel.LoadApartmentsAsync();
-                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
-                UpdateButtonState(btnAll);
-            }
-           
-        }
-
-        private async void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Ensure DataContext is properly set
-            if (DataContext is ApartmentViewModel viewModel)
-                if (sortComboBox.SelectedItem is ComboBoxItem selectedItem)
-                {
-                    var sortType = selectedItem.Content?.ToString() ?? string.Empty;
-                    // Hide the "(None)" option if another option is selected
-                    if (sortType != "(None)" && sortComboBox.Items.Count > 0)
-                        for (int i = 0; i < sortComboBox.Items.Count; i++)
-                            if (sortComboBox.Items[i] is ComboBoxItem item && item.Content?.ToString() == "(None)")
-                            {
-                                sortComboBox.Items.RemoveAt(i);
-                                break;
-                            }
-                    await viewModel.SortApartmentsAsync(sortType);
-                }
-        }
-
-
-        private Timer? _searchTimer;
-        private void BoxSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            _searchTimer?.Dispose();
-            // Invoke search after some delay
-            _searchTimer = new Timer(SearchTimerCallback, null, 500, Timeout.Infinite);
-        }
-        private void BoxSearch_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                if (DataContext is ApartmentViewModel viewModel &&
-                    !string.IsNullOrWhiteSpace(boxSearch.Text) &&
-                    boxSearch.Text != "Search" &&
-                    viewModel.Apartments.Count == 1)
-                {
-                    var selectedApartment = viewModel.Apartments[0];
-
-                    ApartmentInfo apartmentInfo = new ApartmentInfo(selectedApartment);
-
-                    apartmentInfo.Show();
-
-                    // Optionally, close the current window (if needed)
-                    this.Close();
-                }
-            }
-        }
-        private void SearchTimerCallback(object? state)
-        {
-            Dispatcher.Invoke(async () =>
-            {
-                // Actual search logic
-                if (DataContext is ApartmentViewModel viewModel)
-                {
-                    string searchQuery = boxSearch.Text;
-                    await viewModel.SearchApartmentsAsync(searchQuery);
-                }
-            });
-        }
-
-
         private void BtnPrevPage_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ApartmentViewModel viewModel)
+            if (DataContext is ResidentViewModel viewModel)
             {
                 viewModel.PreviousPageCommand.Execute(null);
                 UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
             }
         }
+
         private void BtnNextPage_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ApartmentViewModel viewModel)
+            if (DataContext is ResidentViewModel viewModel)
             {
                 viewModel.NextPageCommand.Execute(null);
                 UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
             }
         }
+
         private void BtnGoToPage_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ApartmentViewModel viewModel && sender is Button button)
+            if (DataContext is ResidentViewModel viewModel && sender is Button button)
             {
                 if (int.TryParse(button.Content.ToString(), out int page))
                 {
@@ -290,6 +149,7 @@ namespace ApartmentManagement.Views
                 }
             }
         }
+
         private void UpdatePaginationButtons(int currentPage, int totalPages)
         {
             // Simple implementation for a 3-button pagination system
@@ -347,7 +207,7 @@ namespace ApartmentManagement.Views
             }
         }
 
-        private void ApartmentDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ResidentDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Check if a mouse button is currently pressed
             if (Mouse.LeftButton == MouseButtonState.Pressed)
@@ -376,66 +236,98 @@ namespace ApartmentManagement.Views
             }
 
             // If not a button click, proceed with opening ApartmentInfo
-            if (ApartmentDataGrid.SelectedItem is Apartment selectedApartment)
+            if (ResidentDataGrid.SelectedItem is Resident selectedResident)
             {
-                ApartmentInfo apartmentInfo = new ApartmentInfo(selectedApartment);
-                apartmentInfo.Show();
+                ResidentInfoView residentInfoView = new ResidentInfoView(selectedResident);
+                residentInfoView.Show();
                 this.Close();
             }
         }
-
-        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private async void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is Button button && button.DataContext is Apartment selectedApartment)
+            // Ensure DataContext is properly set for ResidentViewModel
+            if (DataContext is ResidentViewModel viewModel)
             {
-                var result = MessageBox.Show("Are you sure you want to delete this apartment?",
-                    "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                if (result == MessageBoxResult.Yes && DataContext is ApartmentViewModel viewModel)
+                if (sortComboBox.SelectedItem is ComboBoxItem selectedItem)
                 {
-                    // Implement your delete logic here
-                    bool isDeleted = await viewModel.DeleteApartmentAsync(selectedApartment.apartment_id);
-                    if (isDeleted)
+                    var sortType = selectedItem.Content?.ToString() ?? string.Empty;
+                    // Hide the "(None)" option if another option is selected
+                    if (sortType != "(None)" && sortComboBox.Items.Count > 0)
                     {
-                        // If deletion is successful, show success message
-                        MessageBox.Show("Apartment deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        for (int i = 0; i < sortComboBox.Items.Count; i++)
+                        {
+                            if (sortComboBox.Items[i] is ComboBoxItem item && item.Content?.ToString() == "(None)")
+                            {
+                                sortComboBox.Items.RemoveAt(i);
+                                break;
+                            }
+                        }
                     }
-                    else
-                    {
-                        // Show error if deletion fails
-                        MessageBox.Show("Failed to delete the apartment.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    await viewModel.SortResidentsAsync(sortType);
                 }
             }
         }
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.DataContext is Apartment selectedApartment)
+            if (sender is Button button && button.DataContext is Resident selectedResident)
             {
-                if (DataContext is ApartmentViewModel viewModel)
+                if (DataContext is ResidentViewModel viewModel)
                 {
-                    ApartmentEdit apartmentEdit = new ApartmentEdit(selectedApartment, viewModel);
-                    apartmentEdit.Show();
+                    ResidentEditView residentEdit = new ResidentEditView(selectedResident, viewModel);
+                    residentEdit.Show();
                     this.Close();
                 }
             }
         }
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.DataContext is Resident selectedResident)
+            {
+                var result = MessageBox.Show("Are you sure you want to delete this resident?",
+                    "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
+                if (result == MessageBoxResult.Yes && DataContext is ResidentViewModel viewModel)
+                {
+                    // Implement your delete logic here
+                    bool isDeleted = await viewModel.DeleteResidentAsync(selectedResident.resident_id);
+                    if (isDeleted)
+                    {
+                        // If deletion is successful, show success message
+                        MessageBox.Show("Resident deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        // Show error if deletion fails
+                        MessageBox.Show("Failed to delete the resident.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
 
+        private void BtnMainWindow_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindowView mainWindow = new MainWindowView();
+            mainWindow.Show();
+            this.Close();
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ApartmentViewModel viewModel)
+            if (DataContext is ResidentViewModel viewModel)
             {
                 // Initial update of pagination buttons
                 viewModel.PropertyChanged += (s, args) =>
                 {
-                    if (args.PropertyName == nameof(ApartmentViewModel.CurrentPage) ||
-                        args.PropertyName == nameof(ApartmentViewModel.TotalPages))
+                    if (args.PropertyName == nameof(ResidentViewModel.CurrentPage) ||
+                        args.PropertyName == nameof(ResidentViewModel.TotalPages))
                     {
                         UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
                     }
                 };
+
+                // Initialize pagination buttons
+                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
             }
         }
+
     }
 }

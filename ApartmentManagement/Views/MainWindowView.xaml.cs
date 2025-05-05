@@ -66,6 +66,11 @@ namespace ApartmentManagement.Views
             apartmentWindow.Show();
             this.Close();
         }
-
+        private void BtnResident_Click(object sender, RoutedEventArgs e)
+        {
+            ResidentView residentWindow = new ResidentView();
+            residentWindow.Show();
+            this.Close();
+        }
     }
 }

@@ -34,19 +34,30 @@ public class ApartmentInfoViewModel : INotifyPropertyChanged
             OnPropertyChanged();
         }
     }
+
     // Constructor with Dependency Injection for ApartmentService
     public ApartmentInfoViewModel(IApartmentService apartmentService, Apartment selectedApartment)
     {
         _apartmentService = apartmentService ?? throw new ArgumentNullException(nameof(apartmentService));
         _selectedApartment = selectedApartment ?? throw new ArgumentNullException(nameof(selectedApartment));
 
+        InitializeCommands();
+        GenerateQRCode();
+    }
+
+    #region Commands
+    public ICommand LoadApartmentInfoCommand { get; private set; }
+
+    private void InitializeCommands()
+    {
         // Initialize command for loading apartment info
         LoadApartmentInfoCommand = new RelayCommand(async () => await LoadApartmentInfoAsync(_selectedApartment.apartment_id));
 
         // Initial load if necessary
         _ = LoadApartmentInfoAsync(_selectedApartment.apartment_id);
-        GenerateQRCode();
     }
+    #endregion
+
     private BitmapImage _qrCodeImage;
     public BitmapImage QRCodeImage
     {
@@ -104,8 +115,6 @@ public class ApartmentInfoViewModel : INotifyPropertyChanged
         }
         return new string(randomString);
     }
-    // Command properties
-    public ICommand LoadApartmentInfoCommand { get; }
 
     public async Task LoadApartmentInfoAsync(int apartmentID)
     {
