@@ -185,7 +185,6 @@ namespace ApartmentManagement.Repository
             {
                 return await _context.Apartments.ToListAsync();
             }
-
             return await _context.Apartments
                                  .Where(a => a.vacancy_status == status)
                                  .ToListAsync();

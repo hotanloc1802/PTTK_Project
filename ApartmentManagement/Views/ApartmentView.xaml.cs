@@ -19,33 +19,36 @@ namespace ApartmentManagement.Views
 {
     public partial class ApartmentView : Window
     {
+        #region Fields
+        private bool isFirstSelection = true;  // Flag for first selection call
+        private Timer? _searchTimer;
+        #endregion
 
+        #region Constructor
         public ApartmentView()
         {
             InitializeComponent();
 
             // Use the factory to create a new context
             var apartmentDbContext = DbContextFactory.CreateDbContext();
-
             ApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
             ApartmentService apartmentService = new ApartmentService(apartmentRepository);
             ApartmentViewModel apartmentViewModel = new ApartmentViewModel(apartmentService);
             DataContext = apartmentViewModel;
             apartmentViewModel?.SelectBuildingInListBox(BuildingListBox);
         }
-        private bool isFirstSelection = true;  // Cờ kiểm tra lần gọi đầu tiên
+        #endregion
+
+        #region Building Selection
         private async void OnBuildingSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Kiểm tra nếu là lần gọi đầu tiên
             if (isFirstSelection)
             {
-                isFirstSelection = false;  // Đặt cờ thành false để không gọi sự kiện lần sau
-                return;  // Bỏ qua lần gọi đầu tiên
+                isFirstSelection = false;
+                return;
             }
 
             var selectedItem = (ListBox)sender;
-
-            // Get the selected data directly (likely a Grid or another data object)
             var selectedData = selectedItem.SelectedItem;
 
             if (selectedData != null)
@@ -58,19 +61,13 @@ namespace ApartmentManagement.Views
                     if (selectedBuilding != null)
                     {
                         string buildingName = (selectedBuilding.Tag as string) ?? selectedBuilding.Text;
-
                         if (buildingName != BuildingSchema.Instance.CurrentBuildingSchema)
                         {
-                            // Set the new building schema
                             BuildingSchema.Instance.SetBuilding(buildingName.ToLowerInvariant());
 
-                            // Dispose of the old ViewModel and context
                             if (DataContext is ApartmentViewModel oldViewModel)
-                            {
                                 oldViewModel.Dispose();
-                            }
 
-                            // Create a new context factory that will use the new schema
                             var apartmentDbContext = DbContextFactory.CreateDbContext();
                             ApartmentRepository apartmentRepository = new ApartmentRepository(apartmentDbContext);
                             ApartmentService apartmentService = new ApartmentService(apartmentRepository);
@@ -96,7 +93,6 @@ namespace ApartmentManagement.Views
             }
         }
 
-        // Helper method to find child controls (like TextBlock) inside a ListBoxItem
         private T FindVisualChild<T>(DependencyObject depObj) where T : DependencyObject
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
@@ -105,17 +101,115 @@ namespace ApartmentManagement.Views
                 if (child is T)
                     return (T)child;
 
-                // Continue traversing through the child of child
                 T childOfChild = FindVisualChild<T>(child);
                 if (childOfChild != null)
                     return childOfChild;
             }
             return null;
         }
+        #endregion
 
+        #region Navigation
+        private void BtnMainWindow_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindowView mainWindow = new MainWindowView();
+            mainWindow.Show();
+            this.Close();
+        }
 
+        private void BtnResident_Click(object sender, RoutedEventArgs e)
+        {
+            ResidentView residentWindow = new ResidentView();
+            residentWindow.Show();
+            this.Close();
+        }
 
+        private void BtnCreateApartment_Click(object sender, RoutedEventArgs e)
+        {
+            ApartmentCreateView apartmentCreateView = new ApartmentCreateView();
+            apartmentCreateView.Show();
+            this.Close();
+        }
+        #endregion
 
+        #region Filters & Sorting
+        private void UpdateButtonState(Button clickedButton)
+        {
+            Button[] buttons = { btnAll, btnVacant, btnOccupied };
+            Border[] borders = { borderAll, borderVacant, borderOccupied };
+
+            Color activeBackgroundColor = (Color)ColorConverter.ConvertFromString("#0430AD");
+            Color activeTextColor = Colors.White;
+            Color inactiveBackgroundColor = (Color)ColorConverter.ConvertFromString("#F0F0F0");
+            Color inactiveTextColor = (Color)ColorConverter.ConvertFromString("#434343");
+
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i] == clickedButton)
+                {
+                    borders[i].Background = new SolidColorBrush(activeBackgroundColor);
+                    buttons[i].Foreground = new SolidColorBrush(activeTextColor);
+                }
+                else
+                {
+                    borders[i].Background = new SolidColorBrush(inactiveBackgroundColor);
+                    buttons[i].Foreground = new SolidColorBrush(inactiveTextColor);
+                }
+            }
+        }
+
+        private async void BtnVacant_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is ApartmentViewModel viewModel)
+            {
+                await viewModel.FilterApartmentsAsync("Vacant");
+                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
+                UpdateButtonState(btnVacant);
+            }
+        }
+
+        private async void BtnOccupied_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is ApartmentViewModel viewModel)
+            {
+                await viewModel.FilterApartmentsAsync("Occupied");
+                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
+                UpdateButtonState(btnOccupied);
+            }
+        }
+
+        private async void BtnAll_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is ApartmentViewModel viewModel)
+            {
+                viewModel.ResetFilter();
+                await viewModel.LoadApartmentsAsync();
+                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
+                UpdateButtonState(btnAll);
+            }
+        }
+
+        private async void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DataContext is ApartmentViewModel viewModel &&
+                sortComboBox.SelectedItem is ComboBoxItem selectedItem)
+            {
+                var sortType = selectedItem.Content?.ToString() ?? string.Empty;
+                if (sortType != "(None)" && sortComboBox.Items.Count > 0)
+                {
+                    for (int i = 0; i < sortComboBox.Items.Count; i++)
+                        if (sortComboBox.Items[i] is ComboBoxItem item && item.Content?.ToString() == "(None)")
+                        {
+                            sortComboBox.Items.RemoveAt(i);
+                            break;
+                        }
+                }
+                await viewModel.SortApartmentsAsync(sortType);
+            }
+        }
+        #endregion
+
+        #region Search
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             txtSearch.Visibility = Visibility.Collapsed;
@@ -126,109 +220,12 @@ namespace ApartmentManagement.Views
             txtSearch.Visibility = Visibility.Visible;
         }
 
-        private void BtnMainWindow_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindowView mainWindow = new MainWindowView();
-            mainWindow.Show();
-            this.Close();
-        }
-
-        private void BtnCreateApartment_Click(object sender, RoutedEventArgs e)
-        {
-            ApartmentCreateView apartmentCreateView = new ApartmentCreateView();
-            apartmentCreateView.Show();
-            this.Close();
-        }
-
-        private void UpdateButtonState(Button clickedButton)
-        {
-            Button[] buttons = { btnAll, btnVacant, btnOccupied};
-            Border[] borders = { borderAll, borderVacant, borderOccupied};
-
-            Color activeBackgroundColor = (Color)ColorConverter.ConvertFromString("#0430AD");
-            Color activeTextColor = Colors.White;
-
-            Color inactiveBackgroundColor = (Color)ColorConverter.ConvertFromString("#F0F0F0");
-            Color inactiveTextColor = (Color)ColorConverter.ConvertFromString("#434343");
-
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                if (buttons[i] == clickedButton)
-                {
-                    // Set clicked button to active state
-                    borders[i].Background = new SolidColorBrush(activeBackgroundColor);
-                    buttons[i].Foreground = new SolidColorBrush(activeTextColor);
-                }
-                else
-                {
-                    // Set other buttons to inactive state
-                    borders[i].Background = new SolidColorBrush(inactiveBackgroundColor);
-                    buttons[i].Foreground = new SolidColorBrush(inactiveTextColor);
-                }
-            }
-        }
-
-        // Filter buttons
-        private async void BtnVacant_Click(object sender, RoutedEventArgs e)
-        {
-            // Ensure DataContext is properly set
-            if (DataContext is ApartmentViewModel viewModel)
-            {
-                await viewModel.FilterApartmentsAsync("vacant");
-                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
-                UpdateButtonState(btnVacant);
-            }
-           
-        }
-        private async void BtnOccupied_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is ApartmentViewModel viewModel)
-            {
-                await viewModel.FilterApartmentsAsync("occupied");
-                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
-                UpdateButtonState(btnOccupied);
-            }
-            
-        }
-        private async void BtnAll_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is ApartmentViewModel viewModel)
-            {
-                viewModel.ResetFilter();
-                await viewModel.LoadApartmentsAsync();
-                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
-                UpdateButtonState(btnAll);
-            }
-           
-        }
-
-        private async void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Ensure DataContext is properly set
-            if (DataContext is ApartmentViewModel viewModel)
-                if (sortComboBox.SelectedItem is ComboBoxItem selectedItem)
-                {
-                    var sortType = selectedItem.Content?.ToString() ?? string.Empty;
-                    // Hide the "(None)" option if another option is selected
-                    if (sortType != "(None)" && sortComboBox.Items.Count > 0)
-                        for (int i = 0; i < sortComboBox.Items.Count; i++)
-                            if (sortComboBox.Items[i] is ComboBoxItem item && item.Content?.ToString() == "(None)")
-                            {
-                                sortComboBox.Items.RemoveAt(i);
-                                break;
-                            }
-                    await viewModel.SortApartmentsAsync(sortType);
-                }
-        }
-
-
-        private Timer? _searchTimer;
         private void BoxSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             _searchTimer?.Dispose();
-            // Invoke search after some delay
             _searchTimer = new Timer(SearchTimerCallback, null, 500, Timeout.Infinite);
         }
+
         private void BoxSearch_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -239,21 +236,17 @@ namespace ApartmentManagement.Views
                     viewModel.Apartments.Count == 1)
                 {
                     var selectedApartment = viewModel.Apartments[0];
-
                     ApartmentInfo apartmentInfo = new ApartmentInfo(selectedApartment);
-
                     apartmentInfo.Show();
-
-                    // Optionally, close the current window (if needed)
                     this.Close();
                 }
             }
         }
+
         private void SearchTimerCallback(object? state)
         {
             Dispatcher.Invoke(async () =>
             {
-                // Actual search logic
                 if (DataContext is ApartmentViewModel viewModel)
                 {
                     string searchQuery = boxSearch.Text;
@@ -261,8 +254,9 @@ namespace ApartmentManagement.Views
                 }
             });
         }
+        #endregion
 
-
+        #region Pagination
         private void BtnPrevPage_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ApartmentViewModel viewModel)
@@ -271,6 +265,7 @@ namespace ApartmentManagement.Views
                 UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
             }
         }
+
         private void BtnNextPage_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ApartmentViewModel viewModel)
@@ -279,6 +274,7 @@ namespace ApartmentManagement.Views
                 UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
             }
         }
+
         private void BtnGoToPage_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ApartmentViewModel viewModel && sender is Button button)
@@ -290,12 +286,11 @@ namespace ApartmentManagement.Views
                 }
             }
         }
+
         private void UpdatePaginationButtons(int currentPage, int totalPages)
         {
-            // Simple implementation for a 3-button pagination system
             if (totalPages <= 3)
             {
-                // Show all pages (1, 2, 3) directly
                 btnPage1.Content = "1";
                 btnPage2.Content = totalPages >= 2 ? "2" : "";
                 btnPage3.Content = totalPages >= 3 ? "3" : "";
@@ -305,7 +300,6 @@ namespace ApartmentManagement.Views
             }
             else
             {
-                // For more than 3 pages, show a window centered on current page if possible
                 if (currentPage == 1)
                 {
                     btnPage1.Content = "1";
@@ -330,7 +324,6 @@ namespace ApartmentManagement.Views
                 btnPage3.Visibility = Visibility.Visible;
             }
 
-            // Highlight the current page button
             Button[] pageButtons = { btnPage1, btnPage2, btnPage3 };
             foreach (var btn in pageButtons)
             {
@@ -346,36 +339,26 @@ namespace ApartmentManagement.Views
                 }
             }
         }
+        #endregion
 
+        #region DataGrid & Apartment Actions
         private void ApartmentDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Check if a mouse button is currently pressed
             if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
-                // Find the element under the mouse cursor
                 var hitTestResult = Mouse.DirectlyOver as DependencyObject;
-
-                // Traverse up the visual tree to check if the clicked element is a button
                 while (hitTestResult != null)
                 {
-                    // If the element is a button, do nothing
                     if (hitTestResult is Button)
-                    {
                         return;
-                    }
 
-                    // If we find the DataGridRow, it means we clicked on the row but not a button
                     if (hitTestResult is DataGridRow)
-                    {
                         break;
-                    }
 
-                    // Move up the visual tree
                     hitTestResult = VisualTreeHelper.GetParent(hitTestResult);
                 }
             }
 
-            // If not a button click, proceed with opening ApartmentInfo
             if (ApartmentDataGrid.SelectedItem is Apartment selectedApartment)
             {
                 ApartmentInfo apartmentInfo = new ApartmentInfo(selectedApartment);
@@ -393,21 +376,19 @@ namespace ApartmentManagement.Views
 
                 if (result == MessageBoxResult.Yes && DataContext is ApartmentViewModel viewModel)
                 {
-                    // Implement your delete logic here
                     bool isDeleted = await viewModel.DeleteApartmentAsync(selectedApartment.apartment_id);
                     if (isDeleted)
                     {
-                        // If deletion is successful, show success message
                         MessageBox.Show("Apartment deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
-                        // Show error if deletion fails
                         MessageBox.Show("Failed to delete the apartment.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
         }
+
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button && button.DataContext is Apartment selectedApartment)
@@ -420,13 +401,13 @@ namespace ApartmentManagement.Views
                 }
             }
         }
+        #endregion
 
-
+        #region Window Events
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (DataContext is ApartmentViewModel viewModel)
             {
-                // Initial update of pagination buttons
                 viewModel.PropertyChanged += (s, args) =>
                 {
                     if (args.PropertyName == nameof(ApartmentViewModel.CurrentPage) ||
@@ -437,5 +418,6 @@ namespace ApartmentManagement.Views
                 };
             }
         }
+        #endregion
     }
 }

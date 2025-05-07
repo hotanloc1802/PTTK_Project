@@ -16,5 +16,7 @@ namespace ApartmentManagement.Repository
         Task<bool> UpdateResidentAsync(Resident resident);
         Task<bool> DeleteResidentAsync(int id);
         Task<IEnumerable<Resident>> SortResidentsAsync(string sortType);
+        Task<IEnumerable<Resident>> GetResidentsByApartmentNumberAsync(string apartmentNumberSubset);
+        Task<IEnumerable<Apartment>> GetApartmentsByNumberPatternAsync(string pattern);
     }
 }

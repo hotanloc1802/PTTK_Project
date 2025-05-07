@@ -23,9 +23,6 @@ namespace ApartmentManagement.ViewModels
         private ObservableCollection<Apartment> _apartments;
         private ObservableCollection<Apartment> _allApartments;
 
-        // Selected Apartment
-        private Apartment _selectedApartment;
-
         // Pagination Variables
         private int _currentPage = 1;
         private int _itemsPerPage = 6;
@@ -84,7 +81,6 @@ namespace ApartmentManagement.ViewModels
             _apartmentService = apartmentService ?? throw new ArgumentNullException(nameof(apartmentService));
             _apartments = new ObservableCollection<Apartment>();
             _allApartments = new ObservableCollection<Apartment>();
-            _selectedApartment = new Apartment();
 
             // Initialize commands
             InitializeCommands();
@@ -189,16 +185,6 @@ namespace ApartmentManagement.ViewModels
             set
             {
                 _apartments = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public Apartment SelectedApartment
-        {
-            get => _selectedApartment;
-            set
-            {
-                _selectedApartment = value;
                 OnPropertyChanged();
             }
         }

@@ -228,13 +228,13 @@
                                     <Storyboard>
                                         <!-- Đổi màu nền của Button khi di chuột vào -->
                                         <ColorAnimation 
-    Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-    To="#CDDFFB" Duration="0:0:0.2" />
+                                            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                            To="#CDDFFB" Duration="0:0:0.2" />
                                         <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
                                         <ColorAnimation 
-Storyboard.TargetName="dashboardText" 
-Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-To="Black" Duration="0:0:0.2" />
+                                            Storyboard.TargetName="dashboardText" 
+                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                            To="Black" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -245,13 +245,13 @@ To="Black" Duration="0:0:0.2" />
                                     <Storyboard>
                                         <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
                                         <ColorAnimation 
-Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-To="Transparent" Duration="0:0:0.2" />
+                                            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                            To="Transparent" Duration="0:0:0.2" />
                                         <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
                                         <ColorAnimation 
-Storyboard.TargetName="dashboardText" 
-Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-To="#959595" Duration="0:0:0.2" />
+                                            Storyboard.TargetName="dashboardText" 
+                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                            To="#959595" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -264,7 +264,7 @@ To="#959595" Duration="0:0:0.2" />
                     </Button>
                 </Border>
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142"  >
-                    <Button x:Name="btnApartment" Style="{StaticResource menuButton}"   Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnApartment" Style="{StaticResource menuButton}"   Width="138" Margin="-5,5,0,5" Click="btnApartment_Click">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Icon:PackIconMaterial Kind="Domain" VerticalAlignment="Center" Foreground="#959595"/>
                             <TextBlock  x:Name="apartmentText" Text=" Apartment" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595"
@@ -281,13 +281,13 @@ To="#959595" Duration="0:0:0.2" />
                                     <Storyboard>
                                         <!-- Đổi màu nền của Button khi di chuột vào -->
                                         <ColorAnimation 
-            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-            To="#CDDFFB" Duration="0:0:0.2" />
+                                            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                            To="#CDDFFB" Duration="0:0:0.2" />
                                         <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
                                         <ColorAnimation 
-            Storyboard.TargetName="residentText" 
-            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-            To="Black" Duration="0:0:0.2" />
+                                            Storyboard.TargetName="residentText" 
+                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                            To="Black" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -298,13 +298,13 @@ To="#959595" Duration="0:0:0.2" />
                                     <Storyboard>
                                         <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
                                         <ColorAnimation 
-            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-            To="Transparent" Duration="0:0:0.2" />
+                                            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                            To="Transparent" Duration="0:0:0.2" />
                                         <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
                                         <ColorAnimation 
-            Storyboard.TargetName="residentText" 
-            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-            To="#959595" Duration="0:0:0.2" />
+                                            Storyboard.TargetName="residentText" 
+                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                            To="#959595" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -325,13 +325,13 @@ To="#959595" Duration="0:0:0.2" />
                                     <Storyboard>
                                         <!-- Đổi màu nền của Button khi di chuột vào -->
                                         <ColorAnimation 
-            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-            To="#CDDFFB" Duration="0:0:0.2" />
+                                            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                            To="#CDDFFB" Duration="0:0:0.2" />
                                         <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
                                         <ColorAnimation 
-            Storyboard.TargetName="paymentText" 
-            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-            To="Black" Duration="0:0:0.2" />
+                                            Storyboard.TargetName="paymentText" 
+                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                            To="Black" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -342,13 +342,13 @@ To="#959595" Duration="0:0:0.2" />
                                     <Storyboard>
                                         <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
                                         <ColorAnimation 
-             Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-            To="Transparent" Duration="0:0:0.2" />
+                                            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                            To="Transparent" Duration="0:0:0.2" />
                                         <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
                                         <ColorAnimation 
-            Storyboard.TargetName="paymentText" 
-            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-            To="#959595" Duration="0:0:0.2" />
+                                            Storyboard.TargetName="paymentText" 
+                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                            To="#959595" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -368,13 +368,13 @@ To="#959595" Duration="0:0:0.2" />
                                     <Storyboard>
                                         <!-- Đổi màu nền của Button khi di chuột vào -->
                                         <ColorAnimation 
-Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-To="#CDDFFB" Duration="0:0:0.2" />
+                                            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                            To="#CDDFFB" Duration="0:0:0.2" />
                                         <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
                                         <ColorAnimation 
-Storyboard.TargetName="serviceText" 
-Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-To="Black" Duration="0:0:0.2" />
+                                            Storyboard.TargetName="serviceText" 
+                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                            To="Black" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -385,13 +385,13 @@ To="Black" Duration="0:0:0.2" />
                                     <Storyboard>
                                         <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
                                         <ColorAnimation 
- Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-To="Transparent" Duration="0:0:0.2" />
+                                            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                            To="Transparent" Duration="0:0:0.2" />
                                         <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
                                         <ColorAnimation 
-Storyboard.TargetName="serviceText" 
-Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-To="#959595" Duration="0:0:0.2" />
+                                            Storyboard.TargetName="serviceText" 
+                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                            To="#959595" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -411,13 +411,13 @@ To="#959595" Duration="0:0:0.2" />
                                     <Storyboard>
                                         <!-- Đổi màu nền của Button khi di chuột vào -->
                                         <ColorAnimation 
-Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-To="#CDDFFB" Duration="0:0:0.2" />
+                                            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                            To="#CDDFFB" Duration="0:0:0.2" />
                                         <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
                                         <ColorAnimation 
-Storyboard.TargetName="settingText" 
-Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-To="Black" Duration="0:0:0.2" />
+                                            Storyboard.TargetName="settingText" 
+                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                            To="Black" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -449,13 +449,13 @@ To="Black" Duration="0:0:0.2" />
                                     <Storyboard>
                                         <!-- Đổi màu nền của Button khi di chuột vào -->
                                         <ColorAnimation 
-Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-To="#CDDFFB" Duration="0:0:0.2" />
+                                            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                            To="#CDDFFB" Duration="0:0:0.2" />
                                         <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
                                         <ColorAnimation 
-Storyboard.TargetName="settingText" 
-Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-To="Black" Duration="0:0:0.2" />
+                                            Storyboard.TargetName="settingText" 
+                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                            To="Black" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -466,13 +466,13 @@ To="Black" Duration="0:0:0.2" />
                                     <Storyboard>
                                         <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
                                         <ColorAnimation 
- Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-To="Transparent" Duration="0:0:0.2" />
+                                            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                            To="Transparent" Duration="0:0:0.2" />
                                         <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
                                         <ColorAnimation 
-Storyboard.TargetName="settingText" 
-Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-To="#959595" Duration="0:0:0.2" />
+                                            Storyboard.TargetName="settingText" 
+                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                            To="#959595" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -554,7 +554,9 @@ To="#959595" Duration="0:0:0.2" />
 
             <!-- Main content title -->
             <TextBlock Text="Resident Profile" FontFamily="Montserrat Bold" FontSize="22" Foreground="#374655" Margin="0,10,0,15"/>
-
+            <Button x:Name="btnClose" Background="Transparent" BorderBrush="Transparent" Margin="0,0,0,0" HorizontalAlignment="Right" Click="BtnClose_Click">
+                <iconPacks:PackIconMaterial Kind="Close" Width="20" Height="20" Foreground="#9FA4AD"/>
+            </Button>
             <!-- Scrollable content -->
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                 <StackPanel>
@@ -577,7 +579,10 @@ To="#959595" Duration="0:0:0.2" />
                                     </Ellipse>
 
                                     <!-- User Name -->
-                                    <TextBlock Text="{Binding SelectedResident.name}" FontFamily="Montserrat Bold" FontSize="18" Foreground="#374655" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding SelectedResident.name}" FontFamily="Montserrat Bold" FontSize="18" Foreground="#374655" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                                        <TextBlock Text="{Binding SelectedResident.phone_number}" FontFamily="Montserrat Bold" FontSize="16" Foreground="#374655" HorizontalAlignment="Center"/>
+                                    </StackPanel>
                                 </StackPanel>
                             </Grid>
 
@@ -588,7 +593,9 @@ To="#959595" Duration="0:0:0.2" />
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
                                     <!-- Section Title -->
@@ -597,39 +604,36 @@ To="#959595" Duration="0:0:0.2" />
                                     <!-- User Info Row 1 -->
                                     <Border Grid.Row="1" BorderBrush="#E1E6EB" BorderThickness="0,0,0,1" Margin="0,0,0,15" Padding="0,0,0,15">
                                         <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-
-                                            <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                                                <TextBlock Text="Apartment" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding SelectedResident.apartment.apartment_number}" Foreground="#374655" FontFamily="Montserrat SemiBold" FontSize="14"/>
-                                                    <Border Background="#F8F9FA" CornerRadius="50" Width="16" Height="16" Margin="5,0,0,0" VerticalAlignment="Center">
-                                                        <Icon:PackIconMaterial Kind="ChevronRight" Width="12" Height="12" Foreground="#9FA4AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
+                                            <Grid Grid.Row="0">
+                                                <TextBlock Text="Resident Profile" FontFamily="Montserrat Bold" FontSize="12"  Foreground="#9FA4AD" VerticalAlignment="Center" Height="18" HorizontalAlignment="Left"/>
+                                            </Grid>
+                                            <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,10,0">
+                                                <TextBlock Text="Name" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Text="{Binding SelectedResident.name}" Foreground="#374655" FontFamily="Montserrat SemiBold" FontSize="14"/>
                                                 </StackPanel>
                                             </StackPanel>
 
-                                            <StackPanel Grid.Column="1" Margin="0,0,10,0">
+                                            <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,0,10,0">
                                                 <TextBlock Text="Phone Number" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
-                                                <StackPanel Orientation="Horizontal">
+                                                <StackPanel Orientation="Vertical">
                                                     <TextBlock Text="{Binding SelectedResident.phone_number}" Foreground="#374655" FontFamily="Montserrat SemiBold" FontSize="14"/>
-                                                    <Border Background="#F8F9FA" CornerRadius="50" Width="16" Height="16" Margin="5,0,0,0" VerticalAlignment="Center">
-                                                        <Icon:PackIconMaterial Kind="ChevronRight" Width="12" Height="12" Foreground="#9FA4AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
                                                 </StackPanel>
                                             </StackPanel>
 
-                                            <StackPanel Grid.Column="2" Margin="0,0,10,0">
-                                                <TextBlock Text="Email" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
-                                                <StackPanel Orientation="Horizontal">
+                                            <StackPanel Grid.Column="2" Grid.Row="1" Margin="0,0,10,0">
+                                                <TextBlock Text="Phone" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
+                                                <StackPanel Orientation="Vertical">
                                                     <TextBlock Text="{Binding SelectedResident.email}" Foreground="#374655" FontFamily="Montserrat SemiBold" FontSize="14"/>
-                                                    <Border Background="#F8F9FA" CornerRadius="50" Width="16" Height="16" Margin="5,0,0,0" VerticalAlignment="Center">
-                                                        <Icon:PackIconMaterial Kind="ChevronRight" Width="12" Height="12" Foreground="#9FA4AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
                                                 </StackPanel>
                                             </StackPanel>
                                         </Grid>
@@ -639,81 +643,133 @@ To="#959595" Duration="0:0:0.2" />
                                     <Border Grid.Row="2" BorderBrush="#E1E6EB" BorderThickness="0,0,0,1" Margin="0,0,0,15" Padding="0,0,0,15">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="221.667"/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
 
                                             <StackPanel Grid.Column="0" Margin="0,0,10,0">
                                                 <TextBlock Text="Identification Number" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
-                                                <StackPanel Orientation="Horizontal">
+                                                <StackPanel Orientation="Vertical">
                                                     <TextBlock Text="{Binding SelectedResident.identification_number}" Foreground="#374655" FontFamily="Montserrat SemiBold" FontSize="14"/>
-                                                    <Border Background="#F8F9FA" CornerRadius="50" Width="16" Height="16" Margin="5,0,0,0" VerticalAlignment="Center">
-                                                        <Icon:PackIconMaterial Kind="ChevronRight" Width="12" Height="12" Foreground="#9FA4AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
                                                 </StackPanel>
                                             </StackPanel>
 
                                             <StackPanel Grid.Column="1" Margin="0,0,10,0">
                                                 <TextBlock Text="Sex" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
-                                                <StackPanel Orientation="Horizontal">
+                                                <StackPanel Orientation="Vertical">
                                                     <TextBlock Text="{Binding SelectedResident.sex}" Foreground="#374655" FontFamily="Montserrat SemiBold" FontSize="14"/>
-                                                    <Border Background="#F8F9FA" CornerRadius="50" Width="16" Height="16" Margin="5,0,0,0" VerticalAlignment="Center">
-                                                        <Icon:PackIconMaterial Kind="ChevronRight" Width="12" Height="12" Foreground="#9FA4AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
                                                 </StackPanel>
                                             </StackPanel>
 
-                                            <StackPanel Grid.Column="2" Margin="0,0,10,0">
+                                        </Grid>
+                                    </Border>
+                                    <!-- User Info Row 3 - Apartment Information -->
+                                    <Border Grid.Row="3" BorderBrush="#E1E6EB" BorderThickness="0,0,0,1" Margin="0,0,0,15" Padding="0,0,0,15">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="221.667"/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Row="0">
+                                                <TextBlock Text="Apartment Information" FontFamily="Montserrat Bold" FontSize="12"  Foreground="#9FA4AD" VerticalAlignment="Center" Height="18" HorizontalAlignment="Left"/>
+                                            </Grid>
+                                            <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,10,0">
+                                                <TextBlock Text="Apartment Number" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Text="{Binding SelectedResident.apartment.apartment_number}" Foreground="#374655" FontFamily="Montserrat SemiBold" FontSize="14"/>
+                                                </StackPanel>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,0,10,0">
                                                 <TextBlock Text="Relationship" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
-                                                <StackPanel Orientation="Horizontal">
+                                                <StackPanel Orientation="Vertical">
                                                     <TextBlock Text="{Binding SelectedResident.resident_status}" Foreground="#374655" FontFamily="Montserrat SemiBold" FontSize="14"/>
-                                                    <Border Background="#F8F9FA" CornerRadius="50" Width="16" Height="16" Margin="5,0,0,0" VerticalAlignment="Center">
-                                                        <Icon:PackIconMaterial Kind="ChevronRight" Width="12" Height="12" Foreground="#9FA4AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
                                                 </StackPanel>
                                             </StackPanel>
                                         </Grid>
                                     </Border>
 
-                                    <!-- Additional Information -->
-                                    <Grid Grid.Row="3" Margin="0,0,0,0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                                            <TextBlock Text="Created At" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="15/03/2025" Foreground="Green" FontFamily="Montserrat SemiBold" FontSize="14"/>
-                                                <Border Background="#F8F9FA" CornerRadius="50" Width="16" Height="16" Margin="5,0,0,0" VerticalAlignment="Center">
-                                                    <Icon:PackIconMaterial Kind="ChevronRight" Width="12" Height="12" Foreground="#9FA4AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                </Border>
+                                    <!-- User Info Row 4 - Payment Information -->
+                                    <Border Grid.Row="4" BorderBrush="#E1E6EB" BorderThickness="0,0,0,1" Margin="0,0,0,15" Padding="0,0,0,15">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="221.667"/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Row="0">
+                                                <TextBlock Text="Payment Information" FontFamily="Montserrat Bold" FontSize="12"  Foreground="#9FA4AD" VerticalAlignment="Center" Height="18" HorizontalAlignment="Left"/>
+                                            </Grid>
+                                            <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,10,0">
+                                                <TextBlock Text="Total Invoice Amount" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Text="{Binding SelectedResident.resident_id}" Foreground="#374655" FontFamily="Montserrat SemiBold" FontSize="14"/>
+                                                </StackPanel>
                                             </StackPanel>
-                                        </StackPanel>
 
-                                        <StackPanel Grid.Column="1" Margin="0,0,10,0">
-                                            <TextBlock Text="Field" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Field" Foreground="Green" FontFamily="Montserrat SemiBold" FontSize="14"/>
-                                                <Border Background="#F8F9FA" CornerRadius="50" Width="16" Height="16" Margin="5,0,0,0" VerticalAlignment="Center">
-                                                    <Icon:PackIconMaterial Kind="ChevronRight" Width="12" Height="12" Foreground="#9FA4AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                </Border>
+                                            <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,0,10,0">
+                                                <TextBlock Text="Remaining Balance" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Text="{Binding SelectedResident.resident_id}" Foreground="#374655" FontFamily="Montserrat SemiBold" FontSize="14"/>
+                                                </StackPanel>
                                             </StackPanel>
-                                        </StackPanel>
 
-                                        <StackPanel Grid.Column="2" Margin="0,0,10,0">
-                                            <TextBlock Text="Field" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Field" Foreground="#374655" FontFamily="Montserrat SemiBold" FontSize="14"/>
-                                                <Border Background="#F8F9FA" CornerRadius="50" Width="16" Height="16" Margin="5,0,0,0" VerticalAlignment="Center">
-                                                    <Icon:PackIconMaterial Kind="ChevronRight" Width="12" Height="12" Foreground="#9FA4AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                </Border>
+                                            <StackPanel Grid.Column="2" Grid.Row="1" Margin="0,0,10,0">
+                                                <TextBlock Text="Due Date" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Text="{Binding SelectedResident.resident_id}" Foreground="#374655" FontFamily="Montserrat SemiBold" FontSize="14"/>
+                                                </StackPanel>
                                             </StackPanel>
-                                        </StackPanel>
-                                    </Grid>
+                                        </Grid>
+                                    </Border>
+
+                                    <!-- User Info Row 5 - Service Information -->
+                                    <Border Grid.Row="5" BorderBrush="#E1E6EB" BorderThickness="0,0,0,1" Margin="0,0,0,15" Padding="0,0,0,15">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="221.667"/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Row="0">
+                                                <TextBlock Text="Service Information" FontFamily="Montserrat Bold" FontSize="12"  Foreground="#9FA4AD" VerticalAlignment="Center" Height="18" HorizontalAlignment="Left"/>
+                                            </Grid>
+                                            <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,10,0">
+                                                <TextBlock Text="Service requests" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Text="{Binding SelectedResident.resident_id}" Foreground="#374655" FontFamily="Montserrat SemiBold" FontSize="14"/>
+                                                </StackPanel>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,0,10,0">
+                                                <TextBlock Text="Service History" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Text="{Binding SelectedResident.resident_id}" Foreground="#374655" FontFamily="Montserrat SemiBold" FontSize="14"/>
+                                                </StackPanel>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="2" Grid.Row="1" Margin="0,0,10,0">
+                                                <TextBlock Text="Average Rating" Foreground="#959595" FontSize="12" Margin="0,0,0,5"/>
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Text="{Binding SelectedResident.resident_id}" Foreground="#374655" FontFamily="Montserrat SemiBold" FontSize="14"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
                                 </Grid>
                             </Border>
                         </Grid>
@@ -770,7 +826,6 @@ To="#959595" Duration="0:0:0.2" />
                                             <TextBlock Text="Done" FontFamily="Montserrat SemiBold" FontSize="12" Foreground="White"/>
                                         </Border>
                                         <TextBlock Grid.Column="3" Text="Fuck PTTK" FontFamily="Montserrat" FontSize="13" Foreground="#374655" TextWrapping="Wrap"/>
-                                        <Icon:PackIconMaterial Grid.Column="4" Kind="ChevronRight" Width="20" Height="20" Foreground="#9FA4AD"/>
                                     </Grid>
                                 </Border>
 
@@ -791,7 +846,6 @@ To="#959595" Duration="0:0:0.2" />
                                             <TextBlock Text="Inactive" FontFamily="Montserrat SemiBold" FontSize="12" Foreground="White"/>
                                         </Border>
                                         <TextBlock Grid.Column="3" Text="Fuck BigData" FontFamily="Montserrat" FontSize="13" Foreground="#374655" TextWrapping="Wrap"/>
-                                        <Icon:PackIconMaterial Grid.Column="4" Kind="ChevronRight" Width="20" Height="20" Foreground="#9FA4AD"/>
                                     </Grid>
                                 </Border>
 
@@ -812,7 +866,6 @@ To="#959595" Duration="0:0:0.2" />
                                             <TextBlock Text="Processing" FontFamily="Montserrat SemiBold" FontSize="12" Foreground="White"/>
                                         </Border>
                                         <TextBlock Grid.Column="3" Text="Fuck ERP" FontFamily="Montserrat" FontSize="13" Foreground="#374655" TextWrapping="Wrap"/>
-                                        <Icon:PackIconMaterial Grid.Column="4" Kind="ChevronRight" Width="20" Height="20" Foreground="#9FA4AD"/>
                                     </Grid>
                                 </Border>
 
@@ -833,7 +886,6 @@ To="#959595" Duration="0:0:0.2" />
                                             <TextBlock Text="Inactive" FontFamily="Montserrat SemiBold" FontSize="12" Foreground="White"/>
                                         </Border>
                                         <TextBlock Grid.Column="3" Text="Fuck CSDL" FontFamily="Montserrat" FontSize="13" Foreground="#374655" TextWrapping="Wrap"/>
-                                        <Icon:PackIconMaterial Grid.Column="4" Kind="ChevronRight" Width="20" Height="20" Foreground="#9FA4AD"/>
                                     </Grid>
                                 </Border>
                             </StackPanel>

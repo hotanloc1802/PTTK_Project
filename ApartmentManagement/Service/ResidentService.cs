@@ -49,5 +49,14 @@ namespace ApartmentManagement.Service
             // Call the repository method to sort residents
             return await _residentRepository.SortResidentsAsync(sortType);
         }
+        public async Task<IEnumerable<Resident>> GetResidentsByApartmentNumberAsync(string apartmentNumber)
+        {
+            // Call the repository method to get residents by apartment ID
+            return await _residentRepository.GetResidentsByApartmentNumberAsync(apartmentNumber);
+        }
+        public async Task<IEnumerable<Apartment>> GetApartmentsByNumberPatternAsync(string pattern)
+        {
+            return await _residentRepository.GetApartmentsByNumberPatternAsync(pattern);
+        }
     }
 }

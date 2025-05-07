@@ -1,0 +1,661 @@
+﻿<Window x:Class="ApartmentManagement.Views.ResidentCreateView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:ApartmentManagement.Views"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="ResidentCreate" Height="760" Width="1380" Background="Transparent" ResizeMode="NoResize"
+        AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen">
+
+    <!-- Define a static resource for Sex options -->
+    <Window.Resources>
+        <x:Array x:Key="SexList" Type="{x:Type sys:String}">
+            <sys:String>Male</sys:String>
+            <sys:String>Female</sys:String>
+            <sys:String>Other</sys:String>
+        </x:Array>
+
+        <Style x:Key="SolidDropdownComboBox" TargetType="ComboBox">
+            <Style.Resources>
+                <!-- This targets the dropdown popup -->
+                <Style TargetType="Border">
+                    <Setter Property="Background" Value="White"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="0,0,0,15" HorizontalAlignment="Center" Width="1300" Height="686" VerticalAlignment="Bottom">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="155"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="0.01*" />
+            <RowDefinition Height="4*" />
+        </Grid.RowDefinitions>
+        <Border CornerRadius="20 0 0 20" ClipToBounds="True" Background="White" Grid.Row="0"  Grid.RowSpan="3" IsEnabled="False">
+            <Border  CornerRadius="20 0 0 20" ClipToBounds="True" Margin="0,0,-5,0">
+                <Border.Background>
+                    <SolidColorBrush Color="#0430AD"></SolidColorBrush>
+                </Border.Background>
+            </Border>
+        </Border>
+        <Grid Grid.Column ="0" Grid.Row ="0">
+            <Image  Stretch="Uniform" Width="60" HorizontalAlignment="Center" />
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="1" Background="#f1f1f1" Margin="10,0,0,0" >
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ListBox x:Name="BuildingListBox" Margin="0,20,0,20" BorderThickness="0" Background="Transparent" SelectedIndex="0" ScrollViewer.VerticalScrollBarVisibility="Disabled"  >
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Padding" Value="0"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <!-- Item 1 -->
+                <Grid Grid.Row="0" Margin="0,0,0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2.5*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.01*" />
+                    </Grid.RowDefinitions>
+                    <Ellipse Width="80" Height="80">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
+                    <Grid Grid.Row="1">
+                        <TextBlock Name="BconsMienDong"  Text="Miền Đông" Tag="mien_dong" FontFamily="Montserrat Bold"
+       FontSize="13" Foreground="White" VerticalAlignment="Center"
+       Height="18" HorizontalAlignment="Center"/>
+                    </Grid>
+                </Grid>
+                <!-- Item 2 -->
+                <Grid Grid.Row="1" Margin="0,0,0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2.5*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.01*" />
+                    </Grid.RowDefinitions>
+                    <Ellipse Width="80" Height="80">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
+                    <Grid Grid.Row="1">
+                        <TextBlock Name="BconsPlaza" Text="Plaza" Tag="plaza" FontFamily="Montserrat Bold"
+       FontSize="13" Foreground="White" VerticalAlignment="Center"
+       Height="18" HorizontalAlignment="Center"/>
+                    </Grid>
+                </Grid>
+                <!-- Item 3 -->
+                <Grid Grid.Row="2" Margin="0,0,0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2.5*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.01*" />
+                    </Grid.RowDefinitions>
+                    <Ellipse Width="80" Height="80">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
+                    <Grid Grid.Row="1">
+                        <TextBlock Text="Sala" Tag="sala" FontFamily="Montserrat Bold"
+       FontSize="13" Foreground="White" VerticalAlignment="Center"
+       Height="18" HorizontalAlignment="Center"/>
+                    </Grid>
+                </Grid>
+                <!-- Item 4 -->
+                <Grid Grid.Row="3" Margin="0,0,0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2.5*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.01*" />
+                    </Grid.RowDefinitions>
+                    <Ellipse Width="80" Height="80">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
+                    <Grid Grid.Row="1">
+                        <TextBlock Text="Green View" Tag="green_view" FontFamily="Montserrat Bold"
+       FontSize="13" Foreground="White" VerticalAlignment="Center"
+       Height="18" HorizontalAlignment="Center"/>
+                    </Grid>
+                </Grid>
+            </ListBox>
+            <Grid Grid.Row="1">
+                <Ellipse Width="50" Height="50" Stroke="White" StrokeThickness="1" StrokeDashArray="10,2" Fill="Transparent" VerticalAlignment="Top"/>
+                <iconPacks:PackIconMaterial Kind="Plus" Width="17" Height="17"
+           Foreground="#ebedf3" Margin="42,16,0,0"/>
+            </Grid>
+        </Grid>
+        <Border Background="#0430AD" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+        <Border CornerRadius="20 0 0 20" Background="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+        <Border Background="#F5F9FA" Grid.Column="2" Grid.RowSpan="3" Height="686" VerticalAlignment="Top"/>
+        <Grid Grid.Column="1" Grid.Row="0" Margin="10,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Ellipse Width="55" Height="55">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Grid>
+            <Grid Grid.Column="1">
+                <TextBlock x:Name="Bcons" Text="Miền Đông" FontFamily="Montserrat Bold" FontSize="13" Foreground="Black" VerticalAlignment="Center" Height="18"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1" Background="#f1f1f1" Margin="0,0,0,0" >
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="2">
+            <StackPanel Margin="0,30,0,0" >
+                <Border CornerRadius="10" Padding="5,5,5,5" Margin="0,0,0,0" Width="142"  >
+                    <Button x:Name="btnDashboard"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnDashBoard_Click">
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="#CDDFFB" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="dashboardText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="dashboardText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="HomeVariant" VerticalAlignment="Center" Foreground="#959595"/>
+                            <TextBlock x:Name="dashboardText" Text=" Dashboard" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center" Height="18" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Background="Transparent" Padding="5,5,5,5"  Width="142"  >
+                    <Button x:Name="btnApartment" Style="{StaticResource menuButton}" Width="138" Margin="-5,5,0,5" Click="BtnApartment_Click">
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="#CDDFFB" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="apartmentText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="apartmentText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="Domain" VerticalAlignment="Center" Foreground="#959595"/>
+                            <TextBlock x:Name="apartmentText" Text=" Apartment" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Background="Transparent" CornerRadius="10" Padding="5,5,5,5"  Width="142"  >
+                    <Button x:Name="btnResident" Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Background="#0430AD" >
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="AccountGroup" VerticalAlignment="Center" Foreground="white"/>
+                            <TextBlock x:Name="residentText" Text="Resident" FontFamily="Montserrat Bold" FontSize="13" Foreground="white" VerticalAlignment="Center" Margin="3,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
+                    <Button x:Name="btnPayement" Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="#CDDFFB" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="paymentText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="paymentText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="CreditCardOutline"  VerticalAlignment="Center" Foreground="#959595"/>
+                            <TextBlock x:Name="paymentText"  Text=" Payment" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
+                    <Button x:Name="btnService" Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="#CDDFFB" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="serviceText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="serviceText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="ToolboxOutline"  VerticalAlignment="Center" Foreground="#959595" Margin="0,0,3,0"/>
+                            <TextBlock x:Name="serviceText"  Text="Service" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
+                    <Button x:Name="btnSetting2" Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="#CDDFFB" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="settingText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="settingText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="Cog"  VerticalAlignment="Center" Foreground="#959595"/>
+                            <TextBlock x:Name="settingText"  Text=" Setting" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
+                    <Button x:Name="btnlogout" Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="#CDDFFB" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="settingText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="settingText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="ExitToApp"  VerticalAlignment="Center" Foreground="#959595"/>
+                            <TextBlock x:Name="logout"  Text=" Log out" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Margin="30,0,0,0">
+                <Border x:Name="boSearch" Background="#EEF0F2" CornerRadius="10" Height="45" HorizontalAlignment="Center" Margin="0,16,0,15" Width="597" >
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Icon:PackIconMaterial Kind="Magnify" Foreground="#9FA4AD" VerticalAlignment="Center" Margin="7,0,0,0" Width="18" Height="18"/>
+                        <TextBox x:Name="boxSearch" Background="Transparent" BorderBrush="Transparent" Foreground="#9FA4AD" 
+                                 Width="571" VerticalAlignment="Center" Padding="5,5" />
+                    </StackPanel>
+                </Border>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock x:Name="txtSearch" Text="Search..." Foreground="#9FA4AD" FontFamily="Montserrat" Margin="30,0,0,0" IsHitTestVisible="False"  />
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1" Margin="30,0,30,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.02*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <iconPacks:PackIconMaterial Kind="CalendarOutline" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#0430AD"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <iconPacks:PackIconMaterial Kind="MessageTextOutline" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#0430AD"/>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <iconPacks:PackIconMaterial Kind="BellOutline" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#0430AD"/>
+                </Grid>
+                <Grid Grid.Column="3" Background="#9FA4AD" Margin="0,23,0,23"  >
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Ellipse Width="40" Height="40">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBlock x:Name="User" Text="Tuan cui"  FontFamily="Montserrat Bold" FontSize="18" Foreground="Black" VerticalAlignment="Center" Height="18"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="1" Background="white" Margin="0,0,10,0">
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="2" Margin="30,0,0,50">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="4.5*"/>
+            </Grid.RowDefinitions>
+            <!-- Main Content Area - Alternative Card-Based Design -->
+            <Grid Grid.Column="2" Grid.Row="2" Margin="30,10,30,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!-- Main form content with cards -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <!-- Personal Information Card -->
+                        <Border Background="White" CornerRadius="10" Margin="0,0,0,20" BorderThickness="0">
+                            <Border.Effect>
+                                <DropShadowEffect Direction="-90" BlurRadius="10" ShadowDepth="2" Opacity="0.1"/>
+                            </Border.Effect>
+                            <Grid Margin="20">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <!-- Card Header -->
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                                    <Border Width="40" Height="40" CornerRadius="20" Background="#E6EEFF">
+                                        <Icon:PackIconMaterial Kind="AccountOutline" Width="20" Height="20" Foreground="#0430AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <StackPanel Margin="15,0,0,0" VerticalAlignment="Center">
+                                        <TextBlock Text="Personal Information" FontFamily="Montserrat Bold" FontSize="16" Foreground="#374655"/>
+                                        <TextBlock Text="Basic details about the resident" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,2,0,0"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <!-- Form Fields -->
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <!-- Full Name -->
+                                    <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,0,10,15">
+                                        <TextBlock Text="Full Name *" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655" Margin="0,0,0,8"/>
+                                        <Border CornerRadius="6" BorderBrush="#E1E6EB" BorderThickness="1" Background="#FFFFFF">
+                                            <Grid>
+                                                <TextBox x:Name="ResidentName" Height="45" Padding="12,0,12,0" 
+                                                         VerticalContentAlignment="Center" Background="Transparent" 
+                                                         BorderThickness="0" 
+                                                         Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock x:Name="ErrorMessageName" Text="{Binding ErrorMessage}" 
+                                                           Foreground="#E53935" FontSize="11" Margin="12,0,12,8" VerticalAlignment="Bottom"/>
+                                            </Grid>
+                                        </Border>
+                                    </StackPanel>
+                                    <!-- Sex Selection with binding -->
+                                    <StackPanel Grid.Column="1" Grid.Row="0" Margin="10,0,0,15">
+                                        <TextBlock Text="Sex *" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655" Margin="0,0,0,8"/>
+                                        <Border CornerRadius="6" BorderBrush="#E1E6EB" BorderThickness="1" Background="#FFFFFF">
+                                            <ComboBox x:Name="Sex" Height="45" Padding="10,0,10,0"
+                                                      Background="Transparent" BorderThickness="0"
+                                                      ItemsSource="{StaticResource SexList}"
+                                                      SelectedValue="{Binding Sex, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </Border>
+                                    </StackPanel>
+                                    <!-- Identification Number -->
+                                    <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,10,15">
+                                        <TextBlock Text="Identification Number *" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655" Margin="0,0,0,8"/>
+                                        <Border CornerRadius="6" BorderBrush="#E1E6EB" BorderThickness="1" Background="#FFFFFF">
+                                            <Grid>
+                                                <TextBox x:Name="IdentificationNumber" Height="45" Padding="12,0,12,0" 
+                                                         VerticalContentAlignment="Center" Background="Transparent" 
+                                                         BorderThickness="0"
+                                                         Text="{Binding IdentificationNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock x:Name="ErrorMessageId" Text="{Binding ErrorMessage3}" 
+                                                           Foreground="#E53935" FontSize="11" Margin="12,0,12,8" VerticalAlignment="Bottom"/>
+                                            </Grid>
+                                        </Border>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <!-- Contact Information Card -->
+                        <Border Background="White" CornerRadius="10" Margin="0,0,0,20" BorderThickness="0">
+                            <Border.Effect>
+                                <DropShadowEffect Direction="-90" BlurRadius="10" ShadowDepth="2" Opacity="0.1"/>
+                            </Border.Effect>
+                            <Grid Margin="20">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <!-- Card Header -->
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                                    <Border Width="40" Height="40" CornerRadius="20" Background="#E6EEFF">
+                                        <Icon:PackIconMaterial Width="20" Height="20" Foreground="#0430AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <StackPanel Margin="15,0,0,0" VerticalAlignment="Center">
+                                        <TextBlock Text="Contact Information" FontFamily="Montserrat Bold" FontSize="16" Foreground="#374655"/>
+                                        <TextBlock Text="How to reach the resident" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,2,0,0"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <!-- Form Fields -->
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <!-- Phone Number -->
+                                    <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,0,10,15">
+                                        <TextBlock Text="Phone Number *" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655" Margin="0,0,0,8"/>
+                                        <Border CornerRadius="6" BorderBrush="#E1E6EB" BorderThickness="1" Background="#FFFFFF">
+                                            <Grid>
+                                                <TextBox x:Name="PhoneNumber" Height="45" Padding="12,0,12,0" 
+                                                         VerticalContentAlignment="Center" Background="Transparent" 
+                                                         BorderThickness="0"
+                                                         Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock x:Name="ErrorMessagePhone" Text="{Binding ErrorMessage1}" 
+                                                           Foreground="#E53935" FontSize="11" Margin="12,0,12,8" VerticalAlignment="Bottom"/>
+                                            </Grid>
+                                        </Border>
+                                    </StackPanel>
+                                    <!-- Email -->
+                                    <StackPanel Grid.Column="1" Grid.Row="0" Margin="10,0,0,15">
+                                        <TextBlock Text="Email" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655" Margin="0,0,0,8"/>
+                                        <Border CornerRadius="6" BorderBrush="#E1E6EB" BorderThickness="1" Background="#FFFFFF">
+                                            <TextBox x:Name="Email" Height="45" Padding="12,0,12,0" 
+                                                     VerticalContentAlignment="Center" Background="Transparent" 
+                                                     BorderThickness="0"
+                                                     Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </Border>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <!-- Residence Details Card -->
+                        <Border Background="White" CornerRadius="10" Margin="0,0,0,20" BorderThickness="0">
+                            <Border.Effect>
+                                <DropShadowEffect Direction="-90" BlurRadius="10" ShadowDepth="2" Opacity="0.1"/>
+                            </Border.Effect>
+                            <Grid Margin="20">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <!-- Card Header -->
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                                    <Border Width="40" Height="40" CornerRadius="20" Background="#E6EEFF">
+                                        <Icon:PackIconMaterial Kind="HomeCity" Width="20" Height="20" Foreground="#0430AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <StackPanel Margin="15,0,0,0" VerticalAlignment="Center">
+                                        <TextBlock Text="Residence Details" FontFamily="Montserrat Bold" FontSize="16" Foreground="#374655"/>
+                                        <TextBlock Text="Housing information and status" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,2,0,0"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <!-- Form Fields -->
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <!-- Apartment Selection -->
+                                    <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,0,10,15">
+                                        <TextBlock Text="Apartment" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655" Margin="0,0,0,8"/>
+                                        <Border CornerRadius="6" BorderBrush="#E1E6EB" BorderThickness="1" Background="#FFFFFF">
+                                            <ComboBox x:Name="ApartmentNumberComboBox" 
+                                                Style="{StaticResource SolidDropdownComboBox}"
+                                                IsEditable="True"
+                                                Height="45" 
+                                                Padding="12,0,12,0"
+                                                VerticalContentAlignment="Center" 
+                                                Background="Transparent"
+                                                Text="{Binding ApartmentNumber, UpdateSourceTrigger=PropertyChanged}"
+                                                ItemsSource="{Binding ApartmentSuggestions}"
+                                                DisplayMemberPath="apartment_number"
+                                                StaysOpenOnEdit="True"
+                                                IsTextSearchEnabled="False"
+                                                TextBoxBase.TextChanged="ApartmentNumberComboBox_TextChanged"/>
+                                        </Border>
+                                    </StackPanel>
+                                    <!-- Resident Status -->
+                                    <StackPanel Grid.Column="1" Grid.Row="0" Margin="10,0,0,15">
+                                        <TextBlock Text="Resident Status *" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655" Margin="0,0,0,8"/>
+                                        <Border CornerRadius="6" BorderBrush="#E1E6EB" BorderThickness="1" Background="#FFFFFF">
+                                            <Grid>
+                                                <ComboBox x:Name="ResidentStatus" Height="45" Padding="12,0,12,0" 
+                                                          Background="Transparent" BorderThickness="0"
+                                                          SelectedValuePath="Content"
+                                                          SelectedValue="{Binding ResidentStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                    <ComboBoxItem Content="Owner"/>
+                                                    <ComboBoxItem Content="Resident"/>
+                                                </ComboBox>
+                                                <TextBlock x:Name="ErrorMessageStatus" Text="{Binding ErrorMessage5}" 
+                                                           Foreground="#E53935" FontSize="11" Margin="12,0,12,8" VerticalAlignment="Bottom"/>
+                                            </Grid>
+                                        </Border>
+                                    </StackPanel>
+                                    <!-- Additional Notes -->
+                                    <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,0">
+                                        <TextBlock Text="Additional Notes" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655" Margin="0,0,0,8"/>
+                                        <Border CornerRadius="6" BorderBrush="#E1E6EB" BorderThickness="1" Background="#FFFFFF">
+                                            <TextBox x:Name="Notes" Height="80" Padding="12,12,12,0" 
+                                                     TextWrapping="Wrap" AcceptsReturn="True" 
+                                                     VerticalAlignment="Top" Background="Transparent" 
+                                                     BorderThickness="0"
+                                                     Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </Border>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <!-- Action Buttons -->
+                        <Grid Margin="0,10,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <!-- Cancel Button -->
+                            <Button x:Name="btnCancel" Grid.Column="0" Content="Cancel" HorizontalAlignment="Left" 
+                                    Width="auto" Background="Transparent" Foreground="#9FA4AD" 
+                                    BorderThickness="1" BorderBrush="#E1E6EB">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="6"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                            <!-- Submit Button -->
+                            <Button x:Name="btnSave" Grid.Column="1" Content="Create Resident" HorizontalAlignment="Right" 
+                                    Width="auto" Background="#0430AD" Foreground="White" 
+                                    BorderThickness="0" Command="{Binding AddResidentCommand}">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="6"/>
+                                    </Style>
+                                </Button.Resources>
+                                <Button.Effect>
+                                    <DropShadowEffect Direction="-120" BlurRadius="10" Opacity="0.3" ShadowDepth="5" Color="#0430AD"/>
+                                </Button.Effect>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

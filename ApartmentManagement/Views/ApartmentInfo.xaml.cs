@@ -66,6 +66,12 @@ namespace ApartmentManagement.Views
             mainWindow.Show();
             this.Close();
         }
+        private void BtnResident_Click(object sender, RoutedEventArgs e)
+        {
+            ResidentView residentView = new ResidentView();
+            residentView.Show();
+            this.Close();
+        }
         private bool isFirstSelection = true;  // Cờ kiểm tra lần gọi đầu tiên
 
     }

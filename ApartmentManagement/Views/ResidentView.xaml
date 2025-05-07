@@ -217,7 +217,7 @@ To="#959595" Duration="0:0:0.2" />
                     </Button>
                 </Border>
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142"  >
-                    <Button x:Name="btnApartment" Style="{StaticResource menuButton}"   Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnApartment" Style="{StaticResource menuButton}"   Width="138" Margin="-5,5,0,5"  Click="BtnApartment_Click">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Icon:PackIconMaterial Kind="Domain" VerticalAlignment="Center" Foreground="#959595"/>
                             <TextBlock  x:Name="apartmentText" Text=" Apartment" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595"
@@ -444,10 +444,10 @@ To="#959595" Duration="0:0:0.2" />
             </Grid.ColumnDefinitions>
             <Grid Margin="30,0,0,0">
                 <Border x:Name="boSearch" Background="#EEF0F2" CornerRadius="10" Height="45" HorizontalAlignment="Center" Margin="0,16,0,15" Width="597" >
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" KeyDown="BoxSearch_KeyDown">
                         <Icon:PackIconMaterial Kind="Magnify" Foreground="#9FA4AD" VerticalAlignment="Center" Margin="7,0,0,0" Width="18" Height="18"/>
-                        <TextBox x:Name="boxSearch" Background="Transparent" BorderBrush="Transparent" Foreground="#9FA4AD" 
-                         Width="571" VerticalAlignment="Center" Padding="5,5"/>
+                        <TextBox x:Name="boxSearch" Background="Transparent" BorderBrush="Transparent" Foreground="#9FA4AD" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" 
+                         Width="571" VerticalAlignment="Center" Padding="5,5" TextChanged="BoxSearch_TextChanged" />
                     </StackPanel>
                 </Border>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -517,7 +517,7 @@ To="#959595" Duration="0:0:0.2" />
                     </Grid.ColumnDefinitions>
                     <!-- Add button -->
                     <Border Grid.Column="1" Background="#0430AD" Padding="8,4" BorderThickness="0" CornerRadius="10" Margin="0,10,0,10" >
-                        <Button Grid.Column="1"  Foreground="White"  BorderThickness="0">
+                        <Button Grid.Column="1"  Foreground="White"  BorderThickness="0" Click="BtnCreateResident_Click">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="+ " FontWeight="Bold" VerticalAlignment="Center" FontFamily="Montserrat Bold" FontSize="12" />
                                 <TextBlock Text="Add New Resident" VerticalAlignment="Center" FontFamily="Montserrat Bold" FontSize="12" />

@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using ApartmentManagement.Core.Singleton;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Diagnostics;
 
 namespace ApartmentManagement.ViewModel
 {
@@ -26,6 +27,7 @@ namespace ApartmentManagement.ViewModel
         // Observable Collections
         private ObservableCollection<Resident> _residents;
         private ObservableCollection<Resident> _allResidents;
+        private ObservableCollection<Apartment> _apartmentSuggestions;
 
         // Pagination Variables
         private int _currentPage = 1;
@@ -236,12 +238,20 @@ namespace ApartmentManagement.ViewModel
                 OnPropertyChanged();
             }
         }
-
+        public ObservableCollection<Apartment> ApartmentSuggestions
+        {
+            get => _apartmentSuggestions;
+            set
+            {
+                _apartmentSuggestions = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         #region Commands
         public ICommand LoadResidentCommand { get; private set; }
-        public ICommand AddApartmentCommand { get; private set; }
+        public ICommand AddResidentCommand { get; private set; }
         public ICommand DeleteResidentCommand { get; private set; }
         public ICommand NextPageCommand { get; private set; }
         public ICommand PreviousPageCommand { get; private set; }
@@ -249,7 +259,7 @@ namespace ApartmentManagement.ViewModel
         private void InitializeCommands()
         {
             LoadResidentCommand = new RelayCommand(async () => await LoadResidentsAsync());
-            AddApartmentCommand = new RelayCommand(AddResident);
+            AddResidentCommand = new RelayCommand(AddResident);
             DeleteResidentCommand = new RelayCommand<int>(async (id) => await DeleteResidentAsync(id));
 
             NextPageCommand = new RelayCommand(() => CurrentPage++, () => CurrentPage < TotalPages);
@@ -346,7 +356,8 @@ namespace ApartmentManagement.ViewModel
                 identification_number = IdentificationNumber,
                 resident_status = ResidentStatus
             };
-
+            // Log Sex here
+            MessageBox.Show(Sex, "Debug", MessageBoxButton.OK, MessageBoxImage.Information);
             var apartment = await _residentService.GetApartmentByApartmentNumberAsync(ApartmentNumber);
             if (apartment != null)
             {
@@ -401,7 +412,39 @@ namespace ApartmentManagement.ViewModel
             }
             return false;
         }
+        public async Task SearchResidentsAsync(string apartmentNumber)
+        {
+            var residents = string.IsNullOrWhiteSpace(apartmentNumber)
+                ? await _residentService.GetAllResidentsAsync()
+                : await _residentService.GetResidentsByApartmentNumberAsync(apartmentNumber);
 
+            AllResidents = new ObservableCollection<Resident>(residents);
+            CurrentPage = 1;
+        }
+
+        // Method to search for apartments
+        public async Task SearchApartmentsAsync(string searchText)
+        {
+            // Skip if empty search
+            if (string.IsNullOrWhiteSpace(searchText)) return;
+
+            try
+            {
+                // Use repository to find matching apartments
+                var apartments = await _residentService.GetApartmentsByNumberPatternAsync(searchText);
+
+                // Update suggestions collection on UI thread
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    ApartmentSuggestions = new ObservableCollection<Apartment>(apartments);
+                });
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                Debug.WriteLine($"Error searching apartments: {ex.Message}");
+            }
+        }
         #endregion
 
         // INotifyPropertyChanged implementation

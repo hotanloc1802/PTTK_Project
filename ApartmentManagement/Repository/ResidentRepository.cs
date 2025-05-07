@@ -36,8 +36,16 @@ namespace ApartmentManagement.Repository
                                   .Where(a => a.apartment_number == apartmentNumber)
                                   .FirstOrDefaultAsync();
         }
+        public async Task<IEnumerable<Resident>> GetResidentsByApartmentNumberAsync(string apartmentNumberSubset)
+        {
+            return await _context.Residents
+                                 .Where(a => a.apartment.apartment_number.Contains(apartmentNumberSubset))
+                                 .ToListAsync();
+        }
         public async Task<bool> CreateResidentAsync(Resident resident)
         {
+            resident.created_at = DateTime.UtcNow; // Set the creation timestamp
+            resident.updated_at = DateTime.UtcNow; // Set the update timestamp
             _context.Residents.Add(resident);
             await _context.SaveChangesAsync();
             return true;
@@ -80,6 +88,13 @@ namespace ApartmentManagement.Repository
             }
 
             return await query.ToListAsync();
+        }
+        public async Task<IEnumerable<Apartment>> GetApartmentsByNumberPatternAsync(string pattern)
+        {
+            return await _context.Apartments
+                .Where(a => a.apartment_number.Contains(pattern))
+                .Take(10) // Limit results
+                .ToListAsync();
         }
     }
 }
