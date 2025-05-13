@@ -58,6 +58,7 @@ namespace ApartmentManagement.Views
 
             var selectedItem = (ListBox)sender;
             var selectedData = selectedItem.SelectedItem;
+            txtSearch.Visibility = Visibility.Collapsed;
 
             if (selectedData != null)
             {
@@ -262,7 +263,12 @@ namespace ApartmentManagement.Views
             mainWindow.Show();
             this.Close();
         }
-
+        private void BtnPayment_Click(object sender, RoutedEventArgs e)
+        {
+            PaymentView paymentWindow = new PaymentView();
+            paymentWindow.Show();
+            this.Close();
+        }
         private void BtnApartment_Click(object sender, RoutedEventArgs e)
         {
             ApartmentView apartment = new ApartmentView();

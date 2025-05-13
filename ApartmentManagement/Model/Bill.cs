@@ -15,7 +15,6 @@ namespace ApartmentManagement.Model
         public decimal bill_amount { get; set; }
         public DateTime due_date { get; set; }
         public DateTime bill_date { get; set; }
-        public string payment_status { get; set; }
 
         public Apartment apartment { get; set; }
         public ICollection<Payment> payments { get; set; }

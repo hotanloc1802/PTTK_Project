@@ -317,7 +317,7 @@
                     </Button>
                 </Border>
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
-                    <Button x:Name="btnPayment"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnPayment"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnPayment_Click">
                         <Button.Triggers>
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">

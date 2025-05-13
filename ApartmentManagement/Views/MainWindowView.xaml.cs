@@ -72,5 +72,11 @@ namespace ApartmentManagement.Views
             residentWindow.Show();
             this.Close();
         }
+        private void BtnPayment_Click(object sender, RoutedEventArgs e)
+        {
+            PaymentView paymentWindow = new PaymentView();
+            paymentWindow.Show();
+            this.Close();
+        }
     }
 }

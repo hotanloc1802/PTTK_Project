@@ -30,17 +30,24 @@ namespace ApartmentManagement.Repository
                  .Include(a => a.apartment)
                  .FirstOrDefaultAsync(r => r.resident_id == id);
         }
+        public async Task<IEnumerable<Resident>> GetResidentsByApartmentNumberAsync(string apartmentNumberSubset)
+        {
+            return await _context.Residents
+                                 .Where(a => a.apartment.apartment_number.Contains(apartmentNumberSubset))
+                                 .ToListAsync();
+        }
         public async Task<Apartment> GetApartmentByApartmentNumberAsync(string apartmentNumber)
         {
             return await _context.Apartments
                                   .Where(a => a.apartment_number == apartmentNumber)
                                   .FirstOrDefaultAsync();
         }
-        public async Task<IEnumerable<Resident>> GetResidentsByApartmentNumberAsync(string apartmentNumberSubset)
+        public async Task<IEnumerable<Apartment>> GetApartmentsByNumberPatternAsync(string pattern)
         {
-            return await _context.Residents
-                                 .Where(a => a.apartment.apartment_number.Contains(apartmentNumberSubset))
-                                 .ToListAsync();
+            return await _context.Apartments
+                .Where(a => a.apartment_number.Contains(pattern))
+                .Take(10) // Limit results
+                .ToListAsync();
         }
         public async Task<bool> CreateResidentAsync(Resident resident)
         {
@@ -88,13 +95,6 @@ namespace ApartmentManagement.Repository
             }
 
             return await query.ToListAsync();
-        }
-        public async Task<IEnumerable<Apartment>> GetApartmentsByNumberPatternAsync(string pattern)
-        {
-            return await _context.Apartments
-                .Where(a => a.apartment_number.Contains(pattern))
-                .Take(10) // Limit results
-                .ToListAsync();
         }
     }
 }

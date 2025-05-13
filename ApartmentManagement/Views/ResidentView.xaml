@@ -48,7 +48,8 @@
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ListBox x:Name="BuildingListBox"  Margin="0,20,0,20" BorderThickness="0" Background="Transparent" SelectedIndex="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="OnBuildingSelectionChanged" >
+            <ListBox x:Name="BuildingListBox"  Margin="0,20,0,20" BorderThickness="0" Background="Transparent" SelectedIndex="0" 
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="OnBuildingSelectionChanged" >
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical"/>
@@ -270,7 +271,7 @@ To="#959595" Duration="0:0:0.2" />
                     </Button>
                 </Border>
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
-                    <Button x:Name="btnPayement"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnPayement"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnPayment_Click">
                         <Button.Triggers>
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">

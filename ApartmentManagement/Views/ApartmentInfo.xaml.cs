@@ -72,6 +72,13 @@ namespace ApartmentManagement.Views
             residentView.Show();
             this.Close();
         }
+        private void BtnPayment_Click(object sender, RoutedEventArgs e)
+        {
+            PaymentView paymentWindow = new PaymentView();
+            paymentWindow.Show();
+            this.Close();
+        }
+
         private bool isFirstSelection = true;  // Cờ kiểm tra lần gọi đầu tiên
 
     }

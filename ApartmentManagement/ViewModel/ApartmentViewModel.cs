@@ -38,41 +38,8 @@ namespace ApartmentManagement.ViewModels
         private int _ownerId;
         private int _buildingId;
         private string _errorMessage;
-        public string ErrorMessage
-        {
-            get { return _errorMessage; }
-            set
-            {
-                _errorMessage = value;
-                OnPropertyChanged();
-            }
-        }
 
-        public string ErrorMessage2
-        {
-            get { return _errorMessage; }
-            set
-            {
-                _errorMessage = value;
-            }
-        }
-        public string ErrorMessage3
-        {
-            get { return _errorMessage; }
-            set
-            {
-                _errorMessage = value;
-            }
-        }
-        public string ErrorMessage4
-        {
-            get { return _errorMessage; }
-            set
-            {
-                _errorMessage = value;
-            }
-        }
-        // Filter Status Variable
+        // Filter Status
         private string _lastFilterStatus;
 
         // Constructor
@@ -127,6 +94,40 @@ namespace ApartmentManagement.ViewModels
             get => _selectedBuildingSchema ?? BuildingSchema.Instance.CurrentBuildingSchema;
         }
         private int _apartmentCount;
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string ErrorMessage2
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
+        public string ErrorMessage3
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
+        public string ErrorMessage4
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
         public int ApartmentCount
         {
             get => _apartmentCount;
@@ -489,7 +490,8 @@ namespace ApartmentManagement.ViewModels
 
         #endregion
 
-        // INotifyPropertyChanged implementation
+        #region INotifyPropertyChanged Implementation
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Helper method to raise PropertyChanged event
@@ -497,5 +499,6 @@ namespace ApartmentManagement.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
     }
 }

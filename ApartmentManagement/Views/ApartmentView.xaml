@@ -271,7 +271,7 @@ To="#959595" Duration="0:0:0.2" />
                     </Button>
                 </Border>
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
-                    <Button x:Name="btnPayement"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnPayement"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnPayment_Click">
                         <Button.Triggers>
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">
@@ -542,12 +542,11 @@ To="#959595" Duration="0:0:0.2" />
                     <Border x:Name="borderOccupied" CornerRadius="10"   Margin="0,0,5,0"  Background="#F0F0F0" BorderThickness="0" Width="120">
                         <Button x:Name="btnOccupied" Content="Occupied" Click="BtnOccupied_Click"  Foreground="#434343"   FontFamily="Montserrat Bold"/>
                     </Border>
-
                 </StackPanel>
 
                 <!-- Separator -->
                 <Separator Grid.Row="3" Margin="0,15"/>
-
+                
                 <!-- Count and sort section -->
                 <Grid Grid.Row="4" Margin="0,0,0,10">
                     <Grid.ColumnDefinitions>
@@ -559,7 +558,7 @@ To="#959595" Duration="0:0:0.2" />
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="Sort by:" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                        <ComboBox x:Name="sortComboBox" Style="{StaticResource CustomComboBoxStyle}" Width="180" SelectionChanged="SortComboBox_SelectionChanged" SelectedIndex="0">
+                        <ComboBox x:Name="sortComboBox" Style="{StaticResource CustomComboBoxStyle}" Width="180" SelectedIndex="0" SelectionChanged="SortComboBox_SelectionChanged">
                             <ComboBoxItem Content="Apartment Number"/>
                             <ComboBoxItem Content="ID"/>
                         </ComboBox>
@@ -568,20 +567,20 @@ To="#959595" Duration="0:0:0.2" />
 
                 <!-- Data Grid -->
                 <DataGrid x:Name="ApartmentDataGrid" 
-          Grid.Row="5" Grid.Column="1" 
-          AutoGenerateColumns="False" 
-          IsReadOnly="True" 
-          GridLinesVisibility="None" 
-          BorderThickness="1" 
-          BorderBrush="#E1E1E1"
-          Background="White" 
-          RowBackground="White" 
-          AlternatingRowBackground="#F8F9FA"
-          CanUserAddRows="False" 
-          CanUserDeleteRows="False" 
-          ItemsSource="{Binding Apartments}"
-          HeadersVisibility="Column"  
-          SelectionChanged="ApartmentDataGrid_SelectionChanged">
+                    Grid.Row="5" Grid.Column="1" 
+                    AutoGenerateColumns="False" 
+                    IsReadOnly="True" 
+                    GridLinesVisibility="None" 
+                    BorderThickness="1" 
+                    BorderBrush="#E1E1E1"
+                    Background="White" 
+                    RowBackground="White" 
+                    AlternatingRowBackground="#F8F9FA"
+                    CanUserAddRows="False" 
+                    CanUserDeleteRows="False" 
+                    ItemsSource="{Binding Apartments}"
+                    HeadersVisibility="Column"  
+                    SelectionChanged="ApartmentDataGrid_SelectionChanged">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="Background" Value="#F8F9FA"/>
