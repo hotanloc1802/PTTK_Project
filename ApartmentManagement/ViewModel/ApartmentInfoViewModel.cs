@@ -116,10 +116,11 @@ public class ApartmentInfoViewModel : INotifyPropertyChanged
         return new string(randomString);
     }
 
-    public async Task LoadApartmentInfoAsync(int apartmentID)
+    public async Task LoadApartmentInfoAsync(string apartmentID)
     {
         var apartment = await _apartmentService.GetOneApartmentAsync(apartmentID);
         SelectedApartment = apartment;
+      
     }
 
     public void SelectBuildingInListBox(ListBox listBox)

@@ -1,26 +1,27 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System;
+
 namespace ApartmentManagement.Model
 {
     public class ServiceRequest
     {
         [Key]
-        public int request_id { get; set; }
+        public string request_id { get; set; }  // Tương ứng với VARCHAR(20)
 
         [ForeignKey("apartment")]
-        public int apartment_id { get; set; }
+        public string apartment_id { get; set; }  // Tương ứng với VARCHAR(20)
 
         [ForeignKey("resident")]
-        public int resident_id { get; set; }
+        public string resident_id { get; set; }  // Tương ứng với VARCHAR(20)
 
         public string category { get; set; }
         public string description { get; set; }
         public string status { get; set; }
         public DateTime request_date { get; set; }
-        public DateTime? completed_date { get; set; }
+        public DateTime? completed_date { get; set; }  // Nullable vì không phải yêu cầu nào cũng đã hoàn thành
 
-        public Apartment apartment { get; set; }
-        public Resident resident { get; set; }
+        public Apartment apartment { get; set; }  // Quan hệ với bảng Apartment
+        public Resident resident { get; set; }  // Quan hệ với bảng Resident
     }
-
 }

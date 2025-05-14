@@ -1,22 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System;
+
 namespace ApartmentManagement.Model
 {
     public class Payment
     {
         [Key]
-        public int payment_id { get; set; }
+        public string payment_id { get; set; }  // Tương ứng với VARCHAR(20)
 
-        [ForeignKey("bill")]
-        public int bill_id { get; set; }
-
-        public decimal payment_amount { get; set; }
+        public decimal total_amount { get; set; }
         public DateTime payment_date { get; set; }
-        public string payment_method { get; set; }
         public string payment_status { get; set; }
 
-        public Bill bill { get; set; }
+        // Quan hệ với bảng PaymentDetail
+        public virtual ICollection<PaymentDetail> payment_details { get; set; }
     }
-
 }
-

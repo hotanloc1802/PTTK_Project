@@ -19,7 +19,7 @@ namespace ApartmentManagement.Service
         {
             return await _residentRepository.GetAllResidentsAsync();
         }
-        public async Task<Resident> GetOneResidentAsync(int id)
+        public async Task<Resident> GetOneResidentAsync(string id)
         {
             // Query the database to find the resident by ID
             return await _residentRepository.GetOneResidentAsync(id);
@@ -39,7 +39,7 @@ namespace ApartmentManagement.Service
             var list = await _residentRepository.UpdateResidentAsync(resident);
             return list;
         }
-        public async Task<bool> DeleteResidentAsync(int id)
+        public async Task<bool> DeleteResidentAsync(string id)
         {
             var list = await _residentRepository.DeleteResidentAsync(id);
             return list;

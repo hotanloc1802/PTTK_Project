@@ -228,41 +228,7 @@ To="#959595" Duration="0:0:0.2" />
                 </Border>
                 <Border Background="Transparent" CornerRadius="10" Padding="5,5,5,5"  Width="142" >
                     <Button x:Name="btnResident" Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Background="#0430AD">
-                        <Button.Triggers>
-                            <!-- Trigger khi di chuột vào Button -->
-                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <!-- Đổi màu nền của Button khi di chuột vào -->
-                                        <ColorAnimation 
-            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-            To="#CDDFFB" Duration="0:0:0.2" />
-                                        <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
-                                        <ColorAnimation 
-            Storyboard.TargetName="residentText" 
-            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-            To="Black" Duration="0:0:0.2" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-
-                            <!-- Trigger khi di chuột ra khỏi Button -->
-                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <!-- Trở lại màu nền gốc của Button khi di chuột ra -->
-                                        <ColorAnimation 
-            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-            To="Transparent" Duration="0:0:0.2" />
-                                        <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
-                                        <ColorAnimation 
-            Storyboard.TargetName="residentText" 
-            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
-            To="#959595" Duration="0:0:0.2" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </Button.Triggers>
+                        
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Icon:PackIconMaterial Kind="AccountGroup" VerticalAlignment="Center" Foreground="White"/>
                             <TextBlock  x:Name="residentText"  Text="Resident" FontFamily="Montserrat Bold" FontSize="13" Foreground="White"
@@ -502,7 +468,7 @@ To="#959595" Duration="0:0:0.2" />
             <Grid Grid.Row="2" Margin="30,0,20,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="42"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
@@ -517,7 +483,7 @@ To="#959595" Duration="0:0:0.2" />
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <!-- Add button -->
-                    <Border Grid.Column="1" Background="#0430AD" Padding="8,4" BorderThickness="0" CornerRadius="10" Margin="0,10,0,10" >
+                    <Border Grid.Column="1" Background="#0430AD" Padding="8,4" BorderThickness="0" CornerRadius="10" Margin="0,10,0,10" Width="172.443333333333" >
                         <Button Grid.Column="1"  Foreground="White"  BorderThickness="0" Click="BtnCreateResident_Click">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="+ " FontWeight="Bold" VerticalAlignment="Center" FontFamily="Montserrat Bold" FontSize="12" />
@@ -527,6 +493,12 @@ To="#959595" Duration="0:0:0.2" />
                     </Border>
                 </Grid>
 
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
+                    <Border x:Name="borderAll" CornerRadius="10"   Margin="0,0,5,0"  Background="#0430AD" BorderThickness="0" Width="60">
+                        <Button x:Name="btnAll" Content="All"  Foreground="White"  FontFamily="Montserrat Bold"/>
+                    </Border>
+                   
+                </StackPanel>
                 <!-- Title and filter tabs -->
                 <TextBlock Text="Residents"  Foreground="#434343"  FontFamily="Montserrat Bold" Grid.Row="0" FontSize="20"  Margin="0,15,187,10"/>
 
@@ -578,10 +550,10 @@ To="#959595" Duration="0:0:0.2" />
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding resident_id}" Width="70"/>
-                        <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="400"/>
-                        <DataGridTextColumn Header="Phone Number" Binding="{Binding phone_number}" Width="*"/>
-                        <DataGridTextColumn Header="Apartment Number" Binding="{Binding apartment.apartment_number}" Width="180"/>
+                        <DataGridTextColumn Header="Apartment Number" Binding="{Binding apartment.apartment_id}" Width="180"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="200"/>
+                        <DataGridTextColumn Header="Phone Number" Binding="{Binding phone_number}" Width="200"/>
+                        <DataGridTextColumn Header="Identification number" Binding="{Binding identification_number}" Width="*"/>
                         <DataGridTemplateColumn Header="Actions" Width="120">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

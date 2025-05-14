@@ -35,8 +35,8 @@ namespace ApartmentManagement.ViewModels
         private int _currentPopulation;
         private string _vacancyStatus;
         private string _transferStatus;
-        private int _ownerId;
-        private int _buildingId;
+        private string _ownerId;
+        private string _buildingId;
         private string _errorMessage;
 
         // Filter Status
@@ -250,7 +250,7 @@ namespace ApartmentManagement.ViewModels
             }
         }
 
-        public int OwnerId
+        public string OwnerId
         {
             get => _ownerId;
             set
@@ -260,7 +260,7 @@ namespace ApartmentManagement.ViewModels
             }
         }
 
-        public int BuuldingId
+        public string BuuldingId
         {
             get => _buildingId;
             set
@@ -286,7 +286,7 @@ namespace ApartmentManagement.ViewModels
         private void InitializeCommands()
         {
             LoadApartmentsCommand = new RelayCommand(async () => await LoadApartmentsAsync());
-            DeleteApartmentCommand = new RelayCommand<int>(async (id) => await DeleteApartmentAsync(id));
+            DeleteApartmentCommand = new RelayCommand<string>(async (id) => await DeleteApartmentAsync(id));
             CountApartmentsCommand = new RelayCommand(async () => await CountApartmentsAsync());
             AddApartmentCommand = new RelayCommand(AddApartment);
 
@@ -368,12 +368,10 @@ namespace ApartmentManagement.ViewModels
         {
             var newApartment = new Apartment
             {
-                apartment_number = ApartmentNumber,
                 max_population = MaxPopulation,
                 current_population = CurrentPopulation,
                 vacancy_status = VacancyStatus,
                 transfer_status = TransferStatus,
-                owner_id = OwnerId
             };
 
             var building = await _apartmentService.GetBuildingByNameAsync(BuildingName);
@@ -409,7 +407,7 @@ namespace ApartmentManagement.ViewModels
             CurrentPopulation = 0;
             VacancyStatus = string.Empty;
             TransferStatus = string.Empty;
-            OwnerId = 0;
+            OwnerId = "";
         }
 
         // Load Apartments asynchronously
@@ -422,7 +420,7 @@ namespace ApartmentManagement.ViewModels
         }
 
         // Delete Apartment
-        public async Task<bool> DeleteApartmentAsync(int apartmentId)
+        public async Task<bool> DeleteApartmentAsync(string apartmentId)
         {
             var result = await _apartmentService.DeleteApartmentsAsync(apartmentId);
             if (result)

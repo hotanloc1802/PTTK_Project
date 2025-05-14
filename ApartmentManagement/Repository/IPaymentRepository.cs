@@ -14,7 +14,7 @@ namespace ApartmentManagement.Repository
         Task<IEnumerable<Payment>> GetPaymentsByStatusAsync(string status);
         Task<Apartment> GetOneApartmentByApartmentNumberAsync(string apartmentNumber);
         Task<IEnumerable<Payment>> SortPaymentsAsync(string sortType);
-        Task<Payment> GetOnePaymentAsync(int id);
-        Task<bool> DeletePaymentAsync(int id);
+        Task<Payment> GetOnePaymentAsync(string id);
+        Task<bool> DeletePaymentAsync(string id);
     }
 }

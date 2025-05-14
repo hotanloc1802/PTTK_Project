@@ -50,7 +50,7 @@ namespace ApartmentManagement.ViewModel
         public ICommand EditResidentCommand { get; }
 
         // Load resident info asynchronously
-        public async Task LoadResidentInfoAsync(int residentID)
+        public async Task LoadResidentInfoAsync(string residentID)
         {
             SelectedResident = await _residentService.GetOneResidentAsync(residentID);
             OnPropertyChanged(nameof(SelectedResident));

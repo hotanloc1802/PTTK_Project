@@ -36,11 +36,12 @@ namespace ApartmentManagement.Data
             // Áp dụng schema vào bảng
             modelBuilder.Entity<User>().ToTable("users", _schema);
             modelBuilder.Entity<Building>().ToTable("buildings", _schema);
-            modelBuilder.Entity<Apartment>().ToTable("apartments",  _schema);
+            modelBuilder.Entity<Apartment>().ToTable("apartments", _schema);
             modelBuilder.Entity<Resident>().ToTable("residents", _schema);
             modelBuilder.Entity<Bill>().ToTable("bills", _schema);
             modelBuilder.Entity<Payment>().ToTable("payments", _schema);
             modelBuilder.Entity<ServiceRequest>().ToTable("service_requests", _schema);
+            modelBuilder.Entity<PaymentDetail>().ToTable("paymentsdetail", _schema);  // Thêm bảng PaymentDetail
 
             // Quan hệ giữa các thực thể
             modelBuilder.Entity<Resident>()
@@ -60,8 +61,26 @@ namespace ApartmentManagement.Data
                 .WithMany(u => u.buildings_managed)
                 .HasForeignKey(b => b.manager_id)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            // Quan hệ giữa Payment và PaymentDetail
+            modelBuilder.Entity<PaymentDetail>()
+                .HasKey(pd => new { pd.bill_id, pd.payment_id });  // Khoá chính là sự kết hợp giữa bill_id và payment_id
+
+            modelBuilder.Entity<PaymentDetail>()
+                .HasOne(pd => pd.bill)  // Liên kết với bảng Bill
+                .WithMany(b => b.payment_details)
+                .HasForeignKey(pd => pd.bill_id)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PaymentDetail>()
+                .HasOne(pd => pd.payment)  // Liên kết với bảng Payment
+                .WithMany(p => p.payment_details)
+                .HasForeignKey(pd => pd.payment_id)
+                .OnDelete(DeleteBehavior.Cascade);
+
             base.OnModelCreating(modelBuilder);
         }
+
 
         // Cấu hình kết nối đến cơ sở dữ liệu
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

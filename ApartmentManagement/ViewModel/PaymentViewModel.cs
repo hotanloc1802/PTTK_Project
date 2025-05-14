@@ -209,7 +209,7 @@ namespace ApartmentManagement.ViewModel
         private void InitializeCommands()
         {
             LoadPaymentsCommand = new RelayCommand(async () => await LoadPaymentsAsync());
-            DeletePaymentCommand = new RelayCommand<int>(async (id) => await DeletePaymentAsync(id));
+            DeletePaymentCommand = new RelayCommand<string>(async (id) => await DeletePaymentAsync(id));
 
             NextPageCommand = new RelayCommand(() => CurrentPage++, () => CurrentPage < TotalPages);
             PreviousPageCommand = new RelayCommand(() => CurrentPage--, () => CurrentPage > 1);
@@ -328,7 +328,7 @@ namespace ApartmentManagement.ViewModel
             CurrentPage = 1;
         }
 
-        public async Task<bool> DeletePaymentAsync(int id)
+        public async Task<bool> DeletePaymentAsync(string id)
         {
             var result = await _paymentService.DeletePaymentAsync(id);
             if (result)

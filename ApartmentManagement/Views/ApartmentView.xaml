@@ -560,7 +560,7 @@ To="#959595" Duration="0:0:0.2" />
                         <TextBlock Text="Sort by:" VerticalAlignment="Center" Margin="0,0,10,0"/>
                         <ComboBox x:Name="sortComboBox" Style="{StaticResource CustomComboBoxStyle}" Width="180" SelectedIndex="0" SelectionChanged="SortComboBox_SelectionChanged">
                             <ComboBoxItem Content="Apartment Number"/>
-                            <ComboBoxItem Content="ID"/>
+                            <ComboBoxItem Content="Vacancy Status"/>
                         </ComboBox>
                     </StackPanel>
                 </Grid>
@@ -592,12 +592,11 @@ To="#959595" Duration="0:0:0.2" />
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding apartment_id}" Width="70"/>
-                        <DataGridTextColumn Header="Apartment Number" Binding="{Binding apartment_number}" Width="150"/>
+                        <DataGridTextColumn Header="Apartment Number" Binding="{Binding apartment_id}" Width="170"/>
                         <DataGridTextColumn Header="Building Name" Binding="{Binding building.building_name}" Width="*"/>
-                        <DataGridTextColumn Header="Status" Binding="{Binding vacancy_status}" Width="120"/>
-                        <DataGridTextColumn Header="Current Population" Binding="{Binding current_population}" Width="140"/>
-                        <DataGridTextColumn Header="Max Population" Binding="{Binding max_population}" Width="120"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding vacancy_status}" Width="150"/>
+                        <DataGridTextColumn Header="Max Population" Binding="{Binding max_population}" Width="150"/>
+                        <DataGridTextColumn Header="Current Population" Binding="{Binding current_population}" Width="150"/>
                         <DataGridTemplateColumn Header="Actions" Width="120">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

@@ -16,7 +16,7 @@ namespace ApartmentManagement.Utility
         {
             _configuration = new ConfigurationBuilder()
                 //.SetBasePath(Directory.GetCurrentDirectory()) 
-                .AddJsonFile("C:\\Users\\trung\\Desktop\\PTTK_Project\\ApartmentManagement\\jsconfig1.json", optional: false, reloadOnChange: true) // Đọc tệp appsettings.json
+                .AddJsonFile("D:\\Storage_document\\Effort_Ki2_Nam3\\PTTK\\Code_final\\ApartmentManagement\\jsconfig1.json", optional: false, reloadOnChange: true) // Đọc tệp appsettings.json
                 .Build();
         }
 

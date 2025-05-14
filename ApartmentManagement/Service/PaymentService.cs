@@ -35,11 +35,11 @@ namespace ApartmentManagement.Service
         {
             return await _paymentRepository.SortPaymentsAsync(sortType);
         }
-        public async Task<Payment> GetOnePaymentAsync(int id)
+        public async Task<Payment> GetOnePaymentAsync(string id)
         {
             return await _paymentRepository.GetOnePaymentAsync(id);
         }
-        public async Task<bool> DeletePaymentAsync(int id)
+        public async Task<bool> DeletePaymentAsync(string id)
         {
             var list = await _paymentRepository.DeletePaymentAsync(id);
             return list;

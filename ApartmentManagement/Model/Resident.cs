@@ -6,7 +6,7 @@ namespace ApartmentManagement.Model
     public class Resident
     {
         [Key]
-        public int resident_id { get; set; }
+        public string resident_id { get; set; }
 
         public string name { get; set; }
         public string phone_number { get; set; }
@@ -15,12 +15,11 @@ namespace ApartmentManagement.Model
         public string identification_number { get; set; }
 
         [ForeignKey("apartment")]
-        public int apartment_id { get; set; }
+        public string apartment_id { get; set; }
 
-        public string resident_status { get; set; }
 
         [ForeignKey("owner")]
-        public int? owner_id { get; set; }
+        public string? owner_id { get; set; }
 
         public DateTime created_at { get; set; }
         public DateTime updated_at { get; set; }

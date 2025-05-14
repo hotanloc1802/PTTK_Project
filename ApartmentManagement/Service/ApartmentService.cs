@@ -66,7 +66,7 @@ namespace ApartmentManagement.Service
             ErrorMessage4 = _apartmentRepository.ErrorMessage4;
             return list;
         }
-        public async Task<bool> DeleteApartmentsAsync(int id)
+        public async Task<bool> DeleteApartmentsAsync(string id)
         {
             return await _apartmentRepository.DeleteApartmentsAsync(id);
         }
@@ -87,7 +87,7 @@ namespace ApartmentManagement.Service
         {
             return await _apartmentRepository.GetApartmentsByStatusAsync(status);
         }
-        public async Task<Apartment> GetOneApartmentAsync(int id)
+        public async Task<Apartment> GetOneApartmentAsync(string id)
         {
             return await _apartmentRepository.GetOneApartmentAsync(id);
         }
@@ -104,7 +104,7 @@ namespace ApartmentManagement.Service
             // Query the database to find the building by name
             return await _apartmentRepository.GetBuildingByNameAsync(buildingName);
         }
-        public async Task<IEnumerable<Apartment>> GetApartmentsByBuildingAsync(int buildingId)
+        public async Task<IEnumerable<Apartment>> GetApartmentsByBuildingAsync(string buildingId)
         {
             return await _apartmentRepository.GetApartmentsByBuildingAsync(buildingId);
         }

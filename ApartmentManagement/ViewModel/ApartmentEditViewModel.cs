@@ -47,7 +47,7 @@ namespace ApartmentManagement.ViewModel
         public ICommand EditApartmentCommand { get; }
 
         // Load apartment info asynchronously
-        public async Task LoadApartmentInfoAsync(int apartmentID)
+        public async Task LoadApartmentInfoAsync(string apartmentID)
         {
             SelectedApartment = await _apartmentService.GetOneApartmentAsync(apartmentID);
             OnPropertyChanged(nameof(SelectedApartment));

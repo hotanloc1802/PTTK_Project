@@ -6,15 +6,13 @@ namespace ApartmentManagement.Model
     public class Apartment
     {
         [Key]
-        public int apartment_id { get; set; }
-
-        public string apartment_number { get; set; }
+        public string apartment_id { get; set; }
 
         [ForeignKey("building")]
-        public int building_id { get; set; }
+        public string building_id { get; set; }
 
         [ForeignKey("owner")]
-        public int? owner_id { get; set; }
+        public string? owner_id { get; set; }
 
         public int max_population { get; set; }
         public int current_population { get; set; }

@@ -561,7 +561,7 @@
                                         <Run Text="Apartment Number " Foreground="#374655"/>
                                         <Run Text="*" Foreground="Red"/> <!-- Red color for the asterisk -->
                                         </TextBlock>
-                                        <TextBox IsReadOnly="True" x:Name="ApartmentNumber" Height="40" Padding="10 0" VerticalContentAlignment="Center"  BorderThickness="1" BorderBrush="#E1E6EB" Text="{Binding SelectedApartment.apartment_number, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBox IsReadOnly="True" x:Name="ApartmentNumber" Height="40" Padding="10 0" VerticalContentAlignment="Center"  BorderThickness="1" BorderBrush="#E1E6EB" Text="{Binding SelectedApartment.apartment_id, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
 

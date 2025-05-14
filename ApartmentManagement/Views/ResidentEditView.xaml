@@ -201,15 +201,8 @@
                     </Button>
                 </Border>
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142"  >
-                    <Button x:Name="btnApartment" Style="{StaticResource menuButton}"   Width="138" Margin="-5,5,0,5" Background="#0430AD">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Icon:PackIconMaterial Kind="Domain" VerticalAlignment="Center" Foreground="white"/>
-                            <TextBlock  x:Name="apartmentText" Text=" Apartment" FontFamily="Montserrat Bold" FontSize="13" Foreground="white" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-                </Border>
-                <Border Background="Transparent" CornerRadius="10" Padding="5,5,5,5"  Width="142"  >
-                    <Button x:Name="btnResident" Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5"  >
+                    
+                    <Button x:Name="btnApartment" Style="{StaticResource menuButton}"   Width="138" Margin="-5,5,0,5">
                         <Button.Triggers>
 
                             <!-- Trigger khi di chuột vào Button -->
@@ -221,7 +214,7 @@
                                         <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="#CDDFFB" Duration="0:0:0.2" />
 
                                         <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
-                                        <ColorAnimation Storyboard.TargetName="residentText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="apartmentText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -235,14 +228,23 @@
                                         <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.2" />
 
                                         <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
-                                        <ColorAnimation Storyboard.TargetName="residentText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
+                                        <ColorAnimation Storyboard.TargetName="apartmentText" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="#959595" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
                         </Button.Triggers>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Icon:PackIconMaterial Kind="AccountGroup" VerticalAlignment="Center" Foreground="#959595"/>
-                            <TextBlock  x:Name="residentText"  Text="Resident" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center" Margin="3,0,0,0"/>
+                            <Icon:PackIconMaterial Kind="Domain" VerticalAlignment="Center" Foreground="#959595"/>
+                            <TextBlock  x:Name="apartmentText" Text=" Apartment" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Background="Transparent" CornerRadius="10" Padding="5,5,5,5"  Width="142"  >
+                    <Button x:Name="btnResident" Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Background="#0430AD"  >
+                        
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="AccountGroup" VerticalAlignment="Center" Foreground="white"/>
+                            <TextBlock  x:Name="residentText"  Text="Resident" FontFamily="Montserrat Bold" FontSize="13" Foreground="white" VerticalAlignment="Center" Margin="3,0,0,0"/>
                         </StackPanel>
                     </Button>
                 </Border>
@@ -611,7 +613,7 @@
                                         </TextBlock>
                                         <TextBox x:Name="apartmentNumber" Height="40" Padding="10 0" VerticalContentAlignment="Center"
                                                  BorderThickness="1" BorderBrush="#E1E6EB"
-                                                 Text="{Binding SelectedResident.apartment.apartment_number, UpdateSourceTrigger=PropertyChanged}"/>
+                                                 Text="{Binding SelectedResident.apartment.apartment_id, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
 
                                     <!--Main Button-->

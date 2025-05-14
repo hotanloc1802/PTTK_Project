@@ -51,7 +51,7 @@ namespace ApartmentManagement.ViewModel
 
         #endregion
 
-        public async Task LoadResidentInfoAsync(int residentID)
+        public async Task LoadResidentInfoAsync(string residentID)
         {
             var resident = await _residentService.GetOneResidentAsync(residentID);
             SelectedResident = resident;

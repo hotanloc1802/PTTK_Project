@@ -24,7 +24,7 @@ namespace ApartmentManagement.Repository
                 .Include(a => a.apartment)
                 .ToListAsync();
         }
-        public async Task<Resident> GetOneResidentAsync(int id)
+        public async Task<Resident> GetOneResidentAsync(string id)
         {
             return await _context.Residents
                  .Include(a => a.apartment)
@@ -33,19 +33,19 @@ namespace ApartmentManagement.Repository
         public async Task<IEnumerable<Resident>> GetResidentsByApartmentNumberAsync(string apartmentNumberSubset)
         {
             return await _context.Residents
-                                 .Where(a => a.apartment.apartment_number.Contains(apartmentNumberSubset))
+                                 .Where(a => a.apartment.apartment_id.Contains(apartmentNumberSubset))
                                  .ToListAsync();
         }
         public async Task<Apartment> GetApartmentByApartmentNumberAsync(string apartmentNumber)
         {
             return await _context.Apartments
-                                  .Where(a => a.apartment_number == apartmentNumber)
+                                  .Where(a => a.apartment_id == apartmentNumber)
                                   .FirstOrDefaultAsync();
         }
         public async Task<IEnumerable<Apartment>> GetApartmentsByNumberPatternAsync(string pattern)
         {
             return await _context.Apartments
-                .Where(a => a.apartment_number.Contains(pattern))
+                .Where(a => a.apartment_id.Contains(pattern))
                 .Take(10) // Limit results
                 .ToListAsync();
         }
@@ -72,7 +72,7 @@ namespace ApartmentManagement.Repository
             existingResident.updated_at = DateTime.UtcNow; // Update the timestamp
             return await _context.SaveChangesAsync() > 0;
         }
-        public async Task<bool> DeleteResidentAsync(int id)
+        public async Task<bool> DeleteResidentAsync(string id)
         {
             var resident = await GetOneResidentAsync(id);
             _context.Residents.Remove(resident);
@@ -88,7 +88,7 @@ namespace ApartmentManagement.Repository
                     query = query.OrderBy(r => r.resident_id);
                     break;
                 case "Apartment Number":
-                    query = query.OrderBy(a => a.apartment.apartment_number);
+                    query = query.OrderBy(a => a.apartment.apartment_id);
                     break;
                 default:
                     throw new ArgumentException("Invalid sort type");

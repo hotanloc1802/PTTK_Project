@@ -61,7 +61,7 @@ namespace ApartmentManagement.ViewModel
         }
         #endregion
 
-        public async Task LoadPaymentInfoAsync(int paymentId)
+        public async Task LoadPaymentInfoAsync(string paymentId)
         {
             var payment = await _paymentService.GetOnePaymentAsync(paymentId);
             SelectedPayment = payment;

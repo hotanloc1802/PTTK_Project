@@ -260,7 +260,7 @@ namespace ApartmentManagement.ViewModel
         {
             LoadResidentCommand = new RelayCommand(async () => await LoadResidentsAsync());
             AddResidentCommand = new RelayCommand(AddResident);
-            DeleteResidentCommand = new RelayCommand<int>(async (id) => await DeleteResidentAsync(id));
+            DeleteResidentCommand = new RelayCommand<string>(async (id) => await DeleteResidentAsync(id));
 
             NextPageCommand = new RelayCommand(() => CurrentPage++, () => CurrentPage < TotalPages);
             PreviousPageCommand = new RelayCommand(() => CurrentPage--, () => CurrentPage > 1);
@@ -354,7 +354,6 @@ namespace ApartmentManagement.ViewModel
                 email = Email,
                 sex = Sex,
                 identification_number = IdentificationNumber,
-                resident_status = ResidentStatus
             };
             // Log Sex here
             MessageBox.Show(Sex, "Debug", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -402,7 +401,7 @@ namespace ApartmentManagement.ViewModel
             }
         }
 
-        public async Task<bool> DeleteResidentAsync(int Id)
+        public async Task<bool> DeleteResidentAsync(string Id)
         {
             var result = await _residentService.DeleteResidentAsync(Id);
             if (result)

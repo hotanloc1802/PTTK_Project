@@ -131,7 +131,7 @@ namespace ApartmentManagement.Repository
         }
 
 
-        public async Task<bool> DeleteApartmentsAsync(int id)
+        public async Task<bool> DeleteApartmentsAsync(string id)
         {
             var apartment = await GetOneApartmentAsync(id);
             _context.Apartments.Remove(apartment);
@@ -145,7 +145,6 @@ namespace ApartmentManagement.Repository
             {
                 return false;
             }
-            existingApartment.apartment_number = apartment.apartment_number;
             existingApartment.building_id = apartment.building_id;
             existingApartment.owner_id = apartment.owner_id;
             existingApartment.max_population = apartment.max_population;
@@ -156,11 +155,11 @@ namespace ApartmentManagement.Repository
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<Apartment> GetOneApartmentAsync(int id)
+        public async Task<Apartment> GetOneApartmentAsync(string id)
         {
             return await _context.Apartments
                  .Include(b => b.building)
-                 .Include(r => r.owner)
+                 .Include(r => r.owner)  // Ensure owner is being eagerly loaded correctly
                  .FirstOrDefaultAsync(a => a.apartment_id == id);
         }
 
@@ -168,14 +167,13 @@ namespace ApartmentManagement.Repository
         {
             return await _context.Apartments
                 .Include(b => b.building)
-                .Include(r => r.owner)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Apartment>> GetApartmentsByApartmentNumberAsync(string apartmentNumberSubset)
         {
             return await _context.Apartments
-                                 .Where(a => a.apartment_number.Contains(apartmentNumberSubset))
+                                 .Where(a => a.apartment_id.Contains(apartmentNumberSubset))
                                  .ToListAsync();
         }
 
@@ -201,11 +199,11 @@ namespace ApartmentManagement.Repository
 
             switch (sortType)
             {
-                case "ID":
-                    query = query.OrderBy(a => a.apartment_id);
+                case "Vacancy Status":
+                    query = query.OrderBy(a => a.vacancy_status);
                     break;
                 case "Apartment Number":
-                    query = query.OrderBy(a => a.apartment_number);
+                    query = query.OrderBy(a => a.apartment_id);
                     break;
                 default:
                     throw new ArgumentException("Invalid sort type");
@@ -220,7 +218,7 @@ namespace ApartmentManagement.Repository
                                   .Where(b => b.building_name == buildingName)
                                   .FirstOrDefaultAsync();
         }
-        public async Task<IEnumerable<Apartment>> GetApartmentsByBuildingAsync(int buildingId)
+        public async Task<IEnumerable<Apartment>> GetApartmentsByBuildingAsync(string buildingId)
         {
             return await _context.Apartments
                                  .Where(a => a.building_id == buildingId)
