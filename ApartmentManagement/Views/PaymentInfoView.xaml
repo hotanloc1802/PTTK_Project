@@ -473,8 +473,8 @@ To="#959595" Duration="0:0:0.2" />
 
                                             <!-- Left Column -->
                                             <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,0,0,15">
-                                                <TextBlock Text="Payment ID" Foreground="#666666" Margin="0,0,0,3"/>
-                                                <TextBlock Text="{Binding SelectedPayment.payment_id}" FontWeight="SemiBold"/>
+                                                <TextBlock Text="Status" Foreground="#666666" Margin="0,0,0,3"/>
+                                                <TextBlock Text="{Binding SelectedPayment.payment_status}" FontWeight="SemiBold"/>
                                             </StackPanel>
 
                                             <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,0,15">
@@ -496,11 +496,6 @@ To="#959595" Duration="0:0:0.2" />
                                             <StackPanel Grid.Column="2" Grid.Row="1" Margin="0,0,0,15">
                                                 <TextBlock Text="Due Date" Foreground="#666666" Margin="0,0,0,3"/>
                                                 <TextBlock Text="{Binding SelectedPayment.bill.due_date}" FontWeight="SemiBold"/>
-                                            </StackPanel>
-
-                                            <StackPanel Grid.Column="2" Grid.Row="2" Margin="0,0,0,15">
-                                                <TextBlock Text="Status" Foreground="#666666" Margin="0,0,0,3"/>
-                                                <TextBlock Text="{Binding SelectedPayment.payment_status}" FontWeight="SemiBold"/>
                                             </StackPanel>
                                         </Grid>
                                     </StackPanel>
