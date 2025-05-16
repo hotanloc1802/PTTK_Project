@@ -40,13 +40,13 @@ namespace ApartmentManagement.Repository
                 .Where(p => p.payment_status == status)
                 .ToListAsync();
         }
-        public async Task<IEnumerable<Payment>> GetPaymentsByApartmentNumberAsync(string apartmentNumberSubset)
+        public async Task<IEnumerable<Payment>> GetPaymentsByApartmentIdAsync(string apartmentIdSubset)
         {
             return await _context.Payments
                 .Include(p => p.payment_details)
                 .ThenInclude(pd => pd.bill)
                 .ThenInclude(b => b.apartment)
-                .Where(b => b.payment_details.Any(pd => pd.bill.apartment.apartment_id.Contains(apartmentNumberSubset)))
+                .Where(b => b.payment_details.Any(pd => pd.bill.apartment.apartment_id.Contains(apartmentIdSubset)))
                 .ToListAsync();
         }
         public async Task<Payment> GetOnePaymentAsync(string id)
@@ -57,10 +57,17 @@ namespace ApartmentManagement.Repository
                 .ThenInclude(b => b.apartment)
                  .FirstOrDefaultAsync(p => p.payment_id == id);
         }
-        public async Task<Apartment> GetOneApartmentByApartmentNumberAsync(string apartmentNumber)
+        public async Task<Apartment> GetOneApartmentByApartmentIdAsync(string apartmentId)
         {
             return await _context.Apartments
-                .FirstOrDefaultAsync(a => a.apartment_id == apartmentNumber);
+                .FirstOrDefaultAsync(a => a.apartment_id == apartmentId);
+        }
+        public async Task<IEnumerable<Bill>> GetBillsByPaymentIdAsync(string paymentId)
+        {
+            return await _context.Bills
+                .Include(b => b.payment_details)
+                .Where(b => b.payment_details.Any(pd => pd.payment_id == paymentId))
+                .ToListAsync();
         }
         public async Task<IEnumerable<Payment>> SortPaymentsAsync(string sortType)
         {
@@ -74,10 +81,8 @@ namespace ApartmentManagement.Repository
                     query = _context.Payments
                         .Include(p => p.payment_details)
                         .ThenInclude(pd => pd.bill)
-                        .ThenInclude(b => b.apartment)
-                        .OrderBy(p => p.payment_details
-                        .FirstOrDefault()  // Chọn phần tử đầu tiên từ payment_details, nếu có
-                        .bill.apartment.apartment_id);  // Truyền đến apartment_id của apartment liên quan đến bill
+                        .OrderBy(p => p.apartment_id
+                        .FirstOrDefault());
                     break;
                 default:
                     throw new ArgumentException("Invalid sort type");

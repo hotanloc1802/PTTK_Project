@@ -512,7 +512,7 @@ To="#959595" Duration="0:0:0.2" />
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="{Binding ApartmentCount, StringFormat={}{0} Residents}"  FontSize="16"  VerticalAlignment="Center"  Foreground="#434343"  />
+                    <TextBlock Text="{Binding ResidentCount, StringFormat={}{0} Residents}"  FontSize="16"  VerticalAlignment="Center"  Foreground="#434343"  />
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="Sort by:" VerticalAlignment="Center" Margin="0,0,10,0"/>

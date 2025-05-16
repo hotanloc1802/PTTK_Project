@@ -58,5 +58,9 @@ namespace ApartmentManagement.Service
         {
             return await _residentRepository.GetApartmentsByNumberPatternAsync(pattern);
         }
+        public async Task<int> CountResidentsAsync()
+        {
+            return await _residentRepository.CountResidentsAsync();
+        }
     }
 }

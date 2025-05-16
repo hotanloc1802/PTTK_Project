@@ -886,25 +886,11 @@ Height="18" HorizontalAlignment="Center"/>
 
                     <!-- Pagination -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
-                        <Border Background="#DFE1E5" CornerRadius="4" Width="24" Height="24" Margin="5,0">
-                            <TextBlock Text="1" FontFamily="Montserrat SemiBold" FontSize="12" Foreground="#374655" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <Border Background="#F2F2F2" CornerRadius="4" Width="24" Height="24" Margin="5,0">
-                            <TextBlock Text="2" FontFamily="Montserrat" FontSize="12" Foreground="#374655" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <Border Background="#F2F2F2" CornerRadius="4" Width="24" Height="24" Margin="5,0">
-                            <TextBlock Text="3" FontFamily="Montserrat" FontSize="12" Foreground="#374655" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <Border Background="#F2F2F2" CornerRadius="4" Width="24" Height="24" Margin="5,0">
-                            <TextBlock Text="4" FontFamily="Montserrat" FontSize="12" Foreground="#374655" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <Border Background="#F2F2F2" CornerRadius="4" Width="24" Height="24" Margin="5,0">
-                            <TextBlock Text="5" FontFamily="Montserrat" FontSize="12" Foreground="#374655" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <TextBlock Text="..." FontFamily="Montserrat SemiBold" FontSize="12" Foreground="#374655" VerticalAlignment="Center" Margin="5,0"/>
-                        <Border Background="#F2F2F2" CornerRadius="4" Width="24" Height="24" Margin="5,0">
-                            <TextBlock Text="7" FontFamily="Montserrat" FontSize="12" Foreground="#374655" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
+                        <Button x:Name="btnPrevPage" Content="&lt;" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat"/>
+                        <Button x:Name="btnPage1" Content="1" Padding="8,3" Margin="3" Background="#0430AD" Foreground="White" BorderThickness="0" FontFamily="Montserrat"/>
+                        <Button x:Name="btnPage2" Content="2" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat"/>
+                        <Button x:Name="btnPage3" Content="3" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat"/>
+                        <Button x:Name="btnNextPage" Content="&gt;" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat"/>
                     </StackPanel>
 
                     <!-- Feedback Form -->

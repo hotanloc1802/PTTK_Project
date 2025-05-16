@@ -48,6 +48,15 @@ namespace ApartmentManagement.Views
             this.Close();
         }
 
+        private async void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            // Reload apartments in the ApartmentView before closing
+            await _apartmentViewModel.LoadApartmentsAsync();
+            var apartmentWindow = new ApartmentView();
+            apartmentWindow.Show();
+            this.Close();
+        }
+
         // Save button click handler - Saves the apartment changes and reloads the list
         private async void BtnSave_Click(object sender, RoutedEventArgs e)
         {

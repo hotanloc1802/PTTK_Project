@@ -96,13 +96,13 @@ namespace ApartmentManagement.ViewModel
         {
             get => _selectedBuildingSchema ?? BuildingSchema.Instance.CurrentBuildingSchema;
         }
-        private int _apartmentCount;
-        public int ApartmentCount
+        private int _residentCount;
+        public int ResidentCount
         {
-            get => _apartmentCount;
+            get => _residentCount;
             set
             {
-                _apartmentCount = value;
+                _residentCount = value;
                 OnPropertyChanged();
             }
         }
@@ -253,6 +253,7 @@ namespace ApartmentManagement.ViewModel
         public ICommand LoadResidentCommand { get; private set; }
         public ICommand AddResidentCommand { get; private set; }
         public ICommand DeleteResidentCommand { get; private set; }
+        public ICommand CountResidentsCommand { get; private set; }
         public ICommand NextPageCommand { get; private set; }
         public ICommand PreviousPageCommand { get; private set; }
         public ICommand GoToPageCommand { get; private set; }
@@ -261,6 +262,7 @@ namespace ApartmentManagement.ViewModel
             LoadResidentCommand = new RelayCommand(async () => await LoadResidentsAsync());
             AddResidentCommand = new RelayCommand(AddResident);
             DeleteResidentCommand = new RelayCommand<string>(async (id) => await DeleteResidentAsync(id));
+            CountResidentsCommand = new RelayCommand(async () => await CountResidentsAsync());
 
             NextPageCommand = new RelayCommand(() => CurrentPage++, () => CurrentPage < TotalPages);
             PreviousPageCommand = new RelayCommand(() => CurrentPage--, () => CurrentPage > 1);
@@ -331,12 +333,18 @@ namespace ApartmentManagement.ViewModel
             Residents = new ObservableCollection<Resident>(itemsToShow);
         }
 
+        public async Task CountResidentsAsync()
+        {
+            var count = await _residentService.CountResidentsAsync();
+            ResidentCount = count;
+        }
         public async Task LoadResidentsAsync()
         {
             try
             {
                 var residents = await _residentService.GetAllResidentsAsync();
                 AllResidents = new ObservableCollection<Resident>(residents);
+                await CountResidentsAsync();
                 UpdatePagination();
             }
             catch (Exception ex)

@@ -4,6 +4,7 @@ using ApartmentManagement.Service;
 using ApartmentManagement.Utility;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -20,6 +21,7 @@ namespace ApartmentManagement.ViewModel
     {
         private readonly IPaymentService _paymentService;
         private Payment _selectedPayment;
+        private ObservableCollection<Bill> _bills;
         private Apartment _selectedApartment;
 
         public Payment SelectedPayment
@@ -27,8 +29,13 @@ namespace ApartmentManagement.ViewModel
             get => _selectedPayment;
             set
             {
-                _selectedPayment = value;
-                OnPropertyChanged();
+                if (_selectedPayment != value)
+                {
+                    _selectedPayment = value;
+                    OnPropertyChanged();
+                    // Trigger loading bills for the new payment
+                    _ = LoadBillsAsync(_selectedPayment.payment_id);
+                }
             }
         }
         public Apartment SelectedApartment
@@ -37,6 +44,15 @@ namespace ApartmentManagement.ViewModel
             set
             {
                 _selectedApartment = value;
+                OnPropertyChanged();
+            }
+        }
+        public ObservableCollection<Bill> Bills
+        {
+            get => _bills;
+            set
+            {
+                _bills = value;
                 OnPropertyChanged();
             }
         }
@@ -51,13 +67,16 @@ namespace ApartmentManagement.ViewModel
 
         #region Commands
         public ICommand LoadPaymentInfoCommand { get; private set; }
+        public ICommand LoadBillsCommand { get; private set; }
         private void InitializeCommands()
         {
             // Initialize command for loading payment info
             LoadPaymentInfoCommand = new RelayCommand(async () => await LoadPaymentInfoAsync(_selectedPayment.payment_id));
+            LoadBillsCommand = new RelayCommand(async () => await LoadBillsAsync(_selectedPayment.payment_id));
 
             // Initial load if necessary
             _ = LoadPaymentInfoAsync(_selectedPayment.payment_id);
+            _ = LoadBillsAsync(_selectedPayment.payment_id);
         }
         #endregion
 
@@ -66,9 +85,14 @@ namespace ApartmentManagement.ViewModel
             var payment = await _paymentService.GetOnePaymentAsync(paymentId);
             SelectedPayment = payment;
         }
-        public async Task GetApartmentAsync(string apartmentNumber)
+        public async Task LoadBillsAsync(string paymentId)
         {
-            var apartment = await _paymentService.GetOneApartmentByApartmentNumberAsync(apartmentNumber);
+            var bills = await _paymentService.GetBillsByPaymentIdAsync(paymentId);
+            Bills = new ObservableCollection<Bill>(bills);
+        }
+        public async Task GetApartmentAsync(string apartmentId)
+        {
+            var apartment = await _paymentService.GetOneApartmentByApartmentIdAsync(apartmentId);
             SelectedApartment = apartment;
         }
         public void SelectBuildingInListBox(ListBox listBox)

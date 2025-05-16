@@ -64,6 +64,12 @@ namespace ApartmentManagement.Views
                 await viewModel.SearchApartmentsAsync(searchText);
             }
         }
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ResidentView residentWindow = new ResidentView();
+            residentWindow.Show();
+            this.Close();
+        }
         private void BtnDashBoard_Click(object sender, RoutedEventArgs e)
         {
             MainWindowView dashboardWindow = new MainWindowView();

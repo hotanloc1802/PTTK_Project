@@ -96,5 +96,9 @@ namespace ApartmentManagement.Repository
 
             return await query.ToListAsync();
         }
+        public async Task<int> CountResidentsAsync()
+        {
+            return await _context.Residents.CountAsync();
+        }
     }
 }

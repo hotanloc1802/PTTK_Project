@@ -446,7 +446,10 @@
                                     </Grid.RowDefinitions>
                                     <!-- Full Name -->
                                     <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,0,10,15">
-                                        <TextBlock Text="Full Name *" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655" Margin="0,0,0,8"/>
+                                        <TextBlock FontSize="13" Margin="0 0 0 8">
+                                            <Run Text="Full Name " Foreground="#374655"/>
+                                            <Run Text="*" Foreground="Red"/> <!-- Red color for the asterisk -->
+                                        </TextBlock>
                                         <Border CornerRadius="6" BorderBrush="#E1E6EB" BorderThickness="1" Background="#FFFFFF">
                                             <Grid>
                                                 <TextBox x:Name="ResidentName" Height="45" Padding="12,0,12,0" 
@@ -460,7 +463,10 @@
                                     </StackPanel>
                                     <!-- Sex Selection with binding -->
                                     <StackPanel Grid.Column="1" Grid.Row="0" Margin="10,0,0,15">
-                                        <TextBlock Text="Sex *" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655" Margin="0,0,0,8"/>
+                                        <TextBlock FontSize="13" Margin="0 0 0 8">
+                                        <Run Text="Sex " Foreground="#374655"/>
+                                        <Run Text="*" Foreground="Red"/> <!-- Red color for the asterisk -->
+                                        </TextBlock>
                                         <Border CornerRadius="6" BorderBrush="#E1E6EB" BorderThickness="1" Background="#FFFFFF">
                                             <ComboBox x:Name="Sex" Height="45" Padding="10,0,10,0"
                                                       Background="Transparent" BorderThickness="0"
@@ -470,7 +476,10 @@
                                     </StackPanel>
                                     <!-- Identification Number -->
                                     <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,10,15">
-                                        <TextBlock Text="Identification Number *" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655" Margin="0,0,0,8"/>
+                                        <TextBlock FontSize="13" Margin="0 0 0 8">
+                                        <Run Text="Identification" Foreground="#374655"/>
+                                        <Run Text="*" Foreground="Red"/> <!-- Red color for the asterisk -->
+                                        </TextBlock>
                                         <Border CornerRadius="6" BorderBrush="#E1E6EB" BorderThickness="1" Background="#FFFFFF">
                                             <Grid>
                                                 <TextBox x:Name="IdentificationNumber" Height="45" Padding="12,0,12,0" 
@@ -478,7 +487,7 @@
                                                          BorderThickness="0"
                                                          Text="{Binding IdentificationNumber, UpdateSourceTrigger=PropertyChanged}"/>
                                                 <TextBlock x:Name="ErrorMessageId" Text="{Binding ErrorMessage3}" 
-                                                           Foreground="#E53935" FontSize="11" Margin="12,0,12,8" VerticalAlignment="Bottom"/>
+                                                           Foreground="#E53935" FontSize="11" Margin="12,0,12,0" VerticalAlignment="Center" Height="27"/>
                                             </Grid>
                                         </Border>
                                     </StackPanel>
@@ -498,7 +507,7 @@
                                 <!-- Card Header -->
                                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
                                     <Border Width="40" Height="40" CornerRadius="20" Background="#E6EEFF">
-                                        <Icon:PackIconMaterial Width="20" Height="20" Foreground="#0430AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Icon:PackIconMaterial Kind="Phone" Width="20" Height="20" Foreground="#0430AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                     <StackPanel Margin="15,0,0,0" VerticalAlignment="Center">
                                         <TextBlock Text="Contact Information" FontFamily="Montserrat Bold" FontSize="16" Foreground="#374655"/>
@@ -517,7 +526,10 @@
                                     </Grid.RowDefinitions>
                                     <!-- Phone Number -->
                                     <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,0,10,15">
-                                        <TextBlock Text="Phone Number *" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655" Margin="0,0,0,8"/>
+                                        <TextBlock FontSize="13" Margin="0 0 0 8">
+                                        <Run Text="Phone Number " Foreground="#374655"/>
+                                        <Run Text="*" Foreground="Red"/> <!-- Red color for the asterisk -->
+                                        </TextBlock>
                                         <Border CornerRadius="6" BorderBrush="#E1E6EB" BorderThickness="1" Background="#FFFFFF">
                                             <Grid>
                                                 <TextBox x:Name="PhoneNumber" Height="45" Padding="12,0,12,0" 
@@ -594,7 +606,10 @@
                                     </StackPanel>
                                     <!-- Resident Status -->
                                     <StackPanel Grid.Column="1" Grid.Row="0" Margin="10,0,0,15">
-                                        <TextBlock Text="Resident Status *" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655" Margin="0,0,0,8"/>
+                                        <TextBlock FontSize="13" Margin="0 0 0 8">
+                                            <Run Text="Resident Status " Foreground="#374655"/>
+                                            <Run Text="*" Foreground="Red"/> <!-- Red color for the asterisk -->
+                                        </TextBlock>
                                         <Border CornerRadius="6" BorderBrush="#E1E6EB" BorderThickness="1" Background="#FFFFFF">
                                             <Grid>
                                                 <ComboBox x:Name="ResidentStatus" Height="45" Padding="12,0,12,0" 
@@ -631,8 +646,8 @@
                             </Grid.ColumnDefinitions>
                             <!-- Cancel Button -->
                             <Button x:Name="btnCancel" Grid.Column="0" Content="Cancel" HorizontalAlignment="Left" 
-                                    Width="auto" Background="Transparent" Foreground="#9FA4AD" 
-                                    BorderThickness="1" BorderBrush="#E1E6EB">
+                                    Width="auto" Background="#0430AD" Foreground="White"
+                                    BorderThickness="1" Click="BtnCancel_Click">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="6"/>

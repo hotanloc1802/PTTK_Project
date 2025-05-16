@@ -402,17 +402,11 @@ To="#959595" Duration="0:0:0.2" />
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="Payment Details" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
-                        </StackPanel>
+                        <TextBlock Text="Payment Details" FontFamily="Montserrat Bold" FontSize="22" Foreground="#374655" Margin="0,10,0,15"/>
+                        <Button x:Name="btnClose" Background="Transparent" BorderBrush="Transparent" Margin="0,0,0,0" HorizontalAlignment="Right" Click="BtnClose_Click">
+                            <iconPacks:PackIconMaterial Kind="Close" Width="20" Height="20" Foreground="#9FA4AD"/>
+                        </Button>
 
-                        <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <Button x:Name="BtnPaymentView" Width="auto" Click="BtnClose_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="X"/>
-                                </StackPanel>
-                            </Button>
-                        </StackPanel>
                     </Grid>
 
                     <!-- Content -->
@@ -446,18 +440,18 @@ To="#959595" Duration="0:0:0.2" />
                                         <StackPanel Grid.Column="0">
                                             <TextBlock FontSize="22" FontWeight="SemiBold">
                                                 <Run Text="Payment -"/>
-                                                <Run Text="{Binding SelectedPayment.bill.apartment.apartment_number}" />
+                                                <Run Text="{Binding SelectedPayment.apartment_id}" />
                                             </TextBlock>
                                             <TextBlock Foreground="#666666" Margin="0,5,0,0">
                                                 <Run Text="Created on" />
-                                                <Run Text="{Binding SelectedPayment.bill.bill_date}" />
+                                                <Run Text="{Binding SelectedPayment.payment_date}" />
                                             </TextBlock>
                                         </StackPanel>
                                     </Grid>
 
                                     <!-- Payment Information -->
                                     <StackPanel Grid.Row="1" Margin="0,0,0,30">
-                                        <TextBlock Text="Payment Information" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15"/>
+                                        <TextBlock Text="Payment Information" Foreground="#0430AD" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15"/>
 
                                         <Grid>
                                             <Grid.ColumnDefinitions>
@@ -479,12 +473,7 @@ To="#959595" Duration="0:0:0.2" />
 
                                             <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,0,15">
                                                 <TextBlock Text="Payment Amount" Foreground="#666666" Margin="0,0,0,3"/>
-                                                <TextBlock Text="{Binding SelectedPayment.payment_amount, StringFormat=C}" FontWeight="SemiBold"/>
-                                            </StackPanel>
-
-                                            <StackPanel Grid.Column="0" Grid.Row="2" Margin="0,0,0,15">
-                                                <TextBlock Text="Bill Type" Foreground="#666666" Margin="0,0,0,3"/>
-                                                <TextBlock Text="{Binding SelectedPayment.bill.bill_type}" FontWeight="SemiBold"/>
+                                                <TextBlock Text="{Binding SelectedPayment.total_amount, StringFormat=C}" FontWeight="SemiBold"/>
                                             </StackPanel>
 
                                             <!-- Right Column -->
@@ -493,10 +482,6 @@ To="#959595" Duration="0:0:0.2" />
                                                 <TextBlock Text="{Binding SelectedPayment.payment_method}" FontWeight="SemiBold"/>
                                             </StackPanel>
 
-                                            <StackPanel Grid.Column="2" Grid.Row="1" Margin="0,0,0,15">
-                                                <TextBlock Text="Due Date" Foreground="#666666" Margin="0,0,0,3"/>
-                                                <TextBlock Text="{Binding SelectedPayment.bill.due_date}" FontWeight="SemiBold"/>
-                                            </StackPanel>
                                         </Grid>
                                     </StackPanel>
 
@@ -512,27 +497,10 @@ To="#959595" Duration="0:0:0.2" />
                                             <!-- Left Column -->
                                             <StackPanel Grid.Column="0" Margin="0,0,0,15">
                                                 <TextBlock Text="This bill was issued to Apartment:" Foreground="#666666" Margin="0,0,0,3"/>
-                                                <TextBlock Name="txtApartment" Text="{Binding SelectedPayment.bill.apartment.apartment_number}" FontWeight="SemiBold"
+                                                <TextBlock Name="txtApartment" Text="{Binding SelectedPayment.apartment_id}" FontWeight="SemiBold"
                                                     MouseLeftButtonUp="TxtApartment_Click"/>
                                             </StackPanel>
                                         </Grid>
-                                    </StackPanel>
-
-                                    <!-- Additional Information -->
-                                    <StackPanel Grid.Row="3" Margin="0,0,0,30">
-                                        <TextBlock Text="Additional Information" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15"/>
-
-                                        <Border Background="#F8F9FA" CornerRadius="4" Padding="15" BorderThickness="1" BorderBrush="#EEEEEE">
-                                            <TextBlock Text="Payment for May 2025 rent." 
-                                       TextWrapping="Wrap"/>
-                                        </Border>
-                                    </StackPanel>
-
-                                    <!-- Action Buttons -->
-                                    <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,10,0,0">
-                                        <Button x:Name="BtnEdit" Background="gray" Content="Edit" Width="150" Height="40" Margin="15,0,0,0" />
-
-                                        <Button x:Name="BtnDeletePayment" Background="gray" Content="Delete" Width="150"  Height="40" Margin="185,0,0,0" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
@@ -565,11 +533,11 @@ To="#959595" Duration="0:0:0.2" />
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
                                                 <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                                    <TextBlock Text="Invoice NO." FontWeight="SemiBold" FontSize="12"/>
-                                                    <TextBlock Text="{Binding SelectedPayment.bill.bill_id}" FontSize="12" FontWeight="SemiBold"/>
+                                                    <TextBlock Text="Invoice " FontWeight="SemiBold" FontSize="12"/>
+                                                    <TextBlock Text="{Binding SelectedPayment.payment_id}" FontSize="12" FontWeight="SemiBold"/>
                                                 </StackPanel>
                                                 <StackPanel Grid.Column="1" HorizontalAlignment="Right">
-                                                    <TextBlock Text="{Binding SelectedPayment.bill.bill_date}" FontWeight="SemiBold" Margin="0,0,0,5" 
+                                                    <TextBlock Text="{Binding SelectedPayment.payment_date}" FontWeight="SemiBold" Margin="0,0,0,5" 
                                                             HorizontalAlignment="Right" FontSize="12"/>
                                                 </StackPanel>
                                             </Grid>
@@ -577,12 +545,10 @@ To="#959595" Duration="0:0:0.2" />
                                             <!-- Bill To Section -->
                                             <StackPanel Margin="0,0,0,20">
                                                 <TextBlock Text="BILL TO:" FontWeight="SemiBold" Margin="0,0,0,5" FontSize="12"/>
-                                                <TextBlock Text="John Doe" Foreground="#666666" FontSize="12"/>
                                                 <TextBlock Foreground="#666666" FontSize="12">
                                                     <Run Text="Apartment: "/>
-                                                    <Run Text="{Binding SelectedPayment.bill.apartment.apartment_number}"/>
+                                                    <Run Text="{Binding SelectedPayment.apartment_id}"/>
                                                 </TextBlock>
-                                                <TextBlock Text="trung.ngu@example.com" Foreground="#666666" FontSize="12"/>
                                             </StackPanel>
 
                                             <!-- Invoice Items -->
@@ -599,16 +565,31 @@ To="#959595" Duration="0:0:0.2" />
                                                 </Grid>
                                             </Border>
 
-                                            <Grid Margin="0,0,0,5">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-
-                                                <TextBlock Grid.Column="0" Text="Monthly Rent (May 2025)" Foreground="#666666" FontSize="12"/>
-                                                <TextBlock Grid.Column="1" Text="{Binding SelectedPayment.payment_amount, StringFormat=C}" Foreground="#666666" Width="70" 
-                                                           TextAlignment="Right" FontSize="12"/>
-                                            </Grid>
+                                            <!-- Replace the selected code block with an ItemsControl to auto-generate rows for multiple data items -->
+                                            <ItemsControl ItemsSource="{Binding Bills}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid Margin="0,0,0,5">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Column="0"
+                                                                       Text="{Binding bill_type}"
+                                                                       Foreground="#666666"
+                                                                       FontSize="12"
+                                                                       FontFamily="Montserrat Bold"/>
+                                                            <TextBlock Grid.Column="1"
+                                                                       Text="{Binding bill_amount, StringFormat=C}"
+                                                                       Foreground="#666666"
+                                                                       Width="70"
+                                                                       TextAlignment="Right"
+                                                                       FontSize="12"
+                                                                       FontFamily="Montserrat Bold"/>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
 
                                             <!-- Invoice Total -->
                                             <Border BorderThickness="0,1,0,0" BorderBrush="#DDDDDD" Margin="0,10,0,0" Padding="0,10,0,0">
@@ -620,7 +601,7 @@ To="#959595" Duration="0:0:0.2" />
 
                                                     <TextBlock Grid.Column="0" Text="TOTAL" FontWeight="Bold" HorizontalAlignment="Right" 
                                                Margin="0,0,10,0" FontSize="12"/>
-                                                    <TextBlock Grid.Column="1" Text="{Binding SelectedPayment.payment_amount, StringFormat=C}" FontWeight="Bold" Foreground="#0430AD" 
+                                                    <TextBlock Grid.Column="1" Text="{Binding SelectedPayment.total_amount, StringFormat=C}" FontWeight="Bold" Foreground="#0430AD" 
                                                Width="70" TextAlignment="Right" FontSize="12"/>
                                                 </Grid>
                                             </Border>

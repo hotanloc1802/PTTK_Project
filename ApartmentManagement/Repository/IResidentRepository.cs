@@ -18,5 +18,6 @@ namespace ApartmentManagement.Repository
         Task<IEnumerable<Resident>> SortResidentsAsync(string sortType);
         Task<IEnumerable<Resident>> GetResidentsByApartmentNumberAsync(string apartmentNumberSubset);
         Task<IEnumerable<Apartment>> GetApartmentsByNumberPatternAsync(string pattern);
+        Task<int> CountResidentsAsync();
     }
 }

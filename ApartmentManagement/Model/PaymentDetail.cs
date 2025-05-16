@@ -15,8 +15,6 @@ namespace ApartmentManagement.Model
         [ForeignKey("payment")]
         public string payment_id { get; set; }  // Khoá ngoại liên kết với bảng payments
 
-        public string payment_method { get; set; }  // Phương thức thanh toán
-
         // Navigation properties
         public virtual Bill bill { get; set; }  // Liên kết với bảng bills
         public virtual Payment payment { get; set; }  // Liên kết với bảng payments

@@ -23,13 +23,17 @@ namespace ApartmentManagement.Service
         {
             return await _paymentRepository.GetPaymentsByStatusAsync(status);
         }
-        public async Task<Apartment> GetOneApartmentByApartmentNumberAsync(string apartmentNumber)
+        public async Task<Apartment> GetOneApartmentByApartmentIdAsync(string apartmentId)
         {
-            return await _paymentRepository.GetOneApartmentByApartmentNumberAsync(apartmentNumber);
+            return await _paymentRepository.GetOneApartmentByApartmentIdAsync(apartmentId);
         }
-        public async Task<IEnumerable<Payment>> GetPaymentsByApartmentNumberAsync(string apartmentNumberSubset)
+        public async Task<IEnumerable<Payment>> GetPaymentsByApartmentIdAsync(string apartmentIdSubset)
         {
-            return await _paymentRepository.GetPaymentsByApartmentNumberAsync(apartmentNumberSubset);
+            return await _paymentRepository.GetPaymentsByApartmentIdAsync(apartmentIdSubset);
+        }
+        public async Task<IEnumerable<Bill>> GetBillsByPaymentIdAsync(string paymentId)
+        {
+            return await _paymentRepository.GetBillsByPaymentIdAsync(paymentId);
         }
         public async Task<IEnumerable<Payment>> SortPaymentsAsync(string sortType)
         {

@@ -35,7 +35,6 @@ namespace ApartmentManagement.ViewModel
         private decimal _billAmount;
         private string _paymentStatus;
         private string _billType;
-        private int _apartmentNumber;
         private DateTime _dueDate;
 
         private string _lastFilterStatus;
@@ -167,19 +166,6 @@ namespace ApartmentManagement.ViewModel
                 if (_billType != value)
                 {
                     _billType = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public int ApartmentNumber
-        {
-            get => _apartmentNumber;
-            set
-            {
-                if (_apartmentNumber != value)
-                {
-                    _apartmentNumber = value;
                     OnPropertyChanged();
                 }
             }
@@ -318,11 +304,11 @@ namespace ApartmentManagement.ViewModel
             UpdatePagination();
         }
 
-        public async Task SearchPaymentsAsync(string apartmentNumber)
+        public async Task SearchPaymentsAsync(string apartmentId)
         {
-            var payments = string.IsNullOrWhiteSpace(apartmentNumber)
+            var payments = string.IsNullOrWhiteSpace(apartmentId)
                 ? await _paymentService.GetAllPaymentsAsync()
-                : await _paymentService.GetPaymentsByApartmentNumberAsync(apartmentNumber);
+                : await _paymentService.GetPaymentsByApartmentIdAsync(apartmentId);
 
             AllPayments = new ObservableCollection<Payment>(payments);
             CurrentPage = 1;

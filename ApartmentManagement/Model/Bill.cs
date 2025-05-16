@@ -15,6 +15,7 @@ namespace ApartmentManagement.Model
 
         public string bill_type { get; set; }
         public decimal bill_amount { get; set; }
+        public string payment_status { get; set; }
         public DateTime due_date { get; set; }
         public DateTime bill_date { get; set; }
 
