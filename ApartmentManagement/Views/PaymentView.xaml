@@ -239,7 +239,7 @@ Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
 To="#CDDFFB" Duration="0:0:0.2" />
                                         <!-- Đổi màu Foreground của TextBlock khi di chuột vào -->
                                         <ColorAnimation 
-Storyboard.TargetName="paymentText" 
+Storyboard.TargetName="residentText" 
 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
 To="Black" Duration="0:0:0.2" />
                                     </Storyboard>
@@ -256,7 +256,7 @@ To="Black" Duration="0:0:0.2" />
 To="Transparent" Duration="0:0:0.2" />
                                         <!-- Trở lại màu Foreground gốc của TextBlock khi di chuột ra -->
                                         <ColorAnimation 
-Storyboard.TargetName="paymentText" 
+Storyboard.TargetName="residentText" 
 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
 To="#959595" Duration="0:0:0.2" />
                                     </Storyboard>

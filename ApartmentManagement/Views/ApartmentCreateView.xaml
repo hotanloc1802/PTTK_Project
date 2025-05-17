@@ -38,7 +38,7 @@
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ListBox x:Name="BuildingListBox" Margin="0,20,0,20" BorderThickness="0" Background="Transparent" SelectedIndex="0" ScrollViewer.VerticalScrollBarVisibility="Disabled"  >
+            <ListBox x:Name="BuildingListBox" Margin="0,20,0,20" BorderThickness="0" Background="Transparent" SelectedIndex="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" IsEnabled="false" >
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical"/>
@@ -405,7 +405,7 @@
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Icon:PackIconMaterial Kind="Magnify" Foreground="#9FA4AD" VerticalAlignment="Center" Margin="7,0,0,0" Width="18" Height="18"/>
                         <TextBox x:Name="boxSearch" Background="Transparent" BorderBrush="Transparent" Foreground="#9FA4AD" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" 
-                         Width="571" VerticalAlignment="Center" Padding="5,5" />
+                         Width="571" VerticalAlignment="Center" Padding="5,5"  IsEnabled="False" />
                     </StackPanel>
                 </Border>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -624,10 +624,8 @@
 
                                     <!--Secondary Button-->
                                     <Button x:Name="btnCancel" Grid.Row="6" Content="Cancel" HorizontalAlignment="Left" Margin="20 20 0 0" 
-                                    Background="#0430AD" Foreground="White" Width="150" Height="40" Click="BtnBack_Click">
-                                        <Button.Effect>
-                                            <DropShadowEffect Direction="-120" BlurRadius="10" Opacity="0.3" ShadowDepth="5" Color="#0430AD"/>
-                                        </Button.Effect>
+                                   Background="Transparent" Foreground="#979797" Width="150" Height="40" Click="BtnBack_Click"  BorderThickness="1" BorderBrush="#CCCCCC">
+                                       
                                     </Button>
                                 </Grid>
                             </Border>

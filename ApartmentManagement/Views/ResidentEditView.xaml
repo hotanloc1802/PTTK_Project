@@ -38,7 +38,7 @@
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ListBox x:Name="BuildingListBox" Margin="0,20,0,20" BorderThickness="0" Background="Transparent"  >
+            <ListBox x:Name="BuildingListBox" Margin="0,20,0,20" BorderThickness="0" Background="Transparent"  IsEnabled="False"  >
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical"/>
@@ -49,7 +49,7 @@
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                         <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Padding" Value="0"  />
                     </Style>
                 </ListBox.ItemContainerStyle>
 
@@ -407,7 +407,7 @@
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Icon:PackIconMaterial Kind="Magnify" Foreground="#9FA4AD" VerticalAlignment="Center" Margin="7,0,0,0" Width="18" Height="18"/>
                         <TextBox x:Name="boxSearch" Background="Transparent" BorderBrush="Transparent" Foreground="#9FA4AD"
-                         Width="571" VerticalAlignment="Center" Padding="5,5" />
+                         Width="571" VerticalAlignment="Center" Padding="5,5"  IsEnabled="False"  />
                     </StackPanel>
                 </Border>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">

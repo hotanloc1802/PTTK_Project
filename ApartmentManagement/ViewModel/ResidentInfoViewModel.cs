@@ -20,7 +20,45 @@ namespace ApartmentManagement.ViewModel
     {
         private readonly IResidentService _residentService;
         private Resident _selectedResident;
-
+        private decimal _recenttotalamount;
+        private decimal _remainingamount;
+        private string _paymentdate;
+        private string _ownername;
+        public string OwnerName
+        {
+            get => _ownername;
+            set
+            {
+                _ownername = value;
+                OnPropertyChanged();
+            }
+        }
+        public decimal RecentTotalAmount {
+            get => _recenttotalamount;
+            set
+            {
+                _recenttotalamount = value;
+                OnPropertyChanged();
+            }
+        }
+        public decimal RemainingAmount
+        {
+            get => _remainingamount;
+            set
+            {
+                _remainingamount = value;
+                OnPropertyChanged();
+            }
+        }
+        public string PaymentDate
+        {
+            get => _paymentdate;
+            set
+            {
+                _paymentdate = value;
+                OnPropertyChanged();
+            }
+        }
         public Resident SelectedResident
         {
             get => _selectedResident;
@@ -55,6 +93,24 @@ namespace ApartmentManagement.ViewModel
         {
             var resident = await _residentService.GetOneResidentAsync(residentID);
             SelectedResident = resident;
+            var payment = SelectedResident.apartment.payments
+                                    .OrderByDescending(p => p.payment_date) // GIẢ ĐỊNH: Payment có thuộc tính PaymentDate
+                                    .FirstOrDefault(); // Lấy ra payment gần đây nhất
+            OwnerName = resident.apartment.owner.name;
+            if (payment != null)
+            {
+                RecentTotalAmount = payment.total_amount;
+            }
+            if (payment.payment_status == "Pending")
+            {
+                RemainingAmount = RecentTotalAmount;
+                PaymentDate = "Not Paid Yet";
+            }
+            else
+            {
+                RemainingAmount = 0;
+                PaymentDate = payment.payment_date.ToString("dd/MM/yyyy");
+            }
         }
 
         public void SelectBuildingInListBox(ListBox listBox)

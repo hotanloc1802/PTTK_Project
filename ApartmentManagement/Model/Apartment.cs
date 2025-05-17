@@ -31,6 +31,7 @@ namespace ApartmentManagement.Model
         public ICollection<Resident> residents { get; set; }
         public ICollection<Bill> bills { get; set; }
         public ICollection<ServiceRequest> service_requests { get; set; }
+        public ICollection<Payment> payments { get; set; }
     }
 
 }

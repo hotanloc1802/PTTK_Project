@@ -296,7 +296,7 @@ namespace ApartmentManagement.ViewModels
 
             // Load apartments initially if needed
             _ = LoadApartmentsAsync();
-            _ = SortApartmentsAsync("Apartment Number");
+           
         }
 
         #endregion
@@ -416,6 +416,7 @@ namespace ApartmentManagement.ViewModels
             var apartments = await _apartmentService.GetAllApartmentsAsync();
             AllApartments = new ObservableCollection<Apartment>(apartments);
             await CountApartmentsAsync();
+            await SortApartmentsAsync("Apartment Number");
             UpdatePagination();
         }
 

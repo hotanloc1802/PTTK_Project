@@ -345,6 +345,7 @@ namespace ApartmentManagement.ViewModel
                 var residents = await _residentService.GetAllResidentsAsync();
                 AllResidents = new ObservableCollection<Resident>(residents);
                 await CountResidentsAsync();
+                await SortResidentsAsync("Apartment Number");
                 UpdatePagination();
             }
             catch (Exception ex)

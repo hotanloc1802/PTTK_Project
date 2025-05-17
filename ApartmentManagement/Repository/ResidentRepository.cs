@@ -19,7 +19,6 @@ namespace ApartmentManagement.Repository
         }
         public async Task<IEnumerable<Resident>> GetAllResidentsAsync()
         {
-            //MessageBox.Show("GetAllResidentsAsync is called", "Debug", MessageBoxButton.OK, MessageBoxImage.Information);
             return await _context.Residents
                 .Include(a => a.apartment)
                 .ToListAsync();
@@ -27,8 +26,9 @@ namespace ApartmentManagement.Repository
         public async Task<Resident> GetOneResidentAsync(string id)
         {
             return await _context.Residents
-                 .Include(a => a.apartment)
-                 .FirstOrDefaultAsync(r => r.resident_id == id);
+                .Include(r => r.apartment)
+                    .ThenInclude(a => a.payments) // Tải tất cả payments của apartment
+                .FirstOrDefaultAsync(r => r.resident_id == id);
         }
         public async Task<IEnumerable<Resident>> GetResidentsByApartmentNumberAsync(string apartmentNumberSubset)
         {

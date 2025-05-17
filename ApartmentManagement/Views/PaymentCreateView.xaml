@@ -424,7 +424,7 @@ Height="18" HorizontalAlignment="Center"/>
                                             <ComboBox x:Name="CmbApartment" Style="{StaticResource CustomComboBoxStyle}" Height="40" Padding="10,0" VerticalContentAlignment="Center" ItemsSource="{Binding Apartments}">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding apartment_number}"/>
+                                                        <TextBlock Text="{Binding apartment_id}"/>
                                                     </DataTemplate>
                                                 </ComboBox.ItemTemplate>
                                             </ComboBox>

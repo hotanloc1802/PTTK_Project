@@ -12,6 +12,7 @@
     <Window.Resources>
         <!-- Add necessary converter -->
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+
         <!-- Custom ScrollViewer Template -->
         <ControlTemplate x:Key="CustomScrollViewerControlTemplate" TargetType="{x:Type ScrollViewer}">
             <Grid x:Name="Grid" Background="{TemplateBinding Background}">
@@ -366,7 +367,7 @@ Height="18" HorizontalAlignment="Center"/>
                     </Button>
                 </Border>
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
-                    <Button x:Name="btnService"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnService"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" >
                         <Button.Triggers>
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">
@@ -544,491 +545,491 @@ To="#959595" Duration="0:0:0.2" />
         </Grid>
         <Grid Grid.Column="2" Grid.Row="2"  Margin="0,0,10,0">
             <Grid>
-                <Grid Grid.Column="2" Grid.Row="2" Margin="0,0,10,0">
-                    <!-- ScrollViewer for content -->
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                <!-- ScrollViewer for content -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto" 
                  HorizontalScrollBarVisibility="Disabled"
                  Template="{StaticResource CustomScrollViewerControlTemplate}">
 
-                        <!-- Main Section -->
-                        <Grid Margin="30 20 20 20">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+                    <!-- Main Section -->
+                    <Grid Grid.Row="2" Margin="30,0,20,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                            <!-- Top Section with Search and User Actions -->
-                            <!-- Welcome Message -->
-                            <StackPanel>
-                                <TextBlock Text="Dashboard" FontSize="20" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left"/>
-                            </StackPanel>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
 
-                            <!-- Tab buttons for Building Selection -->
-                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
-                                <Border x:Name="borderAll" CornerRadius="10" Margin="0,0,0,0" Background="#0430AD" BorderThickness="0" Width="auto">
-                                    <Button x:Name="btnAll" Content="All" Foreground="White" FontFamily="Montserrat Bold"/>
-                                </Border>
-                            </StackPanel>
+                        <!-- Title and filter tabs -->
+                        <TextBlock Text="DashBoard"  Foreground="#434343"  FontFamily="Montserrat Bold" Grid.Row="0" FontSize="20"  Margin="0,15,0,10"/>
 
-                            <!-- Separator -->
-                            <Separator Height="1" Grid.Row="3" Background="#DAE2EA" Margin="0 0 0 20"/>
+                        <!-- Tab buttons -->
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,20,0,0">
+                            <Border x:Name="borderAll" CornerRadius="10"   Margin="0,0,5,0"  Background="#0430AD" BorderThickness="0" Width="60">
+                                <Button x:Name="btnAll" Content="All" Foreground="White"  FontFamily="Montserrat Bold"/>
+                            </Border>
+                        </StackPanel>
 
-                            <!-- Stats Cards -->
-                            <Grid Grid.Row="4">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                        <!-- Separator -->
+                        <Separator Grid.Row="3" Margin="0,15"/>
 
-                                <!-- Occupancy Stats Card -->
-                                <Border Grid.Column="0" Style="{StaticResource statsCard}" Margin="0 0 10 0">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
+                        <!-- Stats Cards -->
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
-                                            <Border Background="#E6F1FF" CornerRadius="5" Padding="8">
-                                                <Icon:PackIconMaterial Kind="HomeCity" Width="22" Height="22" Foreground="#0430AD"/>
-                                            </Border>
-                                            <TextBlock Text="Total Occupancy" FontSize="16" FontWeight="SemiBold" 
+                            <!-- Occupancy Stats Card -->
+                            <Border Grid.Column="0" Style="{StaticResource statsCard}" Margin="0 0 10 0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                                        <Border Background="#E6F1FF" CornerRadius="5" Padding="8">
+                                            <Icon:PackIconMaterial Kind="HomeCity" Width="22" Height="22" Foreground="#0430AD"/>
+                                        </Border>
+                                        <TextBlock Text="Total Occupancy" FontSize="16" FontWeight="SemiBold" 
                                        Foreground="#121518" VerticalAlignment="Center" Margin="12,0,0,0"/>
-                                        </StackPanel>
+                                    </StackPanel>
 
-                                        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom">
-                                            <TextBlock x:Name="OccupancyCount" Text="65" FontSize="28" FontWeight="Bold" 
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+                                        <TextBlock x:Name="OccupancyCount" Text="65" FontSize="28" FontWeight="Bold" 
                                        Foreground="#121518"/>
-                                            <TextBlock Text="/80" FontSize="20" Foreground="#6C7682" 
+                                        <TextBlock Text="/80" FontSize="20" Foreground="#6C7682" 
                                        VerticalAlignment="Bottom" Margin="5,0,0,3"/>
-                                            <TextBlock Text="apartments" FontSize="14" Foreground="#6C7682" 
+                                        <TextBlock Text="apartments" FontSize="14" Foreground="#6C7682" 
                                        VerticalAlignment="Bottom" Margin="5,0,0,3"/>
-                                        </StackPanel>
+                                    </StackPanel>
 
-                                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
-                                            <Border Background="#E6FFE9" CornerRadius="5" Padding="5,2">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Icon:PackIconMaterial Kind="ArrowUp" Width="12" Height="12" Foreground="#4CAF50" VerticalAlignment="Center"/>
-                                                    <TextBlock Text="8.2%" FontSize="12" Foreground="#4CAF50" VerticalAlignment="Center"/>
-                                                </StackPanel>
-                                            </Border>
-                                            <TextBlock Text="vs last month" FontSize="12" Foreground="#6C7682" Margin="8,0,0,0" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
+                                        <Border Background="#E6FFE9" CornerRadius="5" Padding="5,2">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Icon:PackIconMaterial Kind="ArrowUp" Width="12" Height="12" Foreground="#4CAF50" VerticalAlignment="Center"/>
+                                                <TextBlock Text="8.2%" FontSize="12" Foreground="#4CAF50" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <TextBlock Text="vs last month" FontSize="12" Foreground="#6C7682" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
 
-                                <!-- Revenue Stats Card -->
-                                <Border Grid.Column="1" Style="{StaticResource statsCard}" Margin="10 0 10 0">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
+                            <!-- Revenue Stats Card -->
+                            <Border Grid.Column="1" Style="{StaticResource statsCard}" Margin="10 0 10 0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
-                                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
-                                            <Border Background="#E6F1FF" CornerRadius="5" Padding="8">
-                                                <Icon:PackIconMaterial Kind="CurrencyUsd" Width="22" Height="22" Foreground="#0430AD"/>
-                                            </Border>
-                                            <TextBlock Text="Total Revenue" FontSize="16" FontWeight="SemiBold" 
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                                        <Border Background="#E6F1FF" CornerRadius="5" Padding="8">
+                                            <Icon:PackIconMaterial Kind="CurrencyUsd" Width="22" Height="22" Foreground="#0430AD"/>
+                                        </Border>
+                                        <TextBlock Text="Total Revenue" FontSize="16" FontWeight="SemiBold" 
                                        Foreground="#121518" VerticalAlignment="Center" Margin="12,0,0,0"/>
-                                        </StackPanel>
+                                    </StackPanel>
 
-                                        <TextBlock Grid.Row="1" x:Name="TotalRevenue" Text="$124,500" FontSize="28" 
+                                    <TextBlock Grid.Row="1" x:Name="TotalRevenue" Text="$124,500" FontSize="28" 
                                    FontWeight="Bold" Foreground="#121518"/>
 
-                                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
-                                            <Border Background="#E6FFE9" CornerRadius="5" Padding="5,2">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Icon:PackIconMaterial Kind="ArrowUp" Width="12" Height="12" Foreground="#4CAF50" VerticalAlignment="Center"/>
-                                                    <TextBlock Text="12.3%" FontSize="12" Foreground="#4CAF50" VerticalAlignment="Center"/>
-                                                </StackPanel>
-                                            </Border>
-                                            <TextBlock Text="vs last month" FontSize="12" Foreground="#6C7682" Margin="8,0,0,0" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
+                                        <Border Background="#E6FFE9" CornerRadius="5" Padding="5,2">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Icon:PackIconMaterial Kind="ArrowUp" Width="12" Height="12" Foreground="#4CAF50" VerticalAlignment="Center"/>
+                                                <TextBlock Text="12.3%" FontSize="12" Foreground="#4CAF50" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <TextBlock Text="vs last month" FontSize="12" Foreground="#6C7682" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
 
-                                <!-- Residents Stats Card -->
-                                <Border Grid.Column="2" Style="{StaticResource statsCard}" Margin="10 0 10 0">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
+                            <!-- Residents Stats Card -->
+                            <Border Grid.Column="2" Style="{StaticResource statsCard}" Margin="10 0 10 0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
-                                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
-                                            <Border Background="#E6F1FF" CornerRadius="5" Padding="8">
-                                                <Icon:PackIconMaterial Kind="AccountGroup" Width="22" Height="22" Foreground="#0430AD"/>
-                                            </Border>
-                                            <TextBlock Text="Total Residents" FontSize="16" FontWeight="SemiBold" 
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                                        <Border Background="#E6F1FF" CornerRadius="5" Padding="8">
+                                            <Icon:PackIconMaterial Kind="AccountGroup" Width="22" Height="22" Foreground="#0430AD"/>
+                                        </Border>
+                                        <TextBlock Text="Total Residents" FontSize="16" FontWeight="SemiBold" 
                                        Foreground="#121518" VerticalAlignment="Center" Margin="12,0,0,0"/>
-                                        </StackPanel>
+                                    </StackPanel>
 
-                                        <TextBlock Grid.Row="1" x:Name="TotalResidents" Text="237" FontSize="28" 
+                                    <TextBlock Grid.Row="1" x:Name="TotalResidents" Text="237" FontSize="28" 
                                    FontWeight="Bold" Foreground="#121518"/>
 
-                                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
-                                            <Border Background="#E6FFE9" CornerRadius="5" Padding="5,2">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Icon:PackIconMaterial Kind="ArrowUp" Width="12" Height="12" Foreground="#4CAF50" VerticalAlignment="Center"/>
-                                                    <TextBlock Text="6.8%" FontSize="12" Foreground="#4CAF50" VerticalAlignment="Center"/>
-                                                </StackPanel>
-                                            </Border>
-                                            <TextBlock Text="vs last month" FontSize="12" Foreground="#6C7682" Margin="8,0,0,0" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
+                                        <Border Background="#E6FFE9" CornerRadius="5" Padding="5,2">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Icon:PackIconMaterial Kind="ArrowUp" Width="12" Height="12" Foreground="#4CAF50" VerticalAlignment="Center"/>
+                                                <TextBlock Text="6.8%" FontSize="12" Foreground="#4CAF50" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <TextBlock Text="vs last month" FontSize="12" Foreground="#6C7682" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
 
-                                <!-- Service Requests Stats Card -->
-                                <Border Grid.Column="3" Style="{StaticResource statsCard}" Margin="10 0 0 0">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
+                            <!-- Service Requests Stats Card -->
+                            <Border Grid.Column="3" Style="{StaticResource statsCard}" Margin="10 0 0 0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
-                                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
-                                            <Border Background="#E6F1FF" CornerRadius="5" Padding="8">
-                                                <Icon:PackIconMaterial Kind="Tools" Width="22" Height="22" Foreground="#0430AD"/>
-                                            </Border>
-                                            <TextBlock Text="Service Requests" FontSize="16" FontWeight="SemiBold" 
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                                        <Border Background="#E6F1FF" CornerRadius="5" Padding="8">
+                                            <Icon:PackIconMaterial Kind="Tools" Width="22" Height="22" Foreground="#0430AD"/>
+                                        </Border>
+                                        <TextBlock Text="Service Requests" FontSize="16" FontWeight="SemiBold" 
                                        Foreground="#121518" VerticalAlignment="Center" Margin="12,0,0,0"/>
-                                        </StackPanel>
+                                    </StackPanel>
 
-                                        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom">
-                                            <TextBlock x:Name="PendingServices" Text="15" FontSize="28" FontWeight="Bold" 
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+                                        <TextBlock x:Name="PendingServices" Text="15" FontSize="28" FontWeight="Bold" 
                                        Foreground="#121518"/>
-                                            <TextBlock Text=" Pending" FontSize="16" Foreground="#6C7682" 
+                                        <TextBlock Text=" Pending" FontSize="16" Foreground="#6C7682" 
                                        VerticalAlignment="Bottom" Margin="5,0,0,3"/>
-                                        </StackPanel>
+                                    </StackPanel>
 
-                                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
-                                            <Border Background="#FFE6E6" CornerRadius="5" Padding="5,2">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Icon:PackIconMaterial Kind="ArrowUp" Width="12" Height="12" Foreground="#F44336" VerticalAlignment="Center"/>
-                                                    <TextBlock Text="4.2%" FontSize="12" Foreground="#F44336" VerticalAlignment="Center"/>
-                                                </StackPanel>
-                                            </Border>
-                                            <TextBlock Text="vs last month" FontSize="12" Foreground="#6C7682" Margin="8,0,0,0" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
-                            </Grid>
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
+                                        <Border Background="#FFE6E6" CornerRadius="5" Padding="5,2">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Icon:PackIconMaterial Kind="ArrowUp" Width="12" Height="12" Foreground="#F44336" VerticalAlignment="Center"/>
+                                                <TextBlock Text="4.2%" FontSize="12" Foreground="#F44336" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <TextBlock Text="vs last month" FontSize="12" Foreground="#6C7682" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </Grid>
 
-                            <!-- Chart Section Title -->
-                            <Grid Grid.Row="5" Margin="0 20 0 15">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
+                        <!-- Chart Section Title -->
+                        <Grid Grid.Row="5" Margin="0 20 0 15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="Performance Analytics" FontSize="20" FontWeight="SemiBold" Foreground="#121518"/>
+                            <TextBlock Text="Performance Analytics" FontSize="20" FontWeight="SemiBold" Foreground="#121518"/>
 
-                                <!-- Filter Dropdown -->
-                                <ComboBox Grid.Column="1" Width="150" Height="35" SelectedIndex="0" VerticalContentAlignment="Center" Padding="10 0">
-                                    <ComboBoxItem Content="Last 6 Months"/>
-                                    <ComboBoxItem Content="Last Year"/>
-                                    <ComboBoxItem Content="All Time"/>
-                                </ComboBox>
-                            </Grid>
+                            <!-- Filter Dropdown -->
+                            <ComboBox Grid.Column="1" Width="150" Height="35" SelectedIndex="0" VerticalContentAlignment="Center" Padding="10 0">
+                                <ComboBoxItem Content="Last 6 Months"/>
+                                <ComboBoxItem Content="Last Year"/>
+                                <ComboBoxItem Content="All Time"/>
+                            </ComboBox>
+                        </Grid>
 
-                            <!-- Chart Section -->
-                            <Grid Grid.Row="6">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                        <!-- Chart Section -->
+                        <Grid Grid.Row="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                                <!-- Revenue Chart -->
-                                <Border Grid.Column="0" Style="{StaticResource statsCard}" Margin="0 0 10 20">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
+                            <!-- Revenue Chart -->
+                            <Border Grid.Column="0" Style="{StaticResource statsCard}" Margin="0 0 10 20">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
 
-                                        <TextBlock Grid.Row="0" Text="Revenue Trend" FontSize="16" FontWeight="SemiBold" 
+                                    <TextBlock Grid.Row="0" Text="Revenue Trend" FontSize="16" FontWeight="SemiBold" 
                                    Foreground="#121518" Margin="0 0 0 15"/>
 
-                                        <!-- Placeholder for actual chart - will be replaced by actual LiveCharts control -->
-                                        <Grid Grid.Row="1" Height="250" Background="#f9f9f9">
-                                            <!-- Path simulation of a chart -->
-                                            <Path Stroke="#0430AD" StrokeThickness="3" Margin="30 20" 
+                                    <!-- Placeholder for actual chart - will be replaced by actual LiveCharts control -->
+                                    <Grid Grid.Row="1" Height="250" Background="#f9f9f9">
+                                        <!-- Path simulation of a chart -->
+                                        <Path Stroke="#0430AD" StrokeThickness="3" Margin="30 20" 
                                   Data="M0,200 C20,180 40,170 60,160 C80,150 100,130 120,110 C140,90 160,80 180,70 C200,60 220,50 240,40 C260,30 280,25 300,20" 
                                   Fill="Transparent"/>
 
-                                            <!-- X-Axis labels -->
-                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 10">
-                                                <TextBlock Text="Jan" Margin="45,0" Foreground="#6C7682"/>
-                                                <TextBlock Text="Feb" Margin="45,0" Foreground="#6C7682"/>
-                                                <TextBlock Text="Mar" Margin="45,0" Foreground="#6C7682"/>
-                                                <TextBlock Text="Apr" Margin="45,0" Foreground="#6C7682"/>
-                                                <TextBlock Text="May" Margin="45,0" Foreground="#6C7682"/>
-                                                <TextBlock Text="Jun" Margin="45,0" Foreground="#6C7682"/>
-                                            </StackPanel>
-                                        </Grid>
+                                        <!-- X-Axis labels -->
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 10">
+                                            <TextBlock Text="Jan" Margin="45,0" Foreground="#6C7682"/>
+                                            <TextBlock Text="Feb" Margin="45,0" Foreground="#6C7682"/>
+                                            <TextBlock Text="Mar" Margin="45,0" Foreground="#6C7682"/>
+                                            <TextBlock Text="Apr" Margin="45,0" Foreground="#6C7682"/>
+                                            <TextBlock Text="May" Margin="45,0" Foreground="#6C7682"/>
+                                            <TextBlock Text="Jun" Margin="45,0" Foreground="#6C7682"/>
+                                        </StackPanel>
                                     </Grid>
-                                </Border>
+                                </Grid>
+                            </Border>
 
-                                <!-- Occupancy Donut Chart -->
-                                <Border Grid.Column="1" Style="{StaticResource statsCard}" Margin="10 0 0 20">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
+                            <!-- Occupancy Donut Chart -->
+                            <Border Grid.Column="1" Style="{StaticResource statsCard}" Margin="10 0 0 20">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
-                                        <TextBlock Grid.Row="0" Text="Building Occupancy" FontSize="16" FontWeight="SemiBold" 
+                                    <TextBlock Grid.Row="0" Text="Building Occupancy" FontSize="16" FontWeight="SemiBold" 
                                    Foreground="#121518" Margin="0 0 0 15"/>
 
-                                        <!-- Placeholder for donut chart -->
-                                        <Viewbox Grid.Row="1" Margin="10">
-                                            <Grid Width="180" Height="180">
-                                                <!-- Simulated donut chart with colored arcs -->
-                                                <Ellipse Width="180" Height="180" Fill="#f5f5f5"/>
-                                                <Path Fill="#0430AD" Stretch="None" 
+                                    <!-- Placeholder for donut chart -->
+                                    <Viewbox Grid.Row="1" Margin="10">
+                                        <Grid Width="180" Height="180">
+                                            <!-- Simulated donut chart with colored arcs -->
+                                            <Ellipse Width="180" Height="180" Fill="#f5f5f5"/>
+                                            <Path Fill="#0430AD" Stretch="None" 
                                     Data="M90,0 A90,90 0 0,1 180,90 L90,90 Z"/>
-                                                <Path Fill="#62A1FF" Stretch="None" 
+                                            <Path Fill="#62A1FF" Stretch="None" 
                                     Data="M180,90 A90,90 0 0,1 90,180 L90,90 Z"/>
-                                                <Path Fill="#FFB74D" Stretch="None" 
+                                            <Path Fill="#FFB74D" Stretch="None" 
                                     Data="M90,180 A90,90 0 0,1 0,90 L90,90 Z"/>
-                                                <Path Fill="#78C2AD" Stretch="None" 
+                                            <Path Fill="#78C2AD" Stretch="None" 
                                     Data="M0,90 A90,90 0 0,1 90,0 L90,90 Z"/>
 
-                                                <!-- Inner circle for donut effect -->
-                                                <Ellipse Width="90" Height="90" Fill="White"/>
-                                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                    <TextBlock Text="81%" FontSize="24" FontWeight="Bold" 
+                                            <!-- Inner circle for donut effect -->
+                                            <Ellipse Width="90" Height="90" Fill="White"/>
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <TextBlock Text="81%" FontSize="24" FontWeight="Bold" 
                                             Foreground="#121518" HorizontalAlignment="Center"/>
-                                                    <TextBlock Text="Occupancy" FontSize="12" 
+                                                <TextBlock Text="Occupancy" FontSize="12" 
                                             Foreground="#6C7682" HorizontalAlignment="Center"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Viewbox>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Viewbox>
 
-                                        <!-- Chart legend -->
-                                        <StackPanel Grid.Row="2" Margin="0 10 0 0">
-                                            <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
-                                                <Rectangle Width="14" Height="14" Fill="#0430AD" Margin="0 0 10 0"/>
-                                                <TextBlock Text="Miền Đông" FontSize="12" Foreground="#121518" Width="100"/>
-                                                <TextBlock Text="85%" FontWeight="SemiBold" FontSize="12" Foreground="#121518"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
-                                                <Rectangle Width="14" Height="14" Fill="#62A1FF" Margin="0 0 10 0"/>
-                                                <TextBlock Text="Plaza" FontSize="12" Foreground="#121518" Width="100"/>
-                                                <TextBlock Text="78%" FontWeight="SemiBold" FontSize="12" Foreground="#121518"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
-                                                <Rectangle Width="14" Height="14" Fill="#FFB74D" Margin="0 0 10 0"/>
-                                                <TextBlock Text="Sala" FontSize="12" Foreground="#121518" Width="100"/>
-                                                <TextBlock Text="82%" FontWeight="SemiBold" FontSize="12" Foreground="#121518"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Rectangle Width="14" Height="14" Fill="#78C2AD" Margin="0 0 10 0"/>
-                                                <TextBlock Text="Green View" FontSize="12" Foreground="#121518" Width="100"/>
-                                                <TextBlock Text="80%" FontWeight="SemiBold" FontSize="12" Foreground="#121518"/>
-                                            </StackPanel>
+                                    <!-- Chart legend -->
+                                    <StackPanel Grid.Row="2" Margin="0 10 0 0">
+                                        <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
+                                            <Rectangle Width="14" Height="14" Fill="#0430AD" Margin="0 0 10 0"/>
+                                            <TextBlock Text="Miền Đông" FontSize="12" Foreground="#121518" Width="100"/>
+                                            <TextBlock Text="85%" FontWeight="SemiBold" FontSize="12" Foreground="#121518"/>
                                         </StackPanel>
-                                    </Grid>
-                                </Border>
-                            </Grid>
-
-                            <!-- Recent Activity Section -->
-                            <Grid Grid.Row="7">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <!-- Recent Activity -->
-                                <Border Grid.Column="0" Style="{StaticResource statsCard}" Margin="0 0 10 0">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-
-                                        <TextBlock Grid.Row="0" Text="Recent Activity" FontSize="16" FontWeight="SemiBold" 
-                                   Foreground="#121518" Margin="0 0 0 15"/>
-
-                                        <StackPanel Grid.Row="1">
-                                            <!-- Activity 1 -->
-                                            <Border Padding="10" BorderThickness="0 0 0 1" BorderBrush="#EEEEEE">
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <Border Grid.Column="0" Background="#E6F1FF" CornerRadius="5" Padding="8" Margin="0 0 15 0">
-                                                        <Icon:PackIconMaterial Kind="CreditCard" Width="18" Height="18" Foreground="#0430AD"/>
-                                                    </Border>
-
-                                                    <StackPanel Grid.Column="1">
-                                                        <TextBlock Text="New Payment Received" FontWeight="SemiBold" 
-                                                   FontSize="14" Foreground="#121518"/>
-                                                        <TextBlock Text="Apartment D04.07 - $1,200.00" 
-                                                   FontSize="12" Foreground="#6C7682" Margin="0 3 0 0"/>
-                                                    </StackPanel>
-
-                                                    <TextBlock Grid.Column="2" Text="10 min ago" 
-                                               FontSize="12" Foreground="#B0B9C6" VerticalAlignment="Center"/>
-                                                </Grid>
-                                            </Border>
-
-                                            <!-- Activity 2 -->
-                                            <Border Padding="10" BorderThickness="0 0 0 1" BorderBrush="#EEEEEE">
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <Border Grid.Column="0" Background="#FFE6E6" CornerRadius="5" Padding="8" Margin="0 0 15 0">
-                                                        <Icon:PackIconMaterial Kind="Tools" Width="18" Height="18" Foreground="#F44336"/>
-                                                    </Border>
-
-                                                    <StackPanel Grid.Column="1">
-                                                        <TextBlock Text="New Service Request" FontWeight="SemiBold" 
-                                                   FontSize="14" Foreground="#121518"/>
-                                                        <TextBlock Text="Apartment A05.09 - Plumbing Issue" 
-                                                   FontSize="12" Foreground="#6C7682" Margin="0 3 0 0"/>
-                                                    </StackPanel>
-
-                                                    <TextBlock Grid.Column="2" Text="1 hour ago" 
-                                               FontSize="12" Foreground="#B0B9C6" VerticalAlignment="Center"/>
-                                                </Grid>
-                                            </Border>
-
-                                            <!-- Activity 3 -->
-                                            <Border Padding="10" BorderThickness="0 0 0 1" BorderBrush="#EEEEEE">
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <Border Grid.Column="0" Background="#E6FFE9" CornerRadius="5" Padding="8" Margin="0 0 15 0">
-                                                        <Icon:PackIconMaterial Kind="AccountPlus" Width="18" Height="18" Foreground="#4CAF50"/>
-                                                    </Border>
-
-                                                    <StackPanel Grid.Column="1">
-                                                        <TextBlock Text="New Resident" FontWeight="SemiBold" 
-                                                   FontSize="14" Foreground="#121518"/>
-                                                        <TextBlock Text="Apartment C06.11 - Nguyen Van A" 
-                                                   FontSize="12" Foreground="#6C7682" Margin="0 3 0 0"/>
-                                                    </StackPanel>
-
-                                                    <TextBlock Grid.Column="2" Text="3 hours ago" 
-                                               FontSize="12" Foreground="#B0B9C6" VerticalAlignment="Center"/>
-                                                </Grid>
-                                            </Border>
-
-                                            <!-- Activity 4 -->
-                                            <Border Padding="10">
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <Border Grid.Column="0" Background="#E6F1FF" CornerRadius="5" Padding="8" Margin="0 0 15 0">
-                                                        <Icon:PackIconMaterial Kind="Check" Width="18" Height="18" Foreground="#0430AD"/>
-                                                    </Border>
-
-                                                    <StackPanel Grid.Column="1">
-                                                        <TextBlock Text="Service Request Completed" FontWeight="SemiBold" 
-                                                   FontSize="14" Foreground="#121518"/>
-                                                        <TextBlock Text="Apartment B02.03 - Electrical Issue" 
-                                                   FontSize="12" Foreground="#6C7682" Margin="0 3 0 0"/>
-                                                    </StackPanel>
-
-                                                    <TextBlock Grid.Column="2" Text="6 hours ago" 
-                                               FontSize="12" Foreground="#B0B9C6" VerticalAlignment="Center"/>
-                                                </Grid>
-                                            </Border>
+                                        <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
+                                            <Rectangle Width="14" Height="14" Fill="#62A1FF" Margin="0 0 10 0"/>
+                                            <TextBlock Text="Plaza" FontSize="12" Foreground="#121518" Width="100"/>
+                                            <TextBlock Text="78%" FontWeight="SemiBold" FontSize="12" Foreground="#121518"/>
                                         </StackPanel>
-                                    </Grid>
-                                </Border>
-
-                                <!-- Quick Links and Reminders -->
-                                <Border Grid.Column="1" Style="{StaticResource statsCard}" Margin="10 0 0 0">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-
-                                        <TextBlock Grid.Row="0" Text="Quick Actions" FontSize="16" FontWeight="SemiBold" 
-                                   Foreground="#121518" Margin="0 0 0 15"/>
-
-                                        <StackPanel Grid.Row="1">
-                                            <Button Margin="0 0 0 10" Height="40" Background="#0430AD" Foreground="White" 
-                                    BorderThickness="0" FontWeight="SemiBold" FontSize="13" VerticalContentAlignment="Center">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Icon:PackIconMaterial Kind="CreditCard" Width="18" Height="18" Margin="0 0 8 0" VerticalAlignment="Center"/>
-                                                    <TextBlock Text="Create New Payment" VerticalAlignment="Center"/>
-                                                </StackPanel>
-                                            </Button>
-
-                                            <Button Margin="0 0 0 10" Height="40" Background="#4CAF50" Foreground="White" 
-                                    BorderThickness="0" FontWeight="SemiBold" FontSize="13" VerticalContentAlignment="Center">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Icon:PackIconMaterial Kind="AccountPlus" Width="18" Height="18" Margin="0 0 8 0" VerticalAlignment="Center"/>
-                                                    <TextBlock Text="Add New Resident" VerticalAlignment="Center"/>
-                                                </StackPanel>
-                                            </Button>
-
-                                            <Button Margin="0 0 0 10" Height="40" Background="#FFB74D" Foreground="White" 
-                                    BorderThickness="0" FontWeight="SemiBold" FontSize="13" VerticalContentAlignment="Center">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Icon:PackIconMaterial Kind="FileDocument" Width="18" Height="18" Margin="0 0 8 0" VerticalAlignment="Center"/>
-                                                    <TextBlock Text="Generate Reports" VerticalAlignment="Center"/>
-                                                </StackPanel>
-                                            </Button>
-
-                                            <Button Margin="0 0 0 10" Height="40" Background="#F44336" Foreground="White" 
-                                    BorderThickness="0" FontWeight="SemiBold" FontSize="13" VerticalContentAlignment="Center">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Icon:PackIconMaterial Kind="Tools" Width="18" Height="18" Margin="0 0 8 0" VerticalAlignment="Center"/>
-                                                    <TextBlock Text="View Service Requests" VerticalAlignment="Center"/>
-                                                </StackPanel>
-                                            </Button>
-
-                                            <Button Height="40" Background="#78C2AD" Foreground="White" 
-                                    BorderThickness="0" FontWeight="SemiBold" FontSize="13" VerticalContentAlignment="Center">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Icon:PackIconMaterial Kind="Email" Width="18" Height="18" Margin="0 0 8 0" VerticalAlignment="Center"/>
-                                                    <TextBlock Text="Send Notifications" VerticalAlignment="Center"/>
-                                                </StackPanel>
-                                            </Button>
+                                        <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
+                                            <Rectangle Width="14" Height="14" Fill="#FFB74D" Margin="0 0 10 0"/>
+                                            <TextBlock Text="Sala" FontSize="12" Foreground="#121518" Width="100"/>
+                                            <TextBlock Text="82%" FontWeight="SemiBold" FontSize="12" Foreground="#121518"/>
                                         </StackPanel>
-                                    </Grid>
-                                </Border>
-                            </Grid>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Rectangle Width="14" Height="14" Fill="#78C2AD" Margin="0 0 10 0"/>
+                                            <TextBlock Text="Green View" FontSize="12" Foreground="#121518" Width="100"/>
+                                            <TextBlock Text="80%" FontWeight="SemiBold" FontSize="12" Foreground="#121518"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
                         </Grid>
-                    </ScrollViewer>
-                </Grid>
 
+                        <!-- Recent Activity Section -->
+                        <Grid Grid.Row="7">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
+                            <!-- Recent Activity -->
+                            <Border Grid.Column="0" Style="{StaticResource statsCard}" Margin="0 0 10 0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Text="Recent Activity" FontSize="16" FontWeight="SemiBold" 
+                                   Foreground="#121518" Margin="0 0 0 15"/>
+
+                                    <StackPanel Grid.Row="1">
+                                        <!-- Activity 1 -->
+                                        <Border Padding="10" BorderThickness="0 0 0 1" BorderBrush="#EEEEEE">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Border Grid.Column="0" Background="#E6F1FF" CornerRadius="5" Padding="8" Margin="0 0 15 0">
+                                                    <Icon:PackIconMaterial Kind="CreditCard" Width="18" Height="18" Foreground="#0430AD"/>
+                                                </Border>
+
+                                                <StackPanel Grid.Column="1">
+                                                    <TextBlock Text="New Payment Received" FontWeight="SemiBold" 
+                                                   FontSize="14" Foreground="#121518"/>
+                                                    <TextBlock Text="Apartment D04.07 - $1,200.00" 
+                                                   FontSize="12" Foreground="#6C7682" Margin="0 3 0 0"/>
+                                                </StackPanel>
+
+                                                <TextBlock Grid.Column="2" Text="10 min ago" 
+                                               FontSize="12" Foreground="#B0B9C6" VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </Border>
+
+                                        <!-- Activity 2 -->
+                                        <Border Padding="10" BorderThickness="0 0 0 1" BorderBrush="#EEEEEE">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Border Grid.Column="0" Background="#FFE6E6" CornerRadius="5" Padding="8" Margin="0 0 15 0">
+                                                    <Icon:PackIconMaterial Kind="Tools" Width="18" Height="18" Foreground="#F44336"/>
+                                                </Border>
+
+                                                <StackPanel Grid.Column="1">
+                                                    <TextBlock Text="New Service Request" FontWeight="SemiBold" 
+                                                   FontSize="14" Foreground="#121518"/>
+                                                    <TextBlock Text="Apartment A05.09 - Plumbing Issue" 
+                                                   FontSize="12" Foreground="#6C7682" Margin="0 3 0 0"/>
+                                                </StackPanel>
+
+                                                <TextBlock Grid.Column="2" Text="1 hour ago" 
+                                               FontSize="12" Foreground="#B0B9C6" VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </Border>
+
+                                        <!-- Activity 3 -->
+                                        <Border Padding="10" BorderThickness="0 0 0 1" BorderBrush="#EEEEEE">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Border Grid.Column="0" Background="#E6FFE9" CornerRadius="5" Padding="8" Margin="0 0 15 0">
+                                                    <Icon:PackIconMaterial Kind="AccountPlus" Width="18" Height="18" Foreground="#4CAF50"/>
+                                                </Border>
+
+                                                <StackPanel Grid.Column="1">
+                                                    <TextBlock Text="New Resident" FontWeight="SemiBold" 
+                                                   FontSize="14" Foreground="#121518"/>
+                                                    <TextBlock Text="Apartment C06.11 - Nguyen Van A" 
+                                                   FontSize="12" Foreground="#6C7682" Margin="0 3 0 0"/>
+                                                </StackPanel>
+
+                                                <TextBlock Grid.Column="2" Text="3 hours ago" 
+                                               FontSize="12" Foreground="#B0B9C6" VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </Border>
+
+                                        <!-- Activity 4 -->
+                                        <Border Padding="10">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Border Grid.Column="0" Background="#E6F1FF" CornerRadius="5" Padding="8" Margin="0 0 15 0">
+                                                    <Icon:PackIconMaterial Kind="Check" Width="18" Height="18" Foreground="#0430AD"/>
+                                                </Border>
+
+                                                <StackPanel Grid.Column="1">
+                                                    <TextBlock Text="Service Request Completed" FontWeight="SemiBold" 
+                                                   FontSize="14" Foreground="#121518"/>
+                                                    <TextBlock Text="Apartment B02.03 - Electrical Issue" 
+                                                   FontSize="12" Foreground="#6C7682" Margin="0 3 0 0"/>
+                                                </StackPanel>
+
+                                                <TextBlock Grid.Column="2" Text="6 hours ago" 
+                                               FontSize="12" Foreground="#B0B9C6" VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </Border>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Quick Links and Reminders -->
+                            <Border Grid.Column="1" Style="{StaticResource statsCard}" Margin="10 0 0 0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Text="Quick Actions" FontSize="16" FontWeight="SemiBold" 
+                                   Foreground="#121518" Margin="0 0 0 15"/>
+
+                                    <StackPanel Grid.Row="1">
+                                        <Button Margin="0 0 0 10" Height="40" Background="#0430AD" Foreground="White" 
+                                    BorderThickness="0" FontWeight="SemiBold" FontSize="13" VerticalContentAlignment="Center">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Icon:PackIconMaterial Kind="CreditCard" Width="18" Height="18" Margin="0 0 8 0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="Create New Payment" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <Button Margin="0 0 0 10" Height="40" Background="#4CAF50" Foreground="White" 
+                                    BorderThickness="0" FontWeight="SemiBold" FontSize="13" VerticalContentAlignment="Center">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Icon:PackIconMaterial Kind="AccountPlus" Width="18" Height="18" Margin="0 0 8 0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="Add New Resident" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <Button Margin="0 0 0 10" Height="40" Background="#FFB74D" Foreground="White" 
+                                    BorderThickness="0" FontWeight="SemiBold" FontSize="13" VerticalContentAlignment="Center">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Icon:PackIconMaterial Kind="FileDocument" Width="18" Height="18" Margin="0 0 8 0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="Generate Reports" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <Button Margin="0 0 0 10" Height="40" Background="#F44336" Foreground="White" 
+                                    BorderThickness="0" FontWeight="SemiBold" FontSize="13" VerticalContentAlignment="Center">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Icon:PackIconMaterial Kind="Tools" Width="18" Height="18" Margin="0 0 8 0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="View Service Requests" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <Button Height="40" Background="#78C2AD" Foreground="White" 
+                                    BorderThickness="0" FontWeight="SemiBold" FontSize="13" VerticalContentAlignment="Center">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Icon:PackIconMaterial Kind="Email" Width="18" Height="18" Margin="0 0 8 0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="Send Notifications" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
             </Grid>
         </Grid>
     </Grid>
