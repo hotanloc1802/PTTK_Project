@@ -559,7 +559,7 @@ To="#959595" Duration="0:0:0.2" />
                     </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Request ID" Binding="{Binding request_id}" Width="100"/>
-                        <DataGridTextColumn Header="Apartment" Binding="{Binding apartment.apartment_number}" Width="120"/>
+                        <DataGridTextColumn Header="Apartment" Binding="{Binding apartment.apartment_id}" Width="120"/>
                         <DataGridTextColumn Header="Resident" Binding="{Binding resident.name}" Width="180"/>
                         <DataGridTextColumn Header="Category" Binding="{Binding category}" Width="150"/>
                         <DataGridTextColumn Header="Status" Binding="{Binding status}" Width="120"/>
@@ -583,11 +583,11 @@ To="#959595" Duration="0:0:0.2" />
                 <!-- Pagination -->
                 <Border Grid.Row="6" HorizontalAlignment="Right" BorderBrush="#E1E1E1" BorderThickness="1" Margin="0,15,0,15" Padding="5" Background="White" CornerRadius="15">
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btnPrevPage" Content="&lt;" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat"/>
-                        <Button x:Name="btnPage1" Content="1" Padding="8,3" Margin="3" Background="#0430AD" Foreground="White" BorderThickness="0" FontFamily="Montserrat"/>
-                        <Button x:Name="btnPage2" Content="2" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat"/>
-                        <Button x:Name="btnPage3" Content="3" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat"/>
-                        <Button x:Name="btnNextPage" Content="&gt;" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat"/>
+                        <Button x:Name="btnPrevPage" Content="&lt;" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat" Click="BtnPrevPage_Click"/>
+                        <Button x:Name="btnPage1" Content="1" Padding="8,3" Margin="3" Background="#0430AD" Foreground="White" BorderThickness="0" FontFamily="Montserrat" Click="BtnGoToPage_Click"/>
+                        <Button x:Name="btnPage2" Content="2" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat" Click="BtnGoToPage_Click"/>
+                        <Button x:Name="btnPage3" Content="3" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat" Click="BtnGoToPage_Click"/>
+                        <Button x:Name="btnNextPage" Content="&gt;" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat" Click="BtnNextPage_Click"/>
                     </StackPanel>
                 </Border>
             </Grid>

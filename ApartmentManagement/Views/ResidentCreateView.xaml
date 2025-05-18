@@ -598,7 +598,7 @@
                                                 Background="Transparent"
                                                 Text="{Binding ApartmentNumber, UpdateSourceTrigger=PropertyChanged}"
                                                 ItemsSource="{Binding ApartmentSuggestions}"
-                                                DisplayMemberPath="apartment_number"
+                                                DisplayMemberPath="apartment_id"
                                                 StaysOpenOnEdit="True"
                                                 IsTextSearchEnabled="False"
                                                 TextBoxBase.TextChanged="ApartmentNumberComboBox_TextChanged"/>
