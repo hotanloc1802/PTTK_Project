@@ -325,6 +325,11 @@ namespace ApartmentManagement.ViewModel
             }
             return false;
         }
+
+        public async Task<bool> SetPaymentStatusCompleted(string paymentId)
+        {
+            return await _paymentService.SetPaymentStatusCompleted(paymentId);
+        }
         #endregion
 
         #region IDisposable Implementation

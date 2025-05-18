@@ -367,7 +367,7 @@ Height="18" HorizontalAlignment="Center"/>
                     </Button>
                 </Border>
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
-                    <Button x:Name="btnService"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" >
+                    <Button x:Name="btnService"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnService_Click">
                         <Button.Triggers>
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">
@@ -572,7 +572,7 @@ To="#959595" Duration="0:0:0.2" />
                         </Grid>
 
                         <!-- Title and filter tabs -->
-                        <TextBlock Text="DashBoard"  Foreground="#434343"  FontFamily="Montserrat Bold" Grid.Row="0" FontSize="20"  Margin="0,15,0,10"/>
+                        <TextBlock Text="Dashboard"  Foreground="#434343"  FontFamily="Montserrat Bold" Grid.Row="0" FontSize="20"  Margin="0,15,0,10"/>
 
                         <!-- Tab buttons -->
                         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,20,0,0">

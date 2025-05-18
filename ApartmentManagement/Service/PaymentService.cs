@@ -48,5 +48,9 @@ namespace ApartmentManagement.Service
             var list = await _paymentRepository.DeletePaymentAsync(id);
             return list;
         }
+        public async Task<bool> SetPaymentStatusCompleted(string paymentId)
+        {
+            return await _paymentRepository.SetPaymentStatusCompleted(paymentId);
+        }
     }
 }

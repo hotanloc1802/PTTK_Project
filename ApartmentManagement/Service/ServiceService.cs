@@ -19,5 +19,21 @@ namespace ApartmentManagement.Service
         {
             return await _serviceRepository.GetAllServiceAsync();
         }
+        public async Task<IEnumerable<ServiceRequest>> GetServiceRequestsByApartmentIdAsync(string apartmentId)
+        {
+            return await _serviceRepository.GetServiceRequestsByApartmentIdAsync(apartmentId);
+        }
+        public async Task<bool> SetStatusCompleted(string requestId)
+        {
+            return await _serviceRepository.SetStatusCompleted(requestId);
+        }
+        public async Task<IEnumerable<ServiceRequest>> GetServiceRequestsByStatusAsync(string status)
+        {
+            return await _serviceRepository.GetServiceRequestsByStatusAsync(status);
+        }
+        public async Task<IEnumerable<ServiceRequest>> SortServiceRequestsAsync(string sortType)
+        {
+            return await _serviceRepository.SortServiceRequestsAsync(sortType);
+        }
     }
 }

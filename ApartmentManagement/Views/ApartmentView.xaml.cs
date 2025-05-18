@@ -130,6 +130,12 @@ namespace ApartmentManagement.Views
             paymentWindow.Show();
             this.Close();
         }
+        private void BtnService_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceView serviceView = new ServiceView();
+            serviceView.Show();
+            this.Close();
+        }
         private void BtnCreateApartment_Click(object sender, RoutedEventArgs e)
         {
             ApartmentCreateView apartmentCreateView = new ApartmentCreateView();

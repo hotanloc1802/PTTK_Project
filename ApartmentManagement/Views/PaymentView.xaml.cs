@@ -410,6 +410,29 @@ namespace ApartmentManagement.Views
             residentView.Show();
             this.Close();
         }
+        private void BtnService_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceView serviceView = new ServiceView();
+            serviceView.Show();
+            this.Close();
+        }
+
+        private async void BtnCheck_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.DataContext is Payment selectedPayment)
+            {
+                if (DataContext is PaymentViewModel viewModel)
+                {
+                    await viewModel.SetPaymentStatusCompleted(selectedPayment.payment_id);
+                    string message = $"Payment with ID {selectedPayment.payment_id} has been marked as completed.";
+                    MessageBox.Show(message, "Payment Completed", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    PaymentView paymentView = new PaymentView();
+                    paymentView.Show();
+                    this.Close();
+                }
+            }
+        }
         #endregion
 
         #region Window Events

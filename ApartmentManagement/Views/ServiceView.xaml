@@ -174,7 +174,7 @@ Height="18" HorizontalAlignment="Center"/>
         <Grid Grid.Column="1" Grid.Row="2">
             <StackPanel Margin="0,30,0,0" >
                 <Border CornerRadius="10" Padding="5,5,5,5" Margin="0,0,0,0" Width="142"  >
-                    <Button x:Name="btnDashboard"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnDashboard"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnMainWindow_Click">
                         <Button.Triggers>
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">
@@ -218,7 +218,7 @@ To="#959595" Duration="0:0:0.2" />
                     </Button>
                 </Border>
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142"  >
-                    <Button x:Name="btnApartment" Style="{StaticResource menuButton}" Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnApartment" Style="{StaticResource menuButton}" Width="138" Margin="-5,5,0,5" Click="BtnApartment_Click">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Icon:PackIconMaterial Kind="Domain" VerticalAlignment="Center" Foreground="#959595"/>
                             <TextBlock  x:Name="apartmentText" Text=" Apartment" FontFamily="Montserrat Bold" FontSize="13" Foreground="#959595"
@@ -227,7 +227,7 @@ To="#959595" Duration="0:0:0.2" />
                     </Button>
                 </Border>
                 <Border Background="Transparent" CornerRadius="10" Padding="5,5,5,5"  Width="142" >
-                    <Button x:Name="btnResident" Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnResident" Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnResident_Click">
                         <Button.Triggers>
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">
@@ -271,7 +271,7 @@ To="#959595" Duration="0:0:0.2" />
                     </Button>
                 </Border>
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
-                    <Button x:Name="btnPayement"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnPayment"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnPayment_Click">
                         <Button.Triggers>
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">
@@ -413,8 +413,8 @@ To="#959595" Duration="0:0:0.2" />
                 <Border x:Name="boSearch" Background="#EEF0F2" CornerRadius="10" Height="45" HorizontalAlignment="Center" Margin="0,16,0,15" Width="597" >
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Icon:PackIconMaterial Kind="Magnify" Foreground="#9FA4AD" VerticalAlignment="Center" Margin="7,0,0,0" Width="18" Height="18"/>
-                        <TextBox x:Name="boxSearch" Background="Transparent" BorderBrush="Transparent" Foreground="#9FA4AD"
-                         Width="571" VerticalAlignment="Center" Padding="5,5"/>
+                        <TextBox x:Name="boxSearch" Background="Transparent" BorderBrush="Transparent" Foreground="#9FA4AD" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" 
+                         Width="571" VerticalAlignment="Center" Padding="5,5" TextChanged="BoxSearch_TextChanged" />
                     </StackPanel>
                 </Border>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -482,29 +482,17 @@ To="#959595" Duration="0:0:0.2" />
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <!-- Add button -->
-                    <Border Grid.Column="1" Background="#0430AD" Padding="8,4" BorderThickness="0" CornerRadius="10" Margin="0,10,0,10" Width="172.443333333333" >
-                        <Button Grid.Column="1"  Foreground="White"  BorderThickness="0">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="+ " FontWeight="Bold" VerticalAlignment="Center" FontFamily="Montserrat Bold" FontSize="12" />
-                                <TextBlock Text="Add New Service" VerticalAlignment="Center" FontFamily="Montserrat Bold" FontSize="12" />
-                            </StackPanel>
-                        </Button>
-                    </Border>
                 </Grid>
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
                     <Border x:Name="borderAll" CornerRadius="10" Margin="0,0,0,0" Background="#0430AD" BorderThickness="0" Width="60">
-                        <Button x:Name="btnAll" Content="All" Foreground="White" FontFamily="Montserrat Bold"/>
-                    </Border>
-                    <Border x:Name="borderPending" CornerRadius="10" Margin="10,0,0,0" Background="#F0F0F0" BorderThickness="0" Width="auto">
-                        <Button x:Name="btnPending" Content="Pending" Foreground="#434343" FontFamily="Montserrat Bold"/>
+                        <Button x:Name="btnAll" Content="All" Foreground="White" FontFamily="Montserrat Bold" Click="BtnAll_Click"/>
                     </Border>
                     <Border x:Name="borderInProgress" CornerRadius="10" Margin="10,0,0,0" Background="#F0F0F0" BorderThickness="0" Width="auto">
-                        <Button x:Name="btnInProgress" Content="In Progress" Foreground="#434343" FontFamily="Montserrat Bold"/>
+                        <Button x:Name="btnInProgress" Content="In Progress" Foreground="#434343" FontFamily="Montserrat Bold" Click="BtnInProgress_Click"/>
                     </Border>
                     <Border x:Name="borderCompleted" CornerRadius="10" Margin="10,0,0,0" Background="#F0F0F0" BorderThickness="0" Width="auto">
-                        <Button x:Name="btnCompleted" Content="Completed" Foreground="#434343" FontFamily="Montserrat Bold"/>
+                        <Button x:Name="btnCompleted" Content="Completed" Foreground="#434343" FontFamily="Montserrat Bold" Click="BtnCompleted_Click"/>
                     </Border>
                 </StackPanel>
 
@@ -523,11 +511,10 @@ To="#959595" Duration="0:0:0.2" />
 
                     <StackPanel Grid.Column="3" Orientation="Horizontal">
                         <TextBlock Text="Sort by:" VerticalAlignment="Center" Margin="0,0,10,10"/>
-                        <ComboBox x:Name="sortComboBox" Style="{StaticResource CustomComboBoxStyle}" Width="180" SelectedIndex="0" Margin="0,0,0,10">
-                            <ComboBoxItem Content="Date (Newest)"/>
-                            <ComboBoxItem Content="Date (Oldest)"/>
-                            <ComboBoxItem Content="Category"/>
-                            <ComboBoxItem Content="Status"/>
+                        <ComboBox x:Name="sortComboBox" Style="{StaticResource CustomComboBoxStyle}" Width="180" SelectedIndex="0" Margin="0,0,0,10"
+                                  SelectionChanged="SortComboBox_SelectionChanged">
+                            <ComboBoxItem Content="Apartment Number"/>
+                            <ComboBoxItem Content="Newest Date"/>
                         </ComboBox>
                     </StackPanel>
                 </Grid>
@@ -558,21 +545,49 @@ To="#959595" Duration="0:0:0.2" />
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Request ID" Binding="{Binding request_id}" Width="100"/>
                         <DataGridTextColumn Header="Apartment" Binding="{Binding apartment.apartment_id}" Width="120"/>
                         <DataGridTextColumn Header="Resident" Binding="{Binding resident.name}" Width="180"/>
                         <DataGridTextColumn Header="Category" Binding="{Binding category}" Width="150"/>
-                        <DataGridTextColumn Header="Status" Binding="{Binding status}" Width="120"/>
-                        <DataGridTextColumn Header="Date" Binding="{Binding request_date}" Width="*"/>
+                        <DataGridTextColumn Header="Payment Status" Binding="{Binding status}" Width="120">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding status}" Value="Completed">
+                                            <Setter Property="Foreground" Value="Green"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding status}" Value="In Progress">
+                                            <Setter Property="Foreground" Value="Red"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Request Date" Binding="{Binding request_date, StringFormat='dd/MM/yyyy'}" Width="*"/>
+                        <DataGridTextColumn Header="Completed Date" Binding="{Binding completed_date, StringFormat='dd/MM/yyyy'}" Width="*"/>
                         <DataGridTemplateColumn Header="Actions" Width="120">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="EditActionButton" Background="#4CAF50" Foreground="White" Margin="0,0,5,0" Padding="8,3" BorderThickness="0">
-                                            <Icon:PackIconMaterial Kind="PencilOutline" Width="12" Height="12" />
-                                        </Button>
-                                        <Button x:Name="DeleteActionButton" Background="#F44336" Foreground="White" Padding="8,3" BorderThickness="0">
-                                            <Icon:PackIconMaterial Kind="DeleteOutline" Width="12" Height="12"/>
+                                        <Button x:Name="CheckActionButton" 
+                                            Background="#4CAF50" 
+                                            Foreground="White" 
+                                            Margin="0,0,5,0" 
+                                            Padding="8,3" 
+                                            BorderThickness="0" 
+                                            Click="BtnCheck_Click">
+                                            <Button.Style>
+                                                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding status}" Value="Completed">
+                                                            <Setter Property="Opacity" Value="0.2"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding status}" Value="In Progress">
+                                                            <Setter Property="Opacity" Value="1"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                            <Icon:PackIconMaterial Kind="Check" Width="12" Height="12" />
                                         </Button>
                                     </StackPanel>
                                 </DataTemplate>

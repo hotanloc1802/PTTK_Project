@@ -102,5 +102,14 @@ namespace ApartmentManagement.Repository
             _context.Payments.Remove(payment);
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> SetPaymentStatusCompleted(string paymentId)
+        {
+            var rowsAffected = await _context.Database.ExecuteSqlRawAsync(
+                "UPDATE mien_dong.payments SET payment_status = 'Completed' WHERE payment_id = {0}",
+                paymentId);
+
+            return rowsAffected > 0;
+        }
     }
 }

@@ -10,5 +10,9 @@ namespace ApartmentManagement.Service
     interface IServiceService
     {
         Task<IEnumerable<ServiceRequest>> GetAllServiceAsync();
+        Task<IEnumerable<ServiceRequest>> GetServiceRequestsByApartmentIdAsync(string apartmentId);
+        Task<bool> SetStatusCompleted(string requestId);
+        Task<IEnumerable<ServiceRequest>> GetServiceRequestsByStatusAsync(string status);
+        Task<IEnumerable<ServiceRequest>> SortServiceRequestsAsync(string sortType);
     }
 }

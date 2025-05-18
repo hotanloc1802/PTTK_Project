@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ApartmentManagement.Repository
 {
@@ -16,12 +17,67 @@ namespace ApartmentManagement.Repository
         {
             _context = context;
         }
+
         public async Task<IEnumerable<ServiceRequest>> GetAllServiceAsync()
         {
             return await _context.ServiceRequests
                 .Include(a => a.apartment)
                 .Include(r => r.resident)
                 .ToListAsync();
+        }
+        public async Task<IEnumerable<ServiceRequest>> GetServiceRequestsByApartmentIdAsync(string apartmentIdSubset)
+        {
+            return await _context.ServiceRequests
+                .Include(a => a.apartment)
+                .Include(r => r.resident)
+                .Where(a => a.apartment.apartment_id.Contains(apartmentIdSubset))
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<ServiceRequest>> GetServiceRequestsByStatusAsync(string status)
+        {
+            if (string.IsNullOrEmpty(status))
+            {
+                return await _context.ServiceRequests
+                    .Include(a => a.apartment)
+                    .Include(r => r.resident)
+                    .ToListAsync();
+            }
+            return await _context.ServiceRequests
+                .Include(a => a.apartment)
+                .Include(r => r.resident)
+                .Where(sr => sr.status == status)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<ServiceRequest>> SortServiceRequestsAsync(string sortType)
+        {
+            IQueryable<ServiceRequest> query = _context.ServiceRequests
+                .Include(a => a.apartment)
+                .Include(r => r.resident);
+
+            switch (sortType)
+            {
+                case "Newest Date":
+                    query = query.OrderByDescending(sr => sr.request_date);
+                    break;
+                case "Apartment Number":
+                    query = query.OrderBy(sr => sr.apartment_id);
+                    break;
+                default:
+                    throw new ArgumentException("Invalid sort type");
+            }
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<bool> SetStatusCompleted(string requestId)
+        {
+            var rowsAffected = await _context.Database.ExecuteSqlRawAsync(
+                "UPDATE mien_dong.service_requests SET status = 'Completed' WHERE request_id = {0}",
+                requestId);
+
+            return rowsAffected > 0;
         }
     }
 }

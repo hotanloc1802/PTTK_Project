@@ -15,7 +15,7 @@ using System.Windows.Media;
 using System.Windows;
 using ApartmentManagement.Utility;
 using System.Windows.Input;
-
+using System.Globalization;
 namespace ApartmentManagement.ViewModel
 {
     class ServiceViewModel : INotifyPropertyChanged, IDisposable
@@ -24,6 +24,7 @@ namespace ApartmentManagement.ViewModel
         // Observable Collections
         private ObservableCollection<ServiceRequest> _serviceRequests;
         private ObservableCollection<ServiceRequest> _allServiceRequests;
+        private ObservableCollection<string> _dates;
 
         // Pagination Variables
         private int _currentPage = 1;
@@ -98,6 +99,16 @@ namespace ApartmentManagement.ViewModel
             }
         }
 
+        public ObservableCollection<string> Dates
+        {
+            get => _dates;
+            set
+            {
+                _dates = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -167,6 +178,10 @@ namespace ApartmentManagement.ViewModel
 
             var itemsToShow = AllServiceRequests.Skip((CurrentPage - 1) * ItemsPerPage).Take(ItemsPerPage).ToList();
             ServiceRequests = new ObservableCollection<ServiceRequest>(itemsToShow);
+            foreach (var servicesrequest in itemsToShow)
+            {
+                servicesrequest.request_date = servicesrequest.request_date.Date;
+            }
         }
 
         // Load Service Requests asynchronously
@@ -175,6 +190,56 @@ namespace ApartmentManagement.ViewModel
             var requests = await _serviceRequestService.GetAllServiceAsync();
             AllServiceRequests = new ObservableCollection<ServiceRequest>(requests);
             UpdatePagination();
+        }
+
+        public async Task FilterServiceRequestsAsync(string status)
+        {
+            var serviceRequests = await _serviceRequestService.GetServiceRequestsByStatusAsync(status);
+            _lastFilterStatus = status;
+            AllServiceRequests = new ObservableCollection<ServiceRequest>(serviceRequests);
+            CurrentPage = 1;
+            UpdatePagination();
+        }
+
+        public void ResetFilter()
+        {
+            _lastFilterStatus = null;
+        }
+
+        // Sort Service Requests
+        public async Task SortServiceRequestsAsync(string sortType)
+        {
+            IEnumerable<ServiceRequest> serviceRequests;
+            if (AllServiceRequests != null && AllServiceRequests.Any())
+            {
+                serviceRequests = await _serviceRequestService.SortServiceRequestsAsync(sortType);
+                if (_lastFilterStatus != null)
+                {
+                    serviceRequests = serviceRequests.Where(sr => sr.status == _lastFilterStatus);
+                }
+                AllServiceRequests = new ObservableCollection<ServiceRequest>(serviceRequests);
+            }
+            else
+            {
+                serviceRequests = await _serviceRequestService.SortServiceRequestsAsync(sortType);
+                AllServiceRequests = new ObservableCollection<ServiceRequest>(serviceRequests);
+            }
+            UpdatePagination();
+        }
+
+        public async Task SearchServiceRequestsAsync(string apartmentId)
+        {
+            var serviceRequests = string.IsNullOrWhiteSpace(apartmentId)
+                ? await _serviceRequestService.GetAllServiceAsync()
+                : await _serviceRequestService.GetServiceRequestsByApartmentIdAsync(apartmentId);
+
+            AllServiceRequests = new ObservableCollection<ServiceRequest>(serviceRequests);
+            CurrentPage = 1;
+        }
+
+        public async Task<bool> SetStatusCompleted(string requestId)
+        {
+            return await _serviceRequestService.SetStatusCompleted(requestId);
         }
         #endregion
 

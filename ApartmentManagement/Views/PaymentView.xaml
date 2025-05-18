@@ -279,7 +279,7 @@ To="#959595" Duration="0:0:0.2" />
                     </Button>
                 </Border>
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
-                    <Button x:Name="btnService"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnService"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnService_Click">
                         <Button.Triggers>
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">
@@ -564,7 +564,7 @@ To="#959595" Duration="0:0:0.2" />
                         <DataGridTextColumn Header="Total Amount" Binding="{Binding total_amount, StringFormat={}{0:N0} VND}" Width="170"/>
                         <DataGridTextColumn Header="Payment Status" Binding="{Binding payment_status}" Width="*">
                             <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
+                                <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding payment_status}" Value="Completed">
                                             <Setter Property="Foreground" Value="Green"/>
@@ -585,6 +585,27 @@ To="#959595" Duration="0:0:0.2" />
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="CheckActionButton" 
+                                            Background="#4CAF50" 
+                                            Foreground="White" 
+                                            Margin="0,0,5,0" 
+                                            Padding="8,3" 
+                                            BorderThickness="0" 
+                                            Click="BtnCheck_Click">
+                                            <Button.Style>
+                                                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding payment_status}" Value="Completed">
+                                                            <Setter Property="Opacity" Value="0.2"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding payment_status}" Value="Pending">
+                                                            <Setter Property="Opacity" Value="1"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                            <Icon:PackIconMaterial Kind="Check" Width="12" Height="12" />
+                                        </Button>
                                         <Button x:Name="DeleteActionButton" Background="#F44336" Foreground="White" Padding="8,3"
                                            BorderThickness="0" Click="DeleteButton_Click">
                                             <Icon:PackIconMaterial Kind="DeleteOutline" Width="12" Height="12"/>
