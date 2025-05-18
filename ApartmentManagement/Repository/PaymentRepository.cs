@@ -74,8 +74,11 @@ namespace ApartmentManagement.Repository
             IQueryable<Payment> query;
             switch (sortType)
             {
-                case "ID":
-                    query = _context.Payments.OrderBy(p => p.payment_id);
+                case "Payment Created Date (Newest)":
+                    query = _context.Payments.OrderByDescending(p => p.payment_created_date);
+                    break;
+                case "Payment Created Date (Latest)":
+                    query = _context.Payments.OrderBy(p => p.payment_created_date);
                     break;
                 case "Apartment Number":
                     query = _context.Payments

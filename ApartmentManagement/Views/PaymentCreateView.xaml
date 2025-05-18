@@ -16,8 +16,9 @@
             <Setter Property="Padding" Value="5"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#E1E1E1"/>
-            <Setter Property="Background" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Foreground" Value="#374655"/>
         </Style>
     </Window.Resources>
     <Grid Margin="0,0,0,15" HorizontalAlignment="Center" Width="1300" Height="686" VerticalAlignment="Bottom">
@@ -315,9 +316,7 @@ Height="18" HorizontalAlignment="Center"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="Create New Payment" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
-                        </StackPanel>
+                       
                     </Grid>
 
                     <!-- Content -->
@@ -333,7 +332,7 @@ Height="18" HorizontalAlignment="Center"/>
 
                                 <!-- Payment Details Section -->
                                 <StackPanel Grid.Row="0" Margin="0,0,0,25">
-                                    <TextBlock Text="Payment Details" Foreground="#0430AD" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,20"/>
+                                    <TextBlock Text="Bill Details" Foreground="#0430AD" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,20"/>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
@@ -350,7 +349,7 @@ Height="18" HorizontalAlignment="Center"/>
 
                                         <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,0,15">
                                             <TextBlock FontSize="13" Margin="0 0 0 8">
-                                            <Run Text="Payment Amount" Foreground="#374655"/>
+                                            <Run Text="Amount" Foreground="#374655"/>
                                             <Run Text="*" Foreground="Red"/> <!-- Red color for the asterisk -->
                                             </TextBlock>
                                             <Grid>
@@ -358,19 +357,19 @@ Height="18" HorizontalAlignment="Center"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Border Grid.Column="0" Background="#F0F0F0" Width="40" Height="40" 
-                                        CornerRadius="4,0,0,4" BorderThickness="1,1,0,1" BorderBrush="#DDDDDD">
+                                                <Border Grid.Column="0"  Width="40" Height="40" 
+                                        CornerRadius="4,0,0,4" BorderThickness="1,1,1,1" BorderBrush="#DDDDDD">
                                                     <TextBlock Text="$" FontWeight="Bold" VerticalAlignment="Center" 
                                                HorizontalAlignment="Center" FontSize="16"/>
                                                 </Border>
                                                 <TextBox Grid.Column="1" x:Name="TxtAmount" Height="40" Padding="10,0" 
-                                         BorderThickness="0,1,1,1" VerticalContentAlignment="Center"/>
+                                         BorderThickness="0,1,1,1" VerticalContentAlignment="Center" BorderBrush="#DDDDDD"/>
                                             </Grid>
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="0" Grid.Row="2" Margin="0,0,0,15">
-                                            <TextBlock Text="Payment Type" Margin="0,0,0,5"/>
-                                            <ComboBox x:Name="CmbPaymentType" Style="{StaticResource CustomComboBoxStyle}" Height="40" Padding="10,0" VerticalContentAlignment="Center">
+                                            <TextBlock Text="Payment Type" Margin="0,0,0,5" Foreground="#374655"/>
+                                            <ComboBox x:Name="CmbPaymentType" Style="{StaticResource CustomComboBoxStyle}" Height="40" Padding="10,0" VerticalContentAlignment="Center" Background="Transparent">
                                                 <ComboBoxItem Content="Rent Payment" IsSelected="True"/>
                                                 <ComboBoxItem Content="Maintenance Fee"/>
                                                 <ComboBoxItem Content="Utility Payment"/>
@@ -381,7 +380,7 @@ Height="18" HorizontalAlignment="Center"/>
                                         <!-- Right Column -->
 
                                         <StackPanel Grid.Column="2" Grid.Row="1" Margin="0,0,0,15">
-                                            <TextBlock Text="Payment Method" Margin="0,0,0,5"/>
+                                            <TextBlock Text="Payment Method" Margin="0,0,0,5" Foreground="#374655"/>
                                             <ComboBox x:Name="CmbPaymentMethod" Style="{StaticResource CustomComboBoxStyle}" Height="40" Padding="10,0" VerticalContentAlignment="Center">
                                                 <ComboBoxItem Content="Cash" IsSelected="True"/>
                                                 <ComboBoxItem Content="Credit Card"/>
@@ -392,7 +391,7 @@ Height="18" HorizontalAlignment="Center"/>
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="2" Grid.Row="2" Margin="0,0,0,15">
-                                            <TextBlock Text="Status" Margin="0,0,0,5"/>
+                                            <TextBlock Text="Status" Margin="0,0,0,5" Foreground="#374655"/>
                                             <ComboBox x:Name="CmbStatus" Style="{StaticResource CustomComboBoxStyle}" Height="40" Padding="10,0" VerticalContentAlignment="Center">
                                                 <ComboBoxItem Content="Paid" IsSelected="True"/>
                                                 <ComboBoxItem Content="Pending"/>
@@ -445,11 +444,11 @@ Height="18" HorizontalAlignment="Center"/>
 
                                 <!-- Additional Information Section -->
                                 <StackPanel Grid.Row="2" Margin="0,0,0,25">
-                                    <TextBlock Text="Additional Information" Foreground="#0430AD" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,20"/>
+                                    <TextBlock Text="Additional Information" Foreground="#0430AD" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,20" />
                                     <StackPanel>
                                         <TextBlock Text="Notes / Description" Margin="0,0,0,5"/>
                                         <TextBox x:Name="TxtNotes" Height="100" TextWrapping="Wrap" AcceptsReturn="True" 
-                                 Padding="10" VerticalScrollBarVisibility="Auto" 
+                                 Padding="10" VerticalScrollBarVisibility="Auto" BorderBrush="#DDDDDD"
                                  VerticalContentAlignment="Top"/>
                                     </StackPanel>
                                 </StackPanel>

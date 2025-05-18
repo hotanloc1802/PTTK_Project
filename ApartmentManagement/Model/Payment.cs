@@ -11,6 +11,8 @@ namespace ApartmentManagement.Model
 
         public decimal total_amount { get; set; }
         public DateTime payment_date { get; set; }
+
+        public DateTime payment_created_date { get; set; }  
         public string payment_status { get; set; }
         [ForeignKey("apartment")]
         public string apartment_id { get; set; }  // Tương ứng với VARCHAR(20)

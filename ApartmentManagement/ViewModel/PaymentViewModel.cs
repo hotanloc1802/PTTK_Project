@@ -264,6 +264,7 @@ namespace ApartmentManagement.ViewModel
         public async Task LoadPaymentsAsync()
         {
             var payments = await _paymentService.GetAllPaymentsAsync();
+           
             AllPayments = new ObservableCollection<Payment>(payments);
             UpdatePagination();
         }

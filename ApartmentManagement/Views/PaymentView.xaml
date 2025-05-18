@@ -484,10 +484,10 @@ To="#959595" Duration="0:0:0.2" />
                     </Grid.ColumnDefinitions>
                     <!-- Add button -->
                     <Border Grid.Column="1" Background="#0430AD" Padding="8,4" BorderThickness="0" CornerRadius="10" Margin="0,10,0,10" Width="172.443333333333" >
-                        <Button Grid.Column="1"  Foreground="White"  BorderThickness="0">
-                            <StackPanel Orientation="Horizontal">
+                        <Button Grid.Column="1"  Foreground="White"  BorderThickness="0" Click="BtnAddBill_Click">
+                            <StackPanel Orientation="Horizontal" >
                                 <TextBlock Text="+ " FontWeight="Bold" VerticalAlignment="Center" FontFamily="Montserrat Bold" FontSize="12" />
-                                <TextBlock Text="Add New Payment" VerticalAlignment="Center" FontFamily="Montserrat Bold" FontSize="12" />
+                                <TextBlock Text="Add New Bill" VerticalAlignment="Center" FontFamily="Montserrat Bold" FontSize="12"  />
                             </StackPanel>
                         </Button>
                     </Border>
@@ -495,16 +495,16 @@ To="#959595" Duration="0:0:0.2" />
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
                     <Border x:Name="borderAll" CornerRadius="10" Margin="0,0,0,0" Background="#0430AD" BorderThickness="0" Width="60">
-                        <Button x:Name="btnAll" Content="All" Foreground="White" FontFamily="Montserrat Bold"/>
+                        <Button x:Name="btnAll" Content="All" Foreground="White" FontFamily="Montserrat Bold" Click="BtnAll_Click"/>
                     </Border>
-                    <Border x:Name="borderPending" CornerRadius="10" Margin="10,0,0,0" Background="#F0F0F0" BorderThickness="0" Width="auto">
-                        <Button x:Name="btnPending" Content="Pending" Foreground="#434343" FontFamily="Montserrat Bold"/>
+                    <Border x:Name="borderPending" CornerRadius="10" Background="#F0F0F0" BorderThickness="0" Width="120" Margin="10,0,0,0" >
+                        <Button x:Name="btnPending" Content="Pending" Foreground="#434343" FontFamily="Montserrat Bold" Click="BtnPending_Click"/>
                     </Border>
-                    <Border x:Name="borderCompleted" CornerRadius="10" Margin="10,0,0,0" Background="#F0F0F0" BorderThickness="0" Width="auto">
-                        <Button x:Name="btnCompleted" Content="Completed" Foreground="#434343" FontFamily="Montserrat Bold"/>
+                    <Border x:Name="borderCompleted" CornerRadius="10" Background="#F0F0F0" BorderThickness="0" Width="120" Margin="10,0,0,0">
+                        <Button x:Name="btnCompleted" Content="Completed" Foreground="#434343" FontFamily="Montserrat Bold" Click="BtnCompleted_Click"/>
                     </Border>
-                    <Border x:Name="borderOverdue" CornerRadius="10" Margin="10,0,0,0" Background="#F0F0F0" BorderThickness="0" Width="auto">
-                        <Button x:Name="btnOverdue" Content="Overdue" Foreground="#434343" FontFamily="Montserrat Bold"/>
+                    <Border x:Name="borderOverdue" CornerRadius="10" Background="#F0F0F0" BorderThickness="0" Width="120" Margin="10,0,0,0">
+                        <Button x:Name="btnOverdue" Content="Overdue" Foreground="#434343" FontFamily="Montserrat Bold" Click="BtnOverdue_Click"/>
                     </Border>
                 </StackPanel>
 
@@ -527,7 +527,8 @@ To="#959595" Duration="0:0:0.2" />
                         <TextBlock Text="Sort by:" VerticalAlignment="Center" Margin="0,0,10,0"/>
                         <ComboBox x:Name="sortComboBox" Style="{StaticResource CustomComboBoxStyle}" Width="180" SelectedIndex="0" SelectionChanged="SortComboBox_SelectionChanged">
                             <ComboBoxItem Content="Apartment Number"/>
-                            <ComboBoxItem Content="ID"/>
+                            <ComboBoxItem Content="Payment Created Date (Newest)"/>
+                            <ComboBoxItem Content="Payment Created Date (Latest)"/>
                         </ComboBox>
                     </StackPanel>
                 </Grid>
@@ -559,10 +560,27 @@ To="#959595" Duration="0:0:0.2" />
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Apartment Number" Binding="{Binding apartment_id}" Width="200"/>
-                        <DataGridTextColumn Header="Total Amount" Binding="{Binding total_amount}" Width="200"/>
-                        <DataGridTextColumn Header="Billing Date" Binding="{Binding payment_date}" Width="200"/>
-                        <DataGridTextColumn Header="Payment Status" Binding="{Binding payment_status}" Width="*"/>
+                        <DataGridTextColumn Header="Apartment Number" Binding="{Binding apartment_id}" Width="150"/>
+                        <DataGridTextColumn Header="Total Amount" Binding="{Binding total_amount, StringFormat={}{0:N0} VND}" Width="170"/>
+                        <DataGridTextColumn Header="Payment Status" Binding="{Binding payment_status}" Width="*">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding payment_status}" Value="Completed">
+                                            <Setter Property="Foreground" Value="Green"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding payment_status}" Value="Pending">
+                                            <Setter Property="Foreground" Value="Yellow"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding payment_status}" Value="Overdue">
+                                            <Setter Property="Foreground" Value="Red"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Payment Created Date" Binding="{Binding payment_created_date, StringFormat='dd/MM/yyyy'}" Width="170"/>
+                        <DataGridTextColumn Header="Payment Date" Binding="{Binding payment_date, StringFormat='dd/MM/yyyy'}" Width="200"/>
                         <DataGridTemplateColumn Header="Actions" Width="120">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

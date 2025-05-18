@@ -232,8 +232,8 @@ namespace ApartmentManagement.Views
         #region Filters & Sorting
         private void UpdateButtonState(Button clickedButton)
         {
-            Button[] buttons = { btnAll, btnPending, btnCompleted };
-            Border[] borders = { borderAll, borderPending, borderCompleted };
+            Button[] buttons = { btnAll, btnPending, btnCompleted, btnOverdue };
+            Border[] borders = { borderAll, borderPending, borderCompleted, borderOverdue };
 
             Color activeBackgroundColor = (Color)ColorConverter.ConvertFromString("#0430AD");
             Color activeTextColor = Colors.White;
@@ -254,7 +254,15 @@ namespace ApartmentManagement.Views
                 }
             }
         }
-
+        private async void BtnOverdue_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is PaymentViewModel viewModel)
+            {
+                await viewModel.FilterPaymentsAsync("Overdue");
+                UpdatePaginationButtons(viewModel.CurrentPage, viewModel.TotalPages);
+                UpdateButtonState(btnOverdue);
+            }
+        }
         private async void BtnPending_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is PaymentViewModel viewModel)
@@ -285,7 +293,12 @@ namespace ApartmentManagement.Views
                 UpdateButtonState(btnAll);
             }
         }
-
+        private void BtnAddBill_Click(object sender, RoutedEventArgs e)
+        {
+            PaymentCreateView billcreateView = new PaymentCreateView();
+            billcreateView.Show();
+            this.Close();
+        }
         private async void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DataContext is PaymentViewModel viewModel &&
@@ -304,6 +317,7 @@ namespace ApartmentManagement.Views
                 await viewModel.SortPaymentsAsync(sortType);
             }
         }
+      
         #endregion
 
         #region Search
