@@ -24,6 +24,7 @@ namespace ApartmentManagement.Model
         public DateTime created_at { get; set; }
         public DateTime updated_at { get; set; }
 
+        public DateTime date_register { get; set; }
         public Apartment apartment { get; set; }
         public Resident owner { get; set; }
 

@@ -21,6 +21,7 @@ using ApartmentManagement.Repository;
 using ApartmentManagement.Service;
 using ApartmentManagement.ViewModels;
 using ApartmentManagement.Core.Factory;
+using ApartmentManagement.ViewModel;
 namespace ApartmentManagement.Views
 {
     /// <summary>
@@ -31,7 +32,11 @@ namespace ApartmentManagement.Views
         public MainWindowView()
         {
             InitializeComponent();
-          
+            var apartmentDbContext = DbContextFactory.CreateDbContext();
+            DashboardRepository dashboardRepository = new DashboardRepository(apartmentDbContext);
+            DashboardViewModel dashboardViewModel = new DashboardViewModel(dashboardRepository);
+            DataContext = dashboardViewModel;
+
         }
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
