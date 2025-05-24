@@ -105,10 +105,20 @@ namespace ApartmentManagement.Repository
 
         public async Task<bool> SetPaymentStatusCompleted(string paymentId)
         {
-            var rowsAffected = await _context.Database.ExecuteSqlRawAsync(
-                "UPDATE mien_dong.payments SET payment_status = 'Completed' WHERE payment_id = {0}",
-                paymentId);
+            // Use reflection to retrieve the current schema from the DbContext
+            var schemaField = _context.GetType().GetField("_schema", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            string schema = "mien_dong"; // default schema if not found
+            if (schemaField != null)
+            {
+                var schemaValue = schemaField.GetValue(_context) as string;
+                if (!string.IsNullOrEmpty(schemaValue))
+                {
+                    schema = schemaValue;
+                }
+            }
 
+            var sql = $"UPDATE {schema}..payments SET payment_status = 'Completed' WHERE payment_id = {0}";
+            var rowsAffected = await _context.Database.ExecuteSqlRawAsync(sql, paymentId);
             return rowsAffected > 0;
         }
     }
