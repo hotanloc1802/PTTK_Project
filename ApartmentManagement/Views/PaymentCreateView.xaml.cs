@@ -1,6 +1,7 @@
 ﻿using ApartmentManagement.Core.Factory;
 using ApartmentManagement.Repository;
 using ApartmentManagement.Service;
+using ApartmentManagement.ViewModel;
 using ApartmentManagement.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -27,24 +28,22 @@ namespace ApartmentManagement.Views
         {
             InitializeComponent();
 
-            // Focus on Amount field
+            var paymentDbContext = DbContextFactory.CreateDbContext();
+
+            PaymentRepository paymentRepository = new PaymentRepository(paymentDbContext);
+            PaymentService paymentService = new PaymentService(paymentRepository);
+            PaymentViewModel paymentViewModel = new PaymentViewModel(paymentService);
+
+            DataContext = paymentViewModel;
+            paymentViewModel?.SelectBuildingInListBox(BuildingListBox);
+
             TxtAmount.Focus();
-
-            // Setup event handlers for search box
-            CmbApartment.GotFocus += TextBox_GotFocus;
-            CmbApartment.LostFocus += TextBox_LostFocus;
-
-            // Initialize amount with 0.00
             TxtAmount.Text = "0.00";
-
-            // Add input validation for amount (numbers only)
             TxtAmount.PreviewTextInput += (s, e) => {
                 if (!char.IsDigit(e.Text[0]) && e.Text[0] != '.')
                 {
                     e.Handled = true;
                 }
-
-                // Only allow one decimal point
                 if (e.Text[0] == '.' && TxtAmount.Text.Contains('.'))
                 {
                     e.Handled = true;
@@ -82,9 +81,7 @@ namespace ApartmentManagement.Views
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             // Validate required fields
-            if (string.IsNullOrWhiteSpace(TxtAmount.Text) ||
-                CmbApartment.SelectedItem == null ||
-                CmbResident.SelectedItem == null)
+            if (string.IsNullOrWhiteSpace(TxtAmount.Text) == null)
             {
                 MessageBox.Show(
                     "Please fill in all required fields: Amount, Apartment, and Resident.",
@@ -128,10 +125,7 @@ namespace ApartmentManagement.Views
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(CmbApartment.Text))
-            {
-                txtSearch.Visibility = Visibility.Visible;
-            }
+            txtSearch.Visibility = Visibility.Visible;
         }
     }
 }

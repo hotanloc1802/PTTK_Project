@@ -28,16 +28,16 @@ namespace ApartmentManagement.Repository
         public async Task<int> CountLastMonthOccupiedApartmentsAsync()
         {
             var lastMonth = DateTime.UtcNow.AddMonths(-1);
-            return await _context.Apartments.CountAsync(a => a.vacancy_status == "Occupied" && a.date_register <= lastMonth);
+            return await _context.Apartments.CountAsync(a => a.vacancy_status == "Occupied" && a.date_registered <= lastMonth);
         }
-        public async Task<int> CounResidentsAsync()
+        public async Task<int> CountResidentsAsync()
         {
             return await _context.Residents.CountAsync();
         }
-        public async Task<int> CounLastMonthResidentsAsync()
+        public async Task<int> CountLastMonthResidentsAsync()
         {
             var lastMonth = DateTime.UtcNow.AddMonths(-1);
-            return await _context.Residents.CountAsync(r => r.date_register <= lastMonth);
+            return await _context.Residents.CountAsync(r => r.date_registered <= lastMonth);
         }
         public async Task<decimal> TotalRevenueAsync()
         {

@@ -6,14 +6,17 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Xml.Linq;
+using static QRCoder.PayloadGenerator;
 
 namespace ApartmentManagement.ViewModel
 {
@@ -23,19 +26,20 @@ namespace ApartmentManagement.ViewModel
         // Observable Collections
         private ObservableCollection<Payment> _payments;
         private ObservableCollection<Payment> _allPayments;
+        private ObservableCollection<Bill> _bills;
 
         // Pagination Variables
         private int _currentPage = 1;
         private int _itemsPerPage = 6;
         private int _totalPages;
 
-        // Payment Fields
-        private int _paymentId;
-        private decimal _paymentAmount;
+        // Bill Fields
+        private string _apartmentId;
+        private string _billType;
         private decimal _billAmount;
         private string _paymentStatus;
-        private string _billType;
         private DateTime _dueDate;
+        private DateTime _billDate;
 
         private string _lastFilterStatus;
 
@@ -106,55 +110,14 @@ namespace ApartmentManagement.ViewModel
                 OnPropertyChanged();
             }
         }
-        public int PaymentId
-        {
-            get => _paymentId;
-            set
-            {
-                if (_paymentId != value)
-                {
-                    _paymentId = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
 
-        public decimal PaymentAmount
+        public string ApartmentId
         {
-            get => _paymentAmount;
+            get => _apartmentId;
             set
             {
-                if (_paymentAmount != value)
-                {
-                    _paymentAmount = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public decimal BillAmount
-        {
-            get => _billAmount;
-            set
-            {
-                if (_billAmount != value)
-                {
-                    _billAmount = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string PaymentStatus
-        {
-            get => _paymentStatus;
-            set
-            {
-                if (_paymentStatus != value)
-                {
-                    _paymentStatus = value;
-                    OnPropertyChanged();
-                }
+                _apartmentId = value;
+                OnPropertyChanged();
             }
         }
 
@@ -163,11 +126,28 @@ namespace ApartmentManagement.ViewModel
             get => _billType;
             set
             {
-                if (_billType != value)
-                {
-                    _billType = value;
-                    OnPropertyChanged();
-                }
+                _billType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public decimal BillAmount
+        {
+            get => _billAmount;
+            set
+            {
+                _billAmount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string PaymentStatus
+        {
+            get => _paymentStatus;
+            set
+            {
+                _paymentStatus = value;
+                OnPropertyChanged();
             }
         }
 
@@ -176,14 +156,20 @@ namespace ApartmentManagement.ViewModel
             get => _dueDate;
             set
             {
-                if (_dueDate != value)
-                {
-                    _dueDate = value;
-                    OnPropertyChanged();
-                }
+                _dueDate = value;
+                OnPropertyChanged();
             }
         }
 
+        public DateTime BillDate
+        {
+            get => _billDate;
+            set
+            {
+                _billDate = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         #region Commands
@@ -192,10 +178,12 @@ namespace ApartmentManagement.ViewModel
         public ICommand NextPageCommand { get; private set; }
         public ICommand PreviousPageCommand { get; private set; }
         public ICommand GoToPageCommand { get; private set; }
+        public ICommand AddBillCommand { get; private set; }
         private void InitializeCommands()
         {
             LoadPaymentsCommand = new RelayCommand(async () => await LoadPaymentsAsync());
             DeletePaymentCommand = new RelayCommand<string>(async (id) => await DeletePaymentAsync(id));
+            AddBillCommand = new RelayCommand(AddBill);
 
             NextPageCommand = new RelayCommand(() => CurrentPage++, () => CurrentPage < TotalPages);
             PreviousPageCommand = new RelayCommand(() => CurrentPage--, () => CurrentPage > 1);
@@ -329,6 +317,42 @@ namespace ApartmentManagement.ViewModel
         public async Task<bool> SetPaymentStatusCompleted(string paymentId)
         {
             return await _paymentService.SetPaymentStatusCompleted(paymentId);
+        }
+
+        private async void AddBill()
+        {
+            DueDate = DateTime.UtcNow.AddDays(30);
+
+            // Create a new Bill instance using properties from the ViewModel
+            var newBill = new Bill
+            {
+                apartment_id = ApartmentId,
+                bill_type = BillType,
+                bill_amount = BillAmount,
+                payment_status = PaymentStatus,
+                due_date = DueDate,
+            };
+
+            // Assuming PaymentService has a method to create a bill asynchronously
+            var result = await _paymentService.CreateBillAsync(newBill);
+            if (result)
+            {
+                MessageBox.Show("Bill added successfully.");
+                ResetForm();
+            }
+            else
+            {
+                MessageBox.Show("Failed to add bill.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ResetForm()
+        {
+            ApartmentId = string.Empty;
+            BillType = string.Empty;
+            BillAmount = 0;
+            PaymentStatus = string.Empty;
+            DueDate = DateTime.UtcNow.AddDays(30);
         }
         #endregion
 

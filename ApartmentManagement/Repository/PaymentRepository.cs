@@ -117,9 +117,29 @@ namespace ApartmentManagement.Repository
                 }
             }
 
-            var sql = $"UPDATE {schema}..payments SET payment_status = 'Completed' WHERE payment_id = {0}";
+            // Concatenate schema (which is safe as it comes from the DbContext) and use parameters for user input
+            var sql = $"UPDATE {schema}.payments SET payment_status = 'Completed' WHERE payment_id = {{0}}";
             var rowsAffected = await _context.Database.ExecuteSqlRawAsync(sql, paymentId);
             return rowsAffected > 0;
+        }
+
+        public async Task<bool> CreateBillAsync(Bill bill)
+        {
+            try
+            {
+                bill.bill_id = "".ToString();
+                bill.bill_id = "".ToString();
+                bill.bill_date = DateTime.UtcNow;
+
+                _context.Bills.Add(bill);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating bill: {ex.Message}");
+                return false;
+            }
         }
     }
 }

@@ -717,7 +717,7 @@ To="#959595" Duration="0:0:0.2" />
                                     <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom">
                                         <TextBlock x:Name="PendingServices" Text="{Binding RequestAllCount}" FontSize="28" FontWeight="Bold" 
                                        Foreground="#121518"/>
-                                        <TextBlock Text=" Pending" FontSize="16" Foreground="#6C7682" 
+                                        <TextBlock Text=" In Total" FontSize="16" Foreground="#6C7682" 
                                        VerticalAlignment="Bottom" Margin="5,0,0,3"/>
                                     </StackPanel>
 
@@ -988,7 +988,7 @@ To="#959595" Duration="0:0:0.2" />
 
                                     <StackPanel Grid.Row="1">
                                         <Button Margin="0 0 0 10" Height="40" Background="#0430AD" Foreground="White" 
-                                    BorderThickness="0" FontWeight="SemiBold" FontSize="13" VerticalContentAlignment="Center">
+                                    BorderThickness="0" FontWeight="SemiBold" FontSize="13" VerticalContentAlignment="Center" Click="BtnCreatePayment_Click">
                                             <StackPanel Orientation="Horizontal">
                                                 <Icon:PackIconMaterial Kind="CreditCard" Width="18" Height="18" Margin="0 0 8 0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="Create New Payment" VerticalAlignment="Center"/>
@@ -996,7 +996,7 @@ To="#959595" Duration="0:0:0.2" />
                                         </Button>
 
                                         <Button Margin="0 0 0 10" Height="40" Background="#4CAF50" Foreground="White" 
-                                    BorderThickness="0" FontWeight="SemiBold" FontSize="13" VerticalContentAlignment="Center">
+                                    BorderThickness="0" FontWeight="SemiBold" FontSize="13" VerticalContentAlignment="Center" Click="BtnCreateResident_Click">
                                             <StackPanel Orientation="Horizontal">
                                                 <Icon:PackIconMaterial Kind="AccountPlus" Width="18" Height="18" Margin="0 0 8 0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="Add New Resident" VerticalAlignment="Center"/>

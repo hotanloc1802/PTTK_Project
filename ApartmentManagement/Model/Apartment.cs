@@ -28,7 +28,7 @@ namespace ApartmentManagement.Model
         public Building building { get; set; }
         public Resident owner { get; set; }
 
-        public DateTime date_register { get; set; }
+        public DateTime date_registered { get; set; }
         public ICollection<Resident> residents { get; set; }
         public ICollection<Bill> bills { get; set; }
         public ICollection<ServiceRequest> service_requests { get; set; }

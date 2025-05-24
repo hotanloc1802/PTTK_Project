@@ -52,5 +52,9 @@ namespace ApartmentManagement.Service
         {
             return await _paymentRepository.SetPaymentStatusCompleted(paymentId);
         }
+        public async Task<bool> CreateBillAsync(Bill bill)
+        {
+            return await _paymentRepository.CreateBillAsync(bill);
+        }
     }
 }

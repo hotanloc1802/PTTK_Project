@@ -259,12 +259,12 @@ namespace ApartmentManagement.ViewModel
         {
             // Hãy đảm bảo tên này khớp với DashboardRepository của bạn
             // Giả sử tên đúng là CountResidentsAsync (thay vì CounResidentsAsync)
-            ResidentAllCount = await _dashboardRepository.CounResidentsAsync();
+            ResidentAllCount = await _dashboardRepository.CountResidentsAsync();
         }
         private async Task LoadCountLastMonthResidentsAsync()
         {
             // Giả sử tên đúng là CountLastMonthResidentsAsync
-            ResidentLastMonthCount = await _dashboardRepository.CounLastMonthResidentsAsync();
+            ResidentLastMonthCount = await _dashboardRepository.CountLastMonthResidentsAsync();
         }
         private async Task LoadTotalRevenueAsync()
         {

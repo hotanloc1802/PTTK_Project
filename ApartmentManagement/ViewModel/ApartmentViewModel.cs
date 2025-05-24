@@ -29,7 +29,7 @@ namespace ApartmentManagement.ViewModels
         private int _totalPages;
 
         // Apartment Fields
-        private string _apartmentNumber;
+        private string _apartmentId;
         private string _buildingName;
         private int _maxPopulation;
         private int _currentPopulation;
@@ -190,12 +190,12 @@ namespace ApartmentManagement.ViewModels
             }
         }
 
-        public string ApartmentNumber
+        public string ApartmentId
         {
-            get => _apartmentNumber;
+            get => _apartmentId;
             set
             {
-                _apartmentNumber = value;
+                _apartmentId = value;
                 OnPropertyChanged();
             }
         }
@@ -372,6 +372,7 @@ namespace ApartmentManagement.ViewModels
                 current_population = CurrentPopulation,
                 vacancy_status = VacancyStatus,
                 transfer_status = TransferStatus,
+                apartment_id = ApartmentId,
             };
 
             var building = await _apartmentService.GetBuildingByNameAsync(BuildingName);
@@ -401,7 +402,7 @@ namespace ApartmentManagement.ViewModels
         // Reset Form after adding an apartment
         private void ResetForm()
         {
-            ApartmentNumber = string.Empty;
+            ApartmentId = string.Empty;
             BuildingName = string.Empty;
             MaxPopulation = 0;
             CurrentPopulation = 0;

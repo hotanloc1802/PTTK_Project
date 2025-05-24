@@ -89,5 +89,18 @@ namespace ApartmentManagement.Views
             serviceView.Show();
             this.Close();
         }
+
+        private void BtnCreatePayment_Click(object sender, RoutedEventArgs e)
+        {
+            PaymentCreateView paymentCreateView = new PaymentCreateView();
+            paymentCreateView.Show();
+            this.Close();
+        }
+        private void BtnCreateResident_Click(object sender, RoutedEventArgs e)
+        {
+            ResidentCreateView residentCreateView = new ResidentCreateView();
+            residentCreateView.Show();
+            this.Close();
+        }
     }
 }

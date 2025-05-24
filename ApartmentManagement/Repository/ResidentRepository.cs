@@ -53,6 +53,8 @@ namespace ApartmentManagement.Repository
         {
             resident.created_at = DateTime.UtcNow; // Set the creation timestamp
             resident.updated_at = DateTime.UtcNow; // Set the update timestamp
+            resident.resident_id = "";
+
             _context.Residents.Add(resident);
             await _context.SaveChangesAsync();
             return true;

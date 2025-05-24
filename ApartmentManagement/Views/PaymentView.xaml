@@ -561,7 +561,7 @@ To="#959595" Duration="0:0:0.2" />
                     </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Apartment Number" Binding="{Binding apartment_id}" Width="150"/>
-                        <DataGridTextColumn Header="Total Amount" Binding="{Binding total_amount, StringFormat={}{0:N0} VND}" Width="170"/>
+                        <DataGridTextColumn Header="Total Amount" Binding="{Binding total_amount, StringFormat={}{0:N0} $}" Width="170"/>
                         <DataGridTextColumn Header="Payment Status" Binding="{Binding payment_status}" Width="*">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">

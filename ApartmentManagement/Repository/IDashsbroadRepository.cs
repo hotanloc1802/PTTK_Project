@@ -12,8 +12,8 @@ namespace ApartmentManagement.Repository
         Task<int> CountAllApartmentsAsync();
         Task<int> CountOccupiedApartmentsAsync();
         Task<int> CountLastMonthOccupiedApartmentsAsync();
-        Task<int> CounResidentsAsync();
-        Task<int> CounLastMonthResidentsAsync();
+        Task<int> CountResidentsAsync();
+        Task<int> CountLastMonthResidentsAsync();
         Task<decimal> TotalRevenueAsync();
         Task<decimal> TotalLastMonthRevenueAsync();
         Task<int> CountRequestAsync();
