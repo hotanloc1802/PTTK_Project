@@ -92,24 +92,32 @@ namespace ApartmentManagement.ViewModel
         public async Task LoadResidentInfoAsync(string residentID)
         {
             var resident = await _residentService.GetOneResidentAsync(residentID);
+            var owner = await _residentService.GetOneResidentAsync(resident.owner_id);
             SelectedResident = resident;
             var payment = SelectedResident.apartment.payments
-                                    .OrderByDescending(p => p.payment_date) // GIẢ ĐỊNH: Payment có thuộc tính PaymentDate
-                                    .FirstOrDefault(); // Lấy ra payment gần đây nhất
-            OwnerName = resident.apartment.owner.name;
-            if (payment != null)
+                                    .OrderByDescending(p => p.payment_date)
+                                    .FirstOrDefault();
+            OwnerName = owner != null ? owner.name : "No Owner Assigned";
+
+            if (payment == null)
             {
-                RecentTotalAmount = payment.total_amount;
-            }
-            if (payment.payment_status == "Pending")
-            {
-                RemainingAmount = RecentTotalAmount;
-                PaymentDate = "Not Paid Yet";
+                RecentTotalAmount = 0;
+                RemainingAmount = 0;
+                PaymentDate = "No Payment Records";
             }
             else
             {
-                RemainingAmount = 0;
-                PaymentDate = payment.payment_date.ToString("dd/MM/yyyy");
+                RecentTotalAmount = payment.total_amount;
+                if (payment.payment_status == "Pending")
+                {
+                    RemainingAmount = RecentTotalAmount;
+                    PaymentDate = "Not Paid Yet";
+                }
+                else
+                {
+                    RemainingAmount = 0;
+                    PaymentDate = payment.payment_date.ToString("dd/MM/yyyy");
+                }
             }
         }
 

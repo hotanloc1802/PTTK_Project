@@ -27,7 +27,7 @@ namespace ApartmentManagement.Repository
         {
             return await _context.Residents
                 .Include(r => r.apartment)
-                    .ThenInclude(a => a.payments) // Tải tất cả payments của apartment
+                .ThenInclude(a => a.payments)
                 .FirstOrDefaultAsync(r => r.resident_id == id);
         }
         public async Task<IEnumerable<Resident>> GetResidentsByApartmentNumberAsync(string apartmentNumberSubset)
@@ -71,6 +71,7 @@ namespace ApartmentManagement.Repository
             existingResident.email = resident.email;
             existingResident.sex = resident.sex;
             existingResident.identification_number = resident.identification_number;
+            existingResident.resident_status = resident.resident_status;
             existingResident.updated_at = DateTime.UtcNow; // Update the timestamp
             return await _context.SaveChangesAsync() > 0;
         }

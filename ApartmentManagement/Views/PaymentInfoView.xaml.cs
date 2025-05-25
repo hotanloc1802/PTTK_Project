@@ -51,17 +51,22 @@ namespace ApartmentManagement.Views
             mainWindow.Show();
             this.Close();
         }
-
         private void BtnApartment_Click(object sender, RoutedEventArgs e)
         {
-            ApartmentView apartmentView = new ApartmentView();
-            apartmentView.Show();
+            ApartmentView apartmentWindow = new ApartmentView();
+            apartmentWindow.Show();
             this.Close();
         }
         private void BtnResident_Click(object sender, RoutedEventArgs e)
         {
-            ResidentView residentView = new ResidentView();
-            residentView.Show();
+            ResidentView residentWindow = new ResidentView();
+            residentWindow.Show();
+            this.Close();
+        }
+        private void BtnService_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceView serviceWindow = new ServiceView();
+            serviceWindow.Show();
             this.Close();
         }
         private void BtnClose_Click(object sender, RoutedEventArgs e)

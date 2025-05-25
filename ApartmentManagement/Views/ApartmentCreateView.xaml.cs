@@ -54,6 +54,24 @@ namespace ApartmentManagement.Views
             dashboardWindow.Show();
             this.Close();
         }
+        private void BtnResident_Click(object sender, RoutedEventArgs e)
+        {
+            ResidentView residentWindow = new ResidentView();
+            residentWindow.Show();
+            this.Close();
+        }
+        private void BtnPayment_Click(object sender, RoutedEventArgs e)
+        {
+            PaymentView paymentWindow = new PaymentView();
+            paymentWindow.Show();
+            this.Close();
+        }
+        private void BtnService_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceView serviceWindow = new ServiceView();
+            serviceWindow.Show();
+            this.Close();
+        }
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             txtSearch.Visibility = Visibility.Collapsed;

@@ -71,6 +71,31 @@ namespace ApartmentManagement.Views
             apartmentWindow.Show();
             this.Close();
         }
-        
+
+        private void BtnDashBoard_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindowView dashboardWindow = new MainWindowView();
+            dashboardWindow.Show();
+            this.Close();
+        }
+        private void BtnResident_Click(object sender, RoutedEventArgs e)
+        {
+            ResidentView residentWindow = new ResidentView();
+            residentWindow.Show();
+            this.Close();
+        }
+        private void BtnPayment_Click(object sender, RoutedEventArgs e)
+        {
+            PaymentView paymentWindow = new PaymentView();
+            paymentWindow.Show();
+            this.Close();
+        }
+        private void BtnService_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceView serviceWindow = new ServiceView();
+            serviceWindow.Show();
+            this.Close();
+        }
+
     }
 }

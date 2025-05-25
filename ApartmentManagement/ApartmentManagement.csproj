@@ -42,6 +42,7 @@
     <Folder Include="Component\" />
     <Folder Include="Data\Migration\" />
     <Folder Include="Data\Repository\" />
+    <Folder Include="Resource\Database Queries\" />
   </ItemGroup>
 
 </Project>

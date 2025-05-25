@@ -202,7 +202,7 @@ Height="18" HorizontalAlignment="Center"/>
                 </Border>
 
                 <Border Background="Transparent" CornerRadius="10" Padding="5,5,5,5" Width="142">
-                    <Button x:Name="btnPayement" Style="{StaticResource menuButton}" Width="138" Margin="-5,5,0,5" Background="#0430AD">
+                    <Button x:Name="btnPayment" Style="{StaticResource menuButton}" Width="138" Margin="-5,5,0,5" Background="#0430AD">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Icon:PackIconMaterial Kind="CreditCardOutline" VerticalAlignment="Center" Foreground="white"/>
                             <TextBlock x:Name="paymentText" Text=" Payment" FontFamily="Montserrat Bold" FontSize="13" 
@@ -210,7 +210,7 @@ Height="18" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </Border>                <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
-                    <Button x:Name="btnService"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnService"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnService_Click">
                         <Button.Triggers>
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">

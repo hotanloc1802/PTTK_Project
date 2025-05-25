@@ -162,7 +162,7 @@
         <Grid Grid.Column="1" Grid.Row="2">
             <StackPanel Margin="0,30,0,0" >
                 <Border CornerRadius="10" Padding="5,5,5,5" Margin="0,0,0,0" Width="142"  >
-                    <Button x:Name="btnDashboard"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnDashboard"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnDashBoard_Click">
                         <Button.Triggers>
                             <!-- Trigger khi di chuột vào Button -->
                             <EventTrigger RoutedEvent="UIElement.MouseEnter">
@@ -202,7 +202,7 @@
                 </Border>
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142"  >
                     
-                    <Button x:Name="btnApartment" Style="{StaticResource menuButton}"   Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnApartment" Style="{StaticResource menuButton}"   Width="138" Margin="-5,5,0,5" Click="BtnApartment_Click">
                         <Button.Triggers>
 
                             <!-- Trigger khi di chuột vào Button -->
@@ -249,7 +249,7 @@
                     </Button>
                 </Border>
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
-                    <Button x:Name="btnPayement"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnPayement"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnPayment_Click">
                         <Button.Triggers>
 
                             <!-- Trigger khi di chuột vào Button -->
@@ -287,7 +287,7 @@
                     </Button>
                 </Border>
                 <Border Background="Transparent" Padding="5,5,5,5"  Width="142">
-                    <Button x:Name="btnService"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnService"  Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Click="BtnService_Click">
                         <Button.Triggers>
 
                             <!-- Trigger khi di chuột vào Button -->
@@ -607,13 +607,22 @@
                                                  Text="{Binding SelectedResident.identification_number, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" Grid.Row="4" Margin="20 10 15 10">
-                                        <TextBlock Foreground="#374655" FontSize="13" Margin="0 0 0 8">
-                                            <Run Text="Apartment Number"/>
-                                            <Run Text="*" Foreground="Red"/>
+                                        <TextBlock FontSize="13" Margin="0 0 0 8">
+                                            <Run Text="Resident Status " Foreground="#374655"/>
                                         </TextBlock>
-                                        <TextBox x:Name="apartmentNumber" Height="40" Padding="10 0" VerticalContentAlignment="Center"
-                                                 BorderThickness="1" BorderBrush="#E1E6EB"
-                                                 Text="{Binding SelectedResident.apartment.apartment_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Border CornerRadius="6" BorderBrush="#E1E6EB" BorderThickness="1" Background="#FFFFFF">
+                                            <Grid>
+                                                <ComboBox x:Name="ResidentStatus" Height="45" Padding="12,0,12,0" 
+                                                          Background="Transparent" BorderThickness="0"
+                                                          SelectedValuePath="Content"
+                                                          SelectedValue="{Binding SelectedResident.resident_status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                    <ComboBoxItem Content="Owner"/>
+                                                    <ComboBoxItem Content="Resident"/>
+                                                </ComboBox>
+                                                <TextBlock x:Name="ErrorMessageStatus" Text="{Binding ErrorMessage5}" 
+                                                           Foreground="#E53935" FontSize="11" Margin="12,0,12,8" VerticalAlignment="Bottom"/>
+                                            </Grid>
+                                        </Border>
                                     </StackPanel>
 
                                     <!--Main Button-->

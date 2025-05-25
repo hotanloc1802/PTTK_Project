@@ -78,6 +78,12 @@ namespace ApartmentManagement.Views
             paymentWindow.Show();
             this.Close();
         }
+        private void BtnService_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceView serviceView = new ServiceView();
+            serviceView.Show();
+            this.Close();
+        }
 
         private bool isFirstSelection = true;  // Cờ kiểm tra lần gọi đầu tiên
 

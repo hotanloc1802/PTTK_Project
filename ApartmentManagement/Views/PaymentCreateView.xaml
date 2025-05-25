@@ -174,7 +174,7 @@ Height="18" HorizontalAlignment="Center"/>
         <Grid Grid.Column="1" Grid.Row="2">
             <StackPanel Margin="0,30,0,0">
                 <Border CornerRadius="10" Padding="5,5,5,5" Margin="0,0,0,0" Width="142">
-                    <Button x:Name="btnDashboard" Style="{StaticResource menuButton}" Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnDashboard" Style="{StaticResource menuButton}" Width="138" Margin="-5,5,0,5" Click="BtnDashBoard_Click">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Icon:PackIconMaterial Kind="HomeVariant" VerticalAlignment="Center" Foreground="#959595"/>
                             <TextBlock x:Name="dashboardText" Text=" Dashboard" FontFamily="Montserrat Bold" FontSize="13" 
@@ -184,7 +184,7 @@ Height="18" HorizontalAlignment="Center"/>
                 </Border>
 
                 <Border Background="Transparent" Padding="5,5,5,5" Width="142">
-                    <Button x:Name="btnApartment" Style="{StaticResource menuButton}" Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnApartment" Style="{StaticResource menuButton}" Width="138" Margin="-5,5,0,5" Click="BtnApartment_Click">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Icon:PackIconMaterial Kind="Domain" VerticalAlignment="Center" Foreground="#959595"/>
                             <TextBlock x:Name="apartmentText" Text=" Apartment" FontFamily="Montserrat Bold" FontSize="13" 
@@ -194,7 +194,7 @@ Height="18" HorizontalAlignment="Center"/>
                 </Border>
 
                 <Border Background="Transparent" Padding="5,5,5,5" Width="142">
-                    <Button x:Name="btnResident" Style="{StaticResource menuButton}" Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnResident" Style="{StaticResource menuButton}" Width="138" Margin="-5,5,0,5" Click="BtnResident_Click">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Icon:PackIconMaterial Kind="AccountGroup" VerticalAlignment="Center" Foreground="#959595"/>
                             <TextBlock x:Name="residentText" Text=" Resident" FontFamily="Montserrat Bold" FontSize="13" 
@@ -214,7 +214,7 @@ Height="18" HorizontalAlignment="Center"/>
                 </Border>
 
                 <Border Background="Transparent" Padding="5,5,5,5" Width="142">
-                    <Button x:Name="btnService" Style="{StaticResource menuButton}" Width="138" Margin="-5,5,0,5">
+                    <Button x:Name="btnService" Style="{StaticResource menuButton}" Width="138" Margin="-5,5,0,5" Click="BtnService_Click">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Icon:PackIconMaterial Kind="ToolboxOutline" VerticalAlignment="Center" Foreground="#959595" Margin="0,0,3,0"/>
                             <TextBlock x:Name="serviceText" Text=" Service" FontFamily="Montserrat Bold" FontSize="13" 

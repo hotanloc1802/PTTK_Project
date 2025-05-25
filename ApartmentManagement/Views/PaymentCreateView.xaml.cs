@@ -51,14 +51,6 @@ namespace ApartmentManagement.Views
             };
         }
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            // Navigate back to Payment view
-            PaymentView paymentView = new PaymentView();
-            paymentView.Show();
-            this.Close();
-        }
-
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             // Confirm before canceling
@@ -126,6 +118,31 @@ namespace ApartmentManagement.Views
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             txtSearch.Visibility = Visibility.Visible;
+        }
+
+        private void BtnDashBoard_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindowView dashboardWindow = new MainWindowView();
+            dashboardWindow.Show();
+            this.Close();
+        }
+        private void BtnApartment_Click(object sender, RoutedEventArgs e)
+        {
+            ApartmentView apartmentWindow = new ApartmentView();
+            apartmentWindow.Show();
+            this.Close();
+        }
+        private void BtnResident_Click(object sender, RoutedEventArgs e)
+        {
+            ResidentView residentWindow = new ResidentView();
+            residentWindow.Show();
+            this.Close();
+        }
+        private void BtnService_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceView serviceWindow = new ServiceView();
+            serviceWindow.Show();
+            this.Close();
         }
     }
 }
