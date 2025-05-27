@@ -362,10 +362,9 @@ namespace ApartmentManagement.ViewModel
                 phone_number = PhoneNumber,
                 email = Email,
                 sex = Sex,
+                resident_status = ResidentStatus,
                 identification_number = IdentificationNumber,
-            };
-            // Log Sex here
-            MessageBox.Show(Sex, "Debug", MessageBoxButton.OK, MessageBoxImage.Information);
+            };          
             var apartment = await _residentService.GetApartmentByApartmentNumberAsync(ApartmentNumber);
             if (apartment != null)
             {

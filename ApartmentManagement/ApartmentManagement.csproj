@@ -6,12 +6,22 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>bcons_vLA_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resource\Assets\green_view.jpg" />
+    <None Remove="Resource\Assets\htl.jpg" />
     <None Remove="Resource\Assets\img1.jpg" />
     <None Remove="Resource\Assets\img2.jpg" />
     <None Remove="Resource\Assets\Logo-BCons.png" />
+    <None Remove="Resource\Assets\mien_dong.jpg" />
+    <None Remove="Resource\Assets\Plaza.jpg" />
+    <None Remove="Resource\Assets\sala.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="bcons_vLA_icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +37,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resource\Assets\green_view.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resource\Assets\htl.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resource\Assets\img1.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -34,6 +50,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resource\Assets\Logo-BCons.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resource\Assets\mien_dong.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resource\Assets\Plaza.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resource\Assets\sala.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

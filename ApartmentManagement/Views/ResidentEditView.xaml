@@ -441,7 +441,7 @@
                     <Grid Grid.Column="0">
                         <Ellipse Width="40" Height="40">
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                                <ImageBrush ImageSource="/Resource/Assets/htl.jpg"/>
                             </Ellipse.Fill>
                         </Ellipse>
                     </Grid>

@@ -49,7 +49,7 @@
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ListBox x:Name="BuildingListBox" Margin="0,20,0,20" BorderThickness="0" Background="Transparent" SelectedIndex="0" ScrollViewer.VerticalScrollBarVisibility="Disabled"       >
+            <ListBox x:Name="BuildingListBox" Margin="0,20,0,20" BorderThickness="0" Background="Transparent" SelectedIndex="0" ScrollViewer.VerticalScrollBarVisibility="Disabled"   IsEnabled="False"    >
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical"/>
@@ -73,7 +73,7 @@
                     </Grid.RowDefinitions>
                     <Ellipse Width="80" Height="80">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                            <ImageBrush ImageSource="/Resource/Assets/mien_dong.jpg"/>
                         </Ellipse.Fill>
                     </Ellipse>
                     <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
@@ -92,7 +92,7 @@ Height="18" HorizontalAlignment="Center"/>
                     </Grid.RowDefinitions>
                     <Ellipse Width="80" Height="80">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                            <ImageBrush ImageSource="/Resource/Assets/Plaza.jpg"/>
                         </Ellipse.Fill>
                     </Ellipse>
                     <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
@@ -112,7 +112,7 @@ Height="18" HorizontalAlignment="Center"/>
                     </Grid.RowDefinitions>
                     <Ellipse Width="80" Height="80">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                            <ImageBrush ImageSource="/Resource/Assets/sala.png"/>
                         </Ellipse.Fill>
                     </Ellipse>
                     <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
@@ -132,7 +132,7 @@ Height="18" HorizontalAlignment="Center"/>
                     </Grid.RowDefinitions>
                     <Ellipse Width="80" Height="80">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                            <ImageBrush ImageSource="/Resource/Assets/green_view.jpg"/>
                         </Ellipse.Fill>
                     </Ellipse>
                     <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
@@ -254,7 +254,7 @@ Height="18" HorizontalAlignment="Center"/>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Icon:PackIconMaterial Kind="Magnify" Foreground="#9FA4AD" VerticalAlignment="Center" Margin="7,0,0,0" Width="18" Height="18"/>
                         <TextBox x:Name="boxSearch" Background="Transparent" BorderBrush="Transparent" Foreground="#9FA4AD" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" 
-                         Width="571" VerticalAlignment="Center" Padding="5,5" />
+                         Width="571" VerticalAlignment="Center" Padding="5,5" IsEnabled="False"/>
                     </StackPanel>
                 </Border>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -288,7 +288,7 @@ Height="18" HorizontalAlignment="Center"/>
                     <Grid Grid.Column="0">
                         <Ellipse Width="40" Height="40">
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                                <ImageBrush ImageSource="/Resource/Assets/htl.jpg"/>
                             </Ellipse.Fill>
                         </Ellipse>
                     </Grid>

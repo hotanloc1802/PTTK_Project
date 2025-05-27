@@ -131,7 +131,7 @@
                     </Grid.RowDefinitions>
                     <Ellipse Width="80" Height="80">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                            <ImageBrush ImageSource="/Resource/Assets/mien_dong.jpg"/>
                         </Ellipse.Fill>
                     </Ellipse>
                     <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
@@ -150,7 +150,7 @@ Height="18" HorizontalAlignment="Center"/>
                     </Grid.RowDefinitions>
                     <Ellipse Width="80" Height="80">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                            <ImageBrush ImageSource="/Resource/Assets/Plaza.jpg"/>
                         </Ellipse.Fill>
                     </Ellipse>
                     <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
@@ -170,7 +170,7 @@ Height="18" HorizontalAlignment="Center"/>
                     </Grid.RowDefinitions>
                     <Ellipse Width="80" Height="80">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                            <ImageBrush ImageSource="/Resource/Assets/sala.png"/>
                         </Ellipse.Fill>
                     </Ellipse>
                     <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
@@ -190,7 +190,7 @@ Height="18" HorizontalAlignment="Center"/>
                     </Grid.RowDefinitions>
                     <Ellipse Width="80" Height="80">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                            <ImageBrush ImageSource="/Resource/Assets/green_view.jpg"/>
                         </Ellipse.Fill>
                     </Ellipse>
                     <Grid Grid.Row="2" Background="#f1f1f1" Margin="10,0,10,0" Height="1" />
@@ -222,7 +222,7 @@ Height="18" HorizontalAlignment="Center"/>
             <Grid Grid.Column="0">
                 <Ellipse Width="55" Height="55">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                        <ImageBrush ImageSource="/Resource/Assets/mien_dong.jpg"/>
                     </Ellipse.Fill>
                 </Ellipse>
             </Grid>
@@ -549,7 +549,7 @@ Height="18" HorizontalAlignment="Center"/>
                     <Grid Grid.Column="0">
                         <Ellipse Width="40" Height="40">
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                                <ImageBrush ImageSource="/Resource/Assets/htl.jpg"/>
                             </Ellipse.Fill>
                         </Ellipse>
                     </Grid>
