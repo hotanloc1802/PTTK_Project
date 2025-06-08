@@ -421,15 +421,48 @@ namespace ApartmentManagement.Views
         {
             if (sender is Button button && button.DataContext is Payment selectedPayment)
             {
+                if (selectedPayment.payment_status == "Completed")
+                {
+                    MessageBox.Show("This payment is already completed.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
                 if (DataContext is PaymentViewModel viewModel)
                 {
-                    await viewModel.SetPaymentStatusCompleted(selectedPayment.payment_id);
-                    string message = $"Payment with ID {selectedPayment.payment_id} has been marked as completed.";
-                    MessageBox.Show(message, "Payment Completed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    var dialog = new PaymentMethodDialog();
+                    bool? result = dialog.ShowDialog();
 
-                    PaymentView paymentView = new PaymentView();
-                    paymentView.Show();
-                    this.Close();
+                    if (result == true)
+                    {
+                        string selectedMethod = dialog.SelectedMethod;
+
+                        if (!string.IsNullOrEmpty(selectedMethod))
+                        {
+                            await viewModel.SetPaymentStatusCompleted(selectedPayment.payment_id, selectedMethod);
+
+                            MessageBox.Show(
+                                $"Payment with ID {selectedPayment.payment_id} has been marked as completed using {selectedMethod}.",
+                                "Payment Completed", MessageBoxButton.OK, MessageBoxImage.Information
+                            );
+
+                            await viewModel.LoadPaymentsAsync();
+
+                            selectedPayment.payment_status = "Completed";
+                            selectedPayment.payment_method = selectedMethod;
+                        }
+                        else
+                        {
+                            MessageBox.Show("No payment method was selected.", "Action Canceled", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Payment process was canceled.", "Action Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("ViewModel not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

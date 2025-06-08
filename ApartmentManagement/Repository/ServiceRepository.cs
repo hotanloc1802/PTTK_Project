@@ -49,7 +49,23 @@ namespace ApartmentManagement.Repository
                 .Where(sr => sr.status == status)
                 .ToListAsync();
         }
+        public async Task<bool> CreateServiceRequestsAsync(ServiceRequest service)
+        {
+            service.request_date = DateTime.UtcNow; // Set the creation timestamp
+            service.completed_date = new DateTime(9999, 12, 3).ToUniversalTime();
+            service.request_id = "";
+            service.status = "In Progress";
 
+            _context.ServiceRequests.Add(service);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        public async Task<Resident> GetResidentByPhoneNumberAsync(string phoneNumber)
+        {
+            return await _context.Residents
+                                  .Where(r => r.phone_number == phoneNumber)
+                                  .FirstOrDefaultAsync();
+        }
         public async Task<IEnumerable<ServiceRequest>> SortServiceRequestsAsync(string sortType)
         {
             IQueryable<ServiceRequest> query = _context.ServiceRequests

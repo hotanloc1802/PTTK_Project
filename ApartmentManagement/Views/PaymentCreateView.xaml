@@ -20,6 +20,129 @@
             <Setter Property="BorderBrush" Value="Gray"/>
             <Setter Property="Foreground" Value="#374655"/>
         </Style>
+        <!-- Simple Modern DatePicker Style -->
+        <Style x:Key="ModernDatePickerStyle" TargetType="DatePicker">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#374655"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E1E5E9"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DatePicker">
+                        <Border x:Name="PART_Root" 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="8"
+                        Padding="{TemplateBinding Padding}">
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Text Display -->
+                                <DatePickerTextBox x:Name="PART_TextBox" 
+                                           Grid.Column="0"
+                                           Background="Transparent"
+                                           BorderThickness="0"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           FontFamily="{TemplateBinding FontFamily}"
+                                           FontSize="{TemplateBinding FontSize}"
+                                           VerticalContentAlignment="Center"
+                                           Focusable="False"/>
+
+                                <!-- Simple Calendar Button -->
+                                <Button x:Name="PART_Button" 
+                                Grid.Column="1"
+                                Width="30" Height="30"
+                                Background="#0430AD"
+                                BorderThickness="0"
+                                Focusable="False">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                            CornerRadius="6">
+                                                <TextBlock Text="📅" 
+                                                   FontSize="16"
+                                                   HorizontalAlignment="Center" 
+                                                   VerticalAlignment="Center"
+                                                   Foreground="White"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                                <!-- Calendar Popup - Fixed Position -->
+                                <Popup x:Name="PART_Popup" 
+                               AllowsTransparency="True" 
+                               Placement="Bottom" 
+                               PlacementTarget="{Binding ElementName=PART_Root}"
+                               StaysOpen="False"
+                               PopupAnimation="Slide"
+                               HorizontalOffset="0"
+                               VerticalOffset="5">
+                                    <Border Background="White" 
+                                    BorderBrush="#E1E5E9" 
+                                    BorderThickness="1" 
+                                    CornerRadius="8"
+                                    Padding="10">
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="Black" Direction="270" ShadowDepth="5" 
+                                                      Opacity="0.2" BlurRadius="15"/>
+                                        </Border.Effect>
+                                        <Calendar x:Name="PART_Calendar"
+                                          Background="Transparent"
+                                          BorderThickness="0"/>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="PART_Root" Property="BorderBrush" Value="#0430AD"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="PART_Root" Property="Opacity" Value="0.6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Simple Calendar Day Style -->
+        <Style x:Key="SimpleDayButtonStyle" TargetType="CalendarDayButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="#374655"/>
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Margin" Value="1"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F0F4FF"/>
+                    <Setter Property="Foreground" Value="#0430AD"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#0430AD"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+                <Trigger Property="IsToday" Value="True">
+                    <Setter Property="BorderBrush" Value="#0430AD"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid Margin="0,0,0,15" HorizontalAlignment="Center" Width="1300" Height="686" VerticalAlignment="Bottom">
         <Grid.ColumnDefinitions>
@@ -316,7 +439,7 @@ Height="18" HorizontalAlignment="Center"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                       
+
                     </Grid>
 
                     <!-- Content -->
@@ -408,10 +531,30 @@ Height="18" HorizontalAlignment="Center"/>
 
                                         <!-- Due Date Section -->
                                         <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,0,15">
-                                            <TextBlock Text="Due Date" Margin="0,0,0,5" Foreground="#374655"/>
-                                            <DatePicker x:Name="DpDueDate" Height="40" Padding="10,0" VerticalContentAlignment="Center" 
-                                                        BorderThickness="1,1,1,1" BorderBrush="#DDDDDD"
-                                                        SelectedDate="{Binding DueDate, Mode=TwoWay}"/>
+                                            <!-- Simple Label -->
+                                            <TextBlock Text="Due Date" 
+                                               Margin="0,0,0,8" 
+                                               Foreground="#374655"
+                                               FontFamily="Segoe UI"
+                                               FontSize="14"
+                                               FontWeight="SemiBold"/>
+
+                                            <!-- Simple Modern DatePicker -->
+                                            <DatePicker x:Name="DpDueDate" 
+                                                Style="{StaticResource ModernDatePickerStyle}"
+                                                SelectedDate="{Binding DueDate, Mode=TwoWay}"
+                                                SelectedDateFormat="Short"
+                                                FirstDayOfWeek="Monday">
+
+                                                <!-- Apply Calendar Style -->
+                                                <DatePicker.CalendarStyle>
+                                                    <Style TargetType="Calendar">
+                                                        <Setter Property="Background" Value="White"/>
+                                                        <Setter Property="BorderThickness" Value="0"/>
+                                                        <Setter Property="CalendarDayButtonStyle" Value="{StaticResource SimpleDayButtonStyle}"/>
+                                                    </Style>
+                                                </DatePicker.CalendarStyle>
+                                            </DatePicker>
                                         </StackPanel>
                                     </Grid>
                                 </StackPanel>

@@ -73,7 +73,6 @@ namespace ApartmentManagement.Service
         public async Task<bool> UpdateApartmentsAsync(Apartment apartment)
         {
             return await _apartmentRepository.UpdateApartmentsAsync(apartment);
-
         }
         public async Task<IEnumerable<Apartment>> GetApartmentsByApartmentNumberAsync(string apartmentNumber)
         {
@@ -90,6 +89,14 @@ namespace ApartmentManagement.Service
         public async Task<Apartment> GetOneApartmentAsync(string id)
         {
             return await _apartmentRepository.GetOneApartmentAsync(id);
+        }
+        public async Task<IEnumerable<Payment>> GetPaymentsByApartmentIdAsync(string apartmentId)
+        {
+            return await _apartmentRepository.GetPaymentsByApartmentIdAsync(apartmentId);
+        }
+        public async Task<IEnumerable<ServiceRequest>> GetServiceRequestsByApartmentIdAsync(string apartmentId)
+        {
+            return await _apartmentRepository.GetServiceRequestsByApartmentIdAsync(apartmentId);
         }
         public async Task<int> CountApartmentsAsync()
         {

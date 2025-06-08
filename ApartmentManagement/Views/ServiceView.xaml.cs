@@ -243,7 +243,12 @@ namespace ApartmentManagement.Views
             paymentView.Show();
             this.Close();
         }
-
+        private void BtnServiceCreate_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceCreateView serviceCreateView = new ServiceCreateView();
+            serviceCreateView.Show();
+            this.Close();
+        }
         #endregion
 
         #region Filters & Sorting

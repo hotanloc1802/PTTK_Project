@@ -2,19 +2,24 @@
 using ApartmentManagement.Model;
 using ApartmentManagement.Service;
 using ApartmentManagement.Utility;
+using QRCoder;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows;
-using QRCoder;
-using System.IO;
 using System.Windows.Media.Imaging;
 public class ApartmentInfoViewModel : INotifyPropertyChanged
 {
     private readonly IApartmentService _apartmentService;
+
     private Apartment _selectedApartment;
+    private ObservableCollection<Payment> _payments;
+    private ObservableCollection<ServiceRequest> _serviceRequests;
+
     private string _randomString;
     public Apartment SelectedApartment
     {
@@ -31,6 +36,24 @@ public class ApartmentInfoViewModel : INotifyPropertyChanged
         set
         {
             _randomString = value;
+            OnPropertyChanged();
+        }
+    }
+    public ObservableCollection<Payment> Payments
+    {
+        get => _payments;
+        set
+        {
+            _payments = value;
+            OnPropertyChanged();
+        }
+    }
+    public ObservableCollection<ServiceRequest> ServiceRequests
+    {
+        get => _serviceRequests;
+        set
+        {
+            _serviceRequests = value;
             OnPropertyChanged();
         }
     }
@@ -169,7 +192,16 @@ public class ApartmentInfoViewModel : INotifyPropertyChanged
         return null;
     }
 
-
+    public async Task LoadPaymentsAsync()
+    {
+        var payments = await _apartmentService.GetPaymentsByApartmentIdAsync(SelectedApartment.apartment_id);
+        Payments = new ObservableCollection<Payment>(payments);
+    }
+    public async Task LoadServiceRequestsAsync()
+    {
+        var serviceRequests = await _apartmentService.GetServiceRequestsByApartmentIdAsync(SelectedApartment.apartment_id);
+        ServiceRequests = new ObservableCollection<ServiceRequest>(serviceRequests);
+    }
 
     // INotifyPropertyChanged implementation
     public event PropertyChangedEventHandler PropertyChanged;

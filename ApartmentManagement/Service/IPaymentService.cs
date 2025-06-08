@@ -17,7 +17,7 @@ namespace ApartmentManagement.Service
         Task<IEnumerable<Payment>> SortPaymentsAsync(string sortType);
         Task<Payment> GetOnePaymentAsync(string id);
         Task<bool> DeletePaymentAsync(string id);
-        Task<bool> SetPaymentStatusCompleted(string paymentId);
+        Task<bool> SetPaymentStatusCompleted(string paymentId, string paymentMethod);
         Task<bool> CreateBillAsync(Bill bill);
     }
 }

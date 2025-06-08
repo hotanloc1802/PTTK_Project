@@ -579,8 +579,8 @@ To="#959595" Duration="0:0:0.2" />
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Payment Created Date" Binding="{Binding payment_created_date, StringFormat='dd/MM/yyyy'}" Width="170"/>
-                        <DataGridTextColumn Header="Payment Date" Binding="{Binding payment_date, StringFormat='dd/MM/yyyy'}" Width="200"/>
+                        <DataGridTextColumn Header="Payment Method" Binding="{Binding payment_method, StringFormat='dd/MM/yyyy'}" Width="170"/>
+                        <DataGridTextColumn Header="Due Date" Binding="{Binding payment_created_date, StringFormat='dd/MM/yyyy'}" Width="200"/>
                         <DataGridTemplateColumn Header="Actions" Width="120">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

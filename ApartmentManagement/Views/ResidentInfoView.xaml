@@ -78,7 +78,79 @@
             <Setter Property="Padding" Value="10,5"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
+
+        <!-- Modern Table Header Style -->
+        <Style x:Key="ModernTableHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Montserrat SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="#374655"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="15,12"/>
+        </Style>
+
+        <!-- Table Row Style -->
+        <Style x:Key="TableRowStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#F1F5F9"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="Padding" Value="0,15"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F8FAFC"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Table Cell Style -->
+        <Style x:Key="TableCellStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Montserrat"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#64748B"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="15,0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+
+        <!-- Status Badge Styles -->
+        <Style x:Key="StatusBadgeStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+
+        <!-- Rating Star Style -->
+        <Style x:Key="RatingStarStyle" TargetType="iconPacks:PackIconMaterial">
+            <Setter Property="Kind" Value="Star"/>
+            <Setter Property="Width" Value="14"/>
+            <Setter Property="Height" Value="14"/>
+            <Setter Property="Foreground" Value="#FFB400"/>
+            <Setter Property="Margin" Value="1"/>
+        </Style>
+
+        <!-- Action Button Style -->
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F1F5F9"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
+
     <Grid Margin="0,0,0,15" HorizontalAlignment="Center" Width="1300" Height="686" VerticalAlignment="Bottom">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
@@ -326,7 +398,7 @@ Height="18" HorizontalAlignment="Center"/>
                 </Border>
                 <Border Background="Transparent" CornerRadius="10" Padding="5,5,5,5"  Width="142" >
                     <Button x:Name="btnResident" Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Background="#0430AD">
-                      
+
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Icon:PackIconMaterial Kind="AccountGroup" VerticalAlignment="Center" Foreground="White"/>
                             <TextBlock  x:Name="residentText"  Text="Resident" FontFamily="Montserrat Bold" FontSize="13" Foreground="White"
@@ -655,7 +727,7 @@ Height="18" HorizontalAlignment="Center"/>
                                     </Border>
 
                                     <!-- User Info Row 2 - Apartment Information -->
-                                    
+
                                     <!-- User Info Row 3 - Apartment Information -->
                                     <Border Grid.Row="3" BorderBrush="#E1E6EB" BorderThickness="0,0,0,1" Margin="0,0,0,15" Padding="0,0,0,15">
                                         <Grid>
@@ -766,124 +838,248 @@ Height="18" HorizontalAlignment="Center"/>
                             </Border>
                         </Grid>
                     </Border>
-
-                    <!-- Notification History Section -->
-                    <Border Background="White" BorderBrush="#E1E6EB" BorderThickness="1" CornerRadius="10" Padding="20" Margin="0,0,0,20">
+                    <Border Background="White" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="12" Margin="0,0,0,20">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <!-- Tab Buttons -->
-                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
-                                <Button Content="Feedback" Style="{StaticResource ActiveTabButtonStyle}" Margin="0,0,15,0"/>
-                            </StackPanel>
-
-                            <!-- Table Header -->
-                            <Border Grid.Row="1" Background="#F8F9FA" BorderBrush="#E1E6EB" BorderThickness="0,1,0,1" Padding="10">
+                            <!-- Header Section -->
+                            <Border Grid.Row="0" Background="#F8FAFC" CornerRadius="12,12,0,0" Padding="25,20">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="120"/>
-                                        <ColumnDefinition Width="120"/>
-                                        <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBlock Grid.Column="0" Text="Type notification" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655"/>
-                                    <TextBlock Grid.Column="1" Text="Time" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655"/>
-                                    <TextBlock Grid.Column="2" Text="Status" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655"/>
-                                    <TextBlock Grid.Column="3" Text="Descriptions" FontFamily="Montserrat SemiBold" FontSize="13" Foreground="#374655"/>
+                                    <!-- Title and Stats -->
+                                    <StackPanel Grid.Column="0">
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                            <Border Background="#E0F2FE" CornerRadius="25" Width="40" Height="40" Margin="0,0,12,0">
+                                                <iconPacks:PackIconMaterial Kind="MessageTextOutline" Width="20" Height="20" 
+                                                        Foreground="#0891B2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <StackPanel VerticalAlignment="Center">
+                                                <TextBlock Text="Feedback History" FontFamily="Montserrat Bold" FontSize="18" Foreground="#1E293B"/>
+                                                <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                                    <TextBlock Text="Total: " FontFamily="Montserrat" FontSize="11" Foreground="#64748B"/>
+                                                    <TextBlock Text="24 feedbacks" FontFamily="Montserrat SemiBold" FontSize="11" Foreground="#0891B2"/>
+                                                    <TextBlock Text=" • " FontFamily="Montserrat" FontSize="11" Foreground="#94A3B8" Margin="4,0"/>
+                                                    <TextBlock Text="Avg Rating: " FontFamily="Montserrat" FontSize="11" Foreground="#64748B"/>
+                                                    <TextBlock Text="4.2★" FontFamily="Montserrat SemiBold" FontSize="11" Foreground="#F59E0B"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
                                 </Grid>
                             </Border>
 
-                            <!-- Table Rows -->
-                            <StackPanel Grid.Row="2">
-                                <!-- Row 1 -->
-                                <Border BorderBrush="#E1E6EB" BorderThickness="0,0,0,1" Padding="10">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="120"/>
-                                            <ColumnDefinition Width="120"/>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="40"/>
-                                        </Grid.ColumnDefinitions>
+                            <!-- Table Header -->
+                            <Border Grid.Row="1" Background="#F1F5F9" BorderBrush="#E2E8F0" BorderThickness="0,1,0,1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="170"/>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="110"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
 
-                                        <TextBlock Grid.Column="0" Text="Accident" FontFamily="Montserrat" FontSize="13" Foreground="#0430AD"/>
-                                        <TextBlock Grid.Column="1" Text="27/07/2025, 14:32" FontFamily="Montserrat" FontSize="13" Foreground="#374655"/>
-                                        <Border Grid.Column="2" Background="#0430AD" CornerRadius="5" Padding="10,3" HorizontalAlignment="Left">
-                                            <TextBlock Text="Done" FontFamily="Montserrat SemiBold" FontSize="12" Foreground="White"/>
-                                        </Border>
-                                        <TextBlock Grid.Column="3" Text="Fuck PTTK" FontFamily="Montserrat" FontSize="13" Foreground="#374655" TextWrapping="Wrap"/>
-                                    </Grid>
-                                </Border>
+                                    <TextBlock Grid.Column="0" Text="Date and Time" Style="{StaticResource ModernTableHeaderStyle}"/>
+                                    <TextBlock Grid.Column="1" Text="Category" Style="{StaticResource ModernTableHeaderStyle}"/>
+                                    <TextBlock Grid.Column="2" Text="Rating" Style="{StaticResource ModernTableHeaderStyle}"/>
+                                    <TextBlock Grid.Column="3" Text="Feedback Message" Style="{StaticResource ModernTableHeaderStyle}"/>
+                                    <TextBlock Grid.Column="4" Text="Submitted By" Style="{StaticResource ModernTableHeaderStyle}"/>
+                                    <TextBlock Grid.Column="5" Text="Status" Style="{StaticResource ModernTableHeaderStyle}"/>
+                                </Grid>
+                            </Border>
 
-                                <!-- Row 2 -->
-                                <Border BorderBrush="#E1E6EB" BorderThickness="0,0,0,1" Padding="10">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="120"/>
-                                            <ColumnDefinition Width="120"/>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="40"/>
-                                        </Grid.ColumnDefinitions>
+                            <!-- Table Content -->
+                            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" MaxHeight="400">
+                                <StackPanel>
+                                    <!-- Row 1 -->
+                                    <Border Style="{StaticResource TableRowStyle}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="170"/>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="100"/>
+                                            </Grid.ColumnDefinitions>
 
-                                        <TextBlock Grid.Column="0" Text="Violence" FontFamily="Montserrat" FontSize="13" Foreground="#0430AD"/>
-                                        <TextBlock Grid.Column="1" Text="27/07/2025, 17:32" FontFamily="Montserrat" FontSize="13" Foreground="#374655"/>
-                                        <Border Grid.Column="2" Background="#9FA4AD" CornerRadius="5" Padding="10,3" HorizontalAlignment="Left">
-                                            <TextBlock Text="Inactive" FontFamily="Montserrat SemiBold" FontSize="12" Foreground="White"/>
-                                        </Border>
-                                        <TextBlock Grid.Column="3" Text="Fuck BigData" FontFamily="Montserrat" FontSize="13" Foreground="#374655" TextWrapping="Wrap"/>
-                                    </Grid>
-                                </Border>
+                                            <StackPanel Grid.Column="0" Margin="15,0">
+                                                <TextBlock Text="Dec 15, 2024" FontFamily="Montserrat SemiBold" FontSize="12" Foreground="#1E293B"/>
+                                                <TextBlock Text="2:30 PM" FontFamily="Montserrat" FontSize="11" Foreground="#94A3B8"/>
+                                            </StackPanel>
 
-                                <!-- Row 3 -->
-                                <Border BorderBrush="#E1E6EB" BorderThickness="0,0,0,1" Padding="10">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="120"/>
-                                            <ColumnDefinition Width="120"/>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="40"/>
-                                        </Grid.ColumnDefinitions>
+                                            <Border Grid.Column="1" CornerRadius="6" Padding="8,4" Margin="15,0" HorizontalAlignment="Left">
+                                                <TextBlock Text="Communication" FontFamily="Montserrat SemiBold" FontSize="10" Foreground="#1D4ED8"/>
+                                            </Border>
 
-                                        <TextBlock Grid.Column="0" Text="Robbery" FontFamily="Montserrat" FontSize="13" Foreground="#0430AD"/>
-                                        <TextBlock Grid.Column="1" Text="27/07/2025, 21:45" FontFamily="Montserrat" FontSize="13" Foreground="#374655"/>
-                                        <Border Grid.Column="2" Background="#FFD600" CornerRadius="5" Padding="10,3" HorizontalAlignment="Left">
-                                            <TextBlock Text="Processing" FontFamily="Montserrat SemiBold" FontSize="12" Foreground="White"/>
-                                        </Border>
-                                        <TextBlock Grid.Column="3" Text="Fuck ERP" FontFamily="Montserrat" FontSize="13" Foreground="#374655" TextWrapping="Wrap"/>
-                                    </Grid>
-                                </Border>
+                                            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="15,0">
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <TextBlock Text="5.0" FontFamily="Montserrat SemiBold" FontSize="11" Foreground="#374655" Margin="4,0,0,0" VerticalAlignment="Center"/>
+                                            </StackPanel>
 
-                                <!-- Row 4 -->
-                                <Border BorderBrush="#E1E6EB" BorderThickness="0,0,0,1" Padding="10">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="120"/>
-                                            <ColumnDefinition Width="120"/>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="40"/>
-                                        </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="3" Text="Excellent communication skills and very responsive to requests. Always keeps residents informed about building updates and maintenance schedules." 
+                                   Style="{StaticResource TableCellStyle}" MaxWidth="300"/>
 
-                                        <TextBlock Grid.Column="0" Text="Ambulance" FontFamily="Montserrat" FontSize="13" Foreground="#0430AD"/>
-                                        <TextBlock Grid.Column="1" Text="24/07/2025, 09:32" FontFamily="Montserrat" FontSize="13" Foreground="#374655"/>
-                                        <Border Grid.Column="2" Background="#9FA4AD" CornerRadius="5" Padding="10,3" HorizontalAlignment="Left">
-                                            <TextBlock Text="Inactive" FontFamily="Montserrat SemiBold" FontSize="12" Foreground="White"/>
-                                        </Border>
-                                        <TextBlock Grid.Column="3" Text="Fuck CSDL" FontFamily="Montserrat" FontSize="13" Foreground="#374655" TextWrapping="Wrap"/>
-                                    </Grid>
-                                </Border>
-                            </StackPanel>
+                                            <StackPanel Grid.Column="4" Margin="15,0">
+                                                <TextBlock Text="Admin Johnson" FontFamily="Montserrat SemiBold" FontSize="11" Foreground="#1E293B"/>
+                                                <TextBlock Text="Building Manager" FontFamily="Montserrat" FontSize="10" Foreground="#94A3B8"/>
+                                            </StackPanel>
+
+                                            <Border Grid.Column="5" Style="{StaticResource StatusBadgeStyle}" Margin="15,0">
+                                                <TextBlock Text="Reviewed" FontFamily="Montserrat SemiBold" FontSize="10" Foreground="#16A34A"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+
+                                    <!-- Row 2 -->
+                                    <Border Style="{StaticResource TableRowStyle}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="170"/>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="100"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0" Margin="15,0">
+                                                <TextBlock Text="Dec 12, 2024" FontFamily="Montserrat SemiBold" FontSize="12" Foreground="#1E293B"/>
+                                                <TextBlock Text="10:15 AM" FontFamily="Montserrat" FontSize="11" Foreground="#94A3B8"/>
+                                            </StackPanel>
+
+                                            <Border Grid.Column="1" CornerRadius="6" Padding="8,4" Margin="15,0" HorizontalAlignment="Left">
+                                                <TextBlock Text="Maintenance" FontFamily="Montserrat SemiBold" FontSize="10" Foreground="#D97706"/>
+                                            </Border>
+
+                                            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="15,0">
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <iconPacks:PackIconMaterial Kind="Star" Width="14" Height="14" Foreground="#E2E8F0" Margin="1"/>
+                                                <TextBlock Text="4.0" FontFamily="Montserrat SemiBold" FontSize="11" Foreground="#374655" Margin="4,0,0,0" VerticalAlignment="Center"/>
+                                            </StackPanel>
+
+                                            <TextBlock Grid.Column="3" Text="Quick response to maintenance requests. The elevator repair was completed efficiently and on time." 
+                                   Style="{StaticResource TableCellStyle}" MaxWidth="300"/>
+
+                                            <StackPanel Grid.Column="4" Margin="15,0">
+                                                <TextBlock Text="Sarah Chen" FontFamily="Montserrat SemiBold" FontSize="11" Foreground="#1E293B"/>
+                                                <TextBlock Text="Apt. 12A Resident" FontFamily="Montserrat" FontSize="10" Foreground="#94A3B8"/>
+                                            </StackPanel>
+
+                                            <Border Grid.Column="5" Style="{StaticResource StatusBadgeStyle}" Margin="15,0">
+                                                <TextBlock Text="Pending" FontFamily="Montserrat SemiBold" FontSize="10" Foreground="#D97706"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+
+                                    <!-- Row 3 -->
+                                    <Border Style="{StaticResource TableRowStyle}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="170"/>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="100"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0" Margin="15,0">
+                                                <TextBlock Text="Dec 10, 2024" FontFamily="Montserrat SemiBold" FontSize="12" Foreground="#1E293B"/>
+                                                <TextBlock Text="4:45 PM" FontFamily="Montserrat" FontSize="11" Foreground="#94A3B8"/>
+                                            </StackPanel>
+
+                                            <Border Grid.Column="1" CornerRadius="6" Padding="8,4" Margin="15,0" HorizontalAlignment="Left">
+                                                <TextBlock Text="Behavior" FontFamily="Montserrat SemiBold" FontSize="10" Foreground="#9333EA"/>
+                                            </Border>
+
+                                            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="15,0">
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <iconPacks:PackIconMaterial Kind="Star" Width="14" Height="14" Foreground="#E2E8F0" Margin="1"/>
+                                                <iconPacks:PackIconMaterial Kind="Star" Width="14" Height="14" Foreground="#E2E8F0" Margin="1"/>
+                                                <iconPacks:PackIconMaterial Kind="Star" Width="14" Height="14" Foreground="#E2E8F0" Margin="1"/>
+                                                <TextBlock Text="2.0" FontFamily="Montserrat SemiBold" FontSize="11" Foreground="#374655" Margin="4,0,0,0" VerticalAlignment="Center"/>
+                                            </StackPanel>
+
+                                            <TextBlock Grid.Column="3" Text="Noise complaints from neighbors. Late night parties causing disturbance. Needs to be more considerate of other residents." 
+                                   Style="{StaticResource TableCellStyle}" MaxWidth="300"/>
+
+                                            <StackPanel Grid.Column="4" Margin="15,0">
+                                                <TextBlock Text="Mike Rodriguez" FontFamily="Montserrat SemiBold" FontSize="11" Foreground="#1E293B"/>
+                                                <TextBlock Text="Security Officer" FontFamily="Montserrat" FontSize="10" Foreground="#94A3B8"/>
+                                            </StackPanel>
+
+                                            <Border Grid.Column="5" Style="{StaticResource StatusBadgeStyle}" Margin="15,0">
+                                                <TextBlock Text="Escalated" FontFamily="Montserrat SemiBold" FontSize="10" Foreground="#DC2626"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+
+                                    <!-- Row 4 -->
+                                    <Border Style="{StaticResource TableRowStyle}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="170"/>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="100"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0" Margin="15,0">
+                                                <TextBlock Text="Dec 8, 2024" FontFamily="Montserrat SemiBold" FontSize="12" Foreground="#1E293B"/>
+                                                <TextBlock Text="11:20 AM" FontFamily="Montserrat" FontSize="11" Foreground="#94A3B8"/>
+                                            </StackPanel>
+
+                                            <Border Grid.Column="1" CornerRadius="6" Padding="8,4" Margin="15,0" HorizontalAlignment="Left">
+                                                <TextBlock Text="Payment" FontFamily="Montserrat SemiBold" FontSize="10" Foreground="#059669"/>
+                                            </Border>
+
+                                            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="15,0">
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <iconPacks:PackIconMaterial Style="{StaticResource RatingStarStyle}"/>
+                                                <TextBlock Text="5.0" FontFamily="Montserrat SemiBold" FontSize="11" Foreground="#374655" Margin="4,0,0,0" VerticalAlignment="Center"/>
+                                            </StackPanel>
+
+                                            <TextBlock Grid.Column="3" Text="Always pays rent and utilities on time. Very reliable tenant with excellent payment history." 
+                                   Style="{StaticResource TableCellStyle}" MaxWidth="300"/>
+
+                                            <StackPanel Grid.Column="4" Margin="15,0">
+                                                <TextBlock Text="Lisa Wang" FontFamily="Montserrat SemiBold" FontSize="11" Foreground="#1E293B"/>
+                                                <TextBlock Text="Accounting Dept." FontFamily="Montserrat" FontSize="10" Foreground="#94A3B8"/>
+                                            </StackPanel>
+
+                                            <Border Grid.Column="5" Style="{StaticResource StatusBadgeStyle}" Margin="15,0">
+                                                <TextBlock Text="Reviewed" FontFamily="Montserrat SemiBold" FontSize="10" Foreground="#16A34A"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
                         </Grid>
                     </Border>
-
                     <!-- Pagination -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
                         <Button x:Name="btnPrevPage" Content="&lt;" Padding="8,3" Margin="3" Background="Transparent" BorderThickness="0" FontFamily="Montserrat"/>

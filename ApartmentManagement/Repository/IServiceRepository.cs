@@ -14,5 +14,7 @@ namespace ApartmentManagement.Repository
         Task<IEnumerable<ServiceRequest>> GetServiceRequestsByStatusAsync(string status);
         Task<IEnumerable<ServiceRequest>> SortServiceRequestsAsync(string sortType);
         Task<IEnumerable<ServiceRequest>> GetServiceRequestsByApartmentIdAsync(string apartmentIdSubset);
+        Task<bool> CreateServiceRequestsAsync(ServiceRequest service);
+        Task<Resident> GetResidentByPhoneNumberAsync(string phoneNumber);
     }
 }

@@ -10,7 +10,7 @@
         Title="Apartment" Height="760" Width="1380" Background="Transparent" ResizeMode="NoResize"
         AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        
+
         <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox">
             <Setter Property="FontFamily" Value="Montserrat Bold"/>
             <Setter Property="FontSize" Value="12"/>
@@ -20,7 +20,7 @@
             <Setter Property="BorderBrush" Value="#E1E1E1"/>
             <Setter Property="Background" Value="White"/>
         </Style>
-        
+
     </Window.Resources>
     <Grid Margin="0,0,0,15" HorizontalAlignment="Center" Width="1300" Height="686" VerticalAlignment="Bottom">
         <Grid.ColumnDefinitions>
@@ -521,12 +521,13 @@ To="#959595" Duration="0:0:0.2" />
                     </StackPanel>
 
                     <!--Close-->
-                    <Button x:Name="btnClose" Background="Transparent" BorderBrush="Transparent" Margin="0,11,5,31" HorizontalAlignment="Right" Click="BtnClose_Click" Grid.Column="1">
+                    <Button x:Name="btnClose" Background="Transparent" BorderBrush="Transparent" Margin="0,10,0,900" HorizontalAlignment="Right" Click="BtnClose_Click" Grid.Column="1">
                         <iconPacks:PackIconMaterial Kind="Close" Width="20" Height="20" Foreground="#9FA4AD"/>
                     </Button>
 
                     <!-- Tabs -->
-                    <TabControl Margin="0,40,0,10" BorderThickness="0" Background="Transparent" Grid.ColumnSpan="2">
+                    <TabControl Margin="0,40,0,10" BorderThickness="0" Background="Transparent" Grid.ColumnSpan="2" 
+                                x:Name="MainTabControl" SelectionChanged="MainTabControl_SelectionChanged">
                         <TabControl.Resources>
                             <Style TargetType="TabItem">
                                 <Setter Property="Template">
@@ -551,361 +552,620 @@ To="#959595" Duration="0:0:0.2" />
                                 <Setter Property="FontSize" Value="14"/>
                             </Style>
                         </TabControl.Resources>
-                        <TabItem Header="Information" IsSelected="True"/>
-                        <TabItem Header="Service History"/>
-                        <TabItem Header="Payment History"/>
-                    </TabControl>
-                </Grid>
+                        <TabItem Header="Information">
 
-                <!-- Scrollable content -->
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                    <Grid Margin="0,10,0,0">
+                            <!-- Scrollable content -->
+                            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                <Grid Margin="0,10,0,0">
 
-                        <!-- Main content here -->
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <!-- Resident Banner -->
-                        <Border Grid.Row="0" Grid.ColumnSpan="2" Background="#0430AD" CornerRadius="10" Margin="0,0,0,20" Height="120">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition Width="2*"/>
-                                </Grid.ColumnDefinitions>
-                                <!-- Resident info -->
-                                <StackPanel Grid.Column="0" Margin="20,20,0,0">
-                                    <TextBlock Text = "{Binding SelectedApartment.apartment_id}"  FontFamily="Montserrat Bold" FontSize="22" Foreground="White"/>
-                                    <TextBlock Text="{Binding SelectedApartment.owner.name}" FontFamily="Montserrat SemiBold" FontSize="18" Foreground="White" Margin="0,5,0,0"/>
-                                </StackPanel>
-                                <!-- Placeholder for illustration -->
-                                <Grid Grid.Column="1">
-                                    <!-- This is where people illustration would go -->
-                                </Grid>
-                            </Grid>
-                        </Border>
-
-                        <!-- Left section - Apartment and resident details -->
-                        <Grid Grid.Row="1" Grid.Column="0" Margin="0,0,20,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <!-- Apartment details section -->
-                            <TextBlock Grid.Row="0" Text="Apartment detail" FontFamily="Montserrat Bold" FontSize="16" Margin="0,0,0,15"/>
-
-                            <!-- Details grid -->
-                            <Grid Grid.Row="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-
-                                <!-- Row labels -->
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Owner" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
-                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Building" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
-                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Vacancy Status" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
-
-                                <!-- Row values -->
-                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedApartment.owner.name}" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
-                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedApartment.building.building_name}" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
-                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedApartment.vacancy_status}"  FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
-
-                                <!-- Additional columns -->
-                                <TextBlock Grid.Row="0" Grid.Column="2" Text="Current Population" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
-                                <TextBlock Grid.Row="1" Grid.Column="2" Text="Max Population" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
-                                <TextBlock Grid.Row="2" Grid.Column="2" Text="Transfer Status" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
-
-                                <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding SelectedApartment.current_population}" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
-                                <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding SelectedApartment.max_population}" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
-                                <TextBlock Grid.Row="2" Grid.Column="3" Text="{Binding SelectedApartment.transfer_status}" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
-
-                            </Grid>
-
-                            <!-- Rental Information -->
-                            <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="#EEEEEE" Margin="0,20,0,0" Padding="0,20,0,0">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-
-                                    <!-- Header -->
-                                    <Grid Grid.Row="0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                            <TextBlock Text="Owner Information" FontFamily="Montserrat Bold" FontSize="16"/>
-
-                                        </StackPanel>
-                                    </Grid>
-
-                                    <!-- Rental Information Form -->
-                                    <Grid Grid.Row="1" Margin="0,15,0,0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-
-                                        <!-- Labels -->
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Owner's Name" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,0,10,5"/>
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Phone number" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,0,10,5"/>
-                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="Identification Number" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,0,10,5"/>
-                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="Sex" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,0,0,5"/>
-
-                                        <!-- Form fields -->
-                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding SelectedApartment.owner.name}" Margin="0,0,10,0" Padding="10,8"  TextAlignment="Center"/>
-                                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedApartment.owner.phone_number}" Margin="0,0,10,0" Padding="10,8"  TextAlignment="Center" />
-                                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding SelectedApartment.owner.identification_number}" Margin="0,0,10,0" Padding="10,8"  TextAlignment="Center"/>
-                                        <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding SelectedApartment.owner.sex}" Margin="0,0,10,0" Padding="10,8"  TextAlignment="Center"/>
-                                    </Grid>
-                                </Grid>
-                            </Border>
-
-                            <!-- Manager Infomation -->
-                            <Border Grid.Row="3" BorderThickness="0,1,0,0" BorderBrush="#EEEEEE" Margin="0,20,0,0" Padding="0,20,0,0">
-                                <Grid>
+                                    <!-- Main content here -->
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
 
-                                    <!-- Header -->
-                                    <Grid Grid.Row="0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="514*"/>
-                                            <ColumnDefinition Width="105*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="Residents Infomation" FontFamily="Montserrat Bold" FontSize="16" Grid.ColumnSpan="3"/>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Resident Banner -->
+                                    <Border Grid.Row="0" Grid.ColumnSpan="2" Background="#0430AD" CornerRadius="10" Margin="0,0,0,20" Height="120">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="3*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <!-- Resident info -->
+                                            <StackPanel Grid.Column="0" Margin="20,20,0,0">
+                                                <TextBlock Text = "{Binding SelectedApartment.apartment_id}"  FontFamily="Montserrat Bold" FontSize="22" Foreground="White"/>
+                                                <TextBlock Text="{Binding SelectedApartment.owner.name}" FontFamily="Montserrat SemiBold" FontSize="18" Foreground="White" Margin="0,5,0,0"/>
+                                            </StackPanel>
+                                            <!-- Placeholder for illustration -->
+                                            <Grid Grid.Column="1">
+                                                <!-- This is where people illustration would go -->
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+
+                                    <!-- Left section - Apartment and resident details -->
+                                    <Grid Grid.Row="1" Grid.Column="0" Margin="0,0,20,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Apartment details section -->
+                                        <TextBlock Grid.Row="0" Text="Apartment detail" FontFamily="Montserrat Bold" FontSize="16" Margin="0,0,0,15"/>
+
+                                        <!-- Details grid -->
+                                        <Grid Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <!-- Row labels -->
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Owner" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Building" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
+                                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Vacancy Status" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
+
+                                            <!-- Row values -->
+                                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedApartment.owner.name}" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedApartment.building.building_name}" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
+                                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedApartment.vacancy_status}"  FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
+
+                                            <!-- Additional columns -->
+                                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Current Population" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="2" Text="Max Population" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
+                                            <TextBlock Grid.Row="2" Grid.Column="2" Text="Transfer Status" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,10,0,5"/>
+
+                                            <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding SelectedApartment.current_population}" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding SelectedApartment.max_population}" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
+                                            <TextBlock Grid.Row="2" Grid.Column="3" Text="{Binding SelectedApartment.transfer_status}" FontFamily="Montserrat SemiBold" FontSize="12" Margin="0,10,0,5"/>
+
+                                        </Grid>
+
+                                        <!-- Rental Information -->
+                                        <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="#EEEEEE" Margin="0,20,0,0" Padding="0,20,0,0">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <!-- Header -->
+                                                <Grid Grid.Row="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                                        <TextBlock Text="Owner Information" FontFamily="Montserrat Bold" FontSize="16"/>
+
+                                                    </StackPanel>
+                                                </Grid>
+
+                                                <!-- Rental Information Form -->
+                                                <Grid Grid.Row="1" Margin="0,15,0,0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <!-- Labels -->
+                                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Owner's Name" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Phone number" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Identification Number" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="0" Grid.Column="3" Text="Sex" FontFamily="Montserrat" FontSize="12" Foreground="#9FA4AD" Margin="0,0,0,5"/>
+
+                                                    <!-- Form fields -->
+                                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding SelectedApartment.owner.name}" Margin="0,0,10,0" Padding="10,8"  TextAlignment="Center"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedApartment.owner.phone_number}" Margin="0,0,10,0" Padding="10,8"  TextAlignment="Center" />
+                                                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding SelectedApartment.owner.identification_number}" Margin="0,0,10,0" Padding="10,8"  TextAlignment="Center"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding SelectedApartment.owner.sex}" Margin="0,0,10,0" Padding="10,8"  TextAlignment="Center"/>
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+
+                                        <!-- Manager Infomation -->
+                                        <Border Grid.Row="3" BorderThickness="0,1,0,0" BorderBrush="#EEEEEE" Margin="0,20,0,0" Padding="0,20,0,0">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+
+                                                <!-- Header -->
+                                                <Grid Grid.Row="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="514*"/>
+                                                        <ColumnDefinition Width="105*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0" Text="Residents Infomation" FontFamily="Montserrat Bold" FontSize="16" Grid.ColumnSpan="3"/>
+                                                </Grid>
+
+                                                <!-- Resident Photos -->
+                                                <WrapPanel Grid.Row="1" Margin="0,15,0,0">
+                                                    <!-- Resident 1 -->
+                                                    <Border Width="120" Height="120" Margin="0,0,15,0" BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10">
+                                                        <Grid>
+                                                            <Ellipse Width="80" Height="80" VerticalAlignment="Top" Margin="0,10,0,0">
+                                                                <Ellipse.Fill>
+                                                                    <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                                                                </Ellipse.Fill>
+                                                            </Ellipse>
+                                                            <TextBlock Text="Pham Duy Tuan" FontFamily="Montserrat SemiBold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+                                                        </Grid>
+                                                    </Border>
+
+                                                    <!-- Resident 2 -->
+                                                    <Border Width="120" Height="120" Margin="0,0,15,0" BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10">
+                                                        <Grid>
+                                                            <Ellipse Width="80" Height="80" VerticalAlignment="Top" Margin="0,10,0,0">
+                                                                <Ellipse.Fill>
+                                                                    <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                                                                </Ellipse.Fill>
+                                                            </Ellipse>
+                                                            <TextBlock Text="Ngo Thanh Trung" FontFamily="Montserrat SemiBold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+                                                        </Grid>
+                                                    </Border>
+
+                                                    <!-- Add more resident button -->
+                                                    <Border Width="120" Height="120" Margin="0,0,15,0" BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Background="#F8F9FA">
+                                                        <Grid>
+                                                            <Border Width="40" Height="40" Background="#EEEEEE" CornerRadius="20" VerticalAlignment="Top" Margin="0,30,0,0">
+                                                                <Icon:PackIconMaterial Kind="Plus" Width="20" Height="20" Foreground="#9FA4AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                            <TextBlock Text="Add Resident" FontFamily="Montserrat SemiBold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+                                                        </Grid>
+                                                    </Border>
+                                                </WrapPanel>
+                                            </Grid>
+                                        </Border>
                                     </Grid>
 
-                                    <!-- Resident Photos -->
-                                    <WrapPanel Grid.Row="1" Margin="0,15,0,0">
-                                        <!-- Resident 1 -->
-                                        <Border Width="120" Height="120" Margin="0,0,15,0" BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10">
-                                            <Grid>
-                                                <Ellipse Width="80" Height="80" VerticalAlignment="Top" Margin="0,10,0,0">
-                                                    <Ellipse.Fill>
-                                                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
-                                                    </Ellipse.Fill>
-                                                </Ellipse>
-                                                <TextBlock Text="Pham Duy Tuan" FontFamily="Montserrat SemiBold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
-                                            </Grid>
-                                        </Border>
+                                    <!-- Right section - QR code and documents -->
+                                    <Grid Grid.Row="1" Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
 
-                                        <!-- Resident 2 -->
-                                        <Border Width="120" Height="120" Margin="0,0,15,0" BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10">
-                                            <Grid>
-                                                <Ellipse Width="80" Height="80" VerticalAlignment="Top" Margin="0,10,0,0">
-                                                    <Ellipse.Fill>
-                                                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
-                                                    </Ellipse.Fill>
-                                                </Ellipse>
-                                                <TextBlock Text="Ngo Thanh Trung" FontFamily="Montserrat SemiBold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
-                                            </Grid>
-                                        </Border>
+                                        <!-- QR Code section -->
+                                        <Grid Grid.Row="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
 
-                                        <!-- Add more resident button -->
-                                        <Border Width="120" Height="120" Margin="0,0,15,0" BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Background="#F8F9FA">
-                                            <Grid>
-                                                <Border Width="40" Height="40" Background="#EEEEEE" CornerRadius="20" VerticalAlignment="Top" Margin="0,30,0,0">
-                                                    <Icon:PackIconMaterial Kind="Plus" Width="20" Height="20" Foreground="#9FA4AD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <Grid Grid.Row="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="QR code" FontFamily="Montserrat Bold" FontSize="16"/>
+                                            </Grid>
+
+                                            <!-- QR Code image placeholder -->
+                                            <Border Grid.Row="1" BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Margin="0,15,0,0" Padding="20">
+                                                <StackPanel>
+                                                    <!-- Placeholder for QR code -->
+                                                    <Border Width="180" Height="180" Background="#F8F9FA" HorizontalAlignment="Center">
+                                                        <Image Grid.Row="1" Width="180" Height="180" Source="{Binding QRCodeImage}"/>
+                                                    </Border>
+                                                    <TextBlock Text="{Binding RandomString}" FontFamily="Montserrat Bold" FontSize="14" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
+
+                                        <!-- Documents section -->
+                                        <Grid Grid.Row="1" Margin="0,30,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Grid Grid.Row="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="Document" FontFamily="Montserrat Bold" FontSize="16"/>
+                                            </Grid>
+
+                                            <!-- Document list -->
+                                            <StackPanel Grid.Row="1" Margin="0,15,0,0">
+
+                                                <!-- Document 1 -->
+                                                <Border BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Margin="0,0,0,10" Padding="10">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Border Grid.Column="0" Width="40" Height="40" Background="#FFE6E6" CornerRadius="5" Margin="0,0,10,0">
+                                                            <TextBlock Text="PDF" FontFamily="Montserrat Bold" FontSize="12" Foreground="#FF4D4D" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                            <TextBlock Text="contact 911" FontFamily="Montserrat SemiBold" FontSize="12"/>
+                                                            <TextBlock Text="11h-01/04/2025" FontFamily="Montserrat" FontSize="10" Foreground="#9FA4AD" Margin="0,3,0,0"/>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                            <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                                <Icon:PackIconMaterial Kind="Eye" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                            </Button>
+                                                            <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                                <Icon:PackIconMaterial Kind="Download" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                            </Button>
+                                                        </StackPanel>
+                                                    </Grid>
                                                 </Border>
-                                                <TextBlock Text="Add Resident" FontFamily="Montserrat SemiBold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+
+                                                <!-- Document 2 -->
+                                                <Border BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Margin="0,0,0,10" Padding="10">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Border Grid.Column="0" Width="40" Height="40" Background="#E6FFE6" CornerRadius="5" Margin="0,0,10,0">
+                                                            <TextBlock Text="PNG" FontFamily="Montserrat Bold" FontSize="12" Foreground="#4CAF50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                            <TextBlock Text="CMND_Ngo Thanh Trung" FontFamily="Montserrat SemiBold" FontSize="12"/>
+                                                            <TextBlock Text="01/04/2025" FontFamily="Montserrat" FontSize="10" Foreground="#9FA4AD" Margin="0,3,0,0"/>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                            <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                                <Icon:PackIconMaterial Kind="Eye" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                            </Button>
+                                                            <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                                <Icon:PackIconMaterial Kind="Download" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                            </Button>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+
+                                                <!-- Document 3 -->
+                                                <Border BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Margin="0,0,0,10" Padding="10">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Border Grid.Column="0" Width="40" Height="40" Background="#FFE6E6" CornerRadius="5" Margin="0,0,10,0">
+                                                            <TextBlock Text="PDF" FontFamily="Montserrat Bold" FontSize="12" Foreground="#FF4D4D" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                            <TextBlock Text="sohokhau" FontFamily="Montserrat SemiBold" FontSize="12"/>
+                                                            <TextBlock Text="01/04/2025" FontFamily="Montserrat" FontSize="10" Foreground="#9FA4AD" Margin="0,3,0,0"/>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                            <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                                <Icon:PackIconMaterial Kind="Eye" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                            </Button>
+                                                            <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                                <Icon:PackIconMaterial Kind="Download" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                            </Button>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+
+                                                <!-- Document 4 -->
+                                                <Border BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Margin="0,0,0,10" Padding="10">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Border Grid.Column="0" Width="40" Height="40" Background="#E6FFE6" CornerRadius="5" Margin="0,0,10,0">
+                                                            <TextBlock Text="PNG" FontFamily="Montserrat Bold" FontSize="12" Foreground="#4CAF50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                            <TextBlock Text="CMND_Pham Duy Tuan" FontFamily="Montserrat SemiBold" FontSize="12"/>
+                                                            <TextBlock Text="27/09/2015" FontFamily="Montserrat" FontSize="10" Foreground="#9FA4AD" Margin="0,3,0,0"/>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                            <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                                <Icon:PackIconMaterial Kind="Eye" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                            </Button>
+                                                            <Button Background="Transparent" BorderThickness="0" Padding="5">
+                                                                <Icon:PackIconMaterial Kind="Download" Width="16" Height="16" Foreground="#9FA4AD"/>
+                                                            </Button>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </ScrollViewer>
+                        </TabItem>
+                        <!-- Service History Tab Content -->
+                        <TabItem Header="Service History" x:Name="ServiceHistoryTab">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                <Grid Margin="0,20,0,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Service Statistics Cards -->
+                                    <Grid Grid.Row="0" Margin="0,0,0,20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Total Service Requests Card -->
+                                        <Border Grid.Column="0" Background="White" BorderBrush="#E1E6EB" BorderThickness="1" CornerRadius="10" Padding="20" Margin="0,0,10,0">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                                                    <Border Background="#E6F1FF" CornerRadius="5" Padding="8">
+                                                        <iconPacks:PackIconMaterial Kind="Wrench" Width="22" Height="22" Foreground="#0430AD"/>
+                                                    </Border>
+                                                    <TextBlock Text="Total Requests" FontSize="16" FontWeight="SemiBold" Foreground="#6C7682" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                                </StackPanel>
+
+                                                <TextBlock Grid.Row="1" Text="15" FontSize="28" FontWeight="Bold" Foreground="#121518"/>
+                                                <TextBlock Grid.Row="2" Text="All service requests" FontSize="12" Foreground="#9FA4AD" Margin="0,5,0,0"/>
                                             </Grid>
                                         </Border>
-                                    </WrapPanel>
-                                </Grid>
-                            </Border>
-                        </Grid>
 
-                        <!-- Right section - QR code and documents -->
-                        <Grid Grid.Row="1" Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+                                        <!-- Completed Requests Card -->
+                                        <Border Grid.Column="1" Background="White" BorderBrush="#E1E6EB" BorderThickness="1" CornerRadius="10" Padding="20" Margin="0,0,10,0">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
 
-                            <!-- QR Code section -->
-                            <Grid Grid.Row="0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                                                    <Border Background="#E6F7E6" CornerRadius="5" Padding="8">
+                                                        <iconPacks:PackIconMaterial Kind="CheckCircle" Width="22" Height="22" Foreground="#22C55E"/>
+                                                    </Border>
+                                                    <TextBlock Text="Completed" FontSize="16" FontWeight="SemiBold" Foreground="#6C7682" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                                </StackPanel>
 
-                                <Grid Grid.Row="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="QR code" FontFamily="Montserrat Bold" FontSize="16"/>
-                                </Grid>
-
-                                <!-- QR Code image placeholder -->
-                                <Border Grid.Row="1" BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Margin="0,15,0,0" Padding="20">
-                                    <StackPanel>
-                                        <!-- Placeholder for QR code -->
-                                        <Border Width="180" Height="180" Background="#F8F9FA" HorizontalAlignment="Center">
-                                            <Image Grid.Row="1" Width="180" Height="180" Source="{Binding QRCodeImage}"/>
+                                                <TextBlock Grid.Row="1" Text="12" FontSize="28" FontWeight="Bold" Foreground="#121518"/>
+                                                <TextBlock Grid.Row="2" Text="Completed requests" FontSize="12" Foreground="#9FA4AD" Margin="0,5,0,0"/>
+                                            </Grid>
                                         </Border>
-                                        <TextBlock Text="{Binding RandomString}" FontFamily="Montserrat Bold" FontSize="14" HorizontalAlignment="Center" Margin="0,10,0,0"/>
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
 
-                            <!-- Documents section -->
-                            <Grid Grid.Row="1" Margin="0,30,0,0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                                        <!-- In Progress Requests Card -->
+                                        <Border Grid.Column="2" Background="White" BorderBrush="#E1E6EB" BorderThickness="1" CornerRadius="10" Padding="20" Margin="0,0,10,0">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
 
-                                <Grid Grid.Row="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="Document" FontFamily="Montserrat Bold" FontSize="16"/>
+                                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                                                    <Border Background="#FFF4E6" CornerRadius="5" Padding="8">
+                                                        <iconPacks:PackIconMaterial Kind="ClockOutline" Width="22" Height="22" Foreground="#F59E0B"/>
+                                                    </Border>
+                                                    <TextBlock Text="In Progress" FontSize="16" FontWeight="SemiBold" Foreground="#6C7682" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                                </StackPanel>
+
+                                                <TextBlock Grid.Row="1" Text="3" FontSize="28" FontWeight="Bold" Foreground="#121518"/>
+                                                <TextBlock Grid.Row="2" Text="Active requests" FontSize="12" Foreground="#9FA4AD" Margin="0,5,0,0"/>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+
+                                    <!-- Service Requests DataGrid -->
+                                    <Border Grid.Row="1" Background="White" BorderBrush="#E1E6EB" BorderThickness="1" CornerRadius="10" Padding="20">
+                                        <DataGrid x:Name="ServiceHistoryDataGrid" 
+                                            Grid.Row="5" Grid.Column="1" 
+                                            AutoGenerateColumns="False" 
+                                            IsReadOnly="True" 
+                                            GridLinesVisibility="None" 
+                                            BorderThickness="1" 
+                                            BorderBrush="#E1E1E1"
+                                            Background="White" 
+                                            RowBackground="White" 
+                                            AlternatingRowBackground="#F8F9FA"
+                                            CanUserAddRows="False" 
+                                            CanUserDeleteRows="False" 
+                                            ItemsSource="{Binding ServiceRequests}"
+                                            HeadersVisibility="Column">
+                                            <DataGrid.Resources>
+                                                <Style TargetType="DataGridColumnHeader">
+                                                    <Setter Property="Background" Value="#F8F9FA"/>
+                                                    <Setter Property="Padding" Value="10,8"/>
+                                                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                                    <Setter Property="BorderBrush" Value="#E1E1E1"/>
+                                                    <Setter Property="FontFamily" Value="Montserrat"/>
+                                                    <Setter Property="FontSize" Value="13"/>
+                                                </Style>
+                                            </DataGrid.Resources>
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Apartment Number" Binding="{Binding apartment_id}" Width="170"/>
+                                                <DataGridTextColumn Header="Name" Binding="{Binding resident.name}" Width="150"/>
+                                                <DataGridTextColumn Header="Category" Binding="{Binding category}" Width="150"/>
+                                                <DataGridTextColumn Header="Description" Binding="{Binding description}" Width="*"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Border>
                                 </Grid>
+                            </ScrollViewer>
+                        </TabItem>
 
-                                <!-- Document list -->
-                                <StackPanel Grid.Row="1" Margin="0,15,0,0">
+                        <!-- Payment History Tab Content -->
+                        <TabItem Header="Payment History" x:Name="PaymentHistoryTab">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                <Grid Margin="0,20,0,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
 
-                                    <!-- Document 1 -->
-                                    <Border BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Margin="0,0,0,10" Padding="10">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Border Grid.Column="0" Width="40" Height="40" Background="#FFE6E6" CornerRadius="5" Margin="0,0,10,0">
-                                                <TextBlock Text="PDF" FontFamily="Montserrat Bold" FontSize="12" Foreground="#FF4D4D" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                                <TextBlock Text="contact 911" FontFamily="Montserrat SemiBold" FontSize="12"/>
-                                                <TextBlock Text="11h-01/04/2025" FontFamily="Montserrat" FontSize="10" Foreground="#9FA4AD" Margin="0,3,0,0"/>
-                                            </StackPanel>
-                                            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
-                                                    <Icon:PackIconMaterial Kind="Eye" Width="16" Height="16" Foreground="#9FA4AD"/>
-                                                </Button>
-                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
-                                                    <Icon:PackIconMaterial Kind="Download" Width="16" Height="16" Foreground="#9FA4AD"/>
-                                                </Button>
-                                            </StackPanel>
-                                        </Grid>
+                                    <!-- Payment Statistics Cards -->
+                                    <Grid Grid.Row="0" Margin="0,0,0,20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Total Payments Card -->
+                                        <Border Grid.Column="0" Background="White" BorderBrush="#E1E6EB" BorderThickness="1" CornerRadius="10" Padding="20" Margin="0,0,10,0">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                                                    <Border Background="#E6F1FF" CornerRadius="5" Padding="8">
+                                                        <iconPacks:PackIconMaterial Kind="CreditCard" Width="22" Height="22" Foreground="#0430AD"/>
+                                                    </Border>
+                                                    <TextBlock Text="Total Payments" FontSize="16" FontWeight="SemiBold" Foreground="#6C7682" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                                </StackPanel>
+
+                                                <TextBlock Grid.Row="1" Text="24" FontSize="28" FontWeight="Bold" Foreground="#121518"/>
+                                                <TextBlock Grid.Row="2" Text="All payments made" FontSize="12" Foreground="#9FA4AD" Margin="0,5,0,0"/>
+                                            </Grid>
+                                        </Border>
+
+                                        <!-- Total Amount Card -->
+                                        <Border Grid.Column="1" Background="White" BorderBrush="#E1E6EB" BorderThickness="1" CornerRadius="10" Padding="20" Margin="0,0,10,0">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                                                    <Border Background="#E6F7E6" CornerRadius="5" Padding="8">
+                                                        <iconPacks:PackIconMaterial Kind="CurrencyUsd" Width="22" Height="22" Foreground="#22C55E"/>
+                                                    </Border>
+                                                    <TextBlock Text="Total Amount" FontSize="16" FontWeight="SemiBold" Foreground="#6C7682" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                                </StackPanel>
+
+                                                <TextBlock Grid.Row="1" Text="$28,400" FontSize="28" FontWeight="Bold" Foreground="#121518"/>
+                                                <TextBlock Grid.Row="2" Text="Total paid amount" FontSize="12" Foreground="#9FA4AD" Margin="0,5,0,0"/>
+                                            </Grid>
+                                        </Border>
+
+                                        <!-- Completed Payments Card -->
+                                        <Border Grid.Column="2" Background="White" BorderBrush="#E1E6EB" BorderThickness="1" CornerRadius="10" Padding="20" Margin="0,0,10,0">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                                                    <Border Background="#E6F7E6" CornerRadius="5" Padding="8">
+                                                        <iconPacks:PackIconMaterial Kind="CheckCircle" Width="22" Height="22" Foreground="#22C55E"/>
+                                                    </Border>
+                                                    <TextBlock Text="Completed" FontSize="16" FontWeight="SemiBold" Foreground="#6C7682" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                                </StackPanel>
+
+                                                <TextBlock Grid.Row="1" Text="22" FontSize="28" FontWeight="Bold" Foreground="#121518"/>
+                                                <TextBlock Grid.Row="2" Text="Successful payments" FontSize="12" Foreground="#9FA4AD" Margin="0,5,0,0"/>
+                                            </Grid>
+                                        </Border>
+
+                                        <!-- Pending Payments Card -->
+                                        <Border Grid.Column="3" Background="White" BorderBrush="#E1E6EB" BorderThickness="1" CornerRadius="10" Padding="20">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                                                    <Border Background="#FEF3F2" CornerRadius="5" Padding="8">
+                                                        <iconPacks:PackIconMaterial Kind="ClockOutline" Width="22" Height="22" Foreground="#EF4444"/>
+                                                    </Border>
+                                                    <TextBlock Text="Pending" FontSize="16" FontWeight="SemiBold" Foreground="#6C7682" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                                </StackPanel>
+
+                                                <TextBlock Grid.Row="1" Text="2" FontSize="28" FontWeight="Bold" Foreground="#121518"/>
+                                                <TextBlock Grid.Row="2" Text="Awaiting payment" FontSize="12" Foreground="#9FA4AD" Margin="0,5,0,0"/>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+
+                                    <!-- Payments DataGrid -->
+                                    <Border Grid.Row="1" Background="White" BorderBrush="#E1E6EB" BorderThickness="1" CornerRadius="10" Padding="20">
+                                        <DataGrid x:Name="PaymentHistoryDataGrid" 
+                                                Grid.Row="5" Grid.Column="1" 
+                                                AutoGenerateColumns="False" 
+                                                IsReadOnly="True" 
+                                                GridLinesVisibility="None" 
+                                                BorderThickness="1" 
+                                                BorderBrush="#E1E1E1"
+                                                Background="White" 
+                                                RowBackground="White" 
+                                                AlternatingRowBackground="#F8F9FA"
+                                                CanUserAddRows="False" 
+                                                CanUserDeleteRows="False" 
+                                                ItemsSource="{Binding Payments}"
+                                                HeadersVisibility="Column">
+                                            <DataGrid.Resources>
+                                                <Style TargetType="DataGridColumnHeader">
+                                                    <Setter Property="Background" Value="#F8F9FA"/>
+                                                    <Setter Property="Padding" Value="10,8"/>
+                                                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                                    <Setter Property="BorderBrush" Value="#E1E1E1"/>
+                                                    <Setter Property="FontFamily" Value="Montserrat"/>
+                                                    <Setter Property="FontSize" Value="13"/>
+                                                </Style>
+                                            </DataGrid.Resources>
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Apartment Number" Binding="{Binding apartment_id}" Width="170"/>
+                                                <DataGridTextColumn Header="Total Amount" Binding="{Binding total_amount}" Width="*"/>
+                                                <DataGridTextColumn Header="Payment Status" Binding="{Binding payment_status}" Width="*"/>
+                                                <DataGridTextColumn Header="Payment Created Date" Binding="{Binding payment_created_date}" Width="*"/>
+                                                <DataGridTextColumn Header="Payment Date" Binding="{Binding payment_date}" Width="*"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
                                     </Border>
-
-                                    <!-- Document 2 -->
-                                    <Border BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Margin="0,0,0,10" Padding="10">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Border Grid.Column="0" Width="40" Height="40" Background="#E6FFE6" CornerRadius="5" Margin="0,0,10,0">
-                                                <TextBlock Text="PNG" FontFamily="Montserrat Bold" FontSize="12" Foreground="#4CAF50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                                <TextBlock Text="CMND_Ngo Thanh Trung" FontFamily="Montserrat SemiBold" FontSize="12"/>
-                                                <TextBlock Text="01/04/2025" FontFamily="Montserrat" FontSize="10" Foreground="#9FA4AD" Margin="0,3,0,0"/>
-                                            </StackPanel>
-                                            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
-                                                    <Icon:PackIconMaterial Kind="Eye" Width="16" Height="16" Foreground="#9FA4AD"/>
-                                                </Button>
-                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
-                                                    <Icon:PackIconMaterial Kind="Download" Width="16" Height="16" Foreground="#9FA4AD"/>
-                                                </Button>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-
-                                    <!-- Document 3 -->
-                                    <Border BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Margin="0,0,0,10" Padding="10">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Border Grid.Column="0" Width="40" Height="40" Background="#FFE6E6" CornerRadius="5" Margin="0,0,10,0">
-                                                <TextBlock Text="PDF" FontFamily="Montserrat Bold" FontSize="12" Foreground="#FF4D4D" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                                <TextBlock Text="sohokhau" FontFamily="Montserrat SemiBold" FontSize="12"/>
-                                                <TextBlock Text="01/04/2025" FontFamily="Montserrat" FontSize="10" Foreground="#9FA4AD" Margin="0,3,0,0"/>
-                                            </StackPanel>
-                                            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
-                                                    <Icon:PackIconMaterial Kind="Eye" Width="16" Height="16" Foreground="#9FA4AD"/>
-                                                </Button>
-                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
-                                                    <Icon:PackIconMaterial Kind="Download" Width="16" Height="16" Foreground="#9FA4AD"/>
-                                                </Button>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-
-                                    <!-- Document 4 -->
-                                    <Border BorderThickness="1" BorderBrush="#EEEEEE" CornerRadius="10" Margin="0,0,0,10" Padding="10">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Border Grid.Column="0" Width="40" Height="40" Background="#E6FFE6" CornerRadius="5" Margin="0,0,10,0">
-                                                <TextBlock Text="PNG" FontFamily="Montserrat Bold" FontSize="12" Foreground="#4CAF50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                                <TextBlock Text="CMND_Pham Duy Tuan" FontFamily="Montserrat SemiBold" FontSize="12"/>
-                                                <TextBlock Text="27/09/2015" FontFamily="Montserrat" FontSize="10" Foreground="#9FA4AD" Margin="0,3,0,0"/>
-                                            </StackPanel>
-                                            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
-                                                    <Icon:PackIconMaterial Kind="Eye" Width="16" Height="16" Foreground="#9FA4AD"/>
-                                                </Button>
-                                                <Button Background="Transparent" BorderThickness="0" Padding="5">
-                                                    <Icon:PackIconMaterial Kind="Download" Width="16" Height="16" Foreground="#9FA4AD"/>
-                                                </Button>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-                                </StackPanel>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </ScrollViewer>
+                                </Grid>
+                            </ScrollViewer>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

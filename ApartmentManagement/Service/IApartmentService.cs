@@ -12,6 +12,8 @@ namespace ApartmentManagement.Service
         Task<IEnumerable<Apartment>> GetApartmentsByApartmentNumberAsync(string apartmentNumber);
         Task<IEnumerable<Apartment>> GetApartmentsByStatusAsync(string status);
         Task<Apartment> GetOneApartmentAsync(string id);
+        Task<IEnumerable<Payment>> GetPaymentsByApartmentIdAsync(string apartmentId);
+        Task<IEnumerable<ServiceRequest>> GetServiceRequestsByApartmentIdAsync(string apartmentId);
         Task<bool> DeleteApartmentsAsync(string id);
         Task<bool> CreateApartmentsAsync(Apartment apartment);
         Task<bool> UpdateApartmentsAsync(Apartment apartment);

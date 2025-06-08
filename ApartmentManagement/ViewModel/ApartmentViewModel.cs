@@ -189,7 +189,6 @@ namespace ApartmentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-
         public string ApartmentId
         {
             get => _apartmentId;
@@ -487,7 +486,6 @@ namespace ApartmentManagement.ViewModels
             AllApartments = new ObservableCollection<Apartment>(apartments);
             CurrentPage = 1;
         }
-
         #endregion
 
         #region INotifyPropertyChanged Implementation

@@ -85,7 +85,20 @@ namespace ApartmentManagement.Views
             this.Close();
         }
 
-        private bool isFirstSelection = true;  // Cờ kiểm tra lần gọi đầu tiên
-
+        // Tab Control Event
+        private async void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DataContext is ApartmentInfoViewModel viewModel)
+            {
+                if (MainTabControl.SelectedItem == ServiceHistoryTab)
+                {
+                    await viewModel.LoadServiceRequestsAsync();
+                }
+                else if (MainTabControl.SelectedItem == PaymentHistoryTab)
+                {
+                    await viewModel.LoadPaymentsAsync();
+                }
+            }
+        }
     }
 }

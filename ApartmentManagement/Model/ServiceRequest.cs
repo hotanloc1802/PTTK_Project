@@ -18,6 +18,7 @@ namespace ApartmentManagement.Model
         public string category { get; set; }
         public string description { get; set; }
         public string status { get; set; }
+        public decimal amount { get; set; }
         public DateTime request_date { get; set; }
         public DateTime? completed_date { get; set; }  // Nullable vì không phải yêu cầu nào cũng đã hoàn thành
 

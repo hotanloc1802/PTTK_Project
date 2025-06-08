@@ -224,7 +224,19 @@ namespace ApartmentManagement.Repository
                                  .Where(a => a.building_id == buildingId)
                                  .ToListAsync();
         }
-        // Method to reload apartments data after encountering error
+        public async Task<IEnumerable<Payment>> GetPaymentsByApartmentIdAsync(string apartmentId)
+        {
+            return await _context.Payments
+                                 .Where(p => p.apartment_id == apartmentId)
+                                 .ToListAsync();
+        }
+        public async Task<IEnumerable<ServiceRequest>> GetServiceRequestsByApartmentIdAsync(string apartmentId)
+        {
+            return await _context.ServiceRequests
+                                 .Include(r => r.resident)
+                                 .Where(sr => sr.apartment_id == apartmentId)
+                                 .ToListAsync();
+        }
         public async Task LoadApartmentsAsync()
         {
             var apartments = await _context.Apartments.ToListAsync();

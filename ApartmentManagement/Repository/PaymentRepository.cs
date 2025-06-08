@@ -103,11 +103,11 @@ namespace ApartmentManagement.Repository
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> SetPaymentStatusCompleted(string paymentId)
+        public async Task<bool> SetPaymentStatusCompleted(string paymentId, string paymentMethod)
         {
             // Use reflection to retrieve the current schema from the DbContext
             var schemaField = _context.GetType().GetField("_schema", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-            string schema = "mien_dong"; // default schema if not found
+            string schema = "mien_dong"; // default schema
             if (schemaField != null)
             {
                 var schemaValue = schemaField.GetValue(_context) as string;
@@ -117,9 +117,16 @@ namespace ApartmentManagement.Repository
                 }
             }
 
-            // Concatenate schema (which is safe as it comes from the DbContext) and use parameters for user input
-            var sql = $"UPDATE {schema}.payments SET payment_status = 'Completed' WHERE payment_id = {{0}}";
-            var rowsAffected = await _context.Database.ExecuteSqlRawAsync(sql, paymentId);
+            // Build the SQL with parameterized values
+            var sql = $@"
+                UPDATE {schema}.payments 
+                SET 
+                    payment_status = 'Completed',
+                    payment_method = {{1}},
+                    payment_date = CURRENT_TIMESTAMP
+                WHERE payment_id = {{0}}";
+
+            var rowsAffected = await _context.Database.ExecuteSqlRawAsync(sql, paymentId, paymentMethod);
             return rowsAffected > 0;
         }
 

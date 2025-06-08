@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ApartmentManagement.Views"
         mc:Ignorable="d"
-        Title="Resident" Height="760" Width="1380" Background="Transparent" ResizeMode="NoResize"
+        Title="ResidentView" Height="760" Width="1380" Background="Transparent" ResizeMode="NoResize"
         AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox">
@@ -228,7 +228,7 @@ To="#959595" Duration="0:0:0.2" />
                 </Border>
                 <Border Background="Transparent" CornerRadius="10" Padding="5,5,5,5"  Width="142" >
                     <Button x:Name="btnResident" Style="{StaticResource menuButton}"  Width="138" Margin="-5,5,0,5" Background="#0430AD">
-                        
+
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Icon:PackIconMaterial Kind="AccountGroup" VerticalAlignment="Center" Foreground="White"/>
                             <TextBlock  x:Name="residentText"  Text="Resident" FontFamily="Montserrat Bold" FontSize="13" Foreground="White"
@@ -404,7 +404,8 @@ To="#959595" Duration="0:0:0.2" />
                     </Button>
                 </Border>
             </StackPanel>
-        </Grid>        <Grid Grid.Column="2">
+        </Grid>
+        <Grid Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="2*"/>
@@ -497,7 +498,7 @@ To="#959595" Duration="0:0:0.2" />
                     <Border x:Name="borderAll" CornerRadius="10"   Margin="0,0,5,0"  Background="#0430AD" BorderThickness="0" Width="60">
                         <Button x:Name="btnAll" Content="All"  Foreground="White"  FontFamily="Montserrat Bold"/>
                     </Border>
-                   
+
                 </StackPanel>
                 <!-- Title and filter tabs -->
                 <TextBlock Text="Residents"  Foreground="#434343"  FontFamily="Montserrat Bold" Grid.Row="0" FontSize="20"  Margin="0,15,187,10"/>

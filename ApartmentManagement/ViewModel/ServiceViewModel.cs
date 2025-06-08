@@ -1,21 +1,23 @@
 ﻿using ApartmentManagement.Core.Singleton;
 using ApartmentManagement.Model;
 using ApartmentManagement.Service;
+using ApartmentManagement.Utility;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows;
-using ApartmentManagement.Utility;
+using System.Windows.Controls;
 using System.Windows.Input;
-using System.Globalization;
+using System.Windows.Media;
+using System.Xml.Linq;
+using static QRCoder.PayloadGenerator;
 namespace ApartmentManagement.ViewModel
 {
     class ServiceViewModel : INotifyPropertyChanged, IDisposable
@@ -30,6 +32,13 @@ namespace ApartmentManagement.ViewModel
         private int _currentPage = 1;
         private int _itemsPerPage = 6;
         private int _totalPages;
+
+        // Service Request Fields
+        private string _category;
+        private string _apartmentId;
+        private string _phoneNumber;
+        private string _description;
+        private string _amount;
 
         private string _lastFilterStatus;
 
@@ -109,6 +118,58 @@ namespace ApartmentManagement.ViewModel
             }
         }
 
+        public string Category
+        {
+            get => _category;
+            set
+            {
+                _category = value;
+                OnPropertyChanged();
+            }
+        }
+        public string ApartmentId
+        {
+            get => _apartmentId;
+            set
+            {
+                _apartmentId = value;
+                OnPropertyChanged();
+            }
+        }
+        public string PhoneNumber
+        {
+            get => _phoneNumber;
+            set
+            {
+                _phoneNumber = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                _description = value;
+                OnPropertyChanged();
+            }
+        }
+        public decimal Amount
+        {
+            get
+            {
+                if (decimal.TryParse(_amount, NumberStyles.Any, CultureInfo.InvariantCulture, out var result))
+                {
+                    return result;
+                }
+                return 0m; // Default value if parsing fails
+            }
+            set
+            {
+                _amount = value.ToString(CultureInfo.InvariantCulture);
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         #region Commands
@@ -116,6 +177,7 @@ namespace ApartmentManagement.ViewModel
         public ICommand NextPageCommand { get; private set; }
         public ICommand PreviousPageCommand { get; private set; }
         public ICommand GoToPageCommand { get; private set; }
+        public ICommand AddServiceRequestCommand => new RelayCommand(AddServiceRequest);
         private void InitializeCommands()
         {
             LoadServiceRequestsCommand = new RelayCommand(async () => await LoadServiceRequestsAsync());
@@ -191,7 +253,41 @@ namespace ApartmentManagement.ViewModel
             AllServiceRequests = new ObservableCollection<ServiceRequest>(requests);
             UpdatePagination();
         }
+        private async void AddServiceRequest()
+        {
+            var newServiceRequest = new ServiceRequest
+            {
+                apartment_id = ApartmentId,
+                category = Category,
+                amount = Amount,
+                description = Description
+            };
+            var resident = await _serviceRequestService.GetResidentByPhoneNumberAsync(PhoneNumber);
+            if (resident != null)
+            {
+                newServiceRequest.resident_id = resident.resident_id;
+            }
+            else
+            {
+                MessageBox.Show("Resident not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
+            var result = await _serviceRequestService.CreateServiceRequestsAsync(newServiceRequest);
+            if (result)
+            {
+                MessageBox.Show("Service added successfully.");
+                ResetForm();
+            }
+        }
+        private void ResetForm()
+        {
+            Category = string.Empty;
+            ApartmentId = string.Empty;
+            PhoneNumber = string.Empty;
+            Amount = 0m;
+            Description = string.Empty;
+        }
         public async Task FilterServiceRequestsAsync(string status)
         {
             var serviceRequests = await _serviceRequestService.GetServiceRequestsByStatusAsync(status);

@@ -14,5 +14,7 @@ namespace ApartmentManagement.Service
         Task<bool> SetStatusCompleted(string requestId);
         Task<IEnumerable<ServiceRequest>> GetServiceRequestsByStatusAsync(string status);
         Task<IEnumerable<ServiceRequest>> SortServiceRequestsAsync(string sortType);
+        Task<bool> CreateServiceRequestsAsync(ServiceRequest service);
+        Task<Resident> GetResidentByPhoneNumberAsync(string phoneNumber);
     }
 }

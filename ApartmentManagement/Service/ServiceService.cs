@@ -35,5 +35,13 @@ namespace ApartmentManagement.Service
         {
             return await _serviceRepository.SortServiceRequestsAsync(sortType);
         }
+        public async Task<bool> CreateServiceRequestsAsync(ServiceRequest service)
+        {
+            return await _serviceRepository.CreateServiceRequestsAsync(service);
+        }
+        public async Task<Resident> GetResidentByPhoneNumberAsync(string phoneNumber)
+        {
+            return await _serviceRepository.GetResidentByPhoneNumberAsync(phoneNumber);
+        }
     }
 }

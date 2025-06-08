@@ -1,0 +1,388 @@
+﻿<Window x:Class="ApartmentManagement.Views.PaymentMethodDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:ApartmentManagement.Views"
+        mc:Ignorable="d"
+        Title="Payment Method" 
+        Height="480" 
+        Width="420" 
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <!-- Modern Button Style -->
+        <Style x:Key="ModernButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#0430AD"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,12"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#0430AD" Direction="270" ShadowDepth="2" 
+                                                  Opacity="0.3" BlurRadius="8"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#0542C4"/>
+                                <Setter TargetName="border" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1.02" ScaleY="1.02"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#032A8F"/>
+                                <Setter TargetName="border" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Cancel Button Style -->
+        <Style x:Key="CancelButtonStyle" TargetType="Button" BasedOn="{StaticResource ModernButtonStyle}">
+            <Setter Property="Background" Value="#F5F7FA"/>
+            <Setter Property="Foreground" Value="#6B7280"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E5E7EB"/>
+                    <Setter Property="Foreground" Value="#374151"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#D1D5DB"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Payment Method Card Style -->
+        <Style x:Key="PaymentCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="20,16"/>
+            <Setter Property="Margin" Value="0,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F8FAFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Selected Card Style -->
+        <Style x:Key="SelectedCardStyle" TargetType="Border" BasedOn="{StaticResource PaymentCardStyle}">
+            <Setter Property="Background" Value="#F0F4FF"/>
+            <Setter Property="BorderThickness" Value="3"/>
+        </Style>
+    </Window.Resources>
+
+    <!-- Main Container with Drop Shadow -->
+    <Border CornerRadius="16" Background="White" Margin="10">
+        <Border.Effect>
+            <DropShadowEffect Color="Black" Direction="270" ShadowDepth="10" 
+                              Opacity="0.2" BlurRadius="30"/>
+        </Border.Effect>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header Section -->
+            <Border Grid.Row="0" Background="#0430AD" CornerRadius="16,16,0,0" Padding="24,20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Payment Icon -->
+                    <Border Grid.Column="0" 
+                            CornerRadius="12" 
+                            Width="48" Height="48"
+                            Margin="0,0,16,0">
+                        <Icon:PackIconMaterial Kind="CreditCardOutline" 
+                                               Width="24" Height="24" 
+                                               Foreground="White"
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"/>
+                    </Border>
+
+                    <!-- Title -->
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock Text="Payment Method" 
+                                   FontFamily="Segoe UI" 
+                                   FontSize="20" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="White"/>
+                        <TextBlock Text="Choose how you'd like to pay" 
+                                   FontFamily="Segoe UI" 
+                                   FontSize="13" 
+                                   Margin="0,4,0,0"/>
+                    </StackPanel>
+
+                    <!-- Close Button -->
+                    <Button Grid.Column="2" 
+                            x:Name="CloseButton"
+                            Width="32" Height="32" 
+                            Background="Transparent" 
+                            BorderThickness="0"
+                            Click="CancelButton_Click"
+                            Cursor="Hand">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="closeBorder" 
+                                        Background="Transparent" 
+                                        CornerRadius="6">
+                                    <Icon:PackIconMaterial Kind="Close" 
+                                                           Width="15" Height="15"
+                                                           HorizontalAlignment="Center"
+                                                           Foreground="White"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <!-- Content Section -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="24,20">
+                <StackPanel>
+                    <!-- Payment Options -->
+                    <StackPanel x:Name="PaymentOptionsPanel">
+
+                        <!-- Cash Payment -->
+                        <Border x:Name="CashCard" Style="{StaticResource PaymentCardStyle}" 
+                                MouseLeftButtonDown="PaymentCard_Click" Tag="Cash">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Icon -->
+                                <Border Grid.Column="0" 
+                                        Background="#10B981" 
+                                        CornerRadius="10" 
+                                        Width="40" Height="40"
+                                        Margin="0,0,16,0">
+                                    <Icon:PackIconMaterial Kind="Cash" 
+                                                           Width="20" Height="20" 
+                                                           Foreground="White"
+                                                           HorizontalAlignment="Center" 
+                                                           VerticalAlignment="Center"/>
+                                </Border>
+
+                                <!-- Details -->
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="Cash Payment" 
+                                               FontFamily="Segoe UI" 
+                                               FontSize="16" 
+                                               FontWeight="SemiBold" 
+                                               Foreground="#1F2937"/>
+                                    <TextBlock Text="Pay with physical cash" 
+                                               FontFamily="Segoe UI" 
+                                               FontSize="13" 
+                                               Foreground="#6B7280" 
+                                               Margin="0,2,0,0"/>
+                                </StackPanel>
+
+                                <!-- Selection Indicator -->
+                                <Ellipse x:Name="CashIndicator" 
+                                         Grid.Column="2" 
+                                         Width="20" Height="20" 
+                                         Stroke="#D1D5DB" 
+                                         StrokeThickness="2" 
+                                         Fill="Transparent"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Bank Transfer -->
+                        <Border x:Name="BankCard" Style="{StaticResource PaymentCardStyle}" 
+                                MouseLeftButtonDown="PaymentCard_Click" Tag="Bank Transfer">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" 
+                                        Background="#3B82F6" 
+                                        CornerRadius="10" 
+                                        Width="40" Height="40"
+                                        Margin="0,0,16,0">
+                                    <Icon:PackIconMaterial Kind="Bank" 
+                                                           Width="20" Height="20" 
+                                                           Foreground="White"
+                                                           HorizontalAlignment="Center" 
+                                                           VerticalAlignment="Center"/>
+                                </Border>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="Bank Transfer" 
+                                               FontFamily="Segoe UI" 
+                                               FontSize="16" 
+                                               FontWeight="SemiBold" 
+                                               Foreground="#1F2937"/>
+                                    <TextBlock Text="Direct bank account transfer" 
+                                               FontFamily="Segoe UI" 
+                                               FontSize="13" 
+                                               Foreground="#6B7280" 
+                                               Margin="0,2,0,0"/>
+                                </StackPanel>
+
+                                <Ellipse x:Name="BankIndicator" 
+                                         Grid.Column="2" 
+                                         Width="20" Height="20" 
+                                         Stroke="#D1D5DB" 
+                                         StrokeThickness="2" 
+                                         Fill="Transparent"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Mobile Payment -->
+                        <Border x:Name="MobileCard" Style="{StaticResource PaymentCardStyle}" 
+                                MouseLeftButtonDown="PaymentCard_Click" Tag="Mobile Payment">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" 
+                                        Background="#8B5CF6" 
+                                        CornerRadius="10" 
+                                        Width="40" Height="40"
+                                        Margin="0,0,16,0">
+                                    <Icon:PackIconMaterial Kind="Cellphone" 
+                                                           Width="20" Height="20" 
+                                                           Foreground="White"
+                                                           HorizontalAlignment="Center" 
+                                                           VerticalAlignment="Center"/>
+                                </Border>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="Mobile Payment" 
+                                               FontFamily="Segoe UI" 
+                                               FontSize="16" 
+                                               FontWeight="SemiBold" 
+                                               Foreground="#1F2937"/>
+                                    <TextBlock Text="Pay with mobile wallet or app" 
+                                               FontFamily="Segoe UI" 
+                                               FontSize="13" 
+                                               Foreground="#6B7280" 
+                                               Margin="0,2,0,0"/>
+                                </StackPanel>
+
+                                <Ellipse x:Name="MobileIndicator" 
+                                         Grid.Column="2" 
+                                         Width="20" Height="20" 
+                                         Stroke="#D1D5DB" 
+                                         StrokeThickness="2" 
+                                         Fill="Transparent"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Other -->
+                        <Border x:Name="OtherCard" Style="{StaticResource PaymentCardStyle}" 
+                                MouseLeftButtonDown="PaymentCard_Click" Tag="Other">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" 
+                                        Background="#F59E0B" 
+                                        CornerRadius="10" 
+                                        Width="40" Height="40"
+                                        Margin="0,0,16,0">
+                                    <Icon:PackIconMaterial Kind="DotsHorizontal" 
+                                                           Width="20" Height="20" 
+                                                           Foreground="White"
+                                                           HorizontalAlignment="Center" 
+                                                           VerticalAlignment="Center"/>
+                                </Border>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="Other Method" 
+                                               FontFamily="Segoe UI" 
+                                               FontSize="16" 
+                                               FontWeight="SemiBold" 
+                                               Foreground="#1F2937"/>
+                                    <TextBlock Text="Alternative payment method" 
+                                               FontFamily="Segoe UI" 
+                                               FontSize="13" 
+                                               Foreground="#6B7280" 
+                                               Margin="0,2,0,0"/>
+                                </StackPanel>
+
+                                <Ellipse x:Name="OtherIndicator" 
+                                         Grid.Column="2" 
+                                         Width="20" Height="20" 
+                                         Stroke="#D1D5DB" 
+                                         StrokeThickness="2" 
+                                         Fill="Transparent"/>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Action Buttons -->
+            <Border Grid.Row="2" 
+                    Background="#F9FAFB" 
+                    CornerRadius="0,0,16,16" 
+                    Padding="24,20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" 
+                            Content="Cancel" 
+                            Style="{StaticResource CancelButtonStyle}"
+                            Click="CancelButton_Click"/>
+
+                    <Button Grid.Column="2" 
+                            Content="Confirm Payment" 
+                            Style="{StaticResource ModernButtonStyle}"
+                            Click="OkButton_Click"
+                            x:Name="ConfirmButton"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

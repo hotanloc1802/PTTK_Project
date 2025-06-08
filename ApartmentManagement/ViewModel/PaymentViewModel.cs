@@ -2,6 +2,7 @@
 using ApartmentManagement.Model;
 using ApartmentManagement.Service;
 using ApartmentManagement.Utility;
+using ApartmentManagement.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,8 +39,9 @@ namespace ApartmentManagement.ViewModel
         private string _billType;
         private decimal _billAmount;
         private string _paymentStatus;
-        private DateTime _dueDate;
+        private DateTime _dueDate = DateTime.Now.AddDays(30);
         private DateTime _billDate;
+        private string _selectedPaymentMethod;
 
         private string _lastFilterStatus;
 
@@ -169,6 +171,30 @@ namespace ApartmentManagement.ViewModel
                 _billDate = value;
                 OnPropertyChanged();
             }
+        }
+
+        public string SelectedPaymentMethod
+        {
+            get => _selectedPaymentMethod;
+            set
+            {
+                _selectedPaymentMethod = value;
+                OnPropertyChanged();
+            }
+        }
+
+        // Add this method to show the payment method dialog
+        public async Task<string> ShowPaymentMethodDialogAsync()
+        {
+            var dialog = new PaymentMethodDialog();
+            var result = dialog.ShowDialog();
+
+            if (result == true)
+            {
+                return dialog.SelectedMethod;
+            }
+
+            return null;
         }
         #endregion
 
@@ -314,15 +340,13 @@ namespace ApartmentManagement.ViewModel
             return false;
         }
 
-        public async Task<bool> SetPaymentStatusCompleted(string paymentId)
+        public async Task<bool> SetPaymentStatusCompleted(string paymentId, string paymentMethod)
         {
-            return await _paymentService.SetPaymentStatusCompleted(paymentId);
+            return await _paymentService.SetPaymentStatusCompleted(paymentId, paymentMethod);
         }
 
         private async void AddBill()
         {
-            DueDate = DateTime.UtcNow.AddDays(30);
-
             // Create a new Bill instance using properties from the ViewModel
             var newBill = new Bill
             {
@@ -330,7 +354,7 @@ namespace ApartmentManagement.ViewModel
                 bill_type = BillType,
                 bill_amount = BillAmount,
                 payment_status = PaymentStatus,
-                due_date = DueDate,
+                due_date = DueDate.ToUniversalTime(),
             };
 
             // Assuming PaymentService has a method to create a bill asynchronously
@@ -352,7 +376,6 @@ namespace ApartmentManagement.ViewModel
             BillType = string.Empty;
             BillAmount = 0;
             PaymentStatus = string.Empty;
-            DueDate = DateTime.UtcNow.AddDays(30);
         }
         #endregion
 
