@@ -628,7 +628,7 @@ To="#959595" Duration="0:0:0.2" />
 
                                     <!--Secondary Button-->
                                     <Button x:Name="btnCancel" Grid.Row="6" Content="Cancel" HorizontalAlignment="Left" Margin="20 20 0 0" 
-                                   Background="Transparent" Foreground="#979797" Width="150" Height="40" BorderThickness="1" BorderBrush="#CCCCCC">
+                                   Background="Transparent" Foreground="#979797" Width="150" Height="40" BorderThickness="1" BorderBrush="#CCCCCC" Click="BtnBack_Click">
 
                                     </Button>
                                 </Grid>

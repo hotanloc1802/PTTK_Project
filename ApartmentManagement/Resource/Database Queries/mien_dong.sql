@@ -99,8 +99,8 @@ CREATE TABLE mien_dong.service_requests (
     description TEXT NOT NULL,
     amount  DECIMAL(12, 2) NOT null DEFAULT 0,
     status VARCHAR(50) DEFAULT 'Pending',
-    request_date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    completed_date TIMESTAMP WITHOUT TIME ZONE,
+    request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    completed_date TIMESTAMP,
     FOREIGN KEY (apartment_id) REFERENCES mien_dong.apartments(apartment_id) ON DELETE CASCADE,
     FOREIGN KEY (resident_id) REFERENCES mien_dong.residents(resident_id) ON DELETE CASCADE
 );
@@ -787,3 +787,16 @@ SELECT * FROM mien_dong.payments;
 SELECT * FROM mien_dong.paymentsdetail;
 
 SELECT * FROM mien_dong.service_requests;
+
+-- describe all table
+SELECT column_name, data_type, is_nullable
+FROM information_schema.columns
+WHERE table_schema = 'mien_dong'
+AND table_name IN (
+    'users', 'buildings', 'apartments', 'residents',
+    'bills', 'payments', 'paymentsdetail', 'service_requests'
+);
+
+ALTER TABLE mien_dong.service_requests 
+ALTER COLUMN completed_date TYPE TIMESTAMPTZ,
+ALTER COLUMN request_date TYPE TIMESTAMPTZ;
