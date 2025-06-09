@@ -133,6 +133,15 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- Auto-generate service_request_id in format SRXXX using a sequence
+CREATE OR REPLACE FUNCTION set_service_request_id()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.request_id := 'SR' || LPAD(nextval('mien_dong.payment_id_seq')::text, 4, '0');
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 -- Create function to automatically update current_population when there is a change in the residents table
 CREATE OR REPLACE FUNCTION update_current_population()
 RETURNS TRIGGER AS $$
@@ -262,7 +271,58 @@ END;
 $$ LANGUAGE plpgsql;
 
 
--- REINTRODUCED FUNCTION: Manages apartment payments, creating one if it doesn't exist for the month.
+-- Create function to handle penalty bill creation for overdue payments
+CREATE OR REPLACE FUNCTION create_penalty_bill()
+RETURNS TRIGGER AS $$
+DECLARE
+    v_penalty_amount DECIMAL(12, 2);
+    v_bill_id VARCHAR(20);
+    v_payment_month DATE;
+BEGIN
+    -- Only proceed if status is changing to 'Overdue'
+    IF NEW.payment_status = 'Overdue' AND OLD.payment_status != 'Overdue' THEN
+        -- Get payment month
+        v_payment_month := DATE_TRUNC('month', NEW.payment_created_date);
+        
+        -- Calculate 5% penalty
+        v_penalty_amount := NEW.total_amount * 0.05;
+        
+        -- Check if penalty bill already exists for this payment month and apartment
+        IF NOT EXISTS (
+            SELECT 1 
+            FROM mien_dong.bills b 
+            WHERE b.apartment_id = NEW.apartment_id 
+            AND b.bill_type = 'Late Payment Penalty'
+            AND DATE_TRUNC('month', b.bill_date) = v_payment_month
+        ) THEN
+            -- Insert new penalty bill
+            INSERT INTO mien_dong.bills (
+                apartment_id,
+                bill_type,
+                bill_amount,
+                due_date,
+                bill_date,
+                payment_status
+            )
+            VALUES (
+                NEW.apartment_id,
+                'Late Payment Penalty(5%)',
+                v_penalty_amount,
+                NEW.payment_date,
+                CURRENT_TIMESTAMP,
+                'Pending'
+            )
+            RETURNING bill_id INTO v_bill_id;
+
+            -- Link the penalty bill to this specific payment
+            INSERT INTO mien_dong.paymentsdetail (bill_id, payment_id)
+            VALUES (v_bill_id, NEW.payment_id);
+        END IF;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 -- This function ensures a payment record exists for a given apartment for a specific month/year.
 -- If no payment exists, it creates a new 'Pending' payment.
 -- It then links the provided bill_id to this payment.
@@ -273,31 +333,30 @@ CREATE OR REPLACE FUNCTION manage_apartment_payment(
 ) RETURNS VARCHAR(20) AS $$
 DECLARE
     v_payment_id VARCHAR(20);
-    v_year INT;
-    v_month INT;
+    v_bill_month DATE;
+    v_payment_date DATE;
 BEGIN
-    -- Extract year and month from bill date
-    v_year := EXTRACT(YEAR FROM p_bill_date);
-    v_month := EXTRACT(MONTH FROM p_bill_date);
+    -- Get the first day of the bill's month
+    v_bill_month := DATE_TRUNC('month', p_bill_date);
+    -- Set payment date to first day of next month
+    v_payment_date := v_bill_month + INTERVAL '1 month';
 
-    -- Check if a payment already exists for this apartment for this month/year
+    -- Check if a payment already exists for bills from this month
     SELECT payment_id INTO v_payment_id
     FROM mien_dong.payments
     WHERE apartment_id = p_apartment_id
-    AND EXTRACT(YEAR FROM payment_created_date) = v_year
-    AND EXTRACT(MONTH FROM payment_created_date) = v_month
-    AND payment_status = 'Pending' -- Only consider pending payments for linking
+    AND DATE_TRUNC('month', payment_created_date) = v_payment_date
+    AND payment_status = 'Pending'
     LIMIT 1;
 
-    -- If no pending payment exists for this apartment for this month, create one
+    -- If no pending payment exists for bills from this month, create one
     IF v_payment_id IS NULL THEN
         INSERT INTO mien_dong.payments (apartment_id, payment_created_date, total_amount, payment_status)
-        VALUES (p_apartment_id, DATE_TRUNC('month', p_bill_date), 0, 'Pending') -- Set to the first day of the month
+        VALUES (p_apartment_id, v_payment_date, 0, 'Pending')
         RETURNING payment_id INTO v_payment_id;
     END IF;
 
-    -- Link the bill to this payment
-    -- Check if the bill is already linked to prevent duplicates in paymentsdetail
+    -- Link the bill to this payment if not already linked
     IF NOT EXISTS (SELECT 1 FROM mien_dong.paymentsdetail WHERE bill_id = p_bill_id AND payment_id = v_payment_id) THEN
         INSERT INTO mien_dong.paymentsdetail (bill_id, payment_id)
         VALUES (p_bill_id, v_payment_id);
@@ -331,19 +390,18 @@ END;
 $$ LANGUAGE plpgsql;
 
 
--- REINTRODUCED FUNCTION: Automatically links newly inserted bills to apartment payments.
--- This function is called by a trigger after a new bill is inserted.
--- It ensures that the bill is linked to the appropriate monthly payment, creating one if necessary.
+-- Also, we need to modify the link_bill_to_payment function to NOT auto-link penalty bills
 CREATE OR REPLACE FUNCTION link_bill_to_payment()
 RETURNS TRIGGER AS $$
 DECLARE
     v_payment_id VARCHAR(20);
 BEGIN
-    -- Only process pending bills
-    IF NEW.payment_status = 'Pending' THEN
+    -- Only process pending bills, but EXCLUDE penalty bills from auto-linking
+    IF NEW.payment_status = 'Pending' AND NEW.bill_type != 'Late Payment Penalty' THEN
         -- Link the bill to the appropriate payment
         v_payment_id := manage_apartment_payment(NEW.apartment_id, NEW.bill_id, NEW.bill_date);
     END IF;
+    -- Note: Penalty bills are manually linked in the create_penalty_bill function
 
     RETURN NEW;
 END;
@@ -423,8 +481,6 @@ $$ LANGUAGE plpgsql;
 
 
 -- REVISED FUNCTION: Create a service bill when a service request is completed
--- This function now creates or updates a 'Service' bill
--- when a service_request's status changes to 'Completed'.
 CREATE OR REPLACE FUNCTION create_service_bill()
 RETURNS TRIGGER AS $$
 DECLARE
@@ -471,17 +527,67 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- Create function to handle penalty bill creation for overdue payments
+CREATE OR REPLACE FUNCTION create_penalty_bill()
+RETURNS TRIGGER AS $$
+DECLARE
+    v_penalty_amount DECIMAL(12, 2);
+    v_bill_id VARCHAR(20);
+BEGIN
+    -- Only proceed if status is changing to 'Overdue' from a non-overdue status
+    IF NEW.payment_status = 'Overdue' AND (OLD.payment_status IS NULL OR OLD.payment_status != 'Overdue') THEN
+        
+        -- Check if a penalty bill already exists for THIS SPECIFIC PAYMENT
+        IF NOT EXISTS (
+            SELECT 1 
+            FROM mien_dong.bills b 
+            INNER JOIN mien_dong.paymentsdetail pd ON b.bill_id = pd.bill_id
+            WHERE pd.payment_id = NEW.payment_id 
+            AND b.bill_type = 'Late Payment Penalty'
+        ) THEN
+            -- Calculate 5% penalty of the total amount
+            v_penalty_amount := NEW.total_amount * 0.05;
+            
+            -- Insert new penalty bill
+            INSERT INTO mien_dong.bills (
+                apartment_id,
+                bill_type,
+                bill_amount,
+                due_date,
+                bill_date,
+                payment_status
+            )
+            VALUES (
+                NEW.apartment_id,
+                'Late Payment Penalty',
+                v_penalty_amount,
+                CURRENT_TIMESTAMP + INTERVAL '1 month', -- Due 1 month from now
+                CURRENT_TIMESTAMP,
+                'Pending'
+            )
+            RETURNING bill_id INTO v_bill_id;
 
--- REVISED TRIGGER: Trigger for service_requests to create service bills
--- This trigger now fires AFTER an UPDATE on 'service_requests',
--- specifically when the 'status' changes to 'Completed' and the 'amount' is greater than 0.
+            -- Link the penalty bill ONLY to the overdue payment
+            INSERT INTO mien_dong.paymentsdetail (bill_id, payment_id)
+            VALUES (v_bill_id, NEW.payment_id);
+            
+            -- Important: Do NOT let this penalty bill get auto-linked to other payments
+            -- The penalty should stay with the original overdue payment
+        END IF;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 4. Create all triggers
+-- Trigger to create a service bill when a service request is completed
 CREATE OR REPLACE TRIGGER trg_create_service_bill
 AFTER UPDATE OF status ON mien_dong.service_requests
 FOR EACH ROW
 WHEN (NEW.status = 'Completed' AND OLD.status IS DISTINCT FROM NEW.status AND NEW.amount > 0)
 EXECUTE FUNCTION create_service_bill();
 
--- 4. Create all triggers
 -- Trigger to call the function before INSERT on residents to auto-generate resident_id
 CREATE  OR REPLACE  TRIGGER before_resident_insert
 BEFORE INSERT ON mien_dong.residents
@@ -500,6 +606,12 @@ BEFORE INSERT ON mien_dong.payments
 FOR EACH ROW
 WHEN (NEW.payment_id IS NULL)
 EXECUTE FUNCTION set_payment_id();
+
+-- Trigger to call the function before INSERT on service_requests to auto-generate request_id
+CREATE  OR REPLACE  TRIGGER before_service_request_insert
+BEFORE INSERT ON mien_dong.service_requests
+FOR EACH ROW
+EXECUTE FUNCTION set_service_request_id();
 
 -- Trigger to call the function after INSERT on residents to update current_population
 CREATE  OR REPLACE  TRIGGER after_resident_insert
@@ -586,6 +698,13 @@ FOR EACH ROW
 WHEN (OLD.payment_status = 'Pending' AND NEW.payment_status = 'Completed')
 EXECUTE FUNCTION set_payment_date();
 
+-- Create trigger to execute penalty bill creation
+CREATE OR REPLACE TRIGGER trg_create_penalty_bill
+AFTER UPDATE OF payment_status ON mien_dong.payments
+FOR EACH ROW
+WHEN (NEW.payment_status = 'Overdue' AND OLD.payment_status IS DISTINCT FROM 'Overdue')
+EXECUTE FUNCTION create_penalty_bill();
+
 -- 5. Insert data
 
 INSERT INTO mien_dong.buildings (building_id, building_name, address)
@@ -663,108 +782,67 @@ VALUES
 -- Insert mock bills for various apartments
 INSERT INTO mien_dong.bills (bill_type, apartment_id, bill_amount, due_date, bill_date, payment_status)
 VALUES
-    -- Apartment A01.01 bills
+    -- A01.01 bills
     ('Electricity', 'A01.01', 850.00, '2025-05-25', '2025-06-01', 'Pending'),
     ('Water', 'A01.01', 320.00, '2025-05-25', '2025-05-01', 'Pending'),
     ('Maintenance', 'A01.01', 200.00, '2025-05-25', '2025-05-01', 'Pending'),
-
-    -- Apartment A01.02 bills
-    ('Electricity', 'A01.02', 780.00, '2025-05-25', '2025-05-01', 'Pending'),
-    ('Water', 'A01.02', 290.00, '2025-05-25', '2025-05-01', 'Pending'),
-    ('Maintenance', 'A01.02', 200.00, '2025-05-25', '2025-05-01', 'Pending'),
-
-    -- Apartment A02.03 bills
-    ('Electricity', 'A02.03', 900.00, '2025-05-25', '2025-05-01', 'Pending'),
-    ('Water', 'A02.03', 350.00, '2025-05-25', '2025-05-01', 'Pending'),
-    ('Maintenance', 'A02.03', 200.00, '2025-05-25', '2025-05-01', 'Pending'),
-
-    -- Apartment A02.04 bills
-    ('Electricity', 'A02.04', 600.00, '2025-05-25', '2025-05-01', 'Pending'),
-    ('Water', 'A02.04', 200.00, '2025-05-25', '2025-05-01', 'Pending'),
-    ('Maintenance', 'A02.04', 200.00, '2025-05-25', '2025-05-01', 'Pending'),
-
-    -- Previous month bills for A01.01 (already paid)
+    ('Special Maintenance', 'A01.01', 1500.00, '2025-05-25', '2025-05-01', 'Pending'),
     ('Electricity', 'A01.01', 800.00, '2025-04-25', '2025-04-01', 'Pending'),
     ('Water', 'A01.01', 300.00, '2025-04-25', '2025-04-01', 'Pending'),
     ('Maintenance', 'A01.01', 200.00, '2025-04-25', '2025-04-01', 'Pending'),
-
-    -- Previous month bills for A01.02 (already paid)
+    -- A01.02 bills
+    ('Electricity', 'A01.02', 780.00, '2025-05-25', '2025-05-01', 'Pending'),
+    ('Water', 'A01.02', 290.00, '2025-05-25', '2025-05-01', 'Pending'),
+    ('Maintenance', 'A01.02', 200.00, '2025-05-25', '2025-05-01', 'Pending'),
+    ('Special Maintenance', 'A01.02', 1200.00, '2025-05-25', '2025-05-01', 'Pending'),
     ('Electricity', 'A01.02', 700.00, '2025-04-25', '2025-04-01', 'Pending'),
     ('Water', 'A01.02', 200.00, '2025-04-25', '2025-04-01', 'Pending'),
-    ('Maintenance', 'A01.02', 200.00, '2025-04-25', '2025-04-01', 'Pending');
-
--- Now let's complete some payments for the previous month
--- Note: We don't need to manually insert into payments or paymentsdetail tables
--- as our triggers will handle that automatically
-
--- Complete payments for April for apartments A01.01 and A01.02
-SELECT complete_apartment_payment('A01.01', 'Bank Transfer', 2025, 4);
-SELECT complete_apartment_payment('A01.02', 'Cash', 2025, 4);
-
--- Insert bills for some apartments for June (future month)
-INSERT INTO mien_dong.bills (bill_type, apartment_id, bill_amount, due_date, bill_date, payment_status)
-VALUES
+    ('Maintenance', 'A01.02', 200.00, '2025-04-25', '2025-04-01', 'Pending'),
+    -- A02.03 bills
+    ('Electricity', 'A02.03', 900.00, '2025-05-25', '2025-05-01', 'Pending'),
+    ('Water', 'A02.03', 350.00, '2025-05-25', '2025-05-01', 'Pending'),
+    ('Maintenance', 'A02.03', 200.00, '2025-05-25', '2025-05-01', 'Pending'),
     ('Electricity', 'A02.03', 800.00, '2025-06-25', '2025-06-01', 'Pending'),
     ('Water', 'A02.03', 330.00, '2025-06-25', '2025-06-01', 'Pending'),
     ('Maintenance', 'A02.03', 200.00, '2025-06-25', '2025-06-01', 'Pending'),
-
+    -- A02.04 bills
+    ('Electricity', 'A02.04', 600.00, '2025-05-25', '2025-05-01', 'Pending'),
+    ('Water', 'A02.04', 200.00, '2025-05-25', '2025-05-01', 'Pending'),
+    ('Maintenance', 'A02.04', 200.00, '2025-05-25', '2025-05-01', 'Pending'),
     ('Electricity', 'A02.04', 760.00, '2025-06-25', '2025-06-01', 'Pending'),
     ('Water', 'A02.04', 300.00, '2025-06-25', '2025-06-01', 'Pending'),
     ('Maintenance', 'A02.04', 200.00, '2025-06-25', '2025-06-01', 'Pending');
 
--- Complete some current month payments
-SELECT complete_apartment_payment('A02.03', 'Bank Transfer', 2025, 5);
-SELECT complete_apartment_payment('A02.04', 'Mobile Payment', 2025, 5);
-
--- Insert some special bills
-INSERT INTO mien_dong.bills (bill_type, apartment_id, bill_amount, due_date, bill_date, payment_status)
-VALUES
-    ('Special Maintenance', 'A01.01', 1500.00, '2025-05-25', '2025-05-01', 'Pending'),
-    ('Special Maintenance', 'A01.02', 1200.00, '2025-05-25', '2025-05-01', 'Pending');
-
 -- Insert service requests with an initial status (e.g., 'In Progress')
 INSERT INTO mien_dong.service_requests (
-    request_id, apartment_id, resident_id, category, description, status, amount, request_date, completed_date
+    apartment_id, resident_id, category, description, status, amount, request_date, completed_date
 )
 VALUES
-    ('SR001', 'A01.01', 'R001', 'Plumbing', 'Leaky faucet in kitchen', 'In Progress', 150, CURRENT_TIMESTAMP - INTERVAL '12 days', NULL),
-    ('SR002', 'A01.02', 'R002', 'Electrical', 'Light bulb replacement in living room', 'In Progress', 120, CURRENT_TIMESTAMP - INTERVAL '28 days', NULL),
-    ('SR003', 'A02.03', 'R003', 'HVAC', 'Air conditioning not working', 'In Progress', 420, CURRENT_TIMESTAMP - INTERVAL '15 days', NULL),
-    ('SR004', 'A02.04', 'R004', 'Cleaning', 'Common area cleaning request', 'In Progress', 100, CURRENT_TIMESTAMP - INTERVAL '35 days', NULL),
-    ('SR005', 'A03.05', 'R005', 'Security', 'Lost key request', 'In Progress', 200, CURRENT_TIMESTAMP - INTERVAL '9 days', NULL),
-    ('SR006', 'A03.06', 'R006', 'Maintenance', 'Broken window in bedroom', 'In Progress', 380, CURRENT_TIMESTAMP - INTERVAL '22 days', NULL),
-    ('SR007', 'A04.07', 'R007', 'Plumbing', 'Clogged toilet issue', 'In Progress', 240, CURRENT_TIMESTAMP - INTERVAL '41 days', NULL),
-    ('SR008', 'A04.08', 'R008', 'Electrical', 'Power outage in apartment', 'In Progress', 310, CURRENT_TIMESTAMP - INTERVAL '18 days', NULL),
-    ('SR009', 'A05.09', 'R009', 'HVAC', 'Heating system not working', 'In Progress', 470, CURRENT_TIMESTAMP - INTERVAL '63 days', NULL),
-    ('SR010', 'A05.10', 'R010', 'Cleaning', 'Balcony cleaning request', 'In Progress', 130, CURRENT_TIMESTAMP - INTERVAL '11 days', NULL),
-    ('SR011', 'A06.11', 'R011', 'Security', 'Access card request', 'In Progress', 160, CURRENT_TIMESTAMP - INTERVAL '7 days', NULL),
-    ('SR012', 'A06.12', 'R012', 'Maintenance', 'Pest control request', 'In Progress', 295, CURRENT_TIMESTAMP - INTERVAL '49 days', NULL),
-    ('SR013', 'A07.13', 'R013', 'Plumbing', 'Water heater issue', 'In Progress', 430, CURRENT_TIMESTAMP - INTERVAL '20 days', NULL),
-    ('SR014', 'A07.14', 'R014', 'Electrical', 'Wiring issue in living room', 'In Progress', 390, CURRENT_TIMESTAMP - INTERVAL '33 days', NULL),
-    ('SR015', 'A08.15', 'R015', 'HVAC', 'Ventilation issue in kitchen', 'In Progress', 310, CURRENT_TIMESTAMP - INTERVAL '17 days', NULL),
-    ('SR016', 'A08.16', 'R016', 'Cleaning', 'Garage cleaning request', 'In Progress', 180, CURRENT_TIMESTAMP - INTERVAL '26 days', NULL),
-    ('SR017', 'A09.17', 'R017', 'Security', 'Visitor access request', 'In Progress', 150, CURRENT_TIMESTAMP - INTERVAL '14 days', NULL),
-    ('SR018', 'A09.18', 'R018', 'Maintenance', 'Roof leak issue', 'In Progress', 490, CURRENT_TIMESTAMP - INTERVAL '66 days', NULL),
-    ('SR019', 'A10.19', 'R019', 'Plumbing', 'Sewer backup issue in bathroom', 'In Progress', 450, CURRENT_TIMESTAMP - INTERVAL '39 days', NULL),
-    ('SR020', 'A10.20', 'R020', 'Electrical', 'Circuit breaker issue in kitchen', 'In Progress', 305, CURRENT_TIMESTAMP - INTERVAL '24 days', NULL);
+    ('A01.01', 'R001', 'Plumbing', 'Leaky faucet in kitchen', 'In Progress', 150, CURRENT_TIMESTAMP - INTERVAL '12 days', NULL),
+    ('A01.02', 'R002', 'Electrical', 'Light bulb replacement in living room', 'In Progress', 120, CURRENT_TIMESTAMP - INTERVAL '28 days', NULL),
+    ('A02.03', 'R003', 'HVAC', 'Air conditioning not working', 'In Progress', 420, CURRENT_TIMESTAMP - INTERVAL '15 days', NULL),
+    ('A02.04', 'R004', 'Cleaning', 'Common area cleaning request', 'In Progress', 100, CURRENT_TIMESTAMP - INTERVAL '35 days', NULL),
+    ('A03.05', 'R005', 'Security', 'Lost key request', 'In Progress', 200, CURRENT_TIMESTAMP - INTERVAL '9 days', NULL),
+    ('A03.06', 'R006', 'Maintenance', 'Broken window in bedroom', 'In Progress', 380, CURRENT_TIMESTAMP - INTERVAL '22 days', NULL),
+    ('A04.07', 'R007', 'Plumbing', 'Clogged toilet issue', 'In Progress', 240, CURRENT_TIMESTAMP - INTERVAL '41 days', NULL),
+    ('A04.08', 'R008', 'Electrical', 'Power outage in apartment', 'In Progress', 310, CURRENT_TIMESTAMP - INTERVAL '18 days', NULL),
+    ('A05.09', 'R009', 'HVAC', 'Heating system not working', 'In Progress', 470, CURRENT_TIMESTAMP - INTERVAL '63 days', NULL),
+    ('A05.10', 'R010', 'Cleaning', 'Balcony cleaning request', 'In Progress', 130, CURRENT_TIMESTAMP - INTERVAL '11 days', NULL),
+    ('A06.11', 'R011', 'Security', 'Access card request', 'In Progress', 160, CURRENT_TIMESTAMP - INTERVAL '7 days', NULL),
+    ('A06.12', 'R012', 'Maintenance', 'Pest control request', 'In Progress', 295, CURRENT_TIMESTAMP - INTERVAL '49 days', NULL),
+    ('A07.13', 'R013', 'Plumbing', 'Water heater issue', 'In Progress', 430, CURRENT_TIMESTAMP - INTERVAL '20 days', NULL),
+    ('A07.14', 'R014', 'Electrical', 'Wiring issue in living room', 'In Progress', 390, CURRENT_TIMESTAMP - INTERVAL '33 days', NULL),
+    ('A08.15', 'R015', 'HVAC', 'Ventilation issue in kitchen', 'In Progress', 310, CURRENT_TIMESTAMP - INTERVAL '17 days', NULL),
+    ('A08.16', 'R016', 'Cleaning', 'Garage cleaning request', 'In Progress', 180, CURRENT_TIMESTAMP - INTERVAL '26 days', NULL),
+    ('A09.17', 'R017', 'Security', 'Visitor access request', 'In Progress', 150, CURRENT_TIMESTAMP - INTERVAL '14 days', NULL),
+    ('A09.18', 'R018', 'Maintenance', 'Roof leak issue', 'In Progress', 490, CURRENT_TIMESTAMP - INTERVAL '66 days', NULL),
+    ('A10.19', 'R019', 'Plumbing', 'Sewer backup issue in bathroom', 'In Progress', 450, CURRENT_TIMESTAMP - INTERVAL '39 days', NULL),
+    ('A10.20', 'R020', 'Electrical', 'Circuit breaker issue in kitchen', 'In Progress', 305, CURRENT_TIMESTAMP - INTERVAL '24 days', NULL);
 
 -- Now, update some service requests to 'Completed' to trigger bill creation
 UPDATE mien_dong.service_requests
 SET status = 'Completed'
 WHERE request_id IN ('SR001', 'SR002', 'SR003', 'SR004', 'SR005', 'SR006', 'SR007', 'SR008');
-
--- Test the accumulation for an existing pending service bill
--- Let's say SR001 gets another related service completed
-INSERT INTO mien_dong.service_requests (
-    request_id, apartment_id, resident_id, category, description, status, amount, request_date, completed_date
-)
-VALUES
-    ('SR021', 'A01.01', 'R001', 'Plumbing', 'Follow-up on leaky faucet', 'In Progress', 75, CURRENT_TIMESTAMP - INTERVAL '1 day', NULL);
-
-UPDATE mien_dong.service_requests
-SET status = 'Completed'
-WHERE request_id = 'SR021';
-
 
 -- Count all occupied apartments for 2 cases: until now and until 1 month ago
 SELECT COUNT(*) AS occupied_apartments_now
@@ -788,15 +866,11 @@ SELECT * FROM mien_dong.paymentsdetail;
 
 SELECT * FROM mien_dong.service_requests;
 
--- describe all table
-SELECT column_name, data_type, is_nullable
-FROM information_schema.columns
-WHERE table_schema = 'mien_dong'
-AND table_name IN (
-    'users', 'buildings', 'apartments', 'residents',
-    'bills', 'payments', 'paymentsdetail', 'service_requests'
-);
-
+-- alter the completed_date and request_date columns to use TIMESTAMPTZ
 ALTER TABLE mien_dong.service_requests 
 ALTER COLUMN completed_date TYPE TIMESTAMPTZ,
 ALTER COLUMN request_date TYPE TIMESTAMPTZ;
+
+UPDATE mien_dong.payments
+SET payment_status = 'Overdue'
+WHERE payment_id = 'P0005' AND payment_status = 'Pending';

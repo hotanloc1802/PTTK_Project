@@ -137,6 +137,7 @@ namespace ApartmentManagement.Repository
                 bill.bill_id = "".ToString();
                 bill.bill_id = "".ToString();
                 bill.bill_date = DateTime.UtcNow;
+                bill.payment_status = "Pending";
 
                 _context.Bills.Add(bill);
                 await _context.SaveChangesAsync();

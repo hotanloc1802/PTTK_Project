@@ -161,7 +161,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             <Grid Grid.Column="0">
                 <Ellipse Width="55" Height="55">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Resource/Assets/img1.jpg"/>
+                        <ImageBrush ImageSource="/Resource/Assets/mien_dong.jpg"/>
                     </Ellipse.Fill>
                 </Ellipse>
             </Grid>
@@ -453,7 +453,7 @@ To="#959595" Duration="0:0:0.2" />
                         </Ellipse>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBlock x:Name="User" Text="Tuan cui"  FontFamily="Montserrat Bold" FontSize="18" Foreground="Black" VerticalAlignment="Center" Height="18"/>
+                        <TextBlock x:Name="User" Text="ADMIN"  FontFamily="Montserrat Bold" FontSize="18" Foreground="Black" VerticalAlignment="Center" Height="18"/>
                     </Grid>
                 </Grid>
             </Grid>
@@ -580,7 +580,7 @@ To="#959595" Duration="0:0:0.2" />
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="Payment Method" Binding="{Binding payment_method, StringFormat='dd/MM/yyyy'}" Width="170"/>
-                        <DataGridTextColumn Header="Due Date" Binding="{Binding payment_created_date, StringFormat='dd/MM/yyyy'}" Width="200"/>
+                        <DataGridTextColumn Header="Payable From:" Binding="{Binding payment_created_date, StringFormat='MM/yyyy'}" Width="200"/>
                         <DataGridTemplateColumn Header="Actions" Width="120">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

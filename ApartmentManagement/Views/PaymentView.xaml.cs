@@ -421,9 +421,21 @@ namespace ApartmentManagement.Views
         {
             if (sender is Button button && button.DataContext is Payment selectedPayment)
             {
+                // Check if payment is already completed
                 if (selectedPayment.payment_status == "Completed")
                 {
                     MessageBox.Show("This payment is already completed.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                // Check if payment date is valid
+                if (selectedPayment.payment_created_date > DateTime.Now)
+                {
+                    MessageBox.Show(
+                        $"This payment cannot be completed before its created date ({selectedPayment.payment_created_date:d}).", 
+                        "Invalid Operation", 
+                        MessageBoxButton.OK, 
+                        MessageBoxImage.Warning);
                     return;
                 }
 

@@ -488,7 +488,7 @@ To="#959595" Duration="0:0:0.2" />
                         </Ellipse>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBlock x:Name="User" Text="Tuan cui"  FontFamily="Montserrat Bold" FontSize="18" Foreground="Black" VerticalAlignment="Center" Height="18"/>
+                        <TextBlock x:Name="User" Text="ADMIN"  FontFamily="Montserrat Bold" FontSize="18" Foreground="Black" VerticalAlignment="Center" Height="18"/>
                     </Grid>
                 </Grid>
             </Grid>
@@ -533,13 +533,13 @@ To="#959595" Duration="0:0:0.2" />
 
                 <!-- Tab buttons -->
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
-                    <Border x:Name="borderAll" CornerRadius="10"   Margin="0,0,5,0"  Background="#0430AD" BorderThickness="0" Width="60">
+                    <Border x:Name="borderAll" CornerRadius="10"   Margin="0,0,10,0"  Background="#0430AD" BorderThickness="0" Width="60">
                         <Button x:Name="btnAll" Content="All" Click="BtnAll_Click" Foreground="White"  FontFamily="Montserrat Bold"/>
                     </Border>
-                    <Border x:Name="borderVacant" CornerRadius="10"   Margin="0,0,5,0"  Background="#F0F0F0" BorderThickness="0" Width="120">
+                    <Border x:Name="borderVacant" CornerRadius="10"   Margin="0,0,10,0"  Background="#F0F0F0" BorderThickness="0" Width="120">
                         <Button x:Name="btnVacant" Content="Vacant" Click="BtnVacant_Click" Foreground="#434343"  FontFamily="Montserrat Bold" />
                     </Border>
-                    <Border x:Name="borderOccupied" CornerRadius="10"   Margin="0,0,5,0"  Background="#F0F0F0" BorderThickness="0" Width="120">
+                    <Border x:Name="borderOccupied" CornerRadius="10"   Margin="0,0,10,0"  Background="#F0F0F0" BorderThickness="0" Width="120">
                         <Button x:Name="btnOccupied" Content="Occupied" Click="BtnOccupied_Click"  Foreground="#434343"   FontFamily="Montserrat Bold"/>
                     </Border>
                 </StackPanel>

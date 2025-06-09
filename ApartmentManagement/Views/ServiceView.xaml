@@ -453,7 +453,7 @@ To="#959595" Duration="0:0:0.2" />
                         </Ellipse>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBlock x:Name="User" Text="Tuan cui"  FontFamily="Montserrat Bold" FontSize="18" Foreground="Black" VerticalAlignment="Center" Height="18"/>
+                        <TextBlock x:Name="User" Text="ADMIN"  FontFamily="Montserrat Bold" FontSize="18" Foreground="Black" VerticalAlignment="Center" Height="18"/>
                     </Grid>
                 </Grid>
             </Grid>
@@ -495,10 +495,10 @@ To="#959595" Duration="0:0:0.2" />
                     <Border x:Name="borderAll" CornerRadius="10" Margin="0,0,0,0" Background="#0430AD" BorderThickness="0" Width="60">
                         <Button x:Name="btnAll" Content="All" Foreground="White" FontFamily="Montserrat Bold" Click="BtnAll_Click"/>
                     </Border>
-                    <Border x:Name="borderInProgress" CornerRadius="10" Margin="10,0,0,0" Background="#F0F0F0" BorderThickness="0" Width="auto">
+                    <Border x:Name="borderInProgress" CornerRadius="10" Margin="10,0,0,0" Background="#F0F0F0" BorderThickness="0" Width="120">
                         <Button x:Name="btnInProgress" Content="In Progress" Foreground="#434343" FontFamily="Montserrat Bold" Click="BtnInProgress_Click"/>
                     </Border>
-                    <Border x:Name="borderCompleted" CornerRadius="10" Margin="10,0,0,0" Background="#F0F0F0" BorderThickness="0" Width="auto">
+                    <Border x:Name="borderCompleted" CornerRadius="10" Margin="10,0,0,0" Background="#F0F0F0" BorderThickness="0" Width="120">
                         <Button x:Name="btnCompleted" Content="Completed" Foreground="#434343" FontFamily="Montserrat Bold" Click="BtnCompleted_Click"/>
                     </Border>
                 </StackPanel>
@@ -552,7 +552,7 @@ To="#959595" Duration="0:0:0.2" />
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Apartment" Binding="{Binding apartment.apartment_id}" Width="120"/>
+                        <DataGridTextColumn Header="Apartment Number" Binding="{Binding apartment.apartment_id}" Width="150"/>
                         <DataGridTextColumn Header="Resident" Binding="{Binding resident.name}" Width="180"/>
                         <DataGridTextColumn Header="Category" Binding="{Binding category}" Width="150"/>
                         <DataGridTextColumn Header="Payment Status" Binding="{Binding status}" Width="120">

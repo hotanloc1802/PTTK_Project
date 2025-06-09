@@ -130,6 +130,15 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- Auto-generate service_request_id in format SRXXX using a sequence
+CREATE OR REPLACE FUNCTION plaza.set_service_request_id()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.request_id := 'SR' || LPAD(nextval('plaza.payment_id_seq')::text, 4, '0');
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 -- Create function to automatically update current_population when there is a change in the residents table
 CREATE OR REPLACE FUNCTION plaza.update_current_population()
 RETURNS TRIGGER AS $$
@@ -258,7 +267,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- REINTRODUCED FUNCTION: Manages apartment payments, creating one if it doesn't exist for the month.
 -- This function ensures a payment record exists for a given apartment for a specific month/year.
 -- If no payment exists, it creates a new 'Pending' payment.
 -- It then links the provided bill_id to this payment.
@@ -269,31 +277,30 @@ CREATE OR REPLACE FUNCTION plaza.manage_apartment_payment(
 ) RETURNS VARCHAR(20) AS $$
 DECLARE
     v_payment_id VARCHAR(20);
-    v_year INT;
-    v_month INT;
+    v_bill_month DATE;
+    v_payment_date DATE;
 BEGIN
-    -- Extract year and month from bill date
-    v_year := EXTRACT(YEAR FROM p_bill_date);
-    v_month := EXTRACT(MONTH FROM p_bill_date);
+    -- Get the first day of the bill's month
+    v_bill_month := DATE_TRUNC('month', p_bill_date);
+    -- Set payment date to first day of next month
+    v_payment_date := v_bill_month + INTERVAL '1 month';
 
-    -- Check if a payment already exists for this apartment for this month/year
+    -- Check if a payment already exists for bills from this month
     SELECT payment_id INTO v_payment_id
     FROM plaza.payments
     WHERE apartment_id = p_apartment_id
-    AND EXTRACT(YEAR FROM payment_created_date) = v_year
-    AND EXTRACT(MONTH FROM payment_created_date) = v_month
-    AND payment_status = 'Pending' -- Only consider pending payments for linking
+    AND DATE_TRUNC('month', payment_created_date) = v_payment_date
+    AND payment_status = 'Pending'
     LIMIT 1;
 
-    -- If no pending payment exists for this apartment for this month, create one
+    -- If no pending payment exists for bills from this month, create one
     IF v_payment_id IS NULL THEN
         INSERT INTO plaza.payments (apartment_id, payment_created_date, total_amount, payment_status)
-        VALUES (p_apartment_id, DATE_TRUNC('month', p_bill_date), 0, 'Pending') -- Set to the first day of the month
+        VALUES (p_apartment_id, v_payment_date, 0, 'Pending')
         RETURNING payment_id INTO v_payment_id;
     END IF;
 
-    -- Link the bill to this payment
-    -- Check if the bill is already linked to prevent duplicates in paymentsdetail
+    -- Link the bill to this payment if not already linked
     IF NOT EXISTS (SELECT 1 FROM plaza.paymentsdetail WHERE bill_id = p_bill_id AND payment_id = v_payment_id) THEN
         INSERT INTO plaza.paymentsdetail (bill_id, payment_id)
         VALUES (p_bill_id, v_payment_id);
@@ -333,11 +340,12 @@ RETURNS TRIGGER AS $$
 DECLARE
     v_payment_id VARCHAR(20);
 BEGIN
-    -- Only process pending bills
-    IF NEW.payment_status = 'Pending' THEN
+    -- Only process pending bills, but EXCLUDE penalty bills from auto-linking
+    IF NEW.payment_status = 'Pending' AND NEW.bill_type != 'Late Payment Penalty' THEN
         -- Link the bill to the appropriate payment
         v_payment_id := plaza.manage_apartment_payment(NEW.apartment_id, NEW.bill_id, NEW.bill_date);
     END IF;
+    -- Note: Penalty bills are manually linked in the create_penalty_bill function
 
     RETURN NEW;
 END;
@@ -461,7 +469,67 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- Create function to handle penalty bill creation for overdue payments
+CREATE OR REPLACE FUNCTION plaza.create_penalty_bill()
+RETURNS TRIGGER AS $$
+DECLARE
+    v_penalty_amount DECIMAL(12, 2);
+    v_bill_id VARCHAR(20);
+BEGIN
+    -- Only proceed if status is changing to 'Overdue' from a non-overdue status
+    IF NEW.payment_status = 'Overdue' AND (OLD.payment_status IS NULL OR OLD.payment_status != 'Overdue') THEN
+        
+        -- Check if a penalty bill already exists for THIS SPECIFIC PAYMENT
+        IF NOT EXISTS (
+            SELECT 1 
+            FROM plaza.bills b 
+            INNER JOIN plaza.paymentsdetail pd ON b.bill_id = pd.bill_id
+            WHERE pd.payment_id = NEW.payment_id 
+            AND b.bill_type = 'Late Payment Penalty'
+        ) THEN
+            -- Calculate 5% penalty of the total amount
+            v_penalty_amount := NEW.total_amount * 0.05;
+            
+            -- Insert new penalty bill
+            INSERT INTO plaza.bills (
+                apartment_id,
+                bill_type,
+                bill_amount,
+                due_date,
+                bill_date,
+                payment_status
+            )
+            VALUES (
+                NEW.apartment_id,
+                'Late Payment Penalty',
+                v_penalty_amount,
+                CURRENT_TIMESTAMP + INTERVAL '1 month', -- Due 1 month from now
+                CURRENT_TIMESTAMP,
+                'Pending'
+            )
+            RETURNING bill_id INTO v_bill_id;
+
+            -- Link the penalty bill ONLY to the overdue payment
+            INSERT INTO plaza.paymentsdetail (bill_id, payment_id)
+            VALUES (v_bill_id, NEW.payment_id);
+            
+            -- Important: Do NOT let this penalty bill get auto-linked to other payments
+            -- The penalty should stay with the original overdue payment
+        END IF;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 -- 4. Create all triggers
+-- Trigger to create a service bill when a service request is completed
+CREATE OR REPLACE TRIGGER trg_create_service_bill
+AFTER UPDATE OF status ON plaza.service_requests
+FOR EACH ROW
+WHEN (NEW.status = 'Completed' AND OLD.status IS DISTINCT FROM NEW.status AND NEW.amount > 0)
+EXECUTE FUNCTION plaza.create_service_bill();
+
 -- Trigger to call the function before INSERT on residents to auto-generate resident_id
 CREATE OR REPLACE TRIGGER before_resident_insert
 BEFORE INSERT ON plaza.residents
@@ -480,6 +548,12 @@ BEFORE INSERT ON plaza.payments
 FOR EACH ROW
 WHEN (NEW.payment_id IS NULL)
 EXECUTE FUNCTION plaza.set_payment_id();
+
+-- Trigger to call the function before INSERT on service_requests to auto-generate request_id
+CREATE OR REPLACE TRIGGER before_service_request_insert
+BEFORE INSERT ON plaza.service_requests
+FOR EACH ROW
+EXECUTE FUNCTION plaza.set_service_request_id();
 
 -- Trigger to call the function after INSERT on residents to update current_population
 CREATE OR REPLACE TRIGGER after_resident_insert
@@ -566,14 +640,12 @@ FOR EACH ROW
 WHEN (OLD.payment_status = 'Pending' AND NEW.payment_status = 'Completed')
 EXECUTE FUNCTION plaza.set_payment_date();
 
--- REVISED TRIGGER: Trigger for service_requests to create service bills
--- This trigger now fires AFTER an UPDATE on 'service_requests',
--- specifically when the 'status' changes to 'Completed' and the 'amount' is greater than 0.
-CREATE OR REPLACE TRIGGER trg_create_service_bill
-AFTER UPDATE OF status ON plaza.service_requests
+-- Create trigger to execute penalty bill creation
+CREATE OR REPLACE TRIGGER trg_create_penalty_bill
+AFTER UPDATE OF payment_status ON plaza.payments
 FOR EACH ROW
-WHEN (NEW.status = 'Completed' AND OLD.status IS DISTINCT FROM NEW.status AND NEW.amount > 0)
-EXECUTE FUNCTION plaza.create_service_bill();
+WHEN (NEW.payment_status = 'Overdue' AND OLD.payment_status IS DISTINCT FROM 'Overdue')
+EXECUTE FUNCTION plaza.create_penalty_bill();
 
 -- 5. Insert data
 
@@ -713,36 +785,36 @@ VALUES
 
 -- Insert service requests with an initial status (e.g., 'In Progress')
 INSERT INTO plaza.service_requests (
-    request_id, apartment_id, resident_id, category, description, status, amount, request_date, completed_date
+    apartment_id, resident_id, category, description, status, amount, request_date, completed_date
 )
 VALUES
-    ('PSR001', 'P01.01', 'R001', 'Plumbing', 'Drain clog in bathroom', 'In Progress', 140, CURRENT_TIMESTAMP - INTERVAL '10 days', NULL),
-    ('PSR002', 'P01.02', 'R002', 'Electrical', 'Outlet repair in bedroom', 'In Progress', 110, CURRENT_TIMESTAMP - INTERVAL '25 days', NULL),
-    ('PSR003', 'P02.03', 'R003', 'HVAC', 'AC unit maintenance', 'In Progress', 400, CURRENT_TIMESTAMP - INTERVAL '12 days', NULL),
-    ('PSR004', 'P02.04', 'R004', 'Cleaning', 'Deep cleaning service', 'In Progress', 90, CURRENT_TIMESTAMP - INTERVAL '30 days', NULL),
-    ('PSR005', 'P03.05', 'R005', 'Security', 'Key replacement', 'In Progress', 180, CURRENT_TIMESTAMP - INTERVAL '8 days', NULL),
-    ('PSR006', 'P03.06', 'R006', 'Maintenance', 'Door handle repair', 'In Progress', 360, CURRENT_TIMESTAMP - INTERVAL '20 days', NULL),
-    ('PSR007', 'P04.07', 'R007', 'Plumbing', 'Shower head replacement', 'In Progress', 220, CURRENT_TIMESTAMP - INTERVAL '38 days', NULL),
-    ('PSR008', 'P04.08', 'R008', 'Electrical', 'Ceiling fan installation', 'In Progress', 290, CURRENT_TIMESTAMP - INTERVAL '16 days', NULL),
-    ('PSR009', 'P05.09', 'R009', 'HVAC', 'Thermostat calibration', 'In Progress', 450, CURRENT_TIMESTAMP - INTERVAL '55 days', NULL),
-    ('PSR010', 'P05.10', 'R010', 'Cleaning', 'Carpet cleaning', 'In Progress', 120, CURRENT_TIMESTAMP - INTERVAL '9 days', NULL);
+    ('P01.01', 'R001', 'Plumbing', 'Drain clog in bathroom', 'In Progress', 140, CURRENT_TIMESTAMP - INTERVAL '10 days', NULL),
+    ('P01.02', 'R002', 'Electrical', 'Outlet repair in bedroom', 'In Progress', 110, CURRENT_TIMESTAMP - INTERVAL '25 days', NULL),
+    ('P02.03', 'R003', 'HVAC', 'AC unit maintenance', 'In Progress', 400, CURRENT_TIMESTAMP - INTERVAL '12 days', NULL),
+    ('P02.04', 'R004', 'Cleaning', 'Deep cleaning service', 'In Progress', 90, CURRENT_TIMESTAMP - INTERVAL '30 days', NULL),
+    ('P03.05', 'R005', 'Security', 'Key replacement', 'In Progress', 180, CURRENT_TIMESTAMP - INTERVAL '8 days', NULL),
+    ('P03.06', 'R006', 'Maintenance', 'Door handle repair', 'In Progress', 360, CURRENT_TIMESTAMP - INTERVAL '20 days', NULL),
+    ('P04.07', 'R007', 'Plumbing', 'Shower head replacement', 'In Progress', 220, CURRENT_TIMESTAMP - INTERVAL '38 days', NULL),
+    ('P04.08', 'R008', 'Electrical', 'Ceiling fan installation', 'In Progress', 290, CURRENT_TIMESTAMP - INTERVAL '16 days', NULL),
+    ('P05.09', 'R009', 'HVAC', 'Thermostat calibration', 'In Progress', 450, CURRENT_TIMESTAMP - INTERVAL '55 days', NULL),
+    ('P05.10', 'R010', 'Cleaning', 'Carpet cleaning', 'In Progress', 120, CURRENT_TIMESTAMP - INTERVAL '9 days', NULL);
 
 -- Now, update some service requests to 'Completed' to trigger bill creation
 UPDATE plaza.service_requests
 SET status = 'Completed'
-WHERE request_id IN ('PSR001', 'PSR002', 'PSR003', 'PSR004', 'PSR005', 'PSR006');
+WHERE request_id IN ('SR001', 'SR002', 'SR003', 'SR004', 'SR005', 'SR006');
 
 -- Test the accumulation for an existing pending service bill
--- Let's say PSR001 gets another related service completed
+-- Let's say SR001 gets another related service completed
 INSERT INTO plaza.service_requests (
-    request_id, apartment_id, resident_id, category, description, status, amount, request_date, completed_date
+    apartment_id, resident_id, category, description, status, amount, request_date, completed_date
 )
 VALUES
-    ('PSR011', 'P01.01', 'R001', 'Plumbing', 'Follow-up drain maintenance', 'In Progress', 65, CURRENT_TIMESTAMP - INTERVAL '1 day', NULL);
+    ('P01.01', 'R001', 'Plumbing', 'Follow-up drain maintenance', 'In Progress', 65, CURRENT_TIMESTAMP - INTERVAL '1 day', NULL);
 
 UPDATE plaza.service_requests
 SET status = 'Completed'
-WHERE request_id = 'PSR011';
+WHERE request_id = 'SR011';
 
 -- Count all occupied apartments for 2 cases: until now and until 1 month ago
 SELECT COUNT(*) AS occupied_apartments_now

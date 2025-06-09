@@ -504,33 +504,8 @@ Height="18" HorizontalAlignment="Center"/>
                                             </ComboBox>
                                         </StackPanel>
 
-                                        <!-- Right Column - Payment Method -->
-                                        <StackPanel Grid.Column="2" Grid.Row="0" Margin="0,0,0,15">
-                                            <TextBlock Text="Payment Method" Margin="0,0,0,5" Foreground="#374655"/>
-                                            <ComboBox x:Name="CmbPaymentMethod" Style="{StaticResource CustomComboBoxStyle}" Height="40" Padding="10,0" 
-                                                      VerticalContentAlignment="Center"
-                                                      SelectedValue="{Binding PaymentMethod, Mode=TwoWay}" SelectedValuePath="Content">
-                                                <ComboBoxItem Content="Cash" IsSelected="True"/>
-                                                <ComboBoxItem Content="Credit Card"/>
-                                                <ComboBoxItem Content="Bank Transfer"/>
-                                                <ComboBoxItem Content="E-Wallet"/>
-                                                <ComboBoxItem Content="Other"/>
-                                            </ComboBox>
-                                        </StackPanel>
-
-                                        <!-- Right Column - Status -->
-                                        <StackPanel Grid.Column="2" Grid.Row="1" Margin="0,0,0,15">
-                                            <TextBlock Text="Status" Margin="0,0,0,5" Foreground="#374655"/>
-                                            <ComboBox x:Name="CmbStatus" Style="{StaticResource CustomComboBoxStyle}" Height="40" Padding="10,0" 
-                                                      VerticalContentAlignment="Center"
-                                                      SelectedValue="{Binding PaymentStatus, Mode=TwoWay}" SelectedValuePath="Content">
-                                                <ComboBoxItem Content="Pending" IsSelected="True"/>
-                                                <ComboBoxItem Content="Paid"/>
-                                            </ComboBox>
-                                        </StackPanel>
-
                                         <!-- Due Date Section -->
-                                        <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,0,15">
+                                        <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,0,15">
                                             <!-- Simple Label -->
                                             <TextBlock Text="Due Date" 
                                                Margin="0,0,0,8" 

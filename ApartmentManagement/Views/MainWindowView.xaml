@@ -536,7 +536,7 @@ To="#959595" Duration="0:0:0.2" />
                         </Ellipse>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBlock x:Name="User" Text="Hồ Tấn Lộc" FontFamily="Montserrat Bold" FontSize="18" Foreground="Black" VerticalAlignment="Center" Height="18"/>
+                        <TextBlock x:Name="User" Text="ADMIN" FontFamily="Montserrat Bold" FontSize="18" Foreground="Black" VerticalAlignment="Center" Height="18"/>
                     </Grid>
                 </Grid>
             </Grid>
